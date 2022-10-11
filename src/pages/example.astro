@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const post = await fetch('https://s-glass.no/wp-json/wp/v2/posts/4995').then((res) => res.json());
+
+const stylesRegex = /<style type="text\/css">.*?<\/style>/g;
+const styles = post.content.rendered.match(stylesRegex);
+// .join('')
+// .replaceAll(/<style type="text\/css">|<\/style>/g, '');
+const content = post.content.rendered.replace(stylesRegex, '');
+---
+
+<Layout title={post.title.rendered}>
+  <Fragment set:html={content} />
+</Layout>
