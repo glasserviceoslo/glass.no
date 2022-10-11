@@ -7,12 +7,18 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sanity:init": "cd studio && pnpm i",
+    "sanity:start": "cd studio && pnpm start",
+    "sanity:build": "cd studio && pnpm build",
+    "sanity:deploy": "cd studio && sanity deploy",
+    "sanity:undeploy": "cd studio && sanity undeploy"
   },
   "dependencies": {
     "@astrojs/node": "^1.1.0",
     "@astrojs/tailwind": "^1.0.0",
     "astro": "^1.2.1",
+    "astro-sanity": "^1.0.0",
     "htmlparser2": "^8.0.1"
   }
 }

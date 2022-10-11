@@ -1,0 +1,6 @@
+---
+import { getAllPosts } from './api/posts';
+
+const posts = await getAllPosts();
+console.log('🚀 ~ file: sanity.astro ~ line 5 ~ posts', posts[0].body);
+---
