@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import node from '@astrojs/node';
-
 import sanity from 'astro-sanity';
 
 // https://astro.build/config
@@ -19,5 +18,7 @@ export default defineConfig({
   server: {
     port: 3001,
   },
-  adapter: node(),
+  adapter: node({
+    mode: 'middleware',
+  }),
 });
