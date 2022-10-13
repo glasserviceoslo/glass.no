@@ -8,9 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sanity:init": "cd studio && pnpm i",
-    "sanity:start": "cd studio && pnpm start",
-    "sanity:build": "cd studio && pnpm build",
+    "sanity:init": "cd studio && yarn i",
+    "sanity:start": "cd studio && yarn start",
+    "sanity:build": "cd studio && yarn build",
     "sanity:deploy": "cd studio && sanity deploy",
     "sanity:undeploy": "cd studio && sanity undeploy"
   },
