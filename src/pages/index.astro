@@ -2,6 +2,7 @@
 import Layout from '$layouts/Layout.astro';
 import Hero from '$components/Hero.astro';
 import Hero2 from '$components/Hero2.astro';
+import Hero3 from '$components/Hero3.astro';
 import Card from '$components/Card.astro';
 ---
 
@@ -9,14 +10,8 @@ import Card from '$components/Card.astro';
   <main>
     <!-- <Hero2 /> -->
     <Hero />
+    <Hero3 />
   </main>
-  <section class="flex flex-col justify-center items-center">
-    <canvas id="canvas" class="h-1/2 w-1/2" width={1000} height={1000}></canvas>
-  </section>
-
-  <script>
-    import RiveApp from '$lib/riveapp.ts';
-  </script>
 
   <!-- Cal element-click embed code begins -->
   <script type="text/javascript">
