@@ -10,7 +10,9 @@ import Card from '$components/Card.astro';
     <!-- <Hero2 /> -->
     <Hero />
   </main>
-  <canvas id="canvas" width={1000} height={1000}></canvas>
+  <section class="flex flex-col justify-center items-center">
+    <canvas id="canvas" class="h-1/2 w-1/2" width={1000} height={1000}></canvas>
+  </section>
 
   <script>
     import RiveApp from '$lib/riveapp.ts';

@@ -1,6 +1,4 @@
-import { Rive } from '@rive-app/canvas';
-
-let canvas;
+import { Fit, Rive } from '@rive-app/canvas';
 
 new Rive({
   src: '/assets/GSS.riv',
