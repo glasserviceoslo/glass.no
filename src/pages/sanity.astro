@@ -1,6 +1,21 @@
 ---
+import Sun from '$components/Sun.astro';
+import Moon from '$components/Moon.astro';
 import { getAllPosts } from './api/posts';
 
 const posts = await getAllPosts();
 console.log('🚀 ~ file: sanity.astro ~ line 5 ~ posts', posts);
+
+const darkTheme = localStorage.theme === 'dark';
 ---
+
+<section>
+  <button id="theme">{darkTheme ? <Sun /> : <Moon />}</button>
+</section>
+
+<script is:inline>
+  const html = document.documentElement;
+  const btn = document.getElementById('theme');
+
+  btn.addEventListener('click', () => html.classList.toggle('dark'));
+</script>
