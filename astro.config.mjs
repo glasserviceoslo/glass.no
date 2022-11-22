@@ -7,6 +7,11 @@ import sanity from 'astro-sanity';
 export default defineConfig({
   integrations: [
     tailwind(),
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
     sanity({
       projectId: 'csbn9wp4',
       dataset: 'glassno',
