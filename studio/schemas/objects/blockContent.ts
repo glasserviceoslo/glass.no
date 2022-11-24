@@ -66,10 +66,7 @@ export default {
                 name: 'reference',
                 type: 'reference',
                 title: 'Reference',
-                to: [
-                  { type: 'post' },
-                  // other types you may want to link to
-                ],
+                to: [{ type: 'post' }],
               },
             ],
           },
