@@ -7,6 +7,10 @@ export default {
       name: 'htmlContent',
       title: 'HTML Content',
     },
+    {
+      name: 'seo',
+      title: 'SEO',
+    },
   ],
   fields: [
     {
@@ -54,6 +58,12 @@ export default {
       type: 'datetime',
     },
     {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+    },
+    // HTML Group
+    {
       name: 'htmlToArticleBody',
       title: 'HTML to Article Body',
       type: 'htmlToPortableText',
@@ -66,11 +76,20 @@ export default {
       of: [{ type: 'block' }],
       group: 'htmlContent',
     },
+    // SEO Group
+    { name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo' },
+    { name: 'seoKeywords', title: 'Keywords', type: 'string', group: 'seo' },
     {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'seoSlug',
+      title: 'Slug',
+      type: 'slug',
+      group: 'seo',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
     },
+    { name: 'seoImage', title: 'Image', type: 'image', group: 'seo' },
   ],
 
   preview: {
