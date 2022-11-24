@@ -2,6 +2,12 @@ export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  groups: [
+    {
+      name: 'htmlContent',
+      title: 'HTML Content',
+    },
+  ],
   fields: [
     {
       name: 'title',
@@ -46,6 +52,19 @@ export default {
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
+    },
+    {
+      name: 'htmlToArticleBody',
+      title: 'HTML to Article Body',
+      type: 'htmlToPortableText',
+      group: 'htmlContent',
+    },
+    {
+      name: 'articleBody',
+      title: 'Article Body',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'htmlContent',
     },
     {
       name: 'body',
