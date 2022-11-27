@@ -1,5 +1,4 @@
 ---
-import Layout from '$layouts/Layout.astro';
 import Sun from '$components/Sun.astro';
 import Moon from '$components/Moon.astro';
 import { getAllPosts } from './api/posts';
@@ -9,12 +8,10 @@ const posts = await getAllPosts();
 const darkTheme = localStorage.theme === 'dark';
 ---
 
-<Layout title="sanity">
-  <section>
-    <button id="theme">{darkTheme ? <Sun /> : <Moon />}</button>
-    <pre>{JSON.stringify(Object.values(posts)[0], null, 2)}</pre>
-  </section>
-</Layout>
+<section>
+  <button id="theme">{darkTheme ? <Sun /> : <Moon />}</button>
+  <pre>{JSON.stringify(Object.values(posts)[0], null, 2)}</pre>
+</section>
 
 <script is:inline>
   const html = document.documentElement;
