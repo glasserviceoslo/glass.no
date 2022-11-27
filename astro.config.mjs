@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sanity({
-      projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
+      projectId: 'csbn9wp4',
       dataset: 'glassno',
       apiVersion: '2021-10-21',
       useCdn: false,

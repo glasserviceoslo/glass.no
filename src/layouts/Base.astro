@@ -1,0 +1,42 @@
+---
+import Footer from '$components/Footer.astro';
+import Navbar from '$components/Navbar.astro';
+import BaseHead from '$components/BaseHead.astro';
+import type { Props as BaseHeadProps } from '$components/BaseHead.astro';
+
+export interface Props {
+  seo?: BaseHeadProps;
+}
+
+const { seo } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="nb">
+  <head>
+    <BaseHead {...seo} />
+  </head>
+
+  <body>
+    <header>
+      <Navbar />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+      }
+    </script>
+  </body>
+</html>
