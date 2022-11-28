@@ -7,7 +7,7 @@ import image from '@astrojs/image';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://glass.no',
+  site: 'https://glassno.netlify.app',
   integrations: [
     tailwind(),
     sanity({
