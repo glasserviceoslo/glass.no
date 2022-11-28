@@ -1,3 +1,7 @@
+---
+import ThemeButton from '$components/ToggleThemeButton/Button.astro';
+---
+
 <nav
   class="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white px-2 py-2.5 dark:border-gray-600 dark:bg-gray-900 sm:px-4"
 >
@@ -7,6 +11,7 @@
     </a>
     <div class="flex md:order-2">
       <button data-cal-link="admin/befaring" type="button" class="btn-primary">Gratis Befaring</button>
+      <ThemeButton />
       <button
         data-collapse-toggle="navbar-sticky"
         type="button"
