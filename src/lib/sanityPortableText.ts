@@ -33,9 +33,6 @@ const customComponents = {
         </picture>
       `;
     },
-    code: ({ value }: any) => {
-      return `<code-block code='${value.code}' language='${value.language}'></code-block>`;
-    },
   },
 };
 

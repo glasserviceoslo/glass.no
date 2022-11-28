@@ -4,12 +4,21 @@ import Hero2 from '$components/Hero2.astro';
 import Hero3 from '$components/Hero3.astro';
 import Card from '$components/Card.astro';
 import Feature from '$components/Feature.astro';
+import Layout from '../layouts/Page.astro';
+
+const seo = {
+  title: 'Astro Minimal Starter',
+  description:
+    'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.',
+};
 ---
 
-<!-- <Hero2 /> -->
-<Hero />
-<Feature />
-<Hero3 />
+<Layout seo={seo}>
+  <!-- <Hero2 /> -->
+  <Hero />
+  <Feature />
+  <Hero3 />
+</Layout>
 
 <!-- Cal element-click embed code begins -->
 <script type="text/javascript">
