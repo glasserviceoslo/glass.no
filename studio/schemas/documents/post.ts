@@ -1,7 +1,10 @@
+import { TfiWrite } from 'react-icons/tfi';
+
 export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  icon: TfiWrite,
   groups: [
     {
       name: 'htmlContent',

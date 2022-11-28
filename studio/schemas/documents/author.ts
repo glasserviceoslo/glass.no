@@ -1,7 +1,10 @@
+import { FiUser } from 'react-icons/fi';
+
 export default {
   name: 'author',
   title: 'Author',
   type: 'document',
+  icon: FiUser,
   fields: [
     {
       name: 'name',
@@ -33,7 +36,7 @@ export default {
         {
           title: 'Block',
           type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
+          styles: [{ title: 'Normal', value: 'normal' }],
           lists: [],
         },
       ],
@@ -45,4 +48,4 @@ export default {
       media: 'image',
     },
   },
-}
+};
