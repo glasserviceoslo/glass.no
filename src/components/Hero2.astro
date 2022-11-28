@@ -1,81 +1,83 @@
-<section class="mb-16 mt-16">
-  <div
-    class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat"
-  >
-    <div class="px-6 py-20 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-28 lg:px-10 lg:py-32">
-      <div class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-        <h2
-          class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto"
-        >
-          <span class="relative inline-block">
-            <span class="relative">The</span>
-          </span>
-          quick, brown fox jumps over a lazy dog
-        </h2>
-        <p class="text-base text-gray-700 md:text-lg">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque rem aperiam, eaque ipsa
-          quae.
-        </p>
-      </div>
-      <div class="flex items-center sm:justify-center">
-        <button
-          type="submit"
-          class="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-        >
-          Get started
-        </button>
-        <a
-          href="/"
-          aria-label=""
-          class="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700"
-          >Learn more</a
-        >
-      </div>
-    </div>
-  </div>
-  <div class="relative px-4 sm:px-0">
-    <!-- <div class="absolute inset-0 bg-gray-100 h-1/2"></div> -->
-    <div
-      class="relative mt-[-4rem] grid mx-auto overflow-hidden bg-white divide-y rounded shadow sm:divide-y-0 sm:divide-x sm:max-w-screen-sm sm:grid-cols-3 lg:max-w-screen-md"
-    >
-      <div class="inline-block p-8 text-center">
-        <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-          <svg class="w-10 h-10 text-deep-purple-accent-400" stroke="currentColor" viewBox="0 0 52 52">
-            <polygon
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              fill="none"
-              points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
-          </svg>
+<section class="relative">
+  <img
+    src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+    class="absolute inset-0 h-full w-full object-cover"
+    alt=""
+  />
+  <div class="relative bg-gray-900 bg-opacity-75">
+    <div class="mx-auto px-4 py-16 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8 lg:py-20">
+      <div class="flex flex-col items-center justify-between xl:flex-row">
+        <div class="mb-12 w-full max-w-xl xl:mb-0 xl:w-7/12 xl:pr-16">
+          <h2 class="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
+            The quick, brown fox <br class="hidden md:block" />
+            jumps over a <span class="text-teal-accent-400">lazy dog</span>
+          </h2>
+          <p class="mb-4 max-w-xl text-base text-gray-400 md:text-lg">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudan, totam rem
+            aperiam, eaque ipsa quae.
+          </p>
+          <a
+            href="/"
+            aria-label=""
+            class="text-teal-accent-400 hover:text-teal-accent-700 inline-flex items-center font-semibold tracking-wider transition-colors duration-200"
+          >
+            Learn more
+            <svg class="ml-2 inline-block w-3" fill="currentColor" viewBox="0 0 12 12">
+              <path
+                d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z"
+              ></path>
+            </svg>
+          </a>
         </div>
-        <p class="font-bold tracking-wide text-gray-800">Make it better</p>
-      </div>
-      <div class="inline-block p-8 text-center">
-        <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-          <svg class="w-10 h-10 text-deep-purple-accent-400" stroke="currentColor" viewBox="0 0 52 52">
-            <polygon
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              fill="none"
-              points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
-          </svg>
+        <div class="w-full max-w-xl xl:w-5/12 xl:px-8">
+          <div class="rounded bg-white p-7 shadow-2xl sm:p-10">
+            <h3 class="mb-4 text-xl font-semibold sm:mb-6 sm:text-center sm:text-2xl">Sign up for updates</h3>
+            <form>
+              <div class="mb-1 sm:mb-2">
+                <label for="firstName" class="mb-1 inline-block font-medium">First name</label>
+                <input
+                  placeholder="John"
+                  required=""
+                  type="text"
+                  class="focus:border-deep-purple-accent-400 focus:shadow-outline mb-2 h-12 w-full flex-grow appearance-none rounded border border-gray-300 bg-white px-4 shadow-sm transition duration-200 focus:outline-none"
+                  id="firstName"
+                  name="firstName"
+                />
+              </div>
+              <div class="mb-1 sm:mb-2">
+                <label for="lastName" class="mb-1 inline-block font-medium">Last name</label>
+                <input
+                  placeholder="Doe"
+                  required=""
+                  type="text"
+                  class="focus:border-deep-purple-accent-400 focus:shadow-outline mb-2 h-12 w-full flex-grow appearance-none rounded border border-gray-300 bg-white px-4 shadow-sm transition duration-200 focus:outline-none"
+                  id="lastName"
+                  name="lastName"
+                />
+              </div>
+              <div class="mb-1 sm:mb-2">
+                <label for="email" class="mb-1 inline-block font-medium">E-mail</label>
+                <input
+                  placeholder="john.doe@example.org"
+                  required=""
+                  type="text"
+                  class="focus:border-deep-purple-accent-400 focus:shadow-outline mb-2 h-12 w-full flex-grow appearance-none rounded border border-gray-300 bg-white px-4 shadow-sm transition duration-200 focus:outline-none"
+                  id="email"
+                  name="email"
+                />
+              </div>
+              <div class="mt-4 mb-2 sm:mb-4">
+                <button
+                  type="submit"
+                  class="bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline inline-flex h-12 w-full items-center justify-center rounded px-6 font-medium tracking-wide text-white shadow-md transition duration-200 focus:outline-none"
+                >
+                  Subscribe
+                </button>
+              </div>
+              <p class="text-xs text-gray-600 sm:text-sm">We respect your privacy. Unsubscribe at any time.</p>
+            </form>
+          </div>
         </div>
-        <p class="font-bold tracking-wide text-gray-800">Do it faster</p>
-      </div>
-      <div class="inline-block p-8 text-center">
-        <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-          <svg class="w-10 h-10 text-deep-purple-accent-400" stroke="currentColor" viewBox="0 0 52 52">
-            <polygon
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              fill="none"
-              points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
-          </svg>
-        </div>
-        <p class="font-bold tracking-wide text-gray-800">Working harder</p>
       </div>
     </div>
   </div>
