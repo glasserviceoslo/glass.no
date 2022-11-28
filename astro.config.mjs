@@ -16,13 +16,13 @@ export default defineConfig({
       apiVersion: '2021-10-21',
       useCdn: false,
     }),
+    image({
+      serviceEntryPoint: '@astrojs/image/sharp',
+    }),
     partytown({
       config: {
         forward: ['dataLayer.push'],
       },
-    }),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
     }),
   ],
   output: 'server',
