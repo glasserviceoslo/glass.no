@@ -7,7 +7,8 @@ import ThemeButton from '$components/ToggleThemeButton/Button.astro';
 >
   <div class="container mx-auto flex flex-wrap items-center justify-between">
     <a href="/" class="flex items-center">
-      <img src="/assets/logo-orange.svg" class="mr-3 h-6 sm:h-12" alt="Glass.no Logo" />
+      <img src="/assets/logo-dark.svg" class="mr-3 hidden h-6 dark:block sm:h-12" alt="Glass.no Logo" />
+      <img src="/assets/logo-light.svg" class="mr-3 block h-6 dark:hidden sm:h-12" alt="Glass.no Logo" />
     </a>
     <div class="flex md:order-2">
       <button data-cal-link="admin/befaring" type="button" class="btn-primary">Gratis Befaring</button>
