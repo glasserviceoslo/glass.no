@@ -1,0 +1,18 @@
+---
+import Layout from './Page.astro';
+import type { Props as BaseHeadProps } from '$components/BaseHead.astro';
+import ArticleSchema from '$components/ArticleSchema.astro';
+
+export interface Props {
+  seo?: BaseHeadProps;
+}
+
+const { seo } = Astro.props as Props;
+---
+
+<Layout seo={seo}>
+  <Fragment>
+    <ArticleSchema {...seo} />
+  </Fragment>
+  <slot />
+</Layout>

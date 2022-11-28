@@ -1,21 +1,55 @@
 ---
-import Sun from '$components/Sun.astro';
-import Moon from '$components/Moon.astro';
+// Component Imports
+import Layout from '$layouts/Page.astro';
+import PostPreview from '$components/PostPreview.astro';
+
 import { getAllPosts } from './api/posts';
 
-const posts = await getAllPosts();
+const seo = {
+  title: 'Example Blog',
+  description:
+    'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.',
+};
 
-const darkTheme = localStorage.theme === 'dark';
+const allPostData = await getAllPosts();
 ---
 
-<section>
-  <button id="theme">{darkTheme ? <Sun /> : <Moon />}</button>
-  <pre>{JSON.stringify(Object.values(posts)[0], null, 2)}</pre>
-</section>
+<Layout seo={seo}>
+  <article class="blog-page-content__article">
+    <section class="postlist">
+      {allPostData.map((post: any) => <PostPreview post={post} />)}
+    </section>
+  </article>
+</Layout>
 
-<script is:inline>
-  const html = document.documentElement;
-  const btn = document.getElementById('theme');
+<style is:global>
+  /* Posts list */
+  .postlist {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
 
-  btn.addEventListener('click', () => html.classList.toggle('dark'));
-</script>
+  .postlist-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .postlist-item__img {
+    border-radius: 0.5rem;
+    height: auto;
+  }
+
+  @media screen and (max-width: 769px) {
+    .blog-page-content__article {
+      padding: 1rem;
+    }
+
+    .postlist {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
