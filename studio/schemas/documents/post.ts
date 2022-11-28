@@ -28,11 +28,6 @@ export default {
       },
     },
     {
-      name: 'description',
-      title: 'Description',
-      type: 'string',
-    },
-    {
       name: 'author',
       title: 'Author',
       type: 'reference',
@@ -79,6 +74,12 @@ export default {
     // SEO Group
     { name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo' },
     { name: 'seoKeywords', title: 'Keywords', type: 'string', group: 'seo' },
+    {
+      name: 'description',
+      title: 'Meta Description',
+      type: 'string',
+      group: 'seo',
+    },
     {
       name: 'seoSlug',
       title: 'Slug',
