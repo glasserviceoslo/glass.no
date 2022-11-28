@@ -13,11 +13,14 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "html-to-portable-text",
-    "gss-logo"
+    "gss-logo",
+    "webhook-deploy"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [
