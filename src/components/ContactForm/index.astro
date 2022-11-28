@@ -1,7 +1,7 @@
 <div class="w-full max-w-xl xl:w-5/12 xl:px-8">
   <div class="rounded bg-white p-7 shadow-2xl sm:p-10">
     <h3 class="mb-4 text-xl font-semibold sm:mb-6 sm:text-center sm:text-2xl">Kontakt Oss</h3>
-    <form>
+    <form id="form">
       <div class="mb-1 sm:mb-2">
         <label for="name" class="mb-1 inline-block font-medium">Navn</label>
         <input
@@ -18,20 +18,20 @@
         <input
           placeholder="john.doe@example.com"
           required
-          type="text"
+          type="email"
           class="focus:shadow-outline mb-2 h-12 w-full flex-grow appearance-none rounded border border-gray-300 bg-white px-4 shadow-sm transition duration-200 focus:border-primary-400 focus:outline-none"
           id="email"
           name="email"
         />
       </div>
       <div class="mb-1 sm:mb-2">
-        <label for="textarea" class="mb-1 inline-block font-medium">Hva kan vi hjelpe deg med?</label>
+        <label for="message" class="mb-1 inline-block font-medium">Hva kan vi hjelpe deg med?</label>
         <textarea
           placeholder="Doe"
           required
           class="focus:shadow-outline mb-2 h-20 w-full flex-grow appearance-none rounded border border-gray-300 bg-white px-4 shadow-sm transition duration-200 focus:border-primary-400 focus:outline-none"
-          id="textarea"
-          name="textarea"></textarea>
+          id="message"
+          name="message"></textarea>
       </div>
       <div class="mt-4 mb-2 sm:mb-4">
         <button
@@ -44,3 +44,4 @@
     </form>
   </div>
 </div>
+<script src="./index.ts"></script>
