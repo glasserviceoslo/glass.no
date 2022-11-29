@@ -76,7 +76,7 @@ export default {
     },
     // SEO Group
     { name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo' },
-    { name: 'seoKeywords', title: 'Keywords', type: 'string', group: 'seo' },
+
     {
       name: 'description',
       title: 'Meta Description',
@@ -91,6 +91,21 @@ export default {
       options: {
         source: 'title',
         maxLength: 96,
+      },
+    },
+    { name: 'seoKeyphrase', title: 'Focus Keyphrase', type: 'string', group: 'seo' },
+    {
+      name: 'seoKeywords',
+      title: 'Keywords',
+      type: 'array',
+      group: 'seo',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+      options: {
+        layout: 'tags',
       },
     },
     { name: 'seoImage', title: 'Image', type: 'image', group: 'seo' },

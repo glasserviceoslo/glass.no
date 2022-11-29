@@ -15,7 +15,8 @@
     "html-to-portable-text",
     "gss-logo",
     "webhook-deploy",
-    "seo-tools"
+    "seo-tools",
+    "media"
   ],
   "env": {
     "development": {
@@ -30,6 +31,14 @@
     {
       "name": "part:@sanity/desk-tool/structure",
       "path": "./desk"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/image/asset-sources",
+      "path": "./plugins/asset-source/index"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/file/asset-sources",
+      "path": "./plugins/asset-source/index"
     }
   ]
 }

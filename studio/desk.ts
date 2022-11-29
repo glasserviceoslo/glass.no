@@ -9,12 +9,15 @@ export const getDefaultDocumentNode = () => {
       .component(SeoToolsPane)
       .options({
         fetch: true,
-        resolveProductionUrl: (doc) => new URL(`https://sanity.io/${doc?.slug?.current}`),
+        resolveProductionUrl: (doc) => {
+          console.log('🚀 ~ file: desk.ts ~ line 13 ~ getDefaultDocumentNode ~ doc', doc);
+          return new URL(`http://localhost:3333/${doc?.slug?.current}`);
+        },
         select: (doc) => ({
-          focus_keyword: doc.focus_keyword ?? '',
-          seo_title: doc.seo_title ?? '',
-          meta_description: doc.meta_description ?? '',
-          focus_synonyms: doc.focus_synonyms ?? [],
+          focus_keyword: doc.seoKeyphrase ?? '',
+          seo_title: doc.seoTitle ?? '',
+          meta_description: doc.description,
+          focus_synonyms: doc.seoKeywords ?? [],
         }),
       })
       .title('SEO'),
