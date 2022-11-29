@@ -1,6 +1,7 @@
-import React from 'react';
 import S from '@sanity/desk-tool/structure-builder';
 import { SeoToolsPane } from 'sanity-plugin-seo-tools';
+
+const path = process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : 'https://glass-no.sanity.studio';
 
 export const getDefaultDocumentNode = () => {
   return S.document().views([
@@ -11,7 +12,7 @@ export const getDefaultDocumentNode = () => {
         fetch: true,
         resolveProductionUrl: (doc) => {
           console.log('🚀 ~ file: desk.ts ~ line 13 ~ getDefaultDocumentNode ~ doc', doc);
-          return new URL(`http://localhost:3333/${doc?.slug?.current}`);
+          return new URL(`${path}/${doc?.slug?.current}`);
         },
         select: (doc) => ({
           focus_keyword: doc.seoKeyphrase ?? '',
