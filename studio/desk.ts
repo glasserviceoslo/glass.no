@@ -21,7 +21,7 @@ export const getDefaultDocumentNode = () => {
           focus_synonyms: doc.seoKeywords ?? [],
         }),
       })
-      .title('SEO'),
+      .title('SEO Analysis'),
   ]);
 };
 
