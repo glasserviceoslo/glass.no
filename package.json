@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@astrojs/image": "^0.11.6",
+    "@astrojs/netlify": "^1.2.1",
     "@astrojs/node": "^3.1.0",
     "@astrojs/partytown": "^1.0.1",
     "@astrojs/tailwind": "^2.1.3",
+    "@netlify/functions": "^1.3.0",
     "@rive-app/canvas": "^1.0.95",
     "astro": "^1.6.10",
     "astro-sanity": "^1.0.0",

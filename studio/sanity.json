@@ -14,19 +14,22 @@
     "@sanity/desk-tool",
     "html-to-portable-text",
     "gss-logo",
-    "webhook-deploy"
+    "webhook-deploy",
+    "seo-tools"
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./desk"
     }
   ]
 }
