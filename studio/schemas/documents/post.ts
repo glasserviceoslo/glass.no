@@ -104,13 +104,16 @@ export default {
   preview: {
     select: {
       title: 'title',
+      slug: 'slug',
       author: 'author.name',
       media: 'mainImage',
     },
     prepare(selection) {
-      const { author } = selection;
+      const { slug } = selection;
+      console.log('🚀 ~ file: post.ts ~ line 112 ~ prepare ~ selection', selection);
+
       return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
+        subtitle: `/${slug.current}`,
       });
     },
   },
