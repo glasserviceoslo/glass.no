@@ -110,7 +110,6 @@ export default {
     },
     prepare(selection) {
       const { slug } = selection;
-      console.log('🚀 ~ file: post.ts ~ line 112 ~ prepare ~ selection', selection);
 
       return Object.assign({}, selection, {
         subtitle: `/${slug.current}`,
