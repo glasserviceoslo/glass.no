@@ -1,5 +1,6 @@
 ---
 import { getSanityImageURL, formatBlogPostDate } from '$lib/sanity';
+import { Image } from '@astrojs/image/components';
 
 export interface Props {
   post: any;
@@ -12,7 +13,7 @@ const { post } = Astro.props;
   <a href={`/blog/${post.slug.current}`}>
     {
       post.mainImage && (
-        <img
+        <Image
           width="720"
           height="420"
           class="post-main__img"

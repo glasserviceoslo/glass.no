@@ -1,6 +1,7 @@
 ---
 import PortableText from './PortableText.astro';
 import { getSanityImageURL, formatBlogPostDate } from '$lib/sanity';
+import { Picture } from '@astrojs/image/components';
 
 export interface Props {
   post: any;
@@ -13,7 +14,7 @@ const { post } = Astro.props;
 <article class="p-1">
   {
     post.mainImage && (
-      <img
+      <Picture
         width="720"
         height="420"
         class="h-auto w-full"

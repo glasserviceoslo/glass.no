@@ -1,4 +1,20 @@
+---
+import { Picture } from '@astrojs/image/components';
+---
+
 <a href="/" class="flex items-center">
-  <img src="/assets/logo-dark.svg" class="mr-3 hidden h-6 dark:block sm:h-12" alt="Glass.no Logo" />
-  <img src="/assets/logo-light.svg" class="mr-3 block h-6 dark:hidden sm:h-12" alt="Glass.no Logo" />
+  <Picture
+    src="/assets/logo-dark.svg"
+    widths={[400, 800, 1200]}
+    aspectRatio={7.9 / 2.9}
+    class="mr-3 hidden h-6 dark:block sm:h-12"
+    alt="Glass.no Logo"
+  />
+  <Picture
+    src="/assets/logo-light.svg"
+    widths={[400, 800, 1200]}
+    aspectRatio={7.9 / 2.9}
+    class="mr-3 block h-6 dark:hidden sm:h-12"
+    alt="Glass.no Logo"
+  />
 </a>
