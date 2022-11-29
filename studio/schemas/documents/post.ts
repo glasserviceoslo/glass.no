@@ -83,16 +83,6 @@ export default {
       type: 'string',
       group: 'seo',
     },
-    {
-      name: 'seoSlug',
-      title: 'Slug',
-      type: 'slug',
-      group: 'seo',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    },
     { name: 'seoKeyphrase', title: 'Focus Keyphrase', type: 'string', group: 'seo' },
     {
       name: 'seoKeywords',

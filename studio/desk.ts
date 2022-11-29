@@ -10,10 +10,7 @@ export const getDefaultDocumentNode = () => {
       .component(SeoToolsPane)
       .options({
         fetch: true,
-        resolveProductionUrl: (doc) => {
-          console.log('🚀 ~ file: desk.ts ~ line 13 ~ getDefaultDocumentNode ~ doc', doc);
-          return new URL(`${path}/${doc?.slug?.current}`);
-        },
+        resolveProductionUrl: (doc) => new URL(`${path}/${doc?.slug?.current}`),
         select: (doc) => ({
           focus_keyword: doc.seoKeyphrase ?? '',
           seo_title: doc.seoTitle ?? '',
