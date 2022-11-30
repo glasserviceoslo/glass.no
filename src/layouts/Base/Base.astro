@@ -1,0 +1,31 @@
+---
+import Footer from '$components/Footer.astro';
+import Navbar from '$components/Navbar.astro';
+import BaseHead from '$components/BaseHead.astro';
+import type { Props as BaseHeadProps } from '$components/BaseHead.astro';
+
+export interface Props {
+  seo?: BaseHeadProps;
+}
+
+const { seo } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="nb">
+  <head>
+    <BaseHead {...seo} />
+  </head>
+
+  <body>
+    <header class="mb-14 md:mb-16">
+      <Navbar />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script src="./index.ts"></script>
+  </body>
+</html>

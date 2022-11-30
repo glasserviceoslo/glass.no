@@ -1,20 +1,22 @@
 ---
 import { Picture } from '@astrojs/image/components';
+import LogoDark from '/assets/logo-dark.svg';
+import LogoLight from '/assets/logo-light.svg';
 ---
 
 <a href="/" class="flex items-center">
   <Picture
-    src="/assets/logo-dark.svg"
+    src={LogoDark}
     widths={[400, 800, 1200]}
     aspectRatio={7.9 / 2.9}
-    class="mr-3 hidden h-6 dark:block sm:h-12"
+    class="mr-3 hidden h-10 dark:block md:h-12"
     alt="Glass.no Logo"
   />
   <Picture
-    src="/assets/logo-light.svg"
-    widths={[400, 800, 1200]}
+    src={LogoLight}
+    widths={[200, 400, 800, 1200]}
     aspectRatio={7.9 / 2.9}
-    class="mr-3 block h-6 dark:hidden sm:h-12"
+    class="mr-3 block h-10 dark:hidden md:h-12"
     alt="Glass.no Logo"
   />
 </a>
