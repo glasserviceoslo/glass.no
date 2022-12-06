@@ -1,12 +1,5 @@
 ---
 import settings from '$data/settings';
-import { getImage } from '@astrojs/image';
-
-const { src } = await getImage({
-  src: 'https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-  width: '1770',
-  height: '80',
-});
 
 export interface Props {
   title?: string;
@@ -49,7 +42,6 @@ const image = new URL(Astro.props.image || './social.png', Astro.site);
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={image} />
 
-<link rel="preload" fetchpriority="high" as="image" href={src} type="image/webp" />
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
