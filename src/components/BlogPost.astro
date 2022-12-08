@@ -1,22 +1,24 @@
 ---
 import PortableText from './PortableText.astro';
 import { getSanityImageURL, formatBlogPostDate } from '$lib/sanity';
-import { Picture } from '@astrojs/image/components';
+import { Image } from '@astrojs/image/components';
 
 export interface Props {
   post: any;
 }
 
 const { post } = Astro.props;
+
 // const blogPostBody = await convertBlockContentToMarkdown(post.bodyRaw);
 ---
 
 <article class="p-1">
   {
     post.mainImage && (
-      <Picture
+      <Image
         width="720"
         height="420"
+        alt="yes"
         class="h-auto w-full"
         loading="lazy"
         src={getSanityImageURL(post.mainImage).url()}
