@@ -65,7 +65,7 @@ const image = new URL(Astro.props.image || './social.png', Astro.site);
 </noscript>
 
 <!-- LocalStorage Theme Check -->
-<script type="text/partytown">
+<script>
   if (
     localStorage.getItem('color-theme') === 'dark' ||
     (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -78,7 +78,7 @@ const image = new URL(Astro.props.image || './social.png', Astro.site);
 
 <!-- Google tag (gtag.js) -->
 <!-- "https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE" -->
-<script is:inline type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
+<script is:inline type="text/partytown" src="/js/gtag.js"></script>
 <script type="text/partytown">
   window.dataLayer = window.dataLayer || [];
   function gtag() {
