@@ -7,4 +7,4 @@
   to = "https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"
   status = 200
   force = true
-  headers = {X-From = "Netlify", access-control-allow-origin = "*"}
+  headers = {access-control-allow-origin = "*"}
