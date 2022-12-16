@@ -6,6 +6,10 @@ import image from '@astrojs/image';
 
 // https://astro.build/config
 import netlify from '@astrojs/netlify/functions';
+import node from '@astrojs/node';
+
+// https://astro.build/config
+import solidJs from '@astrojs/solid-js';
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,10 +30,13 @@ export default defineConfig({
         forward: ['dataLayer.push'],
       },
     }),
+    solidJs(),
   ],
   server: {
     port: 3001,
   },
   output: 'server',
-  adapter: netlify(),
+  adapter: node({
+    mode: 'standalone',
+  }),
 });
