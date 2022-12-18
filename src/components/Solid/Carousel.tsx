@@ -20,7 +20,7 @@ export const Carousel: Component = () => {
 
   return (
     <section class="relative h-[45vw] overflow-hidden">
-      {srcs.map((src, i, arr) => (
+      {srcs.map((src, i) => (
         <Presence exitBeforeEnter>
           <Show keyed when={index() === i}>
             <Motion.div

@@ -1,4 +1,7 @@
-import { Rive } from '@rive-app/canvas';
+import riveWASMResource from '@rive-app/canvas/rive.wasm';
+import { Rive, RuntimeLoader } from '@rive-app/canvas';
+
+RuntimeLoader.setWasmUrl(riveWASMResource as unknown as string);
 
 new Rive({
   src: '/assets/mobile.riv',
