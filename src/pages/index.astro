@@ -2,7 +2,7 @@
 import Hero from '$components/Hero.astro';
 import Hero2 from '$components/Hero2.astro';
 import Hero3 from '$components/Hero3.astro';
-import Carousel from '$components/Carousel.astro';
+import { Carousel } from '$components/Solid/Carousel';
 import Card from '$components/Card.astro';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
@@ -16,7 +16,7 @@ const seo = {
 
 <Layout seo={seo}>
   <!-- <Hero2 /> -->
-  <Carousel />
+  <Carousel client:visible />
   <!-- <Hero /> -->
   <Feature />
   <Hero3 />

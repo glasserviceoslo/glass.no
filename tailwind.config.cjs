@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      boxShadow: {
+        checked: 'inset 1em 1em #60a5fa',
+      },
       colors: {
         primary: {
           50: '#eff6ff',
