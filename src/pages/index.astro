@@ -1,5 +1,5 @@
 ---
-import Hero3 from '$components/Hero3.astro';
+import Hero from '$components/Hero.astro';
 import { Carousel } from '$components/Solid/Carousel';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
@@ -14,7 +14,7 @@ const seo = {
 <Layout seo={seo}>
   <Carousel client:visible />
   <Feature />
-  <Hero3 />
+  <Hero />
 </Layout>
 
 <!-- Cal element-click embed code begins -->

@@ -1,6 +1,6 @@
 // import { portableTextToHtml } from 'astro-sanity';
 import { toHTML } from '@portabletext/to-html';
-import { getSanityImageURL } from './sanity';
+import { getSanityImageURL } from './sanity.image';
 
 const customComponents = {
   types: {

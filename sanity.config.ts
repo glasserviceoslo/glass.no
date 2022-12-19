@@ -4,6 +4,7 @@ import { visionTool } from '@sanity/vision';
 import schemas from '$schemas';
 import Logo from '$components/React/StudioLogo';
 import { media } from 'sanity-plugin-media';
+import Navbar from '$components/React/Navbar';
 
 export default defineConfig({
   basePath: '/studio',
@@ -13,7 +14,7 @@ export default defineConfig({
   studio: {
     components: {
       logo: Logo,
-      input: (props: any) => console.log(props),
+      navbar: Navbar,
     },
   },
   plugins: [deskTool(), media(), visionTool()],

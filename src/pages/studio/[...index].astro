@@ -6,7 +6,11 @@
     import { renderStudio } from 'sanity';
     import config from 'sanity.config';
 
-    renderStudio(document.getElementById('app'), config);
+    const app = document.getElementById('app');
+
+    if (app) {
+      renderStudio(document.getElementById('app'), config);
+    }
   </script>
 
 

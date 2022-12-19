@@ -1,5 +1,4 @@
 import { parseISO, format } from 'date-fns';
-// import { useSanityClient, createImageBuilder } from 'astro-sanity';
 import createImageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
