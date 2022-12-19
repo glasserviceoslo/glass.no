@@ -1,8 +1,9 @@
 import { parseISO, format } from 'date-fns';
-import { useSanityClient, createImageBuilder } from 'astro-sanity';
+// import { useSanityClient, createImageBuilder } from 'astro-sanity';
+import createImageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
-const builder = createImageBuilder(useSanityClient());
+const builder = createImageUrlBuilder({ projectId: 'csbn9wp4', dataset: 'glassno' });
 
 export function formatBlogPostDate(date: string) {
   const dateString = parseISO(date);
@@ -10,6 +11,4 @@ export function formatBlogPostDate(date: string) {
   return formattedDateString;
 }
 
-export function getSanityImageURL(source: SanityImageSource) {
-  return builder.image(source);
-}
+export const getSanityImageURL = (source: SanityImageSource) => builder.image(source).auto('format').fit('max');
