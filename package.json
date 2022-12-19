@@ -7,12 +7,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "sanity:dev": "sanity dev",
-    "sanity:start": "cd studio && yarn start",
-    "sanity:build": "cd studio && yarn build",
-    "sanity:deploy": "cd studio && sanity deploy",
-    "sanity:undeploy": "cd studio && sanity undeploy"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/image": "^0.11.6",
