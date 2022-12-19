@@ -3,6 +3,7 @@ import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import schemas from '$schemas';
 import Logo from '$components/React/StudioLogo';
+import { media } from 'sanity-plugin-media';
 
 export default defineConfig({
   basePath: '/studio',
@@ -15,7 +16,7 @@ export default defineConfig({
       input: (props: any) => console.log(props),
     },
   },
-  plugins: [deskTool(), visionTool()],
+  plugins: [deskTool(), media(), visionTool()],
   schema: {
     types: schemas,
   },
