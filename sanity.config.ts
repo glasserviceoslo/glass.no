@@ -1,13 +1,20 @@
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import schemas from './src/schemas';
+import schemas from '$schemas';
+import Logo from '$components/React/StudioLogo';
 
 export default defineConfig({
   basePath: '/studio',
-  title: 'blog',
+  title: 'glass.no',
   projectId: 'csbn9wp4',
   dataset: 'glassno',
+  studio: {
+    components: {
+      logo: Logo,
+      input: (props: any) => console.log(props),
+    },
+  },
   plugins: [deskTool(), visionTool()],
   schema: {
     types: schemas,
