@@ -9,21 +9,25 @@ export interface Props {
 const { post } = Astro.props;
 ---
 
-<article class="post-preview__article">
-  <a href={`/posts/${post.slug}`}>
-    {
-      post.mainImage && (
-        <Image
-          width="720"
-          height="420"
-          class="post-main__img"
-          alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
-          loading="lazy"
-          src={getSanityImageURL(post.mainImage).url()}
-        />
-      )
-    }
-    <h1 class="title">{post.title}</h1>
-    <p>{post.description}</p>
-  </a>
+<article class="pt-8">
+  <div class="mb-5">
+    <h3 class="mb-3 text-3xl leading-snug">
+      <a href={`/posts/${post.slug}`}>
+        {
+          post.mainImage && (
+            <Image
+              width="720"
+              height="420"
+              class="post-main__img"
+              alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
+              loading="lazy"
+              src={getSanityImageURL(post.mainImage).url()}
+            />
+          )
+        }
+        {post.title}
+      </a>
+    </h3>
+    {post.description && <p class="mb-4 text-lg leading-relaxed">{post.description}</p>}
+  </div>
 </article>

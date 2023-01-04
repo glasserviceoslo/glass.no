@@ -1,22 +1,3 @@
----
-export interface Props {
-  narrow?: boolean;
-}
-
-const { narrow } = Astro.props;
----
-
-<div class={`content__container ${narrow && `content__container--narrow`}`}>
+<div class="columns-md gap-x-10 px-12">
   <slot />
 </div>
-
-<style>
-  .content__container {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: var(--container-padding);
-  }
-  .content__container--narrow {
-    max-width: var(--container-max-width-narrow);
-  }
-</style>
