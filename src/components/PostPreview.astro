@@ -1,5 +1,5 @@
 ---
-import { getSanityImageURL, formatBlogPostDate } from '$lib/sanity';
+import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import { Image } from '@astrojs/image/components';
 
 export interface Props {
@@ -10,57 +10,20 @@ const { post } = Astro.props;
 ---
 
 <article class="post-preview__article">
-  <a href={`/blog/${post.slug.current}`}>
+  <a href={`/blog/${post.slug}`}>
     {
       post.mainImage && (
         <Image
           width="720"
           height="420"
           class="post-main__img"
-          alt="alt"
+          alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
           loading="lazy"
           src={getSanityImageURL(post.mainImage).url()}
         />
       )
     }
     <h1 class="title">{post.title}</h1>
-    <time class="publish-date">{formatBlogPostDate(post._createdAt)}</time>
-    <p>{post.excerpt}</p>
+    <p>{post.description}</p>
   </a>
 </article>
-
-<style>
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  a:hover > .title {
-    text-decoration: underline;
-  }
-
-  .post-main__img {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-
-  .title,
-  .author,
-  .publish-date {
-    margin: 0;
-  }
-
-  .publish-date,
-  .author {
-    font-size: 1.25rem;
-    color: var(--theme-text-lighter);
-  }
-
-  .title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--theme-text);
-  }
-</style>

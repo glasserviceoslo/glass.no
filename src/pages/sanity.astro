@@ -16,7 +16,8 @@ const allPostData = await getAllPosts();
 <Layout seo={seo}>
   <article class="blog-page-content__article">
     <section class="postlist">
-      {allPostData.map((post: any) => <PostPreview post={post} />)}
+      <!-- {allPostData.map((post: any) => <PostPreview post={post} />)} -->
+      <pre>{JSON.stringify(allPostData, null, 2)}</pre>
     </section>
   </article>
 </Layout>

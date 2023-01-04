@@ -3,7 +3,7 @@
 import { useLayoutEffect } from 'react';
 import type { NavbarProps } from 'sanity';
 
-const Navbar = (props: NavbarProps) => {
+const StudioNavbar = (props: NavbarProps) => {
   useLayoutEffect(() => {
     const logo = document.querySelector('[data-testid="logo"]');
     const redirectToHome = () => (window.location.href = '/');
@@ -15,4 +15,4 @@ const Navbar = (props: NavbarProps) => {
   return props.renderDefault(props);
 };
 
-export default Navbar;
+export default StudioNavbar;

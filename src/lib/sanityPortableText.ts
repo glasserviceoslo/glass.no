@@ -1,10 +1,10 @@
 // import { portableTextToHtml } from 'astro-sanity';
-import { toHTML } from '@portabletext/to-html';
-import { getSanityImageURL } from './sanity.image';
+import { type PortableTextComponents, toHTML } from '@portabletext/to-html';
+import { getSanityImageURL, removeExt } from './sanity.image';
 
-const customComponents = {
+const customComponents: PortableTextComponents = {
   types: {
-    mainImage: ({ value }: any) => {
+    mainImage: ({ value }) => {
       return `
         <picture>
           <source
@@ -14,12 +14,12 @@ const customComponents = {
           <img
             class="responsive__img"
             src="${getSanityImageURL(value.asset).url()}"
-            alt="${value.alt}"
+            alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
           />
         </picture>
       `;
     },
-    image: ({ value }: any) => {
+    image: ({ value }) => {
       return `
         <picture>
           <source
@@ -29,10 +29,15 @@ const customComponents = {
           <img
             class="responsive__img"
             src="${getSanityImageURL(value.asset).url()}"
-            alt="${value.alt}"
+            alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
           />
         </picture>
       `;
+    },
+  },
+  marks: {
+    internalLink: ({ children, value }) => {
+      return `<a href="/posts/${value.slug.current}">${children}</a>`;
     },
   },
 };

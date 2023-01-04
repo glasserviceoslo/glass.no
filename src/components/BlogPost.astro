@@ -1,10 +1,11 @@
 ---
-import PortableText from './PortableText.astro';
-import { getSanityImageURL, formatBlogPostDate } from '$lib/sanity';
+import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import { Image } from '@astrojs/image/components';
+import type { Post } from '$lib/sanity.queries';
+import PostBody from './PostBody.astro';
 
 export interface Props {
-  post: any;
+  post: Post;
 }
 
 const { post } = Astro.props;
@@ -13,20 +14,18 @@ const { post } = Astro.props;
 ---
 
 <article class="p-1">
+  <h1>{post.title}</h1>
   {
     post.mainImage && (
       <Image
         width="720"
         height="420"
-        alt="yes"
+        alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
         class="h-auto w-full"
         loading="lazy"
         src={getSanityImageURL(post.mainImage).url()}
       />
     )
   }
-  <h1>{post.title}</h1>
-  <time>{formatBlogPostDate(post.publishedAt)}</time>
-  {post.author && <p>By {post.author.name}</p>}
-  <PortableText portableText={post.body} />
+  <PostBody content={post.body} />
 </article>
