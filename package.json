@@ -25,8 +25,6 @@
     "@sanity/image-url": "^1.0.1",
     "@sanity/preview-kit": "^1.2.17",
     "@sanity/vision": "^3.1.4",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
     "astro": "^1.6.10",
     "final-form": "^4.20.7",
     "react": "^18.0.0",
@@ -34,11 +32,13 @@
     "sanity": "^3.1.4",
     "sanity-plugin-media": "^2.0.2",
     "sharp": "^0.31.2",
-    "solid-js": "^1.4.3",
+    "solid-js": "1.6.7",
     "styled-components": "^5.2",
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "date-fns": "^2.29.3",
     "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.2.0"

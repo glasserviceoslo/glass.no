@@ -87,7 +87,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'post' }],
+                    to: [{ type: 'post' }, { type: 'page' }],
                   },
                 ],
               },

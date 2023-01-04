@@ -14,42 +14,10 @@ const allPostData = await getAllPosts();
 ---
 
 <Layout seo={seo}>
-  <article class="blog-page-content__article">
-    <section class="postlist">
+  <article>
+    <section>
       <!-- {allPostData.map((post: any) => <PostPreview post={post} />)} -->
       <pre>{JSON.stringify(allPostData, null, 2)}</pre>
     </section>
   </article>
 </Layout>
-
-<style is:global>
-  /* Posts list */
-  .postlist {
-    margin-top: 4rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    list-style: none;
-    padding: 0;
-  }
-
-  .postlist-item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .postlist-item__img {
-    border-radius: 0.5rem;
-    height: auto;
-  }
-
-  @media screen and (max-width: 769px) {
-    .blog-page-content__article {
-      padding: 1rem;
-    }
-
-    .postlist {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
