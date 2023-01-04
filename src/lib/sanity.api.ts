@@ -7,7 +7,7 @@ export const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
 export const dataset = import.meta.env.PUBLIC_SANITY_DATASET;
 
 // see https://www.sanity.io/docs/api-versioning for how versioning works
-export const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || '2022-11-15';
+export const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || 'v2021-10-21';
 // useCdn == true gives fast, cheap responses using a globally distributed cache.
 // It makes sense to use the CDN if the GROQ webhook outlined in `pages/api/revalidate.ts` isn't setup yet.
 // With the hook setup though it's more important to newer return stale data since the request count is so low, especially after removing the `export const revalidate = 1` statements in `page.tsx` files.
