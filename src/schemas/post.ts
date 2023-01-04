@@ -21,6 +21,12 @@ export default defineType({
   ],
   fields: [
     defineField({
+      title: 'Is this a Page?',
+      name: 'isPage',
+      type: 'boolean',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -87,7 +93,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'post' }, { type: 'page' }],
+                    to: [{ type: 'post' }],
                   },
                 ],
               },

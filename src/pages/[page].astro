@@ -1,0 +1,32 @@
+---
+import Layout from '$layouts/Page.astro';
+import BlogPost from '$components/BlogPost.astro';
+import { getSanityImageURL } from '$lib/sanity.image';
+import { getPostBySlug } from '$lib/sanity.client';
+
+// rss({
+//   title: 'Example Blog',
+//   description: 'An example blog on Astro',
+//   customData: `<language>en-us</language>`,
+//   items: allBlogPosts.map(item => ({
+//     title: item.title,
+//     description: item.description,
+//     link: `/posts/${item.slug.current}`,
+//     pubDate: item.publishedAt,
+//   })),
+// });
+
+const { page } = Astro.params;
+if (!page) return Astro.redirect('/404');
+const post = await getPostBySlug(page!);
+
+const seo = {
+  title: post.title,
+  description: post.description,
+  image: post.mainImage && getSanityImageURL(post.mainImage).width(1200).url(),
+};
+---
+
+<Layout seo={seo}>
+  <BlogPost post={post} />
+</Layout>

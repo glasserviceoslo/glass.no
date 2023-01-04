@@ -19,7 +19,7 @@ export const Carousel: Component = () => {
   createEffect(() => slideInterval.start());
 
   return (
-    <section class="relative h-[45vw] overflow-hidden">
+    <section class="relative h-[70vw] overflow-hidden md:h-[61vw]">
       {srcs.map((src, i, arr) => (
         <Presence exitBeforeEnter>
           <Show keyed when={index() === i}>
@@ -70,7 +70,7 @@ export const Carousel: Component = () => {
         {srcs.map((s, i, arr) => (
           <input
             id={s}
-            class="before:shadow-checked mx-1 grid h-3 w-3 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-2 before:w-2 before:scale-0 before:rounded-full before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
+            class="mx-1 grid h-3 w-3 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-2 before:w-2 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
             checked={index() === i}
             type="radio"
             name="slider"
