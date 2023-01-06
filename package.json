@@ -20,7 +20,6 @@
     "@motionone/solid": "^10.15.3",
     "@netlify/functions": "^1.3.0",
     "@portabletext/to-html": "^1.0.4",
-    "@rive-app/canvas": "^1.0.95",
     "@sanity/client": "^4.0.0",
     "@sanity/image-url": "^1.0.1",
     "@sanity/preview-kit": "^1.2.17",

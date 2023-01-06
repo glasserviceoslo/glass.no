@@ -7,6 +7,7 @@ module.exports = {
       boxShadow: {
         checked: 'inset 1em 1em #60a5fa',
       },
+
       colors: {
         success: '#0070f3',
         primary: {

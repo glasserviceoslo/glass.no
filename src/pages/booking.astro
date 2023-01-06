@@ -1,52 +1,8 @@
 ---
+import Latepoint from '$components/Latepoint.astro';
 import Layout from '$layouts/Page.astro';
 ---
 
-<!-- Cal inline embed code begins -->
 <Layout>
-  <div
-    class="flex h-[calc(100vh-289px)] w-full items-center justify-center [&_cal-inline]:items-center [&_cal-inline]:justify-center"
-    id="my-cal-inline"
-  >
-  </div>
+  <Latepoint />
 </Layout>
-
-<script type="text/javascript">
-  (function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar);
-    };
-    let d = C.document;
-    C.Cal =
-      C.Cal ||
-      function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () {
-            p(api, arguments);
-          };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          typeof namespace === 'string' ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-  })(window, 'https://cal.glass.no/embed/embed.js', 'init');
-  Cal('init', { origin: 'https://cal.glass.no' });
-
-  Cal('inline', {
-    elementOrSelector: '#my-cal-inline',
-    calLink: 'admin/befaring',
-  });
-
-  Cal('ui', { styles: { branding: { brandColor: '#000000' } }, hideEventTypeDetails: false });
-</script>
-<!-- Cal inline embed code ends -->

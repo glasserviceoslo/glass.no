@@ -1,0 +1,10 @@
+<canvas id="canvas" class="h-[90%] w-[90%]" width="500" height="500"></canvas>
+
+<script is:inline src="https://unpkg.com/@rive-app/canvas@1.0.79"></script>
+<script is:inline>
+  new rive.Rive({
+    src: '/assets/mobile.riv',
+    canvas: document.getElementById('canvas'),
+    autoplay: true,
+  });
+</script>

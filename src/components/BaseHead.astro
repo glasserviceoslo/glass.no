@@ -1,5 +1,4 @@
 ---
-import riveWASMResource from '@rive-app/canvas/rive.wasm';
 import settings from '$data/settings';
 
 export interface Props {
@@ -65,9 +64,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" type="text/css" />
 </noscript>
 
-<!-- Preload Rive -->
-<link rel="preload" href={riveWASMResource as unknown as string} as="fetch" crossorigin="anonymous" />
-<link rel="preload" href="/mobile.riv" as="fetch" crossorigin="anonymous" />
+<link slot="head-slot" rel="preload" href="/mobile.riv" as="fetch" crossorigin="anonymous" />
 
 <!-- <link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" /> -->
 <script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>

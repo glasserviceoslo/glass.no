@@ -9,7 +9,7 @@ import Logo from '$components/Logo.astro';
   <div class="container mx-auto flex flex-wrap items-center justify-between">
     <Logo />
     <div class="flex md:order-2">
-      <button data-cal-link="admin/befaring" type="button" class="btn-primary hidden md:block">Gratis Befaring</button>
+      <a href="/booking" class="btn-primary hidden md:block">Gratis Befaring</a>
       <ThemeToggler client:only="solid" />
       <button
         data-collapse-toggle="navbar-sticky"
