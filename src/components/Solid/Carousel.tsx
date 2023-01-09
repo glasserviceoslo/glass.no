@@ -30,7 +30,13 @@ export const Carousel: Component = () => {
               exit={{ opacity: 0, x: -50 }}
               class="h-full w-full"
             >
-              <img class="h-full w-full object-cover" src={src} alt={`${src.split('.').slice(0, -1).join('')}`} />
+              <img
+                class="h-full w-full object-cover"
+                width={1000}
+                height={600}
+                src={src}
+                alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
+              />
             </Motion.div>
           </Show>
         </Presence>
@@ -76,14 +82,11 @@ export const Carousel: Component = () => {
             id={s}
             class="mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
             checked={index() === i}
+            disabled
             type="radio"
             aria-label="slide changer"
             name="slider"
             value={s}
-            onChange={(e) => {
-              setIndex(arr.indexOf(e.currentTarget.value));
-              slideInterval.restart();
-            }}
           />
         ))}
       </div>
