@@ -1,12 +1,12 @@
 ---
-import Logo from '$components/Logo.astro';
+import { Logo } from './Solid/Logo';
 ---
 
 <footer class="bg-white p-4 dark:bg-gray-800 sm:p-6">
   <div class="mx-auto max-w-screen-xl">
     <div class="md:flex md:justify-between">
       <div class="mb-6 self-center md:mb-0">
-        <Logo />
+        <Logo client:visible />
       </div>
       <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
         <div>
