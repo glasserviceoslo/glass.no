@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev & caddy run",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
