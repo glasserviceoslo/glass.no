@@ -70,11 +70,11 @@ export const Carousel: Component = () => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
       </button>
-      <div class="absolute right-0 left-0 bottom-1 my-0 mx-auto flex items-center justify-center p-2">
+      <div class="absolute right-0 left-0 bottom-1 my-0 mx-auto flex items-center justify-center gap-1 p-2">
         {srcs.map((s, i, arr) => (
           <input
             id={s}
-            class="mx-1 grid h-3 w-3 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-2 before:w-2 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
+            class="mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
             checked={index() === i}
             type="radio"
             aria-label="slide changer"
