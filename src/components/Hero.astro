@@ -1,5 +1,6 @@
 ---
-import BookingRiveAnim from './BookingRiveAnim.astro';
+import BookingRiveAnimAstro from './BookingRiveAnim.astro';
+import { BookingRive } from './Solid/BookingRive';
 ---
 
 <section class="bg-white dark:bg-gray-900">
@@ -12,7 +13,7 @@ import BookingRiveAnim from './BookingRiveAnim.astro';
       </h1>
       <p class="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl">
         Vi tilbyr gratis befaring og glassteknisk rådgivning. Bestill uforpliktende befaring i dag, så kommer vi hjem
-        til deg og finner ut sammen med deg hva som blir best for ditt hjem.  <span>&#128525</span>
+        til deg og finner ut sammen med deg hva som blir best for ditt hjem. <span>&#128525</span>
       </p>
       <a
         href="#"
@@ -34,7 +35,7 @@ import BookingRiveAnim from './BookingRiveAnim.astro';
       </a>
     </div>
     <div class="hidden lg:col-span-5 lg:mt-0 lg:flex">
-      <BookingRiveAnim />
+      <BookingRive client:visible />
     </div>
   </div>
 </section>

@@ -1,0 +1,4 @@
+glassno.localhost {
+  reverse_proxy localhost:3001
+  file_server
+}
