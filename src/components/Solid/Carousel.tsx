@@ -30,12 +30,14 @@ export const Carousel: Component = () => {
               exit={{ opacity: 0, x: -50 }}
               class="h-full w-full"
             >
-              <img class="h-full w-full object-cover" src={src} />
+              <img class="h-full w-full object-cover" src={src} alt={`${src.split('.').slice(0, -1).join('')}`} />
             </Motion.div>
           </Show>
         </Presence>
       ))}
       <button
+        aria-label="previous slide button"
+        type="button"
         class="absolute top-0 left-4 bottom-0 mx-0
                 my-auto flex h-[13%] items-center justify-center rounded-full p-2 text-gray-200 shadow-sm hover:bg-gray-300 hover:text-gray-600"
         onClick={prev}
@@ -52,6 +54,8 @@ export const Carousel: Component = () => {
         </svg>
       </button>
       <button
+        aria-label="next slide button"
+        type="button"
         class="absolute top-0 right-4 bottom-0 mx-0 my-auto flex h-[13%] items-center justify-center rounded-full p-2 text-gray-200 shadow-sm hover:bg-gray-300 hover:text-gray-600"
         onClick={next}
       >
@@ -73,6 +77,7 @@ export const Carousel: Component = () => {
             class="mx-1 grid h-3 w-3 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-2 before:w-2 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
             checked={index() === i}
             type="radio"
+            aria-label="slide changer"
             name="slider"
             value={s}
             onChange={(e) => {

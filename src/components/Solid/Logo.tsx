@@ -11,6 +11,8 @@ export const Logo = () => {
         loading="lazy"
         class="mr-3 hidden aspect-auto h-10 w-auto dark:block md:h-12"
         alt="Glass.no Logo"
+        width={100}
+        height={40}
         sizes="50em, 30em, 20em"
       />
       <img
@@ -18,6 +20,8 @@ export const Logo = () => {
         loading="lazy"
         class="mr-3 block aspect-auto h-10 w-auto dark:hidden md:h-12"
         alt="Glass.no Logo"
+        width={100}
+        height={40}
         sizes="50em, 30em, 20em"
       />
     </a>
