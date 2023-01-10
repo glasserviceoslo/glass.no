@@ -77,7 +77,7 @@ export const Carousel: Component = () => {
         </svg>
       </button>
       <div class="absolute right-0 left-0 bottom-1 my-0 mx-auto flex items-center justify-center gap-1 p-2">
-        {srcs.map((s, i, arr) => (
+        {/* {srcs.map((s, i, arr) => (
           <input
             id={s}
             class="mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] checked:before:scale-100"
@@ -87,6 +87,15 @@ export const Carousel: Component = () => {
             aria-label="slide changer"
             name="slider"
             value={s}
+          />
+        ))} */}
+        {srcs.map((s, i, arr) => (
+          <div
+            id={s}
+            class={`mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] ${
+              index() === i && 'before:scale-100'
+            }`}
+            aria-label="slide changer"
           />
         ))}
       </div>
