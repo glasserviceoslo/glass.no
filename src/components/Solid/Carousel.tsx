@@ -92,10 +92,12 @@ export const Carousel: Component = () => {
         {srcs.map((s, i, arr) => (
           <div
             id={s}
+            aria-label="slide position"
+            aria-role="generic"
+            aria-roledescription="shows which slide is currently on screen"
             class={`mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] ${
               index() === i && 'before:scale-100'
             }`}
-            aria-label="slide changer"
           />
         ))}
       </div>
