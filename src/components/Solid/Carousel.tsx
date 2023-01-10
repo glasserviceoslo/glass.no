@@ -32,8 +32,10 @@ export const Carousel: Component = () => {
             >
               <img
                 class="h-full w-full object-cover"
-                width={1000}
-                height={600}
+                width="1000"
+                height="600"
+                loading="lazy"
+                sizes="(min-width: 500px) 50vw, 100vw"
                 src={src}
                 alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
               />

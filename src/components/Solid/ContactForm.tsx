@@ -8,7 +8,7 @@ interface FormValues {
 
 const onSubmit = async (data: any) =>
   (
-    await fetch('/.netlify/functions/send-email', {
+    await fetch('/.netlify/functions/sendEmail', {
       method: 'POST',
       body: JSON.stringify(data),
     })
@@ -30,28 +30,6 @@ const initialValues: FormValues = {
 export const ContactForm = () => {
   const { error, field, handleSubmit, isSubmitting, values } = useForm(onSubmit, initialValues, validate);
   const formattedValues = () => JSON.stringify(values(), undefined, 2);
-
-  // const form = createForm({
-  //   onSubmit: (values, form) => {
-  //     // sendMail(values);
-  //     console.log(values, form);
-  //   },
-  //   // validate: (values: any) => {
-  //   //   const errors = {} as any;
-  //   //   if (!values.name) {
-  //   //     errors.name = 'Required';
-  //   //   }
-  //   //   if (!values.email) {
-  //   //     errors.email = 'Required';
-  //   //   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-  //   //     errors.email = 'Invalid email address';
-  //   //   }
-  //   //   if (!values.message) {
-  //   //     errors.message = 'Required';
-  //   //   }
-  //   //   return errors;
-  //   // },
-  // });
 
   return (
     <form class="flex h-96 flex-col items-center justify-center" onSubmit={handleSubmit}>
