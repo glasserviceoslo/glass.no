@@ -113,6 +113,7 @@ export interface Image {
     _id: string;
     _type: string;
     altText: string;
+    originalFilename: string;
     description?: string;
   };
   markDefs?: any;

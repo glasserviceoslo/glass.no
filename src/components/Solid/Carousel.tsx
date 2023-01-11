@@ -1,15 +1,12 @@
 import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Motion, Presence } from '@motionone/solid';
 import { useInterval } from '$lib/interval';
-import { getSanityImageURL } from '$lib/sanity.image';
+import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import type { Image } from '$lib/sanity.queries';
-
-// const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 
 // alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
 
 export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
-  // const srcs = ['/images/velux.jpg', '/images/glass.png', '/images/skyvedor.jpg'];
   const [index, setIndex] = createSignal(0);
   const next = () => {
     setIndex((p) => ++p % images.length);
@@ -36,12 +33,22 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
               exit={{ opacity: 0, x: -50 }}
               class="h-full w-full"
             >
-              <img
-                class="h-full w-full object-cover"
-                alt={image.asset.altText}
+              <picture>
+                <source srcset={getSanityImageURL(image.asset).format('webp').url()} type="image/webp" />
+                <img
+                  width={720}
+                  height={420}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                  src={getSanityImageURL(image.asset).url()}
+                  alt={image.asset.altText || removeExt(image.asset.originalFilename)}
+                />
+              </picture>
+              {/* <img
+                alt={image.asset.altText || removeExt(image.asset.originalFilename)}
                 loading="lazy"
                 src={getSanityImageURL(image).format('webp').width(1000).url()}
-              />
+              /> */}
             </Motion.div>
           </Show>
         </Presence>

@@ -1,5 +1,4 @@
 ---
-import riveWASMResource from '@rive-app/canvas/rive.wasm';
 import Hero from '$components/Hero.astro';
 import { Carousel } from '$components/Solid/Carousel';
 import Feature from '$components/Feature.astro';
@@ -10,8 +9,9 @@ import type { Image } from '$lib/sanity.queries';
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
   description:
-    'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.',
+    'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
 };
+
 const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 ---
 
