@@ -12,7 +12,6 @@ const customComponents: PortableTextComponents = {
             type="image/webp"
           />
           <img
-            class="responsive__img"
             src="${getSanityImageURL(value.asset).url()}"
             alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
           />
@@ -27,7 +26,6 @@ const customComponents: PortableTextComponents = {
             type="image/webp"
           />
           <img
-            class="responsive__img"
             src="${getSanityImageURL(value.asset).url()}"
             alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
           />

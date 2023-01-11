@@ -10,7 +10,7 @@ interface Api<FormValues> {
 }
 
 export const useForm = <FormValues,>(
-  onSubmit: (values: FormValues) => Promise<void>,
+  onSubmit: (values: FormValues) => Promise<Response>,
   initialValues: FormValues,
   validate: (values: FormValues) => Partial<Record<keyof FormValues, string>> = () => ({}),
 ): Api<FormValues> => {

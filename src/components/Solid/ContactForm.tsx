@@ -6,13 +6,11 @@ interface FormValues {
   message: string;
 }
 
-const onSubmit = async (data: any) =>
-  (
-    await fetch('/.netlify/functions/sendEmail', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-  ).json();
+const onSubmit = async (data: FormValues) =>
+  await fetch('/.netlify/functions/sendEmail', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
 
 const validate = (values: FormValues) => {
   const errors: Partial<Record<keyof FormValues, string>> = {};
@@ -36,11 +34,11 @@ export const ContactForm = () => {
     <form class="flex h-96 flex-col items-center justify-center" onSubmit={handleSubmit}>
       <h1>Solid Final Form 🏁</h1>
       <label>
-        <input name="name" placeholder="First Name" use:field />
+        <input type="text" name="name" placeholder="First Name" use:field />
         <span use:error="name" />
       </label>
       <label>
-        <input name="email" placeholder="Last Name" use:field />
+        <input type="email" name="email" placeholder="Last Name" use:field />
         <span use:error="email" />
       </label>
       <label>

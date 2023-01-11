@@ -1,3 +1,8 @@
 [build]
   command = "yarn build"
   publish = "dist"
+
+[dev]
+  command = "yarn start"
+  targetPort = 3001
+  envFiles = [".env"]

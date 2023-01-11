@@ -35,12 +35,15 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
             >
               <picture>
                 <source srcset={getSanityImageURL(image.asset).format('webp').url()} type="image/webp" />
+                <source
+                  media="(min-width:650px)"
+                  srcset={getSanityImageURL(image.asset).format('webp').width(350).url()}
+                  type="image/webp"
+                />
                 <img
-                  width={720}
-                  height={420}
                   class="h-full w-full object-cover"
                   loading="lazy"
-                  src={getSanityImageURL(image.asset).url()}
+                  src={getSanityImageURL(image.asset).quality(100).url()}
                   alt={image.asset.altText || removeExt(image.asset.originalFilename)}
                 />
               </picture>
