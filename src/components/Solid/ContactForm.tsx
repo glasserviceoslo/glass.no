@@ -6,11 +6,14 @@ interface FormValues {
   message: string;
 }
 
-const onSubmit = async (data: FormValues) =>
-  await fetch('/.netlify/functions/sendEmail', {
+const onSubmit = async (data: FormValues) => {
+  const response = await fetch('/.netlify/functions/sendEmail', {
     method: 'POST',
     body: JSON.stringify(data),
   });
+  console.log(response);
+  return response;
+};
 
 const validate = (values: FormValues) => {
   const errors: Partial<Record<keyof FormValues, string>> = {};

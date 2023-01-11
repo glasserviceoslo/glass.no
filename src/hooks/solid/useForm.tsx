@@ -80,6 +80,7 @@ export const useForm = <FormValues,>(
   const handleSubmit = (event: Event) => {
     event.preventDefault();
     form.submit();
+    form.reset();
   };
 
   return {
