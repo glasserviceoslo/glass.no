@@ -31,27 +31,39 @@ const initialValues: FormValues = {
 
 export const ContactForm = () => {
   const { error, field, handleSubmit, isSubmitting, values } = useForm(onSubmit, initialValues, validate);
-  const formattedValues = () => JSON.stringify(values(), undefined, 2);
 
   return (
-    <form class="flex h-96 flex-col items-center justify-center" onSubmit={handleSubmit}>
-      <h1>Solid Final Form 🏁</h1>
-      <label>
-        <input type="text" name="name" placeholder="First Name" use:field />
-        <span use:error="name" />
-      </label>
-      <label>
-        <input type="email" name="email" placeholder="Last Name" use:field />
-        <span use:error="email" />
-      </label>
-      <label>
-        <textarea name="message" use:field></textarea>
-        <span use:error="message" />
-      </label>
-      <button type="submit" disabled={isSubmitting()}>
-        Submit
-      </button>
-      <pre>{formattedValues()}</pre>
-    </form>
+    <section class="flex h-[calc(100vh-298px)] items-center justify-center">
+      <form class="flex h-96 flex-col items-stretch justify-center gap-2" onSubmit={handleSubmit}>
+        <h1>Kontaktskjema</h1>
+        <label class="flex flex-col">
+          <input
+            class="rounded border bg-gray-100 p-1 focus:bg-white"
+            type="text"
+            name="name"
+            placeholder="First Name"
+            use:field
+          />
+          <span class="text-red-500" use:error="name" />
+        </label>
+        <label class="flex flex-col">
+          <input
+            class="rounded border bg-gray-100 p-1 focus:bg-white"
+            type="email"
+            name="email"
+            placeholder="Last Name"
+            use:field
+          />
+          <span class="text-red-500" use:error="email" />
+        </label>
+        <label class="flex flex-col">
+          <textarea class="rounded border bg-gray-100 p-1 focus:bg-white" name="message" use:field></textarea>
+          <span class="text-red-500" use:error="message" />
+        </label>
+        <button class="btn-primary" type="submit" disabled={isSubmitting()}>
+          Submit
+        </button>
+      </form>
+    </section>
   );
 };
