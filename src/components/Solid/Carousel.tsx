@@ -4,8 +4,6 @@ import { useInterval } from '$lib/interval';
 import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import type { Image } from '$lib/sanity.queries';
 
-// alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
-
 export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
   const [index, setIndex] = createSignal(0);
   const next = () => {
@@ -34,9 +32,13 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
               class="h-full w-full"
             >
               <picture>
-                <source srcset={getSanityImageURL(image.asset).format('webp').url()} type="image/webp" />
                 <source
-                  media="(min-width:650px)"
+                  media="(min-width:768px)"
+                  srcset={getSanityImageURL(image.asset).format('webp').width(2000).url()}
+                  type="image/webp"
+                />
+                <source
+                  media="(max-width:600px)"
                   srcset={getSanityImageURL(image.asset).format('webp').width(350).url()}
                   type="image/webp"
                 />
@@ -47,11 +49,6 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
                   alt={image.asset.altText || removeExt(image.asset.originalFilename)}
                 />
               </picture>
-              {/* <img
-                alt={image.asset.altText || removeExt(image.asset.originalFilename)}
-                loading="lazy"
-                src={getSanityImageURL(image).format('webp').width(1000).url()}
-              /> */}
             </Motion.div>
           </Show>
         </Presence>

@@ -20,16 +20,19 @@ const customComponents: PortableTextComponents = {
     },
     image: ({ value }) => {
       return `
-        <picture>
-          <source
-            srcset="${getSanityImageURL(value.asset).format('webp').url()}"
-            type="image/webp"
-          />
-          <img
-            src="${getSanityImageURL(value.asset).url()}"
-            alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
-          />
-        </picture>
+        <figure class="w-full overflow-hidden">
+          <picture>
+            <source
+              srcset="${getSanityImageURL(value.asset).format('webp').url()}"
+              type="image/webp"
+            />
+            <img
+            class="w-full relative hover:scale-105 transition-all ease-in-out duration-300"
+              src="${getSanityImageURL(value.asset).url()}"
+              alt="${value.asset.altText || removeExt(value.asset.originalFilename)}"
+            />
+          </picture>
+        </figure>
       `;
     },
   },

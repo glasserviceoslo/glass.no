@@ -1,11 +1,12 @@
-import type { Handler } from '@netlify/functions';
+import type { Handler, HandlerEvent } from '@netlify/functions';
 import { createTransport } from 'nodemailer';
+import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event: HandlerEvent) => {
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false, // use TLS
+    secure: true,
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASSWORD,
@@ -20,11 +21,14 @@ const handler: Handler = async (event, context) => {
   }
   const body = JSON.parse(event.body);
 
-  const opts = {
+  const opts: MailOptions = {
     from: `"${body.name}"${body.email}`,
     to: process.env.GLASSNO_EMAIL,
-    subject: body.subject,
+    subject: `Kontaktskjema - ${body.name}`,
     text: body.message,
+    // attachments: [{
+    //   filename:
+    // }]
   };
 
   try {
@@ -37,7 +41,7 @@ const handler: Handler = async (event, context) => {
     console.error(error);
     return {
       statusCode: 500,
-      body: 'Error',
+      body: 'Something unexpected happened, please try again later!',
     };
   }
 };

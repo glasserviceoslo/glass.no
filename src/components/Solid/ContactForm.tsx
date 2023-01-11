@@ -17,9 +17,9 @@ const onSubmit = async (data: FormValues) => {
 
 const validate = (values: FormValues) => {
   const errors: Partial<Record<keyof FormValues, string>> = {};
-  if (!values.name) errors.name = 'Required';
-  if (!values.email) errors.email = 'Required';
-  if (!values.message) errors.message = 'Required';
+  if (!values.name) errors.name = 'Må fylles';
+  if (!values.email) errors.email = 'Må fylles';
+  if (!values.message) errors.message = 'Må fylles';
   return errors;
 };
 
@@ -38,30 +38,37 @@ export const ContactForm = () => {
         <h1>Kontaktskjema</h1>
         <label class="flex flex-col">
           <input
+            required
             class="rounded border bg-gray-100 p-1 focus:bg-white"
             type="text"
             name="name"
-            placeholder="First Name"
+            placeholder="Navn"
             use:field
           />
-          <span class="text-red-500" use:error="name" />
+          <span class="italic text-red-500" use:error="name" />
         </label>
         <label class="flex flex-col">
           <input
+            required
             class="rounded border bg-gray-100 p-1 focus:bg-white"
             type="email"
             name="email"
-            placeholder="Last Name"
+            placeholder="E-post"
             use:field
           />
-          <span class="text-red-500" use:error="email" />
+          <span class="italic text-red-500" use:error="email" />
         </label>
         <label class="flex flex-col">
-          <textarea class="rounded border bg-gray-100 p-1 focus:bg-white" name="message" use:field></textarea>
-          <span class="text-red-500" use:error="message" />
+          <textarea
+            class="rounded border bg-gray-100 p-1 focus:bg-white"
+            name="message"
+            placeholder="Hva kan vi hjelpe deg med?"
+            use:field
+          ></textarea>
+          <span class="italic text-red-500" use:error="message" />
         </label>
         <button class="btn-primary" type="submit" disabled={isSubmitting()}>
-          Submit
+          Send
         </button>
       </form>
     </section>
