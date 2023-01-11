@@ -2,6 +2,7 @@
   "name": "glass.no",
   "version": "0.0.5",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev & caddy run",
     "start": "astro dev",
