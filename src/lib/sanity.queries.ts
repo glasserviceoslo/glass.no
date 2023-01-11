@@ -105,3 +105,15 @@ export interface Settings {
     title?: string;
   };
 }
+
+export interface Image {
+  _key: string;
+  _type: 'image';
+  asset: {
+    _id: string;
+    _type: string;
+    altText: string;
+    description?: string;
+  };
+  markDefs?: any;
+}

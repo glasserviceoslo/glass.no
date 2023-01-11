@@ -4,16 +4,19 @@ import Hero from '$components/Hero.astro';
 import { Carousel } from '$components/Solid/Carousel';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
+import { getPostBySlug } from '$lib/sanity.client';
+import type { Image } from '$lib/sanity.queries';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
   description:
     'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.',
 };
+const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 ---
 
 <Layout seo={seo}>
-  <Carousel client:visible />
+  <Carousel client:visible images={images} />
   <Feature />
   <Hero />
 </Layout>

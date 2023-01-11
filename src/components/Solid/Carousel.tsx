@@ -1,26 +1,14 @@
 import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Motion, Presence } from '@motionone/solid';
 import { useInterval } from '$lib/interval';
-import { getPostBySlug } from '$lib/sanity.client';
 import { getSanityImageURL } from '$lib/sanity.image';
+import type { Image } from '$lib/sanity.queries';
 
-interface Image {
-  _key: string;
-  _type: 'image';
-  asset: {
-    _id: string;
-    _type: string;
-    altText: string;
-    description?: string;
-  };
-  markDefs?: any;
-}
-
-const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
+// const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 
 // alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
 
-export const Carousel: Component = () => {
+export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
   // const srcs = ['/images/velux.jpg', '/images/glass.png', '/images/skyvedor.jpg'];
   const [index, setIndex] = createSignal(0);
   const next = () => {
