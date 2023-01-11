@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, Show } from 'solid-js';
+import { Component, createEffect, createResource, createSignal, Show } from 'solid-js';
 import { Motion, Presence } from '@motionone/solid';
 import { useInterval } from '$lib/interval';
 import { getPostBySlug } from '$lib/sanity.client';
@@ -16,13 +16,15 @@ interface Image {
   markDefs?: any;
 }
 
-const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
+const getImages = async (): Promise<Array<Image>> =>
+  (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 
 // alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
 
 export const Carousel: Component = () => {
   // const srcs = ['/images/velux.jpg', '/images/glass.png', '/images/skyvedor.jpg'];
   const [index, setIndex] = createSignal(0);
+  const [images] = createResource(getImages);
   const next = () => {
     setIndex((p) => ++p % images.length);
     slideInterval.restart();
@@ -38,26 +40,27 @@ export const Carousel: Component = () => {
 
   return (
     <section class="relative h-[70vw] overflow-hidden md:h-[61vw]">
-      {images.map((image, i) => (
-        <Presence exitBeforeEnter>
-          <Show keyed when={index() === i}>
-            <Motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0, transition: { delay: 0.05 } }}
-              transition={{ duration: 0.1 }}
-              exit={{ opacity: 0, x: -50 }}
-              class="h-full w-full"
-            >
-              <img
-                class="h-full w-full object-cover"
-                alt={image.asset.altText}
-                loading="lazy"
-                src={getSanityImageURL(image).format('webp').width(1000).url()}
-              />
-            </Motion.div>
-          </Show>
-        </Presence>
-      ))}
+      {!images.loading &&
+        images()?.map((image, i) => (
+          <Presence exitBeforeEnter>
+            <Show keyed when={index() === i}>
+              <Motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0, transition: { delay: 0.05 } }}
+                transition={{ duration: 0.1 }}
+                exit={{ opacity: 0, x: -50 }}
+                class="h-full w-full"
+              >
+                <img
+                  class="h-full w-full object-cover"
+                  alt={image.asset.altText}
+                  loading="lazy"
+                  src={getSanityImageURL(image).format('webp').width(1000).url()}
+                />
+              </Motion.div>
+            </Show>
+          </Presence>
+        ))}
       <button
         aria-label="previous slide button"
         type="button"
@@ -106,14 +109,15 @@ export const Carousel: Component = () => {
             value={s}
           />
         ))} */}
-        {images.map((img, i) => (
-          <div
-            id={img._key}
-            class={`mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] ${
-              index() === i && 'before:scale-100'
-            }`}
-          />
-        ))}
+        {!images.loading &&
+          images()?.map((img, i) => (
+            <div
+              id={img._key}
+              class={`mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] ${
+                index() === i && 'before:scale-100'
+              }`}
+            />
+          ))}
       </div>
     </section>
   );
