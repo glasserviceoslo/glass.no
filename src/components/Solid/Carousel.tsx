@@ -1,26 +1,44 @@
 import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Motion, Presence } from '@motionone/solid';
 import { useInterval } from '$lib/interval';
+import { getPostBySlug } from '$lib/sanity.client';
+import { getSanityImageURL } from '$lib/sanity.image';
+
+interface Image {
+  _key: string;
+  _type: 'image';
+  asset: {
+    _id: string;
+    _type: string;
+    altText: string;
+    description?: string;
+  };
+  markDefs?: any;
+}
+
+const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
+
+// alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
 
 export const Carousel: Component = () => {
-  const srcs = ['/images/velux.jpg', '/images/glass.png', '/images/skyvedor.jpg'];
+  // const srcs = ['/images/velux.jpg', '/images/glass.png', '/images/skyvedor.jpg'];
   const [index, setIndex] = createSignal(0);
   const next = () => {
-    setIndex((p) => ++p % srcs.length);
+    setIndex((p) => ++p % images.length);
     slideInterval.restart();
   };
   const prev = () => {
-    setIndex((p) => (p + srcs.length - 1) % srcs.length);
+    setIndex((p) => (p + images.length - 1) % images.length);
     slideInterval.restart();
   };
 
-  const slideInterval = useInterval(() => setIndex((p) => ++p % srcs.length), 5000);
+  const slideInterval = useInterval(() => setIndex((p) => ++p % images.length), 5000);
 
   createEffect(() => slideInterval.start());
 
   return (
     <section class="relative h-[70vw] overflow-hidden md:h-[61vw]">
-      {srcs.map((src, i, arr) => (
+      {images.map((image, i) => (
         <Presence exitBeforeEnter>
           <Show keyed when={index() === i}>
             <Motion.div
@@ -32,11 +50,9 @@ export const Carousel: Component = () => {
             >
               <img
                 class="h-full w-full object-cover"
-                width="1000"
-                height="600"
+                alt={image.asset.altText}
                 loading="lazy"
-                src={src}
-                alt={`${src.split('.').slice(0, -1).join('').substring(8)}`}
+                src={getSanityImageURL(image).format('webp').width(1000).url()}
               />
             </Motion.div>
           </Show>
@@ -90,9 +106,9 @@ export const Carousel: Component = () => {
             value={s}
           />
         ))} */}
-        {srcs.map((s, i, arr) => (
+        {images.map((img, i) => (
           <div
-            id={s}
+            id={img._key}
             class={`mx-1 grid h-4 w-4 appearance-none place-content-center rounded-full border-2 border-gray-300 bg-gray-200 accent-gray-300 before:h-3 before:w-3 before:scale-0 before:rounded-full before:shadow-checked before:transition-transform before:duration-150 before:ease-in-out before:content-[''] ${
               index() === i && 'before:scale-100'
             }`}

@@ -1,9 +1,9 @@
 import { useForm } from '$hooks/solid/useForm';
 
 interface FormValues {
-  firstName: string;
-  lastName: string;
-  favoriteColor?: string;
+  name: string;
+  email: string;
+  message: string;
 }
 
 const onSubmit = async (data: any) =>
@@ -16,15 +16,16 @@ const onSubmit = async (data: any) =>
 
 const validate = (values: FormValues) => {
   const errors: Partial<Record<keyof FormValues, string>> = {};
-  if (!values.firstName) errors.firstName = 'Required';
-  if (!values.lastName) errors.lastName = 'Required';
+  if (!values.name) errors.name = 'Required';
+  if (!values.email) errors.email = 'Required';
+  if (!values.message) errors.message = 'Required';
   return errors;
 };
 
 const initialValues: FormValues = {
-  firstName: '',
-  lastName: '',
-  favoriteColor: '',
+  name: '',
+  email: '',
+  message: '',
 };
 
 export const ContactForm = () => {
@@ -35,21 +36,16 @@ export const ContactForm = () => {
     <form class="flex h-96 flex-col items-center justify-center" onSubmit={handleSubmit}>
       <h1>Solid Final Form 🏁</h1>
       <label>
-        <input name="firstName" placeholder="First Name" use:field />
-        <span use:error="firstName" />
+        <input name="name" placeholder="First Name" use:field />
+        <span use:error="name" />
       </label>
       <label>
-        <input name="lastName" placeholder="Last Name" use:field />
-        <span use:error="lastName" />
+        <input name="email" placeholder="Last Name" use:field />
+        <span use:error="email" />
       </label>
       <label>
-        <select name="favoriteColor" use:field>
-          <option value="">Choose a color</option>
-          <option value="#FF0000">Red</option>
-          <option value="#00FF00">Green</option>
-          <option value="#0000FF">Blue</option>
-        </select>
-        <span use:error="favoriteColor" />
+        <textarea name="message" use:field></textarea>
+        <span use:error="message" />
       </label>
       <button type="submit" disabled={isSubmitting()}>
         Submit
