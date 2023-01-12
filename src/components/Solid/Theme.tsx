@@ -62,3 +62,5 @@ export const ThemeToggler = () => {
     </button>
   );
 };
+
+export default ThemeToggler;

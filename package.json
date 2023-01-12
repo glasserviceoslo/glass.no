@@ -27,6 +27,7 @@
     "@sanity/vision": "^3.1.4",
     "astro": "^1.9.1",
     "final-form": "^4.20.7",
+    "flamethrower-router": "^0.0.0-meme.12",
     "nodemailer": "^6.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

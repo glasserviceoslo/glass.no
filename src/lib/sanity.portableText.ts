@@ -20,7 +20,7 @@ const customComponents: PortableTextComponents = {
     },
     image: ({ value }) => {
       return `
-        <figure class="w-full overflow-hidden">
+        <figure class="w-full overflow-hidden shadow rounded">
           <picture>
             <source
               srcset="${getSanityImageURL(value.asset).format('webp').url()}"

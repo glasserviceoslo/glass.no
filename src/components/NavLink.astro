@@ -1,0 +1,18 @@
+---
+import { classNames } from '$lib/classNames';
+
+export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+---
+
+<a
+  href={href}
+  class:list={[className, classNames(isActive ? 'text-red-500' : 'text-gray-700 dark:text-gray-400')]}
+  {...props}
+>
+  <slot />
+</a>
