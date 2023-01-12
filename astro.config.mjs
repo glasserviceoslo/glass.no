@@ -6,7 +6,6 @@ import image from '@astrojs/image';
 import netlify from '@astrojs/netlify/functions';
 import solidJs from '@astrojs/solid-js';
 import react from '@astrojs/react';
-import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,7 +27,5 @@ export default defineConfig({
     port: 3001,
   },
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  adapter: netlify(),
 });
