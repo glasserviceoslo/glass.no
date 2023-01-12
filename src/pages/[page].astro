@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from '$layouts/Page.astro';
 import BlogPost from '$components/BlogPost.astro';
 import { getSanityImageURL } from '$lib/sanity.image';
@@ -17,8 +19,11 @@ import { getPostBySlug } from '$lib/sanity.client';
 // });
 
 const { page } = Astro.params;
-if (!page) return Astro.redirect('/404');
 const post = await getPostBySlug(page!);
+
+if (Object.keys(post).length <= 0) {
+  return Astro.redirect('/404');
+}
 
 const seo = {
   title: post.title,
