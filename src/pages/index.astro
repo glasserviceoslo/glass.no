@@ -1,18 +1,22 @@
 ---
 import Hero from '$components/Hero.astro';
-import AstroCarousel from '$components/Carousel.astro';
+import Carousel from '$components/Carousel.astro';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
+import { parseImages } from '$lib/sanity.image';
+
+const images = await parseImages('home')
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
   description:
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
+  images,
 };
 ---
 
 <Layout seo={seo}>
-  <AstroCarousel />
+  <Carousel images={images} />
   <Feature />
   <Hero />
 </Layout>

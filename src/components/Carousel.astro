@@ -1,31 +1,13 @@
 ---
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
+import type { ImgSources } from "$types";
 
-import { getPostBySlug } from '$lib/sanity.client';
-import type { Image } from '$lib/sanity.queries';
-
-interface ImgSources {
-  default: string;
-  large: string;
-  small: string;
-  altText: string;
-}
-
-const images: Array<ImgSources> = (await getPostBySlug('home')).body
-  .filter((b: any) => b._type === 'image')
-  .map((image: Image) => ({
-    default: getSanityImageURL(image.asset).quality(100).url(),
-    large: getSanityImageURL(image.asset).format('webp').width(2000).url(),
-    small: getSanityImageURL(image.asset).format('webp').width(450).url(),
-    altText: image.asset.altText || removeExt(image.asset.originalFilename),
-  }));
+const { images } = Astro.props as { images: ImgSources[] };
 ---
 
 <section id="default-carousel" class="relative" data-carousel="slide">
   <!-- Carousel wrapper -->
   <figure class="relative h-[70vw] overflow-hidden md:h-[61vw]">
-    {
-      images.map((img) => (
+    { images && images.map((img) => (
         <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
           <source media="(min-width:768px)" srcset={img.large} type="image/webp" />
           <source media="(max-width:600px)" srcset={img.small} type="image/webp" />
