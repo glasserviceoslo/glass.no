@@ -1,7 +1,7 @@
 ---
-import type { ImgSources } from "$types";
+import { parseImages } from '$lib/sanity.image';
 
-const { images } = Astro.props as { images: ImgSources[] };
+const images = await parseImages('home')
 ---
 
 <section id="default-carousel" class="relative" data-carousel="slide">
