@@ -84,12 +84,14 @@ const images = Astro.props.images;
     ))
 }
 
-<link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" />
-<script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
+<!-- <link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" /> -->
+<!-- <script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script> -->
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
 <!-- LocalStorage Theme Check -->
 <script>
+  import 'flowbite';
+
   if (
     localStorage.getItem('color-theme') === 'dark' ||
     (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)

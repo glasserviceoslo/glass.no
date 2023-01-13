@@ -21,9 +21,9 @@ const images: Array<ImgSources> = (await getPostBySlug('home')).body
   }));
 ---
 
-<div id="default-carousel" class="relative -z-10" data-carousel="slide">
+<section id="default-carousel" class="relative" data-carousel="slide">
   <!-- Carousel wrapper -->
-  <section class="relative h-[70vw] overflow-hidden md:h-[61vw]">
+  <figure class="relative h-[70vw] overflow-hidden md:h-[61vw]">
     {
       images.map((img) => (
         <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
@@ -33,7 +33,7 @@ const images: Array<ImgSources> = (await getPostBySlug('home')).body
         </picture>
       ))
     }
-  </section>
+  </figure>
   <!-- Slider indicators -->
   <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
     {
@@ -89,4 +89,4 @@ const images: Array<ImgSources> = (await getPostBySlug('home')).body
       <span class="sr-only">Next</span>
     </span>
   </button>
-</div>
+</section>
