@@ -1,0 +1,92 @@
+---
+import { getSanityImageURL, removeExt } from '$lib/sanity.image';
+
+import { getPostBySlug } from '$lib/sanity.client';
+import type { Image } from '$lib/sanity.queries';
+
+interface ImgSources {
+  default: string;
+  large: string;
+  small: string;
+  altText: string;
+}
+
+const images: Array<ImgSources> = (await getPostBySlug('home')).body
+  .filter((b: any) => b._type === 'image')
+  .map((image: Image) => ({
+    default: getSanityImageURL(image.asset).quality(100).url(),
+    large: getSanityImageURL(image.asset).format('webp').width(2000).url(),
+    small: getSanityImageURL(image.asset).format('webp').width(450).url(),
+    altText: image.asset.altText || removeExt(image.asset.originalFilename),
+  }));
+---
+
+<div id="default-carousel" class="relative -z-10" data-carousel="slide">
+  <!-- Carousel wrapper -->
+  <section class="relative h-[70vw] overflow-hidden md:h-[61vw]">
+    {
+      images.map((img) => (
+        <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
+          <source media="(min-width:768px)" srcset={img.large} type="image/webp" />
+          <source media="(max-width:600px)" srcset={img.small} type="image/webp" />
+          <img class="h-full w-full object-cover" src={img.default} alt={img.altText} />
+        </picture>
+      ))
+    }
+  </section>
+  <!-- Slider indicators -->
+  <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
+    {
+      images.map((_v, i) => (
+        <button
+          type="button"
+          class="h-3 w-3 rounded-full"
+          aria-current="false"
+          aria-label={`Slide ${i++}`}
+          data-carousel-slide-to={i}
+        />
+      ))
+    }
+  </div>
+  <!-- Slider controls -->
+  <button
+    type="button"
+    class="group absolute top-0 left-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+    data-carousel-prev
+  >
+    <span
+      class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10"
+    >
+      <svg
+        aria-hidden="true"
+        class="h-5 w-5 text-white dark:text-gray-800 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg
+      >
+      <span class="sr-only">Previous</span>
+    </span>
+  </button>
+  <button
+    type="button"
+    class="group absolute top-0 right-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+    data-carousel-next
+  >
+    <span
+      class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10"
+    >
+      <svg
+        aria-hidden="true"
+        class="h-5 w-5 text-white dark:text-gray-800 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg
+      >
+      <span class="sr-only">Next</span>
+    </span>
+  </button>
+</div>
