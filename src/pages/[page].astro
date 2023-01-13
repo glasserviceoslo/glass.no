@@ -28,6 +28,7 @@ if (Object.keys(post).length <= 0) {
 const seo = {
   title: post.title,
   description: post.description,
+  keywords: post.seoKeywords?.join(','),
   image: post.mainImage && getSanityImageURL(post.mainImage).width(1200).url(),
 };
 ---

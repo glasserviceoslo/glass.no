@@ -24,6 +24,7 @@ const post = await getPostBySlug(slug!);
 const seo = {
   title: post.title,
   description: post.description,
+  keywords: post.seoKeywords?.join(','),
   image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 ---

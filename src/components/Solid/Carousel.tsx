@@ -39,7 +39,7 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
                 />
                 <source
                   media="(max-width:600px)"
-                  srcset={getSanityImageURL(image.asset).format('webp').width(350).url()}
+                  srcset={getSanityImageURL(image.asset).format('webp').width(450).url()}
                   type="image/webp"
                 />
                 <img

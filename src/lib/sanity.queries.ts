@@ -92,10 +92,9 @@ export interface Post {
   slug?: string;
   body?: any;
   categories?: any;
-  seoTitle?: string;
   description?: string;
-  keywords?: string[];
-  keyphrase?: string;
+  seoKeywords?: string[];
+  seoKeyphrase?: string;
 }
 
 export interface Settings {
