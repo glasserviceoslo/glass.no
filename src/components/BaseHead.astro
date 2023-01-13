@@ -67,9 +67,19 @@ const images = Astro.props.images;
   images &&
     images.map((img) => (
       <>
-        <link rel="preload" as="image" href={getSanityImageURL(img.asset).format('webp').width(2000).url()} />
-        <link rel="preload" as="image" href={getSanityImageURL(img.asset).format('webp').width(350).url()} />
-        <link rel="preload" as="image" href={getSanityImageURL(img.asset).quality(100).url()} />
+        <link
+          rel="preload"
+          as="image"
+          href={getSanityImageURL(img.asset).format('webp').width(2000).url()}
+          fetchpriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href={getSanityImageURL(img.asset).format('webp').width(450).url()}
+          fetchpriority="high"
+        />
+        <link rel="preload" as="image" fetchpriority="high" href={getSanityImageURL(img.asset).quality(100).url()} />
       </>
     ))
 }

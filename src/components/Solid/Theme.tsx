@@ -31,7 +31,7 @@ export const ThemeToggler = () => {
       id="theme-toggle"
       aria-label="theme toggle button"
       type="button"
-      class="absolute right-6 rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+      class="absolute right-[10%] rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700 md:right-[2%]"
       onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
     >
       {theme() === 'dark' ? (
