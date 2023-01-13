@@ -1,6 +1,7 @@
 ---
 import { ThemeToggler } from './Solid/Theme';
 import { Logo } from './Solid/Logo';
+import AstroLogo from '$components/Logo.astro';
 import NavLink from './NavLink.astro';
 ---
 
@@ -8,7 +9,7 @@ import NavLink from './NavLink.astro';
   class="fixed top-0 left-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-gray-900"
 >
   <div class="container mx-auto flex flex-wrap items-center justify-between">
-    <Logo client:visible />
+    <Logo />
     <div class="flex md:order-2">
       <a data-turbo-preload href="/booking" class="btn-primary mr-9 hidden md:block">Gratis Befaring</a>
       <ThemeToggler client:only="solid-js" />
