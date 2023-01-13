@@ -36,16 +36,7 @@ const images: Array<ImgSources> = (await getPostBySlug('home')).body
   </figure>
   <!-- Slider indicators -->
   <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
-    {
-      images.map((_v, i) => (
-        <span
-          class="h-3 w-3 rounded-full"
-          aria-current="false"
-          aria-label={`Slide ${i++}`}
-          data-carousel-slide-to={i}
-        />
-      ))
-    }
+    {images.map((_v, i) => <span class="h-3 w-3 rounded-full" aria-current="false" aria-label={`Slide ${i++}`} />)}
   </div>
   <!-- Slider controls -->
   <button
