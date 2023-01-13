@@ -44,7 +44,6 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
                 />
                 <img
                   class="h-full w-full object-cover"
-                  loading="lazy"
                   src={getSanityImageURL(image.asset).quality(100).url()}
                   alt={image.asset.altText || removeExt(image.asset.originalFilename)}
                 />

@@ -6,13 +6,13 @@ import Layout from '$layouts/Page.astro';
 import { getPostBySlug } from '$lib/sanity.client';
 import type { Image } from '$lib/sanity.queries';
 
+const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
+
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
   description:
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
 };
-
-const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 ---
 
 <Layout seo={seo}>

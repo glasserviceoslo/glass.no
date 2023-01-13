@@ -8,7 +8,6 @@ export const Logo = () => {
     <a href="/" class="flex items-center">
       <img
         src={LogoLight}
-        loading="lazy"
         class="mr-3 hidden aspect-auto h-10 w-auto dark:block md:h-12"
         alt="Glass.no Logo"
         width={100}
@@ -17,7 +16,6 @@ export const Logo = () => {
       />
       <img
         src={LogoDark}
-        loading="lazy"
         class="mr-3 block aspect-auto h-10 w-auto dark:hidden md:h-12"
         alt="Glass.no Logo"
         width={100}
