@@ -11,7 +11,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://glass.no',
   integrations: [
-    tailwind(),
+    tailwind({ config: { applyBaseStyles: false } }),
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),
