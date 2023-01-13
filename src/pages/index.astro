@@ -1,12 +1,8 @@
 ---
 import Hero from '$components/Hero.astro';
-import { Carousel } from '$components/Solid/Carousel';
+import AstroCarousel from '$components/Carousel.astro';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
-import { getPostBySlug } from '$lib/sanity.client';
-import type { Image } from '$lib/sanity.queries';
-
-const images: Array<Image> = (await getPostBySlug('home')).body.filter((b: any) => b._type === 'image');
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -16,7 +12,7 @@ const seo = {
 ---
 
 <Layout seo={seo}>
-  <Carousel client:visible images={images} />
+  <AstroCarousel />
   <Feature />
   <Hero />
 </Layout>
