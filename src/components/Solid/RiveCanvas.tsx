@@ -1,15 +1,18 @@
 import { Rive } from '@rive-app/canvas';
-import { onMount } from 'solid-js';
+import { onMount, onCleanup } from 'solid-js';
 
 let canvas: HTMLCanvasElement;
-export const BookingRive = () => {
+let rive: Rive;
+export const RiveCanvas = ({ src }: { src: string }) => {
   onMount(() => {
-    new Rive({
-      src: '/assets/mobile.riv',
+    rive = new Rive({
+      src,
       canvas,
       autoplay: true,
     });
   });
+
+  onCleanup(() => rive.cleanup());
 
   return (
     <canvas
