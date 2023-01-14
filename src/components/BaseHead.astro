@@ -60,27 +60,6 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 
 <!-- Preload important assets -->
 <link rel="preload" href="/mobile.riv" as="video" crossorigin="anonymous" />
-<link rel="preload" as="image" href="https://cdn.sanity.io/images/csbn9wp4/glassno/c7f290476d4a8dbf9efcbaeb08507e279748c3a5-2965x2965.jpg?q=100&fit=max&auto=format">
-<!-- {
-  images &&
-    (
-      <>
-        <link
-          rel="preload"
-          as="image"
-          href={images[0].large}
-          fetchpriority="high"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href={images[0].small}
-          fetchpriority="high"
-        />
-        <link rel="preload" as="image" fetchpriority="high" href={images[0].default} />
-      </>
-    )
-} -->
 
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
