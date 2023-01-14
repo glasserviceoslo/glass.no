@@ -11,8 +11,8 @@ import NavLink from './NavLink.astro';
   <div class="container mx-auto flex flex-wrap items-center justify-between">
     <Logo />
     <div class="flex md:order-2">
-      <a data-turbo-preload href="/booking" class="btn-primary mr-9 hidden md:block">Gratis Befaring</a>
       <ThemeToggler client:only="solid-js" />
+      <a data-turbo-preload href="/booking" class="btn-primary hidden md:block">Gratis Befaring</a>
       <button
         data-collapse-toggle="navbar-sticky"
         type="button"
