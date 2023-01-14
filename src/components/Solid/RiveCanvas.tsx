@@ -2,14 +2,17 @@ import { Rive } from '@rive-app/canvas';
 import { onMount, onCleanup } from 'solid-js';
 
 let canvas: HTMLCanvasElement;
+let rive: Rive;
 export const RiveCanvas = ({ src }: { src: string }) => {
   onMount(() => {
-    new Rive({
+    rive = new Rive({
       src,
       canvas,
       autoplay: true,
     });
   });
+
+  onCleanup(() => rive.cleanup());
 
   return (
     <canvas
