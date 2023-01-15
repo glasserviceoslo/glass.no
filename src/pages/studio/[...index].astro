@@ -1,8 +1,11 @@
 <html>
   <head></head>
-  <div class="m-0 h-screen overflow-hidden" id="app"></div>
+  <body>
+    <div class="m-0 h-screen overflow-hidden" id="app"></div>
+  </body>
 
   <script>
+    import '$styles/index.css';
     import { renderStudio } from 'sanity';
     import config from 'sanity.config';
 
@@ -12,6 +15,4 @@
       renderStudio(document.getElementById('app'), config);
     }
   </script>
-
-
 </html>
