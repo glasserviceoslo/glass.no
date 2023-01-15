@@ -1,7 +1,8 @@
 // schemas/schema.js
-import author from './author';
-import category from './category';
-import post from './post';
-import project from './project';
+import author from './documents/author';
+import category from './documents/category';
+import post from './documents/post';
+import glassType from './documents/glassType';
+import project from './documents/project';
 
-export default [post, author, category, project];
+export default [post, glassType, author, category, project];
