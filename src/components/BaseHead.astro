@@ -63,6 +63,21 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
+<!-- Google Tag Manager -->
+<script type="text/partytown">
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-M73D3QJ');
+</script>
+<!-- End Google Tag Manager -->
+
 <!-- LocalStorage Theme Check -->
 <script>
   if (
@@ -82,7 +97,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 <!-- Google tag (gtag.js) -->
 <!-- "https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE" -->
 <!-- <script is:inline type="text/partytown" src="/js/gtag.js"></script> -->
-<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
+<!-- <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
 <script type="text/partytown">
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -91,7 +106,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
   gtag('js', new Date());
 
   gtag('config', 'G-BQJLEM0TPE');
-</script>
+</script> -->
 
 <!-- Google Tag Manager -->
 <!-- <script type="text/partytown">
