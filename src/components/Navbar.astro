@@ -6,7 +6,7 @@ import { getAllPostsSlugs } from '$lib/sanity.client';
 
 const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
   slug: s.slug,
-  title: s.slug!.charAt(0).toUpperCase() + s.slug?.slice(1),
+  title: s.slug!.charAt(0).toUpperCase() + s.slug!.slice(1).split('-').join(' '),
 }));
 ---
 
