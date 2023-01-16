@@ -1,5 +1,6 @@
 ---
 import { Logo } from './Solid/Logo';
+const year = new Date().getFullYear();
 ---
 
 <footer class="bg-white p-6 dark:bg-gray-800">
@@ -43,7 +44,8 @@ import { Logo } from './Solid/Logo';
     <hr class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center"
-        >© 2022 <a href="https://s-glass.no" class="hover:underline" target="_blank" rel="noreferrer"
+        >© {year}
+        <a href="https://s-glass.no" class="hover:underline" target="_blank" rel="noreferrer"
           >Glass-Service Svendsen og Sønn AS</a
         >. All Rights Reserved.
       </span>
