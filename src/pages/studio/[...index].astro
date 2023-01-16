@@ -7,16 +7,19 @@
   <body>
     <div class="m-0 h-screen overflow-hidden" id="app"></div>
   </body>
-
-  <script>
-    import '$styles/index.css';
-    import { renderStudio } from 'sanity';
-    import config from 'sanity.config';
-
-    const app = document.getElementById('app');
-
-    if (app) {
-      renderStudio(document.getElementById('app'), config);
-    }
-  </script>
 </html>
+
+<script>
+  import { renderStudio } from 'sanity';
+  import config from 'sanity.config';
+
+  const app = document.getElementById('app');
+
+  if (app) {
+    renderStudio(document.getElementById('app'), config);
+  }
+</script>
+
+<style>
+  @import '../../styles/index.css';
+</style>
