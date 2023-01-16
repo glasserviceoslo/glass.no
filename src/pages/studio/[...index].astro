@@ -11,7 +11,6 @@
 </html>
 
 <script>
-  import 'tailwindcss/tailwind.css';
   import { renderStudio } from 'sanity';
   import config from 'sanity.config';
 
@@ -21,7 +20,8 @@
     renderStudio(document.getElementById('app'), config);
   }
 </script>
-<!-- 
 <style>
-  @import '../../styles/index.css';
-</style> -->
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
