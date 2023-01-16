@@ -5,8 +5,8 @@ import {
   type Settings,
   indexQuery,
   postAndMoreStoriesQuery,
-  postBySlugQuery,
-  postSlugsQuery,
+  docBySlugQuery,
+  docSlugsQuery,
   settingsQuery,
 } from '$lib/sanity.queries';
 
@@ -26,17 +26,17 @@ export async function getAllPosts(): Promise<Post[]> {
   return [];
 }
 
-export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
+export async function getAllPostsSlugs(type: string = 'post'): Promise<Pick<Post, 'slug'>[]> {
   if (client) {
-    const slugs = (await client.fetch<string[]>(postSlugsQuery)) || [];
+    const slugs = (await client.fetch<string[]>(docSlugsQuery, { type })) || [];
     return slugs.map((slug) => ({ slug }));
   }
   return [];
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
+export async function getPostBySlug(slug: string, type: string = 'post'): Promise<Post> {
   if (client) {
-    return (await client.fetch(postBySlugQuery, { slug })) || ({} as any);
+    return (await client.fetch(docBySlugQuery, { slug, type })) || ({} as any);
   }
   return {} as any;
 }

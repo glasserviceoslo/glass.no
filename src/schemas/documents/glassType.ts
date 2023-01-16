@@ -18,12 +18,6 @@ export default defineType({
   ],
   fields: [
     defineField({
-      title: 'Is this a Page?',
-      name: 'isPage',
-      type: 'boolean',
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -104,33 +98,11 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
-    }),
-    defineField({
       name: 'date',
       title: 'Date',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
     }),
-
-    // HTML Group
-    // defineField({
-    //   name: 'htmlToArticleBody',
-    //   title: 'HTML to Article Body',
-    //   type: 'htmlToPortableText',
-    //   group: 'htmlContent',
-    // }),
-    // defineField({
-    //   name: 'articleBody',
-    //   title: 'Article Body',
-    //   type: 'array',
-    //   of: [{ type: 'block' }],
-    //   group: 'htmlContent',
-    // }),
-    // End HTML Group
     defineField({
       name: 'seoTitle',
       title: 'SEO title',
@@ -140,7 +112,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Meta Description',
-      type: 'string',
+      type: 'text',
       group: 'seo',
     }),
     defineField({
@@ -169,14 +141,16 @@ export default defineType({
       title: 'title',
       slug: 'slug',
       date: 'date',
-      media: 'mainImage',
     },
-    prepare({ title, media, slug, date }) {
+    prepare({ title, slug, date }) {
       const subtitles = [slug && `/${slug.current}`, date && `on ${format(parseISO(date), 'LLL d, yyyy')}`].filter(
         Boolean,
       );
 
-      return { title, media, subtitle: subtitles.join(' ') };
+      return {
+        title,
+        subtitle: subtitles.join(' '),
+      };
     },
   },
 });

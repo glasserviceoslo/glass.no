@@ -68,12 +68,12 @@ export const postAndMoreStoriesQuery = groq`
   }
 }`;
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
+export const docSlugsQuery = groq`
+*[_type == $type && defined(slug.current)][].slug.current
 `;
 
-export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
+export const docBySlugQuery = groq`
+*[_type == $type && slug.current == $slug][0] {
   ${postFields}
 }
 `;
