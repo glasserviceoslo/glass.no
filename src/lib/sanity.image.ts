@@ -17,6 +17,6 @@ export const parseImages = async (slug: string): Promise<ImgSources[]> =>
     .map((image: Image) => ({
       default: getSanityImageURL(image.asset).quality(100).url(),
       large: getSanityImageURL(image.asset).format('webp').width(2000).url(),
-      small: getSanityImageURL(image.asset).format('webp').width(450).url(),
+      small: getSanityImageURL(image.asset).format('webp').width(650).url(),
       altText: image.asset.altText || removeExt(image.asset.originalFilename),
     }));
