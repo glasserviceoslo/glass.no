@@ -15,7 +15,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
 >
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
     <Logo />
-    <div class="flex gap-3 md:order-2">
+    <div class="flex md:order-2">
       <ThemeToggler />
       <!-- <ThemeToggler client:only="solid-js" /> -->
       <a data-turbo-preload href="/booking" class="btn-primary hidden md:block">
