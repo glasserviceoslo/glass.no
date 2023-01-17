@@ -3,6 +3,7 @@ import Hero from '$components/Hero.astro';
 import Carousel from '$components/Carousel.astro';
 import Feature from '$components/Feature.astro';
 import Layout from '$layouts/Page.astro';
+import Motto from '$components/Motto.astro';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -12,7 +13,10 @@ const seo = {
 ---
 
 <Layout seo={seo}>
-  <Carousel />
+  <section class="h-[calc(100vh-3rem)] bg-white dark:bg-gray-900">
+    <Carousel />
+    <Motto />
+  </section>
   <Feature />
   <Hero />
 </Layout>

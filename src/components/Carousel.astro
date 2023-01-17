@@ -4,9 +4,9 @@ import { parseImages } from '$lib/sanity.image';
 const images = await parseImages('home');
 ---
 
-<section id="default-carousel" class="relative" data-carousel="slide">
+<article id="default-carousel" class="relative h-3/4" data-carousel="slide">
   <!-- Carousel wrapper -->
-  <figure class="relative z-0 h-[61vh] overflow-hidden md:h-[72vh]">
+  <figure class="relative z-0 h-full overflow-hidden">
     {
       images &&
         images.map((img) => (
@@ -63,4 +63,4 @@ const images = await parseImages('home');
       <span class="sr-only">Next</span>
     </span>
   </button>
-</section>
+</article>
