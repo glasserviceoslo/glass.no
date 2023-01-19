@@ -2,8 +2,8 @@ import { createEffect, createSignal } from 'solid-js';
 
 const initializeTheme = () => {
   let theme;
-  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-    theme = localStorage.getItem('theme') as 'light' | 'dark';
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('color-theme')) {
+    theme = localStorage.getItem('color-theme') as 'light' | 'dark';
   } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     theme = 'dark';
   } else {
@@ -15,16 +15,16 @@ const initializeTheme = () => {
 export const ThemeToggler = () => {
   const [theme, setTheme] = createSignal<string>(initializeTheme());
 
-  createEffect(() => {
-    const root = document.documentElement;
-    if (theme() === 'light') {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  });
+  // createEffect(() => {
+  //   const root = document.documentElement;
+  //   if (theme() === 'light') {
+  //     root.classList.remove('dark');
+  //     localStorage.setItem('theme', 'light');
+  //   } else {
+  //     root.classList.add('dark');
+  //     localStorage.setItem('theme', 'dark');
+  //   }
+  // });
 
   return (
     <button
