@@ -3,6 +3,7 @@ import { useForm } from '$hooks/solid/useForm';
 interface FormValues {
   name: string;
   email: string;
+  phone: string;
   message: string;
 }
 
@@ -26,6 +27,7 @@ const validate = (values: FormValues) => {
 const initialValues: FormValues = {
   name: '',
   email: '',
+  phone: '',
   message: '',
 };
 
@@ -57,6 +59,16 @@ export const ContactForm = () => {
             use:field
           />
           <span class="italic text-red-500" use:error="email" />
+        </label>
+        <label class="flex flex-col">
+          <input
+            class="rounded border bg-gray-100 p-1 focus:bg-white"
+            type="phone"
+            name="phone"
+            placeholder="Tel"
+            use:field
+          />
+          <span class="italic text-red-500" />
         </label>
         <label class="flex flex-col">
           <textarea
