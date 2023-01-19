@@ -1,1 +1,2 @@
-/.netlify/functions/sendEmail   /404
+/home               /              301
+/.netlify/*         /404           404
