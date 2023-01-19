@@ -15,16 +15,16 @@ const initializeTheme = () => {
 export const ThemeToggler = () => {
   const [theme, setTheme] = createSignal<string>(initializeTheme());
 
-  // createEffect(() => {
-  //   const root = document.documentElement;
-  //   if (theme() === 'light') {
-  //     root.classList.remove('dark');
-  //     localStorage.setItem('theme', 'light');
-  //   } else {
-  //     root.classList.add('dark');
-  //     localStorage.setItem('theme', 'dark');
-  //   }
-  // });
+  createEffect(() => {
+    const root = document.documentElement;
+    if (theme() === 'light') {
+      root.classList.remove('dark');
+      localStorage.setItem('color-theme', 'light');
+    } else {
+      root.classList.add('dark');
+      localStorage.setItem('color-theme', 'dark');
+    }
+  });
 
   return (
     <button
