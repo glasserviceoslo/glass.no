@@ -3,14 +3,9 @@
   publish = "dist"
 
   [[redirects]]
-    from = "/.netlify/*"
-    to = "/404"
-    status = 404
-
-  [[redirects]]
-    from = "/en/reference/renderer-reference"
-    to = "/en/reference/integrations-reference"
-
+    from = "/home"
+    to = "/"
+    status = 301
 
 
 [dev]
