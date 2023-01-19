@@ -2,9 +2,9 @@ import { createEffect, createSignal } from 'solid-js';
 
 const initializeTheme = () => {
   let theme;
-  if (typeof localStorage !== 'undefined' && localStorage.getItem('color-theme')) {
-    theme = localStorage.getItem('color-theme') as 'light' | 'dark';
-  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+    theme = localStorage.getItem('theme') as 'light' | 'dark';
+  } else if (window.matchMedia('(prefers-scheme: dark)').matches) {
     theme = 'dark';
   } else {
     theme = 'light';
@@ -19,10 +19,10 @@ export const ThemeToggler = () => {
     const root = document.documentElement;
     if (theme() === 'light') {
       root.classList.remove('dark');
-      localStorage.setItem('color-theme', 'light');
+      localStorage.setItem('theme', 'light');
     } else {
       root.classList.add('dark');
-      localStorage.setItem('color-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
     }
   });
 
