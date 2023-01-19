@@ -75,7 +75,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 <!-- End Google Tag Manager -->
 
 <!-- LocalStorage Theme Check -->
-<script>
+<!-- <script>
   if (
     localStorage.getItem('color-theme') === 'dark' ||
     (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -84,7 +84,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
   } else {
     document.documentElement.classList.remove('dark');
   }
-</script>
+</script> -->
 
 <script>
   import 'flowbite';

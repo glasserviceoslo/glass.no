@@ -37,7 +37,7 @@ export const ThemeToggler = () => {
       {theme() === 'dark' ? (
         <svg
           id="theme-toggle-dark-icon"
-          class="h-5 w-5"
+          class="relative h-5 w-5"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
