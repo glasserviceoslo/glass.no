@@ -1,8 +1,8 @@
 ---
 import NavLink from './NavLink.astro';
 import { getAllPostsSlugs } from '$lib/sanity.client';
-import ThemeToggler from './ThemeToggler.astro';
 import Logo from './Logo.astro';
+import ThemeToggler from './Solid/Theme';
 
 const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
   slug: s.slug,
@@ -16,8 +16,9 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
     <Logo />
     <div class="flex md:order-2">
-      <ThemeToggler />
-      <!-- <ThemeToggler client:only="solid-js" /> -->
+      <div class="relative w-14 bg-white p-2.5 dark:bg-gray-900">
+        <ThemeToggler client:only="solid-js" />
+      </div>
       <a data-turbo-preload href="/booking" class="btn-primary hidden md:block">
         <span class="hidden lg:block">Gratis Befaring</span>
         <svg
