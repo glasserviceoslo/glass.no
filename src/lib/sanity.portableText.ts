@@ -1,7 +1,8 @@
 // import { portableTextToHtml } from 'astro-sanity';
-import { type PortableTextComponents, toHTML } from '@portabletext/to-html';
+import { type PortableTextComponents, toHTML, type PortableTextBlockComponent } from '@portabletext/to-html';
 import { getSanityImageURL, removeExt } from './sanity.image';
 
+// Default Portable Text to HTML
 const customComponents: PortableTextComponents = {
   types: {
     mainImage: ({ value }) => {
@@ -43,6 +44,46 @@ const customComponents: PortableTextComponents = {
   },
 };
 
-export function sanityPortableText(portabletext: any) {
+export const sanityPortableText = (portabletext: any) => {
   return toHTML(portabletext, { components: customComponents });
-}
+};
+
+// For Features Section
+const featuresComp: PortableTextComponents = {
+  block: {
+    normal: ({ children, value }) => {
+      if (children?.length === 0) {
+        return '';
+      }
+      return `<p>${children}</p>`;
+    },
+    h2: ({ children, value }) => {
+      if (children?.length === 0) {
+        return '';
+      }
+      return `<h2>${children}</h2>`;
+    },
+  },
+  types: {
+    image: ({ value }) => {
+      if (!value.asset._id.endsWith('svg')) {
+        return '';
+      }
+      return `
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <image xlink:href="${getSanityImageURL(value.asset).url()}" />
+        </svg>
+      `;
+    },
+  },
+  marks: {
+    internalLink: ({ children, value }) => {
+      console.log('🚀 ~ file: sanity.portableText.ts:83 ~ children', children);
+      return `<a href="/posts/${value.slug.current}">${children}</a>`;
+    },
+  },
+};
+
+export const featuresToHtml = (portabletext: any) => {
+  return toHTML(portabletext, { components: featuresComp });
+};

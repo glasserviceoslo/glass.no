@@ -1,11 +1,28 @@
 ---
-export const prerender = true;
+import { Calendar } from '$components/React/Calendar';
 import { Features } from '$components/Solid/Features';
 import Layout from '$layouts/Page.astro';
+import { getPostBySlug } from '$lib/sanity.client';
+import { getSanityImageURL } from '$lib/sanity.image';
+import { featuresToHtml } from '$lib/sanity.portableText';
+
+const getSvgMarkup = (url: string) => fetch(url).then((res) => res.text());
+
+const home = (await getPostBySlug('home')).body;
+
+const content = featuresToHtml(home.filter((b: any) => b.style === 'h3' || b.style === 'normal'));
+
+const svgUrls: string[] = home
+  .filter((b: any) => b._type === 'image' && b?.asset._id.endsWith('svg'))
+  .map((svg: any) => getSanityImageURL(svg.asset).url());
+
+const svgs = await Promise.all(svgUrls.map((url) => getSvgMarkup(url)));
 ---
 
 <Layout>
-  <div class="h-screen w-screen">
-    <Features client:only="solid-js" />
+  <div class="min-h-screen w-screen p-8">
+    <Calendar client:visible />
+    <!-- <Fragment set:html={featuresToHtml(home)} /> -->
+    <!-- <pre>{content}</pre> -->
   </div>
 </Layout>

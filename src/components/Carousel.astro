@@ -1,10 +1,7 @@
 ---
-import { getPostBySlug } from '$lib/sanity.client';
 import { parseImages } from '$lib/sanity.image';
 
 const images = await parseImages('home', 'svg');
-const post = (await getPostBySlug('home')).body;
-console.log('🚀 ~ file: Carousel.astro:7 ~ post', post);
 ---
 
 <article id="default-carousel" class="relative h-1/2 md:h-3/4" data-carousel="slide">
