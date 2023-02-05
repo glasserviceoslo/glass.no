@@ -8,7 +8,7 @@ export const post: APIRoute = async ({ request }) => {
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    // secure: true,
+    secure: import.meta.env.PROD,
     auth: {
       user: import.meta.env.GMAIL_USER,
       pass: import.meta.env.GMAIL_PASSWORD,
@@ -21,7 +21,8 @@ export const post: APIRoute = async ({ request }) => {
       body: 'Nothing in the request body',
     };
   }
-
+  console.log('PROD', import.meta.env.PROD);
+  console.log(import.meta.env.DEV);
   const opts: MailOptions = {
     from: `"${data.name}"${data.email}`,
     to: import.meta.env.GLASSNO_EMAIL,
