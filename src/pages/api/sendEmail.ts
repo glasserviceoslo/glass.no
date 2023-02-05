@@ -21,10 +21,14 @@ export const post: APIRoute = async ({ request }) => {
       body: 'Nothing in the request body',
     };
   }
+  `"${data.name}"${data.email}`;
   console.log('PROD', import.meta.env.PROD);
-  console.log(import.meta.env.DEV);
+
   const opts: MailOptions = {
-    from: `"${data.name}"${data.email}`,
+    from: {
+      name: data.name,
+      address: data.email,
+    },
     to: import.meta.env.GLASSNO_EMAIL,
     subject: `Kontaktskjema - ${data.name}`,
     text: data.message,
