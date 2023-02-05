@@ -27,6 +27,7 @@ export const post: APIRoute = async ({ request }) => {
       address: data.email,
     },
     to: import.meta.env.GLASSNO_EMAIL,
+    replyTo: data.email,
     subject: `Kontaktskjema - ${data.name}`,
     text: data.message,
     // attachments: [{
