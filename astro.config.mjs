@@ -7,10 +7,20 @@ import solidJs from '@astrojs/solid-js';
 import react from '@astrojs/react';
 
 // https://astro.build/config
+import svelte from '@astrojs/svelte';
+
+// https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
   site: 'https://glass.no',
+  sitemap: true,
   integrations: [
-    tailwind({ config: { applyBaseStyles: false } }),
+    tailwind({
+      config: {
+        applyBaseStyles: false,
+      },
+    }),
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),
@@ -21,6 +31,7 @@ export default defineConfig({
     }),
     solidJs(),
     react(),
+    svelte(),
   ],
   server: {
     port: 5001,
