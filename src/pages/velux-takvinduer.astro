@@ -16,8 +16,7 @@ import { getPostBySlug } from '$lib/sanity.client';
 //   })),
 // });
 
-const { page } = Astro.params;
-const post = await getPostBySlug(page!);
+const post = await getPostBySlug('velux-takvinduer');
 
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');

@@ -20,8 +20,6 @@ export const ContactForm = () => {
     }
   }, [formState, reset]);
 
-  console.log(errors);
-
   return (
     <form className="flex h-96 flex-col items-stretch justify-center gap-2" onSubmit={handleSubmit(onSubmit)}>
       <input
