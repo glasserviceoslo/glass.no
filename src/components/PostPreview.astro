@@ -16,8 +16,8 @@ const { post } = Astro.props;
         {
           post.mainImage && (
             <Image
-              width="720"
-              height="420"
+              width={720}
+              height={420}
               class="post-main__img"
               alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
               loading="lazy"

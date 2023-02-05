@@ -17,7 +17,7 @@ const { post } = Astro.props;
     post.mainImage && (
       <Image
         width={2000}
-        aspectRatio={2.5}
+        height={800}
         alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
         class="max-h-[40vw] w-full"
         loading="lazy"
@@ -26,7 +26,7 @@ const { post } = Astro.props;
     )
   }
   <header class="mb-10 flex flex-col items-center justify-center pt-8 text-center md:mb-12">
-    <h1 class="text-6xl font-bold leading-tight tracking-normal md:pr-8 md:text-8xl">
+    <h1 class="text-4xl font-bold leading-tight tracking-normal md:pr-8 md:text-6xl">
       {post.title}
     </h1>
     <h4

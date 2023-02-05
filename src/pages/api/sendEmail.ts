@@ -53,6 +53,4 @@ export const post: APIRoute = async ({ request }) => {
       }),
     };
   }
-
-  // const body = JSON.parse(request);
 };
