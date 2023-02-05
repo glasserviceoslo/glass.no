@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import partytown from '@astrojs/partytown';
 import image from '@astrojs/image';
-
-import netlify from '@astrojs/netlify/functions';
+import node from '@astrojs/node';
 import solidJs from '@astrojs/solid-js';
 import react from '@astrojs/react';
 
@@ -24,8 +23,10 @@ export default defineConfig({
     react(),
   ],
   server: {
-    port: 3001,
+    port: 5001,
   },
   output: 'server',
-  adapter: netlify(),
+  adapter: node({
+    mode: 'standalone',
+  }),
 });

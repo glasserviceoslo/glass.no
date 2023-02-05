@@ -3,45 +3,53 @@ import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 
 export const post: APIRoute = async ({ request }) => {
+  const data = await request.json();
+
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: true,
+    // secure: true,
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSWORD,
+      user: import.meta.env.GMAIL_USER,
+      pass: import.meta.env.GMAIL_PASSWORD,
     },
   });
 
-  // if (!request) {
-  //   return {
-  //     statusCode: 404,
-  //     body: 'Nothing in the request body',
-  //   };
-  // }
+  if (!data) {
+    return {
+      status: 404,
+      body: 'Nothing in the request body',
+    };
+  }
+
+  const opts: MailOptions = {
+    from: `"${data.name}"${data.email}`,
+    to: import.meta.env.GLASSNO_EMAIL,
+    subject: `Kontaktskjema - ${data.name}`,
+    text: data.message,
+    // attachments: [{
+    //   filename:
+    // }]
+  };
+
+  try {
+    const info = await transporter.sendMail(opts);
+
+    return {
+      status: 200,
+      body: JSON.stringify({
+        message: `Email sent: ${info.response}`,
+      }),
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 500,
+      body: JSON.stringify({
+        message: 'Something unexpected happened, please try again later!',
+      }),
+    };
+  }
+
   // const body = JSON.parse(request);
-
-  // const opts: MailOptions = {
-  //   from: `"${body.name}"${body.email}`,
-  //   to: process.env.GLASSNO_EMAIL,
-  //   subject: `Kontaktskjema - ${body.name}`,
-  //   text: body.message,
-  //   // attachments: [{
-  //   //   filename:
-  //   // }]
-  // };
-
-  // try {
-  //   const info = await transporter.sendMail(opts);
-  //   return {
-  //     statusCode: 200,
-  //     body: `Email sent: ${info.response}`,
-  //   };
-  // } catch (error) {
-  //   console.error(error);
-  //   return {
-  //     statusCode: 500,
-  //     body: 'Something unexpected happened, please try again later!',
-  //   };
-  // }
 };
