@@ -1,5 +1,4 @@
 ---
-import { Calendar } from '$components/React/Calendar';
 import { Features } from '$components/Solid/Features';
 import Layout from '$layouts/Page.astro';
 import { getPostBySlug } from '$lib/sanity.client';
@@ -21,7 +20,6 @@ const svgs = await Promise.all(svgUrls.map((url) => getSvgMarkup(url)));
 
 <Layout>
   <div class="min-h-screen w-screen p-8">
-    <Calendar client:visible />
     <!-- <Fragment set:html={featuresToHtml(home)} /> -->
     <!-- <pre>{content}</pre> -->
   </div>
