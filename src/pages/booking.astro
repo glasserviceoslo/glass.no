@@ -2,9 +2,12 @@
 export const prerender = true;
 
 import Latepoint from '$components/Latepoint.astro';
+import BookingPage from '$components/Svelte/BookingPage.svelte';
 import Layout from '$layouts/Page.astro';
 ---
 
 <Layout>
-  <Latepoint />
+  <section class="flex h-[calc(100vh-298px)] items-center justify-center pt-20">
+    <BookingPage client:visible />
+  </section>
 </Layout>

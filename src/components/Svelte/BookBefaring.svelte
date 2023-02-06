@@ -10,6 +10,6 @@
   })  
 </script>
 
-<button class="btn-primary" data-cal-link="glassno/befaring">
+<button class="btn-primary hidden md:block" data-cal-link="glassno/befaring">
   Gratis Befaring
 </button>
