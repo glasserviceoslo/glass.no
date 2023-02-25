@@ -16,12 +16,22 @@ jobs:
       - name: 🔨 Build Project
         id: build-step
         run: |
-          # yarn install
-          # yarn build
-          # cd dist
-          pwd
+          yarn install
+          yarn build
 
-      - name: Deploy via SSH
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz -e ssh ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.APPLICATION_PATH }}
+
+      - name: Start the Application
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
@@ -29,7 +39,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script_stop: true
           script: |
-            pwd
-            # pm2 stop 0
-            # cp -R /home/runner/work/glass.no/glass.no/dist/ ${{ secrets.APPLICATION_PATH }}
-            # pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
+            pm2 stop 0
+            pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
