@@ -25,16 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: appleboy/ssh-action@v0.1.7
-        env:
-          DIST_PATH: ${{ needs.build.outputs.dist-path }}
-          APPLICATION_PATH: ${{ secrets.APPLICATION_PATH }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          envs: DIST_PATH,APPLICATION_PATH
           script_stop: true
           script: |
             pm2 stop 0
-            cp -R $DIST_PATH $APPLICATION_PATH
-            pm2 start "$APPLICATION_PATH/server/entry.mjs"
+            cp -R ${{ needs.build.outputs.dist-path }}/ ${{ secrets.APPLICATION_PATH }}/
+            pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
