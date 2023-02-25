@@ -16,19 +16,20 @@ jobs:
       - name: 🔨 Build Project
         id: build-step
         run: |
-          yarn install
-          yarn build
+          # yarn install
+          # yarn build
+          # cd dist
           pwd
-          ls -la
 
-      # - name: Deploy via SSH
-      #   uses: appleboy/ssh-action@v0.1.7
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     password: ${{ secrets.PASSWORD }}
-      #     script_stop: true
-      #     script: |
-      #       pm2 stop 0
-      #       cp -R "$(pwd)/dist/" ${{ secrets.APPLICATION_PATH }}
-      #       pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script_stop: true
+          script: |
+            pwd
+            # pm2 stop 0
+            # cp -R /home/runner/work/glass.no/glass.no/dist/ ${{ secrets.APPLICATION_PATH }}
+            # pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
