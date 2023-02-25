@@ -32,5 +32,5 @@ jobs:
           script_stop: true
           script: |
             pm2 stop 0
-            cp -R ${{ needs.build.outputs.dist-path }}/dist/ ${{ secrets.APPLICATION_PATH }}/
+            cp -R ${{ needs.build.outputs.dist-path }} ${{ secrets.APPLICATION_PATH }}/
             pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
