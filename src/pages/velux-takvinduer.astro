@@ -4,26 +4,10 @@ import BlogPost from '$components/BlogPost.astro';
 import { getSanityImageURL } from '$lib/sanity.image';
 import { getPostBySlug } from '$lib/sanity.client';
 
-// rss({
-//   title: 'Example Blog',
-//   description: 'An example blog on Astro',
-//   customData: `<language>en-us</language>`,
-//   items: allBlogPosts.map(item => ({
-//     title: item.title,
-//     description: item.description,
-//     link: `/posts/${item.slug.current}`,
-//     pubDate: item.publishedAt,
-//   })),
-// });
-
-const { page } = Astro.params;
-
-const post = await getPostBySlug(page!);
-
+const post = await getPostBySlug('velux-takvinduer');
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');
 }
-
 const seo = {
   title: post.title,
   description: post.description,

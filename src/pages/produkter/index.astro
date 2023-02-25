@@ -1,0 +1,25 @@
+---
+export const prerender = true;
+
+import Container from '$components/Container.astro';
+import PostPreview from '$components/PostPreview.astro';
+import Layout from '$layouts/Page.astro';
+import { getAllPages } from '$lib/sanity.client';
+
+const products = (await getAllPages()).filter(
+  (p) => p.slug !== 'smijernsdor' && p.slug !== 'velux-takvinduer' && p.slug !== 'home',
+);
+
+const seo = {
+  title: 'Produkter',
+  description: 'Vinduer og dører, dusjvegger og dusjdører',
+};
+---
+
+<Layout seo={seo}>
+  <div class="min-h-[calc(100vh-289px)] px-12 py-8">
+    <section class="grid gap-12 md:grid-cols-2">
+      {products.map((post) => <PostPreview path="produkter" post={post} />)}
+    </section>
+  </div>
+</Layout>

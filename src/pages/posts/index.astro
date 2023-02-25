@@ -18,7 +18,7 @@ const allPostData = await getAllPosts();
 <Layout seo={seo}>
   <Container>
     <section>
-      {allPostData.map((post) => <PostPreview post={post} />)}
+      {allPostData.map((post) => <PostPreview path="posts" post={post} />)}
     </section>
   </Container>
 </Layout>

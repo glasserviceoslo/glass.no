@@ -8,6 +8,9 @@ import {
   docBySlugQuery,
   docSlugsQuery,
   settingsQuery,
+  categoriesQuery,
+  Category,
+  pagesQuery,
 } from '$lib/sanity.queries';
 
 const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
@@ -26,10 +29,24 @@ export async function getAllPosts(): Promise<Post[]> {
   return [];
 }
 
+export async function getAllPages(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(pagesQuery)) || [];
+  }
+  return [];
+}
+
 export async function getAllPostsSlugs(type: string = 'post'): Promise<Pick<Post, 'slug'>[]> {
   if (client) {
     const slugs = (await client.fetch<string[]>(docSlugsQuery, { type })) || [];
     return slugs.map((slug) => ({ slug }));
+  }
+  return [];
+}
+
+export async function getAllCategoriesWithPosts(): Promise<Category[]> {
+  if (client) {
+    return (await client.fetch(categoriesQuery)) || [];
   }
   return [];
 }

@@ -1,7 +1,6 @@
 ---
 import Layout from '$layouts/Post.astro';
 import BlogPost from '$components/BlogPost.astro';
-import { getSanityImageURL } from '$lib/sanity.image';
 import { getPostBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
@@ -12,7 +11,6 @@ const seo = {
   title: post.title,
   description: post.description,
   keywords: post.seoKeywords?.join(','),
-  image: getSanityImageURL(post.mainImage).width(1200).url(),
 };
 ---
 

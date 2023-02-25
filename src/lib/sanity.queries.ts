@@ -46,6 +46,12 @@ export const indexQuery = groq`
   ${postFields}
 }`;
 
+export const pagesQuery = groq`
+*[_type == "post" && isPage == true] | order(date desc, _updatedAt desc) 
+{
+  ${postFields}
+}`;
+
 export const postAndMoreStoriesQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
@@ -68,6 +74,16 @@ export const postAndMoreStoriesQuery = groq`
   }
 }`;
 
+export const categoriesQuery = groq`*[_type == 'category'] 
+{
+  _id,
+  description,
+  title,
+  "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
+    ${postFields}
+  }
+}`;
+
 export const docSlugsQuery = groq`
 *[_type == $type && defined(slug.current)][].slug.current
 `;
@@ -81,6 +97,13 @@ export const docBySlugQuery = groq`
 export interface Author {
   name?: string;
   picture?: any;
+}
+
+export interface Category {
+  _id: string;
+  title?: string;
+  description?: string;
+  posts: Post[];
 }
 
 export interface Post {
