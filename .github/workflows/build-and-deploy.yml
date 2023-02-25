@@ -1,5 +1,4 @@
-name: 🚀 Upload files to server
-
+name: 🚀 Deploy
 on:
   push:
     branches: [main]
