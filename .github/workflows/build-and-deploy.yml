@@ -4,7 +4,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-copy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,10 +17,14 @@ jobs:
         run: |
           yarn install
           yarn build
-          ls -la
+          echo "::set-output name=dist-path::$(pwd)/dist"
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.7
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -28,5 +32,5 @@ jobs:
           script_stop: true
           script: |
             pm2 stop 0
-            cp -R dist/ ${{ secrets.APPLICATION_PATH }}
-            pm2 start ${{ secrets.APPLICATION_PATH }}/dist/server/entry.mjs
+            cp -R ${{ needs.build.outputs.dist-path }} ${{ secrets.APPLICATION_PATH }}
+            pm2 start ${{ secrets.APPLICATION_PATH }}/server/entry.mjs
