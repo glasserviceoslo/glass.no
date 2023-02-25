@@ -12,7 +12,6 @@ const onSubmit = async (data: FormValues) => {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  console.log(response);
   return response;
 };
 
