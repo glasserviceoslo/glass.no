@@ -18,11 +18,14 @@ jobs:
           yarn install
           yarn build
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      - name: SSH Connect
+        uses: appleboy/ssh-action@v0.1.7
         with:
-          server: ${{ secrets.HOST }}
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          local-dir: dist/
-          server-dir: /home/glass.no/public_html/
+          script_stop: true
+          script: |
+            pm2 stop 0
+            cp -R dist/ ${{ secrets.APPLICATION_PATH }}
+            pm2 start ${{ secrets.APPLICATION_PATH }}/dist/server/entry.mjs
