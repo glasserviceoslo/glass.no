@@ -13,7 +13,7 @@ export const removeExt = (filename: string) => filename.split('.').slice(0, -1).
 
 export const parseImages = async (slug: string, excludedExt: string): Promise<ImgSources[]> => {
   const posts = await getPostBySlug(slug);
-  return posts.body
+  return posts?.body
     .filter((b: any) => b._type === 'image' && !b?.asset._id.endsWith(excludedExt))
     .map((image: Image) => ({
       default: getSanityImageURL(image.asset).quality(100).url(),
