@@ -1,4 +1,4 @@
-import createClient from '@sanity/client';
+import { createClient } from '@sanity/client';
 import { apiVersion, dataset, projectId, useCdn } from '$lib/sanity.api';
 import {
   type Post,
