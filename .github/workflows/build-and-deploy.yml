@@ -25,11 +25,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: unnecessary
 
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
-
       - name: Deploy with rsync
-        run: rsync -avz -e ssh ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.APPLICATION_PATH }}
+        run: rsync -avz -e ssh -p 22 ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.APPLICATION_PATH }}
 
       - name: Start the Application
         uses: appleboy/ssh-action@v0.1.7
