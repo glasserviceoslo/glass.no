@@ -17,8 +17,9 @@ jobs:
         run: |
           yarn install
           yarn build
+          ls -la
 
-      - name: SSH Connect
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
