@@ -1,0 +1,29 @@
+name: 🚀 Upload files to server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: 🔨 Build Project
+        run: |
+          yarn install
+          yarn build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          local-dir: dist/
+          server-dir: /home/glass.no/public_html/
