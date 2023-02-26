@@ -13,7 +13,13 @@ export const ContactForm = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const onSubmit = async (data: any) =>
-    await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, { method: 'POST', body: JSON.stringify(data) });
+    await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
+      headers: {
+        'Access-Control-Allow-Origin': 'https://glass.no, https://www.glass.no',
+      },
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
 
   useEffect(() => {
     if (isSubmitSuccessful) {
