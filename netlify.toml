@@ -10,5 +10,5 @@
 
 [dev]
   command = "yarn start"
-  targetPort = 3001
+  targetPort = 5001
   envFiles = [".env"]
