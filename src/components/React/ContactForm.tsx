@@ -13,7 +13,7 @@ export const ContactForm = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const onSubmit = async (data: any) =>
-    await fetch(`${process.env.URL}/.netlify/functions/get-mapid`, { method: 'POST', body: JSON.stringify(data) });
+    await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, { method: 'POST', body: JSON.stringify(data) });
 
   useEffect(() => {
     if (isSubmitSuccessful) {
