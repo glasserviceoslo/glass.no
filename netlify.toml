@@ -2,10 +2,15 @@
   command = "yarn build"
   publish = "dist"
 
-  [[redirects]]
-    from = "/home"
-    to = "/"
-    status = 301
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+      Access-Control-Allow-Origin = "https://glass.no"
 
 
 [dev]
