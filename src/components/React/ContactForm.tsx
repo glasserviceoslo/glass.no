@@ -12,11 +12,8 @@ export const ContactForm = () => {
     formState,
     formState: { errors, isSubmitSuccessful },
   } = useForm();
-  const onSubmit = async (data: any) =>
+  const onSubmit = async (data: unknown) =>
     await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
-      headers: {
-        'Access-Control-Allow-Origin': 'https://glass.no, https://www.glass.no',
-      },
       method: 'POST',
       body: JSON.stringify(data),
     });
