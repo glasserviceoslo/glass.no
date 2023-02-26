@@ -16,7 +16,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
 >
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
     <Logo />
-    <div class="flex md:order-2">
+    <div class="flex gap-2 md:order-2">
       <div class="relative w-14 bg-white p-2.5 dark:bg-gray-900">
         <ThemeToggler client:only="solid-js" />
       </div>
