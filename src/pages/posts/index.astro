@@ -1,10 +1,8 @@
 ---
-// Component Imports
 import Layout from '$layouts/Page.astro';
 import PostPreview from '$components/PostPreview.astro';
 
 import { getAllPosts } from '$lib/sanity.client';
-import Container from '$components/Container.astro';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS Blogg',
@@ -12,13 +10,13 @@ const seo = {
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
 };
 
-const allPostData = await getAllPosts();
+const posts = await getAllPosts();
 ---
 
 <Layout seo={seo}>
-  <Container>
-    <section>
-      {allPostData.map((post) => <PostPreview path="posts" post={post} />)}
+  <div class="min-h-[calc(100vh-289px)] px-12 py-8">
+    <section class="grid gap-12 md:grid-cols-2 2xl:grid-cols-3">
+      {posts.map((post) => <PostPreview path="posts" post={post} />)}
     </section>
-  </Container>
+  </div>
 </Layout>

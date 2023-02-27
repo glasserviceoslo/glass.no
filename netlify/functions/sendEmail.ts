@@ -1,8 +1,8 @@
-import type { Handler, HandlerEvent } from '@netlify/functions';
+import type { Handler } from '@netlify/functions';
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 
-const handler: Handler = async (event: HandlerEvent) => {
+const handler: Handler = async (event) => {
   const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 587,
