@@ -6,9 +6,9 @@ import { getPostBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
 
-if (slug === 'smijernsdor' || slug === 'velux-takvinduer' || slug === 'home') {
-  return Astro.redirect('/404');
-}
+// if (slug === 'smijernsdor' || slug === 'velux-takvinduer' || slug === 'home') {
+//  return Astro.redirect('/404');
+// }
 
 const post = await getPostBySlug(slug!);
 
