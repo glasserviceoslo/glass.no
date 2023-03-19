@@ -80,8 +80,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 </script>
 
 <!-- Google tag (gtag.js) -->
-<!-- "https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE" -->
-<script is:inline type="text/partytown" src="/js/gtag.js"></script>
+<script async type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
 <script type="text/partytown">
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -91,4 +90,3 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 
   gtag('config', 'G-BQJLEM0TPE');
 </script>
-<!-- <script defer data-domain="glass.no" src="https://analytics.glass.no/js/script.js"></script> -->
