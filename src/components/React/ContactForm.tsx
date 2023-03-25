@@ -112,16 +112,9 @@ export const ContactForm = () => {
                       </label>
                     </div> */}
 
-                    {/* <div className="mb-6">
-                      <Controller
-                        name="image"
-                        control={control}
-                        defaultValue={[]}
-                        render={({ field: { onChange } }) => (
-                          <DropzoneInput onChange={(files: File[]) => onChange(files[0])} />
-                        )}
-                      />
-                    </div> */}
+                    <div className="mb-6">
+                      <DropzoneInput />
+                    </div>
 
                     <button type="submit" className="btn-primary w-full">
                       Send

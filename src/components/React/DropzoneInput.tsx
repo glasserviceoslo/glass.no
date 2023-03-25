@@ -1,30 +1,56 @@
 /** @jsxImportSource react */
 
+import { generateRandomId } from '$lib/utils';
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-export const DropzoneInput = ({ onChange }: { onChange: (files: File[]) => void }) => {
-  const [files, setFiles] = useState<Array<File & { preview: string }>>([]);
+type FileWithPreview = File & { id: string; preview: string };
+
+export const DropzoneInput = () => {
+  const [files, setFiles] = useState<FileWithPreview[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    setFiles(
-      acceptedFiles.map((file) =>
+    setFiles((prevFiles) => [
+      ...prevFiles,
+      ...acceptedFiles.map((file) =>
         Object.assign(file, {
+          id: generateRandomId(),
           preview: URL.createObjectURL(file),
         }),
       ),
-    );
+    ]);
+  };
+
+  const deleteFile = (e: React.MouseEvent, file: FileWithPreview) => {
+    e.preventDefault();
+    setFiles((prev) => prev.filter((f) => f.id !== file.id));
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    // accept: {
-    //   'image/*': [],
-    // },
+    accept: { 'image/*': [] },
+    multiple: true,
     onDrop,
   });
 
   const thumbs = files.map((file) => (
-    <li key={file.name} className="border-4 border-green-400">
+    <li key={file.id} className="relative border-4 border-green-400">
+      <button className="absolute -top-5 -right-5 animate-pulse" onClick={(e) => deleteFile(e, file)}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="red"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="white"
+          className="h-8 w-8"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
+
       <img
         src={file.preview}
         alt={file.name}
@@ -44,7 +70,10 @@ export const DropzoneInput = ({ onChange }: { onChange: (files: File[]) => void 
 
   return (
     <section className="flex flex-col">
-      <article className="flex w-full items-center justify-center" {...getRootProps()}>
+      <article
+        className="flex w-full items-center justify-center"
+        {...getRootProps({ onClick: (e) => e.preventDefault() })}
+      >
         <label
           htmlFor="dropzone-file"
           className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -70,12 +99,14 @@ export const DropzoneInput = ({ onChange }: { onChange: (files: File[]) => void 
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" {...getInputProps()} />
+          <input id="dropzone-file" type="file" className="hidden" {...getInputProps()} name="upload" />
         </label>
       </article>
       {files.length > 0 && (
         <article className="py-2">
-          <h3>Filer</h3>
+          <h3 className="mb-4">
+            Opplastede filer: <span className="text-green-700">{files.length}</span>
+          </h3>
           <ul className="flex gap-1">{thumbs}</ul>
         </article>
       )}
