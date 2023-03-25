@@ -12,8 +12,6 @@ export const RiveCanvas = ({ src }: { src: string }) => {
     });
   });
 
-  onCleanup(() => rive.cleanup());
-
   return (
     <canvas
       ref={canvas}
