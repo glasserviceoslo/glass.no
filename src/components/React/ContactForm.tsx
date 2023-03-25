@@ -118,7 +118,7 @@ export const ContactForm = () => {
                         control={control}
                         defaultValue={[]}
                         render={({ field: { onChange } }) => (
-                          <DropzoneInput onChange={(files: any) => onChange(files[0])} />
+                          <DropzoneInput onChange={(files: File[]) => onChange(files[0])} />
                         )}
                       />
                     </div> */}
