@@ -1067,7 +1067,7 @@
   dependencies:
     "@floating-ui/dom" "^1.1.0"
 
-"@googlemaps/js-api-loader@1.15.1":
+"@googlemaps/js-api-loader@1.15.1", "@googlemaps/js-api-loader@^1.15.1":
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.15.1.tgz#7d5f1d55a4ec5c99b1d8f0708f3a46b83a71384c"
   integrity sha512-AsnEgNsB7S/VdrHGEQUaUM2e5tmjFGKBAfzR/AqO8O7TPq/jQGvoRw5liPBw4EMF38RDsHmKDV89q/X+qiUREQ==
@@ -2600,6 +2600,11 @@
   version "3.50.5"
   resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.50.5.tgz#a0d12675b547205fc163c4b8d999db305ba3862a"
   integrity sha512-RuZf1MJtctGlpW+Gd4a/eGtAufUDjMf+eyN1l+B3fbe2YLScJbg8KEljJfb+6vnSPFAeM1/48geVIEg3vqOkxw==
+
+"@types/google.maps@^3.52.3":
+  version "3.52.3"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.52.3.tgz#8a99101b4ce046a58bb2cb7452376f7b15c97cbe"
+  integrity sha512-2bIhomvQF3+R/ahhhIsL95mPXEpvOY53wojcXAZSrFylYQuAT6owtmJRDGpSz3SL1PQAVDJ6MYLbH59cLDx7VQ==
 
 "@types/got@^9":
   version "9.6.12"

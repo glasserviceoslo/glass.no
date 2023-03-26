@@ -1,16 +1,19 @@
 /** @jsxImportSource react */
 
-import { getBase64 } from '$lib/utils';
 import { useLoadScript } from '@react-google-maps/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, FormProvider, type FieldValues } from 'react-hook-form';
+import { Waveform } from '@uiball/loaders';
 import { DropzoneField } from './DropzoneField';
 import { GoogleMap } from './GoogleMap';
+import { AddressInput } from './AddressInput';
 
 export const ContactForm = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_KEY,
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm();
   const {
@@ -24,16 +27,12 @@ export const ContactForm = () => {
   } = form;
 
   const onSubmit = async (data: FieldValues) => {
-    const files = await Promise.all(
-      data.upload.map(async (file: File) => {
-        return { ...file, base64: await getBase64(file) };
-      }),
-    );
+    setIsSubmitting(true);
 
     await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(data),
-    });
+    }).then(() => setIsSubmitting(false));
   };
 
   const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +100,11 @@ export const ContactForm = () => {
                           })}
                         />
                       </div>
+
+                      {/* <div className="mb-6">
+                        <AddressInput name="address" control={control} />
+                      </div> */}
+
                       <div className="mb-6">
                         <textarea
                           className="m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
@@ -126,8 +130,12 @@ export const ContactForm = () => {
                         <DropzoneField control={control} multiple name="upload" />
                       </div>
 
-                      <button type="submit" className="btn-primary w-full">
-                        Send
+                      <button
+                        type="submit"
+                        className="btn-primary flex w-full items-center justify-center"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? <Waveform color="white" size={20} /> : <span>Send</span>}
                       </button>
                     </form>
                   </FormProvider>

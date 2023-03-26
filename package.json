@@ -20,6 +20,7 @@
     "@astrojs/svelte": "^2.1.0",
     "@astrojs/tailwind": "^3.1.1",
     "@calcom/embed-react": "^1.0.10",
+    "@googlemaps/js-api-loader": "^1.15.1",
     "@hookform/resolvers": "^3.0.0",
     "@motionone/solid": "^10.16.0",
     "@netlify/functions": "^1.4.0",
@@ -55,6 +56,7 @@
   "devDependencies": {
     "@types/busboy": "^1.5.0",
     "@types/formidable": "^2.0.5",
+    "@types/google.maps": "^3.52.3",
     "@types/nodemailer": "^6.4.7",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
