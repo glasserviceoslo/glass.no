@@ -1,3 +1,4 @@
+import type { FileWithPreview } from '$types';
 import type { Handler } from '@netlify/functions';
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
@@ -20,6 +21,14 @@ const handler: Handler = async (event) => {
   }
   const body = JSON.parse(event.body);
 
+  const attachments = body.upload.map((file: FileWithPreview) => {
+    return {
+      filename: file.path,
+      content: file.base64.split(',')[1],
+      encoding: 'base64',
+    };
+  });
+
   const opts: MailOptions = {
     from: {
       name: body.name,
@@ -29,9 +38,7 @@ const handler: Handler = async (event) => {
     replyTo: body.email,
     subject: `Kontaktskjema - ${body.name}`,
     text: body.message,
-    // attachments: [{
-    //   filename:
-    // }]
+    attachments,
   };
 
   try {
