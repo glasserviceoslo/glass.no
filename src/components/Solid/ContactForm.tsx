@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { useForm } from '$hooks/solid/useForm';
 
 interface FormValues {

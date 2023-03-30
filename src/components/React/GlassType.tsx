@@ -1,5 +1,3 @@
-/** @jsxImportSource react */
-
 const GlassType = () => {
   return (
     <svg

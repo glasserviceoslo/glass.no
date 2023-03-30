@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { Rive } from '@rive-app/canvas';
 import { onMount, onCleanup } from 'solid-js';
 

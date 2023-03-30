@@ -1,5 +1,3 @@
-/** @jsxImportSource react */
-
 import { Controller, useFormContext, type FieldValues, type Control } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { generateRandomId, getBase64 } from '$lib/utils';

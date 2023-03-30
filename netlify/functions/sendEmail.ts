@@ -2,6 +2,7 @@ import type { FileWithPreview } from '$types';
 import type { Handler } from '@netlify/functions';
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
+// import { render } from '@react-email/render';
 
 const handler: Handler = async (event) => {
   const transporter = createTransport({
@@ -20,6 +21,8 @@ const handler: Handler = async (event) => {
     };
   }
   const body = JSON.parse(event.body);
+
+  // const emailHtml = render(StripeWelcomeEmail());
 
   const attachments = body.upload.map((file: FileWithPreview) => {
     return {

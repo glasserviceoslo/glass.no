@@ -1,5 +1,3 @@
-/** @jsxImportSource react */
-
 import { useLayoutEffect } from 'react';
 import type { NavbarProps } from 'sanity';
 

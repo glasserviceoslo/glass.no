@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Motion, Presence } from '@motionone/solid';
 import { useInterval } from '$lib/interval';

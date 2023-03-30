@@ -1,6 +1,3 @@
-/** @jsxImportSource react */
-
-import { useLoadScript } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
 import { useForm, FormProvider, type FieldValues } from 'react-hook-form';
 import { Waveform } from '@uiball/loaders';
@@ -9,10 +6,6 @@ import { GoogleMap } from './GoogleMap';
 import { AddressInput } from './AddressInput';
 
 export const ContactForm = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_KEY,
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm();
@@ -28,7 +21,6 @@ export const ContactForm = () => {
 
   const onSubmit = async (data: FieldValues) => {
     setIsSubmitting(true);
-
     await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -101,9 +93,9 @@ export const ContactForm = () => {
                         />
                       </div>
 
-                      {/* <div className="mb-6">
-                        <AddressInput name="address" control={control} />
-                      </div> */}
+                      <div className="mb-6">
+                        <AddressInput name="address" />
+                      </div>
 
                       <div className="mb-6">
                         <textarea
@@ -141,7 +133,9 @@ export const ContactForm = () => {
                   </FormProvider>
                 </div>
               </div>
-              <div className="md:mb-12 lg:mb-0">{isLoaded && <GoogleMap />}</div>
+              <div className="md:mb-12 lg:mb-0">
+                <GoogleMap />
+              </div>
             </div>
           </div>
         </div>

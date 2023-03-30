@@ -8,6 +8,6 @@
       "$*": ["src/*"]
     },
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "react"
   }
 }
