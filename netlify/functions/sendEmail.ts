@@ -2,7 +2,8 @@ import type { FileWithPreview } from '$types';
 import type { Handler } from '@netlify/functions';
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
-// import { render } from '@react-email/render';
+import { render } from '@react-email/render';
+import ContactFormEmail from '$components/Emails/ContactFormEmail';
 
 const handler: Handler = async (event) => {
   const transporter = createTransport({
@@ -22,7 +23,16 @@ const handler: Handler = async (event) => {
   }
   const body = JSON.parse(event.body);
 
-  // const emailHtml = render(StripeWelcomeEmail());
+  const emailHtml = render(
+    ContactFormEmail({
+      baseUrl: process.env.URL || 'https://glass.no',
+      sender: body.name,
+      address: body.address,
+      email: body.email,
+      phone: body.phone,
+      message: body.message,
+    }),
+  );
 
   const attachments = body.upload.map((file: FileWithPreview) => {
     return {
@@ -40,7 +50,7 @@ const handler: Handler = async (event) => {
     to: process.env.GLASSNO_EMAIL,
     replyTo: body.email,
     subject: `Kontaktskjema - ${body.name}`,
-    text: body.message,
+    html: emailHtml,
     attachments,
   };
 

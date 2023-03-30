@@ -25,6 +25,7 @@
     "@motionone/solid": "^10.16.0",
     "@netlify/functions": "^1.4.0",
     "@portabletext/to-html": "^2.0.0",
+    "@react-email/components": "^0.0.4",
     "@react-email/render": "^0.0.6",
     "@rive-app/canvas": "^1.0.102",
     "@sanity/client": "^5.3.2",

@@ -16,11 +16,12 @@ const svgUrls: string[] = home
   .map((svg: any) => getSanityImageURL(svg.asset).url());
 
 const svgs = await Promise.all(svgUrls.map((url) => getSvgMarkup(url)));
+
+if (import.meta.env.PROD) {
+  return Astro.redirect('/404');
+}
 ---
 
-<Layout>
-  <div class="min-h-screen w-screen p-8">
-    <!-- <Fragment set:html={featuresToHtml(home)} /> -->
-    <!-- <pre>{content}</pre> -->
-  </div>
-</Layout>
+<!-- <Layout>
+  <div class="min-h-screen w-screen p-8"> --><!-- <Fragment set:html={featuresToHtml(home)} /> --><!-- <pre>{content}</pre> --><!-- </div>
+</Layout> -->
