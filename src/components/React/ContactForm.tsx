@@ -54,7 +54,7 @@ export const ContactForm = () => {
         <div className="px-6 py-12 md:px-12">
           <div className="container mx-auto xl:px-32">
             <div className="grid items-center lg:grid-cols-2">
-              <div className="mb-12 md:mt-12 lg:mt-0 lg:mb-0">
+              <div className="z-10 mb-12 md:mt-12 lg:mt-0 lg:mb-0">
                 <div
                   className="block rounded-lg px-6 py-12 shadow-lg md:px-12 lg:-mr-14 "
                   style={{ background: 'hsla(0, 0%, 100%, 0.55)', backdropFilter: 'blur(30px)' }}
