@@ -41,7 +41,7 @@ export const ContactFormEmail = ({
       <Tailwind>
         <Body className="my-auto mx-auto bg-white font-sans">
           <Container className="my-[40px] mx-auto w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
-            <Section className="mt-[32px] flex items-center justify-center gap-1">
+            <Section className="mt-[32px]">
               <img
                 src={`${baseUrl}/public/assets/favicon.png`}
                 width="40"
@@ -49,7 +49,6 @@ export const ContactFormEmail = ({
                 alt="Glass.no"
                 className="my-0 mx-auto"
               />
-              <span className="text-lg font-semibold">Glass.no</span>
             </Section>
             <Heading className="my-[30px] mx-0 p-0 text-center text-[24px] font-normal text-black">
               <strong>{sender}</strong> har en forespørsel
