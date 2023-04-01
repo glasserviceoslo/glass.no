@@ -15,14 +15,16 @@ const { post } = Astro.props;
 <article class="h-full min-h-[calc(100vh-289px)]">
   {
     post.mainImage && (
-      <Image
-        width={2000}
-        height={800}
-        alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
-        class="max-h-[40vw] w-full"
-        loading="lazy"
-        src={getSanityImageURL(post.mainImage).fit('fillmax').url()}
-      />
+      <div class="h-[40vw]">
+        <Image
+          width={2000}
+          height={800}
+          alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
+          class="max-h-full w-full object-cover"
+          loading="lazy"
+          src={getSanityImageURL(post.mainImage).fit('fillmax').url()}
+        />
+      </div>
     )
   }
   <header class="mb-10 flex flex-col items-center justify-center pt-8 text-center md:mb-12">
