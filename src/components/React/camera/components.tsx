@@ -7,7 +7,7 @@ interface BoxProps {
 }
 
 const Box = React.forwardRef<HTMLDivElement, BoxProps>(({ children, ...props }, ref) => (
-  <div className="bg-white p-4 shadow-md md:p-8 lg:p-12" ref={ref} {...props}>
+  <div className="bg-white p-4 md:p-8 lg:p-12" ref={ref} {...props}>
     {children}
   </div>
 ));

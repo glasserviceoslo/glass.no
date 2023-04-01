@@ -19,7 +19,7 @@ const Photo = ({ src, alt, onClick }: PhotoProps) => {
   return (
     <CameraTarget ref={ref}>
       {(cameraTarget) => (
-        <figure className="h-[20vh] w-[20wv]">
+        <figure className="flex h-[20vh] w-[20wv] flex-col gap-1">
           <img
             tabIndex={0}
             src={src}
@@ -29,7 +29,7 @@ const Photo = ({ src, alt, onClick }: PhotoProps) => {
             }}
             className="border-6 h-full w-full cursor-pointer border-white object-cover"
           />
-          <figcaption>Something</figcaption>
+          <figcaption className="text-center text-sm italic">Adresse</figcaption>
         </figure>
       )}
     </CameraTarget>
@@ -51,7 +51,7 @@ const Banners = () => {
   React.useEffect(() => {
     if (target) {
       camera.follow(target);
-      camera.setZoom(4);
+      camera.setZoom(2.5);
       camera.setRotation(0);
       clock.stop();
       reverseClock.stop();
@@ -71,16 +71,20 @@ const Banners = () => {
     <div className="space-y-6">
       <div className="relative">
         <InfiniteBanner clock={clock.value}>
-          <div className="flex gap-6 pr-6">
+          <div className="flex gap-6 p-4">
             {bannerOneImages.map((img) => (
-              <Photo key={img} src={img} alt={img} onClick={(t) => setTarget((prev) => (prev !== t ? t : null))} />
+              <div key={img} className="shadow-md">
+                <Photo src={img} alt={img} onClick={(t) => setTarget((prev) => (prev !== t ? t : null))} />
+              </div>
             ))}
           </div>
         </InfiniteBanner>
         <InfiniteBanner clock={reverseClock.value}>
           <div className="flex gap-6 pr-6">
             {bannerTwoImages.map((img) => (
-              <Photo key={img} src={img} alt={img} onClick={(t) => setTarget((prev) => (prev !== t ? t : null))} />
+              <div key={img} className="shadow-md">
+                <Photo src={img} alt={img} onClick={(t) => setTarget((prev) => (prev !== t ? t : null))} />
+              </div>
             ))}
           </div>
         </InfiniteBanner>
