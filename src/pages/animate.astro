@@ -1,5 +1,5 @@
 ---
-import { Features } from '$components/Solid/Features';
+import { Projects } from '$components/React/Projects';
 import Layout from '$layouts/Page.astro';
 import { getPostBySlug } from '$lib/sanity.client';
 import { getSanityImageURL } from '$lib/sanity.image';
@@ -22,6 +22,13 @@ if (import.meta.env.PROD) {
 }
 ---
 
-<!-- <Layout>
-  <div class="min-h-screen w-screen p-8"> --><!-- <Fragment set:html={featuresToHtml(home)} /> --><!-- <pre>{content}</pre> --><!-- </div>
-</Layout> -->
+<Layout>
+  <!-- <Projects>
+    {Array.from({ length: 15 }, () => <ProjectCard />)}
+  </Projects> -->
+  <!-- <div class="min-h-screen w-screen p-8">
+    <Fragment set:html={featuresToHtml(home)} />
+    <pre>{content}</pre>
+  </div> -->
+  <Projects client:only="react" />
+</Layout>
