@@ -3,7 +3,7 @@ import NavLink from './NavLink.astro';
 import BookBefaring from '$components/Svelte/BookBefaring.svelte';
 import { getAllPostsSlugs } from '$lib/sanity.client';
 import Logo from './Logo.astro';
-import ThemeToggler from './Solid/Theme';
+import ThemeToggler from '$components/Solid/Theme';
 
 const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
   slug: s.slug,
