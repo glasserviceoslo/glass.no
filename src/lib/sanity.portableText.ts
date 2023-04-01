@@ -1,6 +1,6 @@
-// import { portableTextToHtml } from 'astro-sanity';
-import { type PortableTextComponents, toHTML, type PortableTextBlockComponent } from '@portabletext/to-html';
+import { type PortableTextComponents, toHTML } from '@portabletext/to-html';
 import { getSanityImageURL, removeExt } from './sanity.image';
+import type { PortableTextBlock, PortableTextChild } from 'sanity';
 
 // Default Portable Text to HTML
 const customComponents: PortableTextComponents = {
@@ -78,7 +78,7 @@ const featuresComp: PortableTextComponents = {
   },
   marks: {
     internalLink: ({ children, value }) => {
-      console.log('🚀 ~ file: sanity.portableText.ts:83 ~ children', children);
+      // console.log('🚀 ~ file: sanity.portableText.ts:83 ~ children', children);
       return `<a href="/posts/${value.slug.current}">${children}</a>`;
     },
   },
@@ -86,4 +86,19 @@ const featuresComp: PortableTextComponents = {
 
 export const featuresToHtml = (portabletext: any) => {
   return toHTML(portabletext, { components: featuresComp });
+};
+
+const defaults = { nonTextBehavior: 'remove' };
+
+export const blocksToText = (blocks: PortableTextBlock[], opts = {}) => {
+  const options = Object.assign({}, defaults, opts);
+  return blocks
+    .map((block) => {
+      if (block._type !== 'block' || !block.children) {
+        return options.nonTextBehavior === 'remove' ? '' : `[${block._type} block]`;
+      }
+
+      return (block.children as PortableTextChild[]).map((child) => child.text).join('');
+    })
+    .join('\n\n');
 };

@@ -1,7 +1,7 @@
 ---
 import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import type { Post } from '$lib/sanity.queries';
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 
 export interface Props {
   post: Post;

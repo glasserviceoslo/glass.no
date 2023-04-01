@@ -1,40 +1,5 @@
 import React from 'react';
-import { useScrollState, useScrollValue } from 'scrollex';
 import { useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-
-type ScrollStatus = 'up' | 'down' | 'static';
-type ScrollDirection = 'up' | 'down';
-
-// Derive current scroll status from velocity
-const useScrollStatus = (): ScrollStatus => {
-  const status = useScrollState(({ velocity }) => {
-    if (velocity > 0) {
-      return 'down';
-    } else if (velocity < 0) {
-      return 'up';
-    } else {
-      return 'static';
-    }
-  });
-  return status || 'static';
-};
-
-// This will never return to static, it will remember the last scroll direction
-const useLastScrollDirection = (): ScrollDirection => {
-  const [lastDirection, setLastDirection] = React.useState<ScrollDirection>('down');
-  const scrollStatus = useScrollStatus();
-  React.useEffect(() => {
-    if (scrollStatus === 'up' || scrollStatus === 'down') {
-      setLastDirection(scrollStatus);
-    }
-  }, [scrollStatus]);
-  return lastDirection;
-};
-
-// Get scroll position as MotionValue
-const useScrollPosition = () => {
-  return useScrollValue(({ position }) => position);
-};
 
 // // Reversible clock as MotionValue
 // const useClock = ({ defaultValue = 0, reverse = false } = {}) => {

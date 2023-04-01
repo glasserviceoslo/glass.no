@@ -3,6 +3,8 @@ import Layout from '$layouts/Page.astro';
 import PostPreview from '$components/Astro/PostPreview.astro';
 
 import { getAllPosts } from '$lib/sanity.client';
+import Container from '$components/Astro/Container.astro';
+import BlogPreview from '$components/Astro/BlogPreview.astro';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS Blogg',
@@ -14,9 +16,16 @@ const posts = await getAllPosts();
 ---
 
 <Layout seo={seo}>
-  <div class="min-h-[calc(100vh-289px)] px-12 py-8">
+  <!-- <div class="min-h-[calc(100vh-289px)] px-12 py-8">
     <section class="grid gap-12 md:grid-cols-2 2xl:grid-cols-3">
       {posts.map((post) => <PostPreview path="posts" post={post} />)}
     </section>
+  </div> -->
+  <div class="space-y-40 my-20">
+    <Container>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => <BlogPreview path="posts" post={post} />)}
+      </div>
+    </Container>
   </div>
 </Layout>
