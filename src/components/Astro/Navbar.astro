@@ -12,7 +12,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
 ---
 
 <nav
-  class="fixed top-0 left-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-gray-900"
+  class="fixed left-0 top-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-gray-900"
 >
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
     <Logo />
@@ -66,7 +66,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
         <li class="peer/smijern">
           <NavLink
             href="/smijernsdor"
-            class="block rounded py-2 pr-4 pl-3 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
           >
             Smijernsdør
           </NavLink>
@@ -74,8 +74,17 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
 
         <li class="peer/velux">
           <NavLink
+            href="/vinduer-og-dorer"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Vindu
+          </NavLink>
+        </li>
+
+        <li class="peer/velux">
+          <NavLink
             href="/velux-takvinduer"
-            class="block rounded py-2 pr-4 pl-3 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
           >
             Velux
           </NavLink>
@@ -84,7 +93,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
         <li class="peer/products">
           <NavLink
             href="/produkter"
-            class="block rounded py-2 pr-4 pl-3 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
           >
             Produkter
           </NavLink>
@@ -139,7 +148,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
           > -->
           <NavLink
             href="/kontakt"
-            class="block rounded py-2 pr-4 pl-3 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
           >
             Kontakt Oss
           </NavLink>
