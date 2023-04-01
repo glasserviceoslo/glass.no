@@ -1,13 +1,13 @@
 ---
 import { Projects } from '$components/React/Projects';
 import Layout from '$layouts/Page.astro';
-import { getPostBySlug } from '$lib/sanity.client';
+import { getDocBySlug } from '$lib/sanity.client';
 import { getSanityImageURL } from '$lib/sanity.image';
 import { featuresToHtml } from '$lib/sanity.portableText';
 
 const getSvgMarkup = (url: string) => fetch(url).then((res) => res.text());
 
-const home = (await getPostBySlug('home')).body;
+const home = (await getDocBySlug('home', 'pages')).body;
 
 const content = featuresToHtml(home.filter((b: any) => b.style === 'h3' || b.style === 'normal'));
 
