@@ -1,8 +1,8 @@
 /** @jsxImportSource react */
 
 import type { DefaultDocumentNodeResolver } from 'sanity/desk';
-import authorType from '$schemas/documents/author';
-import postType from '$schemas/documents/post';
+import authorType from '$schemas/documents/authors';
+import postType from '$schemas/documents/posts';
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane';
 import PostPreviewPane from './PostPreviewPane';

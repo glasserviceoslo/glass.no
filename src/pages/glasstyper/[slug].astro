@@ -1,7 +1,7 @@
 ---
 import Layout from '$layouts/Post.astro';
-import BlogPost from '$components/BlogPost.astro';
-import { getPostBySlug } from '$lib/sanity.client';
+import BlogPost from '$components/Astro/BlogPost.astro';
+import { getDocBySlug } from '$lib/sanity.client';
 
 // rss({
 //   title: 'Example Blog',
@@ -17,7 +17,7 @@ import { getPostBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
 
-const post = await getPostBySlug(slug!, 'glassType');
+const post = await getDocBySlug(slug!, 'glassTypes');
 
 const seo = {
   title: post.title,

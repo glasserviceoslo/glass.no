@@ -8,69 +8,164 @@
 
 
 <url>
-  <loc>https://glass.no/</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://glass.no/booking</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/smijernsdor</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://glass.no/smijernsdor</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/velux-takvinduer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://glass.no/velux-takvinduer</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/produkter/</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://glass.no/contact</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/glasstyper/beskyttelsesglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/10-mater-a-bruke-smijern-i-ditt-hjem</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/glasstyper/sikkerhetsglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/lyddemping-glass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/isolerglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/brannhemmende-glass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/solbeskyttelsesglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/designglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/varmkant</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/energipareglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/enkeltglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/glasstyper/smussavvisende-glass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/kontakt/</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/booking/</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/posts/10-mater-a-bruke-smijern-i-ditt-hjem</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/rengjoring-av-metalldor</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/posts/rengjoring-av-metalldor</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/vinduer-og-dorer</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/posts/vinduer-og-dorer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/odelagt-vindusglass</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/produkter/dorer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/vinduer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/glassdorer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/innglasset-balkong-vinterhage</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/glassplate-kjokken</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/speil</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/produkter/dusjvegger-og-dusjdorer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.glass.no/posts/odelagt-vindusglass</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/vinduer</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/posts/vinduer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/dorer</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/posts/dorer</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/tak-over-ytterdor</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
+  <loc>https://www.glass.no/posts/tak-over-ytterdor</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://glass.no/posts/smijernsdor</loc>
-  <lastmod>2023-01-09T23:10:43+00:00</lastmod>
-  <priority>0.41</priority>
+  <loc>https://www.glass.no/posts/smijernsdor</loc>
+  <lastmod>2023-03-19T22:41:48+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 
 

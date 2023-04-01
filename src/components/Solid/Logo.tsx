@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import LogoDark from '/assets/logo-dark.svg';
 import LogoLight from '/assets/logo-light.svg';
 

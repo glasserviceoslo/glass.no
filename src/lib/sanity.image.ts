@@ -1,6 +1,6 @@
 import createImageUrlBuilder from '@sanity/image-url';
 import { dataset, projectId } from './sanity.api';
-import { getPostBySlug } from './sanity.client';
+import { getDocBySlug } from './sanity.client';
 import type { Image } from './sanity.queries';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import type { ImgSources } from '$types';
@@ -11,8 +11,8 @@ export const getSanityImageURL = (source: SanityImageSource) => builder.image(so
 
 export const removeExt = (filename: string) => filename.split('.').slice(0, -1).join('');
 
-export const parseImages = async (slug: string, excludedExt: string): Promise<ImgSources[]> => {
-  const post = await getPostBySlug(slug);
+export const parseImages = async (type: string, slug: string, excludedExt: string): Promise<ImgSources[]> => {
+  const post = await getDocBySlug(slug, type);
   return post?.body
     ?.filter((b: any) => b._type === 'image' && !b?.asset._id.endsWith(excludedExt))
     .map((image: Image) => ({

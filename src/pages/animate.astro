@@ -1,13 +1,13 @@
 ---
-import { Features } from '$components/Solid/Features';
+import { Projects } from '$components/React/Projects';
 import Layout from '$layouts/Page.astro';
-import { getPostBySlug } from '$lib/sanity.client';
+import { getDocBySlug } from '$lib/sanity.client';
 import { getSanityImageURL } from '$lib/sanity.image';
 import { featuresToHtml } from '$lib/sanity.portableText';
 
 const getSvgMarkup = (url: string) => fetch(url).then((res) => res.text());
 
-const home = (await getPostBySlug('home')).body;
+const home = (await getDocBySlug('home', 'pages')).body;
 
 const content = featuresToHtml(home.filter((b: any) => b.style === 'h3' || b.style === 'normal'));
 
@@ -16,11 +16,18 @@ const svgUrls: string[] = home
   .map((svg: any) => getSanityImageURL(svg.asset).url());
 
 const svgs = await Promise.all(svgUrls.map((url) => getSvgMarkup(url)));
+
+if (import.meta.env.PROD) {
+  return Astro.redirect('/404');
+}
 ---
 
 <Layout>
-  <div class="min-h-screen w-screen p-8">
-    <!-- <Fragment set:html={featuresToHtml(home)} /> -->
-    <!-- <pre>{content}</pre> -->
-  </div>
+  <!-- <Projects>
+    {Array.from({ length: 15 }, () => <ProjectCard />)}
+  </Projects> -->
+  <!-- <div class="min-h-screen w-screen p-8">
+    <Fragment set:html={featuresToHtml(home)} />
+    <pre>{content}</pre>
+  </div> -->
 </Layout>

@@ -1,8 +1,10 @@
 ---
-import BookingSection from '$components/BookingSection.astro';
-import Feature from '$components/Feature.astro';
-import Hero from '$components/Hero.astro';
+import BookingSection from '$components/Astro/BookingSection.astro';
+import Feature from '$components/Astro/Feature.astro';
+import Hero from '$components/Astro/Hero.astro';
 import Layout from '$layouts/Page.astro';
+import { Projects } from '$components/React/Projects';
+import LatestPosts from '$components/Astro/LatestPosts.astro';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -15,4 +17,6 @@ const seo = {
   <Hero />
   <Feature />
   <BookingSection />
+  <Projects client:only="react" />
+  <LatestPosts />
 </Layout>

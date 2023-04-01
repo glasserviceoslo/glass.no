@@ -1,0 +1,176 @@
+---
+import NavLink from './NavLink.astro';
+import BookBefaring from '$components/Svelte/BookBefaring.svelte';
+import { getAllDocsSlugs, getAllPages } from '$lib/sanity.client';
+import Logo from './Logo.astro';
+import ThemeToggler from '$components/Solid/Theme';
+
+const glassTyper = (await getAllDocsSlugs('glassTypes')).map((s) => ({
+  slug: s.slug,
+  title: s.slug!.charAt(0).toUpperCase() + s.slug!.slice(1).split('-').join(' '),
+}));
+
+const navElements = (await getAllPages(true)).sort((a, b) => a.navbar.navTitle.localeCompare(b.navbar.navTitle));
+---
+
+<nav
+  class="fixed left-0 top-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-gray-900"
+>
+  <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
+    <Logo />
+    <div class="flex gap-2 md:order-2">
+      <div class="relative w-14 bg-white p-2.5 dark:bg-gray-900">
+        <ThemeToggler client:only="solid-js" />
+      </div>
+      <BookBefaring client:visible />
+      <!-- <a data-turbo-preload href="/booking" class="btn-primary hidden md:block">
+        <span class="hidden lg:block">Gratis Befaring</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="hidden h-6 w-6 md:block lg:hidden"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
+          ></path>
+        </svg>
+      </a> -->
+      <button
+        data-collapse-toggle="navbar-sticky"
+        type="button"
+        class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+        aria-controls="navbar-sticky"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="h-6 w-6"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill-rule="evenodd"
+            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-sticky">
+      <ul
+        class="relative z-0 mt-4 flex flex-col items-center md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium"
+      >
+        {
+          navElements.map((element) => (
+            <li class="peer/smijern">
+              <NavLink
+                href={`${element.slug}`}
+                class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+              >
+                {element.navbar.navTitle}
+              </NavLink>
+            </li>
+          ))
+        }
+        <!-- <li class="peer/smijern">
+          <NavLink
+            href="/smijernsdor"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Smijernsdør
+          </NavLink>
+        </li>
+
+        <li class="peer/velux">
+          <NavLink
+            href="/vinduer-og-dorer"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Vindu
+          </NavLink>
+        </li>
+
+        <li class="peer/velux">
+          <NavLink
+            href="/velux-takvinduer"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Velux
+          </NavLink>
+        </li> -->
+
+        <li class="peer/products">
+          <NavLink
+            href="/produkter"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Produkter
+          </NavLink>
+        </li>
+
+        <!-- Dropdown Menu -->
+        <li>
+          <button
+            id="dropdownNavbarLink"
+            data-dropdown-toggle="dropdownNavbar"
+            class="flex w-full items-center justify-between rounded py-2 pl-3 pr-4 font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white md:w-auto md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent"
+            >Glasstyper <svg
+              class="ml-1 h-5 w-5"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path></svg
+            ></button
+          >
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownNavbar"
+            class="z-10 hidden w-44 divide-y divide-gray-100 rounded bg-white font-normal shadow dark:divide-gray-600 dark:bg-gray-700"
+          >
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+              {
+                glassTyper.map((item) => (
+                  <li>
+                    <NavLink
+                      href={`/glasstyper/${item.slug}`}
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      {item.title}
+                    </NavLink>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
+
+        <li class="peer/contact">
+          <!-- <a
+            data-turbo-preload
+            href="/contact"
+            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            >Kontakt</a
+          > -->
+          <NavLink
+            href="/kontakt"
+            class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+          >
+            Kontakt Oss
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- 
+peer-active/smijern:left-[20%] peer-active/velux:left-[40%] peer-active/about:left-[60%]
+peer-active/contact:left-[80%] -->

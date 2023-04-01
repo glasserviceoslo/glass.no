@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { Rive } from '@rive-app/canvas';
 import { onMount, onCleanup } from 'solid-js';
 
@@ -11,8 +13,6 @@ export const RiveCanvas = ({ src }: { src: string }) => {
       autoplay: true,
     });
   });
-
-  onCleanup(() => rive.cleanup());
 
   return (
     <canvas

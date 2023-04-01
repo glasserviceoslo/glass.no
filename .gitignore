@@ -2,6 +2,7 @@
 dist/
 .output/
 .netlify/
+.react-email/
 
 # dependencies
 node_modules/

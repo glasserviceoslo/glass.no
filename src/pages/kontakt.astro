@@ -2,12 +2,11 @@
 export const prerender = true;
 
 import { ContactForm } from '$components/React/ContactForm';
-// import { ContactForm } from '$components/Solid/ContactForm';
 import Layout from '$layouts/Page.astro';
 ---
 
 <Layout>
-  <section class="flex h-[calc(100vh-298px)] items-center justify-center">
+  <section class="min-h-screen w-screen">
     <ContactForm client:only="react" />
   </section>
 </Layout>

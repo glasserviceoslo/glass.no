@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { Motion, Presence } from '@motionone/solid';
 
 export const Features = ({ content }: any) => {

@@ -1,5 +1,3 @@
-/** @jsxImportSource react */
-
 import { getSanityImageURL } from '$lib/sanity.image';
 import type { Author } from '$lib/sanity.queries';
 
