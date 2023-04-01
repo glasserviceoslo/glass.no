@@ -3,7 +3,6 @@
   "version": "1.2.0",
   "private": false,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "dev": "astro dev & caddy run",
     "netlify:dev": "netlify dev",
     "start": "astro dev",
