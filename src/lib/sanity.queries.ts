@@ -1,4 +1,4 @@
-const postFields = `
+const queryFields = `
   _id,
   title,
   description,
@@ -39,22 +39,23 @@ const postFields = `
 export const settingsQuery = `*[_type == "settings"][0]`;
 
 export const indexQuery = `
-*[_type == "post" && isPage != true] | order(date desc, _updatedAt desc) 
+*[_type == "posts"] | order(date desc, _updatedAt desc) 
 {
-  ${postFields}
+  ${queryFields}
 }`;
 
 export const pagesQuery = `
-*[_type == "post" && isPage == true] | order(date desc, _updatedAt desc) 
+*[_type == "pages" && ($isNavElement && navbar.isNavElement == true || !$isNavElement && navbar.isNavElement != true)] | order(date desc, _updatedAt desc) 
 {
-  ${postFields}
+  navbar,
+  ${queryFields}
 }`;
 
-export const latestPostsQuery = `*[_type == "post"] | order(_createdAt desc) [$from...$to] {${postFields}}`;
+export const latestPostsQuery = `*[_type == "posts"] | order(_createdAt desc) [$from...$to] {${queryFields}}`;
 
 export const postAndMoreStoriesQuery = `
 {
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
+  "post": *[_type == "posts" && slug.current == $slug] | order(_updatedAt desc) [0] {
     category->,
     body[] {
       ...,
@@ -66,21 +67,21 @@ export const postAndMoreStoriesQuery = `
         }
       }
     },
-    ${postFields}
+    ${queryFields}
   },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+  "morePosts": *[_type == "posts" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
     body,
-    ${postFields}
+    ${queryFields}
   }
 }`;
 
-export const categoriesQuery = `*[_type == 'category'] 
+export const categoriesQuery = `*[_type == 'categories'] 
 {
   _id,
   description,
   title,
-  "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
-    ${postFields}
+  "posts": *[_type == "posts" && references(^._id)] | order(publishedAt desc) {
+    ${queryFields}
   }
 }`;
 
@@ -90,7 +91,7 @@ export const docSlugsQuery = `
 
 export const docBySlugQuery = `
 *[_type == $type && slug.current == $slug][0] {
-  ${postFields}
+  ${queryFields}
 }
 `;
 
@@ -118,6 +119,13 @@ export interface Post {
   description?: string;
   seoKeywords?: string[];
   seoKeyphrase?: string;
+}
+
+export interface Page extends Post {
+  navbar: {
+    isNavElement: boolean;
+    navTitle: string;
+  };
 }
 
 export interface Settings {

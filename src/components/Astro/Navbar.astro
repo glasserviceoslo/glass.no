@@ -1,14 +1,16 @@
 ---
 import NavLink from './NavLink.astro';
 import BookBefaring from '$components/Svelte/BookBefaring.svelte';
-import { getAllPostsSlugs } from '$lib/sanity.client';
+import { getAllDocsSlugs, getAllPages } from '$lib/sanity.client';
 import Logo from './Logo.astro';
 import ThemeToggler from '$components/Solid/Theme';
 
-const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
+const glassTyper = (await getAllDocsSlugs('glassTypes')).map((s) => ({
   slug: s.slug,
   title: s.slug!.charAt(0).toUpperCase() + s.slug!.slice(1).split('-').join(' '),
 }));
+
+const navElements = (await getAllPages(true)).sort((a, b) => a.navbar.navTitle.localeCompare(b.navbar.navTitle));
 ---
 
 <nav
@@ -63,7 +65,19 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
       <ul
         class="relative z-0 mt-4 flex flex-col items-center md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium"
       >
-        <li class="peer/smijern">
+        {
+          navElements.map((element) => (
+            <li class="peer/smijern">
+              <NavLink
+                href={`${element.slug}`}
+                class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+              >
+                {element.navbar.navTitle}
+              </NavLink>
+            </li>
+          ))
+        }
+        <!-- <li class="peer/smijern">
           <NavLink
             href="/smijernsdor"
             class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
@@ -88,7 +102,7 @@ const glassTyper = (await getAllPostsSlugs('glassType')).map((s) => ({
           >
             Velux
           </NavLink>
-        </li>
+        </li> -->
 
         <li class="peer/products">
           <NavLink

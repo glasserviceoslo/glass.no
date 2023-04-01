@@ -2,7 +2,7 @@
 import Layout from '$layouts/Post.astro';
 import BlogPost from '$components/Astro/BlogPost.astro';
 import { getSanityImageURL } from '$lib/sanity.image';
-import { getPostBySlug } from '$lib/sanity.client';
+import { getDocBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
 
@@ -10,7 +10,7 @@ const { slug } = Astro.params;
 //  return Astro.redirect('/404');
 // }
 
-const post = await getPostBySlug(slug!);
+const post = await getDocBySlug(slug!);
 
 const seo = {
   title: post.title,

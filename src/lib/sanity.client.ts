@@ -1,6 +1,7 @@
 import { createClient } from '@sanity/client';
 import { apiVersion, dataset, projectId, useCdn } from '$lib/sanity.api';
 import {
+  type Page,
   type Post,
   type Settings,
   indexQuery,
@@ -30,9 +31,9 @@ export async function getAllPosts(): Promise<Post[]> {
   return [];
 }
 
-export async function getAllPages(): Promise<Post[]> {
+export async function getAllPages(isNavElement: boolean): Promise<Page[]> {
   if (client) {
-    return (await client.fetch(pagesQuery)) || [];
+    return (await client.fetch(pagesQuery, { isNavElement })) || [];
   }
   return [];
 }
@@ -44,7 +45,7 @@ export async function getLatestPosts(from: number, to: number): Promise<Post[]> 
   return [];
 }
 
-export async function getAllPostsSlugs(type: string = 'post'): Promise<Pick<Post, 'slug'>[]> {
+export async function getAllDocsSlugs(type: string = 'posts'): Promise<Pick<Post, 'slug'>[]> {
   if (client) {
     const slugs = (await client.fetch<string[]>(docSlugsQuery, { type })) || [];
     return slugs.map((slug) => ({ slug }));
@@ -59,7 +60,7 @@ export async function getAllCategoriesWithPosts(): Promise<Category[]> {
   return [];
 }
 
-export async function getPostBySlug(slug: string, type: string = 'post'): Promise<Post> {
+export async function getDocBySlug(slug: string, type: string = 'posts'): Promise<Post> {
   if (client) {
     return (await client.fetch(docBySlugQuery, { slug, type })) || ({} as any);
   }

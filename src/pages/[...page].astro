@@ -2,7 +2,7 @@
 import Layout from '$layouts/Page.astro';
 import BlogPost from '$components/Astro/BlogPost.astro';
 import { getSanityImageURL } from '$lib/sanity.image';
-import { getPostBySlug } from '$lib/sanity.client';
+import { getDocBySlug } from '$lib/sanity.client';
 
 // rss({
 //   title: 'Example Blog',
@@ -16,7 +16,7 @@ import { getPostBySlug } from '$lib/sanity.client';
 //   })),
 // });
 
-const post = await getPostBySlug(Astro.params.page!);
+const post = await getDocBySlug(Astro.params.page!, 'pages');
 
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');

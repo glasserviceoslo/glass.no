@@ -21,7 +21,7 @@ const posts = await getAllPosts();
       {posts.map((post) => <PostPreview path="posts" post={post} />)}
     </section>
   </div> -->
-  <div class="space-y-40 my-20">
+  <div class="my-20 space-y-40">
     <Container>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => <BlogPreview path="posts" post={post} />)}

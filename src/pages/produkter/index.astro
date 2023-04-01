@@ -5,9 +5,7 @@ import PostPreview from '$components/Astro/PostPreview.astro';
 import Layout from '$layouts/Page.astro';
 import { getAllPages } from '$lib/sanity.client';
 
-const products = (await getAllPages()).filter(
-  (p) => p.slug !== 'smijernsdor' && p.slug !== 'velux-takvinduer' && p.slug !== 'home',
-);
+const products = (await getAllPages(false)).filter((page) => page.slug !== 'home');
 
 const seo = {
   title: 'Produkter',
