@@ -18,18 +18,20 @@ const Photo = ({ src, alt, onClick }: PhotoProps) => {
 
   return (
     <CameraTarget ref={ref}>
-      <figure className="h-[20vh] w-[20wv]">
-        <img
-          tabIndex={0}
-          src={src}
-          alt={alt}
-          onClick={() => {
-            onClick(ref.current);
-          }}
-          className="border-6 h-full w-full cursor-pointer border-white object-cover"
-        />
-        <figcaption>Something</figcaption>
-      </figure>
+      {(cameraTarget) => (
+        <figure className="h-[20vh] w-[20wv]">
+          <img
+            tabIndex={0}
+            src={src}
+            alt={alt}
+            onClick={() => {
+              onClick(cameraTarget);
+            }}
+            className="border-6 h-full w-full cursor-pointer border-white object-cover"
+          />
+          <figcaption>Something</figcaption>
+        </figure>
+      )}
     </CameraTarget>
   );
 };
