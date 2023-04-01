@@ -1,6 +1,5 @@
 # Welcome to [Glass-Service Svendsen og Sønn AS](https://glass.no)
 
-[![🚀 Deploy](https://github.com/glasserviceoslo/glass.no/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/glasserviceoslo/glass.no/actions/workflows/build-and-deploy.yml)
 
 ## 🧞 Commands
 
