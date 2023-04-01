@@ -11,6 +11,7 @@ import {
   categoriesQuery,
   Category,
   pagesQuery,
+  latestPostsQuery,
 } from '$lib/sanity.queries';
 
 const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
@@ -32,6 +33,13 @@ export async function getAllPosts(): Promise<Post[]> {
 export async function getAllPages(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(pagesQuery)) || [];
+  }
+  return [];
+}
+
+export async function getLatestPosts(from: number, to: number): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(latestPostsQuery, { from, to })) || [];
   }
   return [];
 }

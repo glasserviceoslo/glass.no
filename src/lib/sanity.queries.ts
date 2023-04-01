@@ -1,6 +1,4 @@
-import { groq } from '@sanity/groq-store';
-
-const postFields = groq`
+const postFields = `
   _id,
   title,
   description,
@@ -38,21 +36,23 @@ const postFields = groq`
   "author": author->{name, picture},
 `;
 
-export const settingsQuery = groq`*[_type == "settings"][0]`;
+export const settingsQuery = `*[_type == "settings"][0]`;
 
-export const indexQuery = groq`
+export const indexQuery = `
 *[_type == "post" && isPage != true] | order(date desc, _updatedAt desc) 
 {
   ${postFields}
 }`;
 
-export const pagesQuery = groq`
+export const pagesQuery = `
 *[_type == "post" && isPage == true] | order(date desc, _updatedAt desc) 
 {
   ${postFields}
 }`;
 
-export const postAndMoreStoriesQuery = groq`
+export const latestPostsQuery = `*[_type == "post"] | order(_createdAt desc) [$from...$to] {${postFields}}`;
+
+export const postAndMoreStoriesQuery = `
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
     category->,
@@ -74,7 +74,7 @@ export const postAndMoreStoriesQuery = groq`
   }
 }`;
 
-export const categoriesQuery = groq`*[_type == 'category'] 
+export const categoriesQuery = `*[_type == 'category'] 
 {
   _id,
   description,
@@ -84,11 +84,11 @@ export const categoriesQuery = groq`*[_type == 'category']
   }
 }`;
 
-export const docSlugsQuery = groq`
+export const docSlugsQuery = `
 *[_type == $type && defined(slug.current)][].slug.current
 `;
 
-export const docBySlugQuery = groq`
+export const docBySlugQuery = `
 *[_type == $type && slug.current == $slug][0] {
   ${postFields}
 }
