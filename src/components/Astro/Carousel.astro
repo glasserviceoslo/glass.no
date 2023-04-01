@@ -1,7 +1,7 @@
 ---
 import { parseImages } from '$lib/sanity.image';
 
-const images = await parseImages('home', 'svg');
+const images = await parseImages('page', 'home', 'svg');
 ---
 
 <article id="default-carousel" class="relative h-1/2 md:h-3/4" data-carousel="slide">
@@ -25,7 +25,7 @@ const images = await parseImages('home', 'svg');
   <!-- Slider controls -->
   <button
     type="button"
-    class="group absolute top-1/2 left-0 z-10 flex cursor-pointer items-center justify-center px-4 focus:outline-none"
+    class="group absolute left-0 top-1/2 z-10 flex cursor-pointer items-center justify-center px-4 focus:outline-none"
     data-carousel-prev
   >
     <span
@@ -45,7 +45,7 @@ const images = await parseImages('home', 'svg');
   </button>
   <button
     type="button"
-    class="group absolute top-1/2 right-0 z-10 flex cursor-pointer items-center justify-center px-4 focus:outline-none"
+    class="group absolute right-0 top-1/2 z-10 flex cursor-pointer items-center justify-center px-4 focus:outline-none"
     data-carousel-next
   >
     <span

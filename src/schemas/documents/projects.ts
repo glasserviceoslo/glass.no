@@ -3,8 +3,8 @@ import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
-  name: 'project',
-  title: 'Project',
+  name: 'projects',
+  title: 'Projects',
   icon: FolderIcon,
   type: 'document',
   fields: [
@@ -86,7 +86,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
+      of: [{ type: 'reference', to: { type: 'categories' } }],
     }),
     defineField({
       name: 'projectDate',

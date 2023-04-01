@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "clean": "rm -rf node_modules dist .netlify/"
+    "clean": "rm -rf node_modules dist .netlify/",
+    "sanity:export": "sanity dataset export glassno sanity-export.tar.gz"
   },
   "dependencies": {
     "@astrojs/netlify": "^2.2.0",

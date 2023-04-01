@@ -3,12 +3,14 @@ import { TagIcon } from '@sanity/icons';
 import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 
-import authorType from './author';
+import authorsType from './authors';
+import postsType from './posts';
+import pagesType from './pages';
 
 export default defineType({
-  name: 'glassType',
+  name: 'glassTypes',
   icon: GlassType,
-  title: 'Glass Type',
+  title: 'Glass Types',
   type: 'document',
   groups: [
     {
@@ -38,7 +40,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{ type: authorType.name }],
+      to: [{ type: authorsType.name }],
     }),
     defineField({
       name: 'mainImage',
@@ -84,7 +86,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'post' }],
+                    to: [{ type: postsType.name }, { type: pagesType.name }, { type: 'glassTypes' }],
                   },
                 ],
               },

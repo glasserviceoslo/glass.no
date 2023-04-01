@@ -2,11 +2,12 @@ import { BookIcon, TagIcon } from '@sanity/icons';
 import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 
-import authorType from './author';
+import authorsType from './authors';
+import pagesType from './pages';
 
 export default defineType({
-  name: 'post',
-  title: 'Post',
+  name: 'posts',
+  title: 'Posts',
   icon: BookIcon,
   type: 'document',
   groups: [
@@ -20,12 +21,6 @@ export default defineType({
     },
   ],
   fields: [
-    defineField({
-      title: 'Is this a Page?',
-      name: 'isPage',
-      type: 'boolean',
-      validation: (rule) => rule.required(),
-    }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -47,7 +42,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{ type: authorType.name }],
+      to: [{ type: authorsType.name }],
     }),
     defineField({
       name: 'mainImage',
@@ -93,7 +88,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'post' }],
+                    to: [{ type: 'posts' }, { type: pagesType.name }],
                   },
                 ],
               },
@@ -110,7 +105,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
+      of: [{ type: 'reference', to: { type: 'categories' } }],
     }),
     defineField({
       name: 'date',
