@@ -1,6 +1,7 @@
 ---
 import '$styles/index.css';
 import settings from '$data/settings';
+import * as Sentry from '@sentry/browser';
 
 export interface Props {
   title?: string;
@@ -15,6 +16,19 @@ const description = Astro.props.description || settings.description;
 const keywords = Astro.props.keywords || settings.keywords;
 const canonicalURL = Astro.props.canonicalURL || new URL(Astro.url.pathname, Astro.site);
 const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
+
+Sentry.init({
+  dsn: 'https://85e55910844a48c3b81db2a18baa007e@o4504951835983872.ingest.sentry.io/4504951865475072',
+  integrations: [new Sentry.BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
+// @ts-ignore
+myUndefinedFunction();
 ---
 
 <meta charset="utf-8" />

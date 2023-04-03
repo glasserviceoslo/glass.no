@@ -42,10 +42,64 @@ const customComponents: PortableTextComponents = {
       return `<a href="/posts/${value.slug.current}">${children}</a>`;
     },
   },
+  block: {
+    normal: ({ children, value }) => {
+      if (children?.length === 0) {
+        return '';
+      }
+      return `<p class="text-justify">${children}</p>`;
+    },
+    h2: ({ children, value }) => {
+      if (children?.length === 0) {
+        return '';
+      }
+      return `<h2 class="text-2xl font-semibold">${children}</h2>`;
+    },
+  },
+  unknownType: () => '',
+};
+
+const createSectionGrid = (section: string) => {
+  return `
+    <div class="group rounded p-8 shadow-sm md:p-6">
+      ${section}
+    </div>
+  `;
 };
 
 export const sanityPortableText = (portabletext: any) => {
-  return toHTML(portabletext, { components: customComponents });
+  const html = toHTML(portabletext, { components: customComponents, onMissingComponent: false });
+  const sections = html.split(/(<figure[^>]*>)/);
+
+  let output = '';
+  let currentSection = '';
+
+  sections.forEach((section) => {
+    if (section.startsWith('<figure')) {
+      if (currentSection) {
+        // Only wrap the section in a div if it contains a <figure> element
+        if (currentSection.includes('<figure')) {
+          output += createSectionGrid(currentSection);
+        } else {
+          output += currentSection;
+        }
+      }
+      currentSection = section;
+    } else {
+      currentSection += section;
+    }
+  });
+
+  // If the last section contains a <figure> element, wrap it in a div
+  if (currentSection) {
+    if (currentSection.includes('<figure')) {
+      output += createSectionGrid(currentSection);
+    } else {
+      output += currentSection;
+    }
+  }
+
+  return output;
 };
 
 // For Features Section
