@@ -20,6 +20,7 @@
     "@astrojs/svelte": "^2.1.0",
     "@astrojs/tailwind": "^3.1.1",
     "@calcom/embed-react": "^1.0.10",
+    "@changesets/cli": "^2.26.1",
     "@googlemaps/js-api-loader": "^1.15.1",
     "@hookform/resolvers": "^3.0.0",
     "@motionone/solid": "^10.16.0",
