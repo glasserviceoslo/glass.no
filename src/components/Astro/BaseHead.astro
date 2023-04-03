@@ -63,18 +63,6 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
-<!-- LocalStorage Theme Check -->
-<script>
-  if (
-    localStorage.getItem('color-theme') === 'dark' ||
-    (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-</script>
-
 <script>
   import * as Sentry from '@sentry/browser';
 
@@ -87,6 +75,21 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
   });
+
+  // @ts-ignore
+  myUndefinedFunction();
+</script>
+
+<!-- LocalStorage Theme Check -->
+<script>
+  if (
+    localStorage.getItem('color-theme') === 'dark' ||
+    (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
 </script>
 
 <script>
