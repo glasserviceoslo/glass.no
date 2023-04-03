@@ -1,0 +1,5 @@
+---
+"glass.no": patch
+---
+
+Sentry
