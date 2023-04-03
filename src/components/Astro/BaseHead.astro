@@ -26,9 +26,6 @@ Sentry.init({
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
 });
-
-// @ts-ignore
-myUndefinedFunction();
 ---
 
 <meta charset="utf-8" />
@@ -87,6 +84,8 @@ myUndefinedFunction();
   } else {
     document.documentElement.classList.remove('dark');
   }
+
+  throw new Error('intentional');
 </script>
 
 <script>
