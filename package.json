@@ -1,7 +1,7 @@
 {
   "name": "glass.no",
   "version": "1.2.2",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "astro dev & caddy run",
     "netlify:dev": "netlify dev",
@@ -23,6 +23,7 @@
     "@astrojs/svelte": "^2.1.0",
     "@astrojs/tailwind": "^3.1.1",
     "@calcom/embed-react": "^1.0.10",
+    "@changesets/changelog-git": "^0.1.14",
     "@changesets/cli": "^2.26.1",
     "@googlemaps/js-api-loader": "^1.15.1",
     "@hookform/resolvers": "^3.0.0",
