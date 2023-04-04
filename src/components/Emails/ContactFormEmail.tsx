@@ -39,22 +39,22 @@ export const ContactFormEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="my-auto mx-auto bg-white font-sans">
-          <Container className="my-[40px] mx-auto w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
+        <Body className="mx-auto my-auto bg-white font-sans">
+          <Container className="mx-auto my-[40px] w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Section className="mt-[32px]">
               <img
                 src={`${baseUrl}/public/assets/favicon.png`}
                 width="40"
                 height="37"
                 alt="Glass.no"
-                className="my-0 mx-auto"
+                className="mx-auto my-0"
               />
             </Section>
-            <Heading className="my-[30px] mx-0 p-0 text-center text-[24px] font-normal text-black">
+            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
               <strong>{sender}</strong> har en forespørsel
             </Heading>
             <Text className="text-[14px] leading-[24px] text-black">{message}</Text>
-            <Hr className="my-[26px] mx-0 w-full border border-solid border-[#eaeaea]" />
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
             <Section>
               <Row>
                 <Column align="right">
@@ -90,7 +90,7 @@ export const ContactFormEmail = ({
               </Row>
             </Section>
 
-            <Hr className="my-[26px] mx-0 w-full border border-solid border-[#eaeaea]" />
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
           </Container>
         </Body>
       </Tailwind>

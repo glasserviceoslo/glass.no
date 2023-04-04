@@ -1,6 +1,5 @@
 # Welcome to [Glass-Service Svendsen og Sønn AS](https://glass.no)
 
-
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:

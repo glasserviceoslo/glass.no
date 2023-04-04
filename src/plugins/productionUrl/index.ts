@@ -17,9 +17,7 @@ export const productionUrl = definePlugin<{
     throw new TypeError('`previewSecretId` is required');
   }
   if (!previewSecretId.includes('.')) {
-    throw new TypeError(
-      '`previewSecretId` must contain a `.` to ensure it can only be queried by authenticated users',
-    );
+    throw new TypeError('`previewSecretId` must contain a `.` to ensure it can only be queried by authenticated users');
   }
   if (!_types || _types.length === 0) {
     throw new TypeError('`types` is required');

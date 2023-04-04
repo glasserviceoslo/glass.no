@@ -57,7 +57,7 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
       <button
         aria-label="previous slide button"
         type="button"
-        class="absolute top-0 left-4 bottom-0 mx-0
+        class="absolute bottom-0 left-4 top-0 mx-0
                 my-auto flex h-[13%] items-center justify-center rounded-full p-2 text-gray-200 shadow-sm hover:bg-gray-300 hover:text-gray-600"
         onClick={prev}
       >
@@ -75,7 +75,7 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
       <button
         aria-label="next slide button"
         type="button"
-        class="absolute top-0 right-4 bottom-0 mx-0 my-auto flex h-[13%] items-center justify-center rounded-full p-2 text-gray-200 shadow-sm hover:bg-gray-300 hover:text-gray-600"
+        class="absolute bottom-0 right-4 top-0 mx-0 my-auto flex h-[13%] items-center justify-center rounded-full p-2 text-gray-200 shadow-sm hover:bg-gray-300 hover:text-gray-600"
         onClick={next}
       >
         <svg
@@ -89,7 +89,7 @@ export const Carousel: Component<{ images: Array<Image> }> = ({ images }) => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
       </button>
-      <div class="absolute right-0 left-0 bottom-1 my-0 mx-auto flex items-center justify-center gap-1 p-2">
+      <div class="absolute bottom-1 left-0 right-0 mx-auto my-0 flex items-center justify-center gap-1 p-2">
         {/* {srcs.map((s, i, arr) => (
           <input
             id={s}

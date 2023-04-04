@@ -84,7 +84,7 @@ function Dropzone({ onChange, multiple, name }: DropzoneProps) {
 
   const thumbs = files.map((file) => (
     <li key={file.id} className="relative border-4 border-green-400">
-      <button className="absolute -top-5 -right-5" onClick={(e) => deleteFile(e, file)}>
+      <button className="absolute -right-5 -top-5" onClick={(e) => deleteFile(e, file)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="red"
@@ -138,7 +138,7 @@ function Dropzone({ onChange, multiple, name }: DropzoneProps) {
             isDragActive && 'animate-pulse bg-green-200',
           )}
         >
-          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+          <div className="flex flex-col items-center justify-center pb-6 pt-5">
             <svg
               aria-hidden="true"
               className="mb-3 h-10 w-10 text-gray-400"
