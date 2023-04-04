@@ -13,7 +13,8 @@
     "sanity:export": "sanity dataset export glassno sanity-export.tar.gz",
     "format": "yarn run format:code",
     "format:code": "prettier -w . --cache --plugin-search-dir=.",
-    "version": "changeset version && yarn install --no-frozen-lockfile && yarn run format"
+    "version": "changeset version && yarn install --no-frozen-lockfile && yarn run format",
+    "release": "changeset publish"
   },
   "dependencies": {
     "@astrojs/netlify": "^2.2.0",
