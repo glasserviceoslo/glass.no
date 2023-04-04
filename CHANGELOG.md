@@ -1,5 +1,11 @@
 # glass.no
 
+## 1.2.3
+
+### Patch Changes
+
+- 354a642: Releases
+
 ## 1.2.2
 
 ### Patch Changes

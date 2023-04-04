@@ -1,6 +1,6 @@
 {
   "name": "glass.no",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "scripts": {
     "dev": "astro dev & caddy run",
