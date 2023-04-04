@@ -11,7 +11,7 @@
     "astro": "astro",
     "clean": "rm -rf node_modules dist .netlify/",
     "sanity:export": "sanity dataset export glassno sanity-export.tar.gz",
-    "format": "pnpm run format:code",
+    "format": "yarn run format:code",
     "format:code": "prettier -w . --cache --plugin-search-dir=.",
     "version": "changeset version && yarn install --no-frozen-lockfile && yarn run format"
   },
