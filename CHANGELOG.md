@@ -1,5 +1,11 @@
 # glass.no
 
+## 1.2.2
+
+### Patch Changes
+
+- 739487b: adds versioning
+
 ## 1.2.1
 
 ### Patch Changes
