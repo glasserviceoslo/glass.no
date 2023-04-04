@@ -10,7 +10,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf node_modules dist .netlify/",
-    "sanity:export": "sanity dataset export glassno sanity-export.tar.gz"
+    "sanity:export": "sanity dataset export glassno sanity-export.tar.gz",
+    "format": "pnpm run format:code",
+    "format:code": "prettier -w . --cache --plugin-search-dir=.",
+    "version": "changeset version && yarn install --no-frozen-lockfile && yarn run format"
   },
   "dependencies": {
     "@astrojs/netlify": "^2.2.0",
