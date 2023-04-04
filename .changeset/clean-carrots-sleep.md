@@ -1,5 +1,0 @@
----
-"glass.no": patch
----
-
-Releases
