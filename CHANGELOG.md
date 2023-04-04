@@ -1,5 +1,12 @@
 # glass.no
 
+## 1.2.5
+
+### Patch Changes
+
+- 1ec9896: fixes spelling in chagesets config
+- e77390d: changeset config
+
 ## 1.2.3
 
 ### Patch Changes
