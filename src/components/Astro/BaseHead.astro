@@ -63,6 +63,21 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
+<!-- Init Sentry -->
+<script>
+  import * as Sentry from '@sentry/browser';
+
+  Sentry.init({
+    dsn: 'https://85e55910844a48c3b81db2a18baa007e@o4504951835983872.ingest.sentry.io/4504951865475072',
+    integrations: [new Sentry.BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+</script>
+
 <!-- LocalStorage Theme Check -->
 <script>
   if (
