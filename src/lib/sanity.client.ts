@@ -14,6 +14,7 @@ import {
   pagesQuery,
   latestPostsQuery,
   DocType,
+  pageBySlugQuery,
 } from '$lib/sanity.queries';
 
 const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
@@ -61,9 +62,12 @@ export async function getAllCategoriesWithPosts(): Promise<Category[]> {
   return [];
 }
 
-export async function getDocBySlug(slug: string, type: DocType = 'posts'): Promise<Post> {
+export async function getDocBySlug(slug: string, type: DocType = 'posts', isNavElement = false): Promise<Post> {
   if (client) {
-    return (await client.fetch(docBySlugQuery, { slug, type })) || ({} as any);
+    if (type === 'pages') {
+      return (await client.fetch(pageBySlugQuery, { slug, type, isNavElement })) || {};
+    }
+    return (await client.fetch(docBySlugQuery, { slug, type })) || {};
   }
   return {} as any;
 }

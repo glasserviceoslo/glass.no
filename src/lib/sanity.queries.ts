@@ -96,6 +96,16 @@ export const docBySlugQuery = `
 }
 `;
 
+export const pageBySlugQuery = `
+*[_type == "pages" 
+  && slug.current == $slug 
+  && ($isNavElement && navbar.isNavElement == true || !$isNavElement && navbar.isNavElement != true)][0]
+{
+  navbar,
+  ${queryFields}
+}
+`;
+
 export interface Author {
   name?: string;
   picture?: any;

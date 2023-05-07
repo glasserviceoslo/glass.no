@@ -69,7 +69,7 @@ const navElements = (await getAllPages(true)).sort((a, b) => a.navbar.navTitle.l
           navElements.map((element) => (
             <li class="peer/smijern">
               <NavLink
-                href={`${element.slug}`}
+                href={`/${element.slug}`}
                 class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
               >
                 {element.navbar.navTitle}

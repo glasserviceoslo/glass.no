@@ -8,11 +8,7 @@ let riveapp: Rive;
 export const RiveCanvas = ({ src }: { src: string }) => {
   onMount(() => {
     import('@rive-app/canvas').then(({ Rive }) => {
-      riveapp = new Rive({
-        src,
-        canvas,
-        autoplay: true,
-      });
+      riveapp = new Rive({ src, canvas, autoplay: true });
     });
   });
 

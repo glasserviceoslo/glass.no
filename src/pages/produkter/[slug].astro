@@ -5,7 +5,7 @@ import { getDocBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
 
-const post = await getDocBySlug(slug!, 'pages');
+const post = await getDocBySlug(slug!, 'pages', false);
 
 const seo = {
   title: post.title,
