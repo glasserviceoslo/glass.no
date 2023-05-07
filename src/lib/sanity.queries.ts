@@ -149,3 +149,5 @@ export interface Image {
   };
   markDefs?: any;
 }
+
+export type DocType = 'posts' | 'pages' | 'categories' | 'settings' | 'glassTypes' | 'projects';
