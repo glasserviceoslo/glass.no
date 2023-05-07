@@ -17,7 +17,6 @@ import { getAllPages, getDocBySlug } from '$lib/sanity.client';
 // });
 
 const post = await getDocBySlug(Astro.params.page!, 'pages', true);
-console.log('Astro.params.page:', Astro.params.page);
 
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');
