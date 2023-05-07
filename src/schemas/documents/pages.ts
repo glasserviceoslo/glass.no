@@ -3,7 +3,6 @@ import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 
 import authorsType from './authors';
-import postsType from './posts';
 
 export default defineType({
   name: 'pages',
@@ -21,7 +20,7 @@ export default defineType({
     },
   ],
   fields: [
-    defineField({
+    {
       name: 'navbar',
       type: 'object',
       title: 'Navigation',
@@ -40,7 +39,7 @@ export default defineType({
           hidden: ({ parent }) => !parent?.isNavElement,
         },
       ],
-    }),
+    },
     defineField({
       name: 'title',
       title: 'Title',
@@ -72,7 +71,7 @@ export default defineType({
         hotspot: true,
       },
     }),
-    defineField({
+    {
       name: 'body',
       title: 'Body',
       type: 'array',
@@ -108,7 +107,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'pages' }],
+                    to: [{ type: 'pages' }, { type: 'posts' }, { type: 'glassTypes' }],
                   },
                 ],
               },
@@ -120,7 +119,7 @@ export default defineType({
           options: { hotspot: true },
         },
       ],
-    }),
+    },
     defineField({
       name: 'categories',
       title: 'Categories',

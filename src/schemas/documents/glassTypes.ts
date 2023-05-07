@@ -86,7 +86,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: postsType.name }, { type: pagesType.name }, { type: 'glassTypes' }],
+                    to: [{ type: 'glassTypes' }],
                   },
                 ],
               },
