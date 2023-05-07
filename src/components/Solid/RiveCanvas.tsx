@@ -1,16 +1,18 @@
 /** @jsxImportSource solid-js */
 
-import riveApp from '@rive-app/canvas';
+import type { Rive } from '@rive-app/canvas';
 import { onMount, onCleanup } from 'solid-js';
 
 let canvas: HTMLCanvasElement;
-let rive: riveApp.Rive;
+let riveapp: Rive;
 export const RiveCanvas = ({ src }: { src: string }) => {
   onMount(() => {
-    rive = new riveApp.Rive({
-      src,
-      canvas,
-      autoplay: true,
+    import('@rive-app/canvas').then(({ Rive }) => {
+      riveapp = new Rive({
+        src,
+        canvas,
+        autoplay: true,
+      });
     });
   });
 
