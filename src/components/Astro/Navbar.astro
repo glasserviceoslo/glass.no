@@ -3,7 +3,8 @@ import NavLink from './NavLink.astro';
 import BookBefaring from '$components/Svelte/BookBefaring.svelte';
 import { getAllDocsSlugs, getAllPages } from '$lib/sanity.client';
 import Logo from './Logo.astro';
-import ThemeToggler from '$components/Solid/Theme';
+import ThemeTogglerSolid from '$components/Solid/Theme';
+import ThemeToggler from './ThemeToggler.astro';
 
 const glassTyper = (await getAllDocsSlugs('glassTypes')).map((s) => ({
   slug: s.slug,
@@ -19,9 +20,10 @@ const navElements = (await getAllPages(true)).sort((a, b) => a.navbar.navTitle.l
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
     <Logo />
     <div class="flex gap-2 md:order-2">
-      <div class="relative w-14 bg-white p-2.5 dark:bg-gray-900">
-        <ThemeToggler client:only="solid-js" />
-      </div>
+      <ThemeToggler />
+      <!-- <div class="relative w-14 bg-white p-2.5 dark:bg-gray-900">
+        <ThemeTogglerSolid client:only="solid-js" />
+      </div> -->
       <BookBefaring client:visible />
       <!-- <a data-turbo-preload href="/booking" class="btn-primary hidden md:block">
         <span class="hidden lg:block">Gratis Befaring</span>
