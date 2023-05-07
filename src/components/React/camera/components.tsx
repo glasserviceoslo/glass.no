@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useTransform } from 'framer-motion';
 import * as utils from './utils';
+import useLayoutEffect from '$hooks/react/useLayoutEffect';
 
 interface BoxProps {
   children: React.ReactNode;
@@ -31,7 +32,7 @@ export const Camera = ({ children, ...otherProps }: CameraProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (containerRef.current && contentRef.current) {
       camera.containerEl = containerRef.current;
       camera.contentEl = contentRef.current;
@@ -79,7 +80,7 @@ export const CameraTarget = React.forwardRef<utils.CameraTarget, CameraTargetPro
     const camera = useCamera();
     const [cameraTarget] = React.useState(() => new utils.CameraTarget(camera));
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
       if (ref.current) {
         cameraTarget.el = ref.current;
       }
