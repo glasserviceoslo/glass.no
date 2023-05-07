@@ -18,7 +18,8 @@ const queryFields = `
       ...,
       _type == "internalLink" => {
         ...,
-        "slug": @.reference-> slug
+        "slug": @.reference-> slug,
+        "type": @.reference->_type
       }
     },
     _type == "image" => {

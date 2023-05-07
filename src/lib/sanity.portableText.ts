@@ -39,7 +39,16 @@ const customComponents: PortableTextComponents = {
   },
   marks: {
     internalLink: ({ children, value }) => {
-      return `<a href="/posts/${value.slug.current}">${children}</a>`;
+      if (value.type === 'pages') {
+        return `<a href="/${value.slug.current}">${children}</a>`;
+      } else if (value.type === 'posts') {
+        return `<a href="/posts/${value.slug.current}">${children}</a>`;
+      } else if (value.type === 'glassTypes') {
+        return `<a href="/glasstyper/${value.slug.current}">${children}</a>`;
+      } else {
+        console.error('Unsupported reference type:', value.type);
+        return `<a href="#">${children}</a>`;
+      }
     },
   },
 };
