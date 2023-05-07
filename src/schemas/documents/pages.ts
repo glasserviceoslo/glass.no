@@ -31,7 +31,6 @@ export default defineType({
           name: 'isNavElement',
           type: 'boolean',
           initialValue: false,
-          validation: (rule) => rule.required(),
         },
         {
           title: 'Nav link title',
