@@ -36,7 +36,7 @@ export default defineConfig({
     types: schemas,
   },
   tools: (prev) => {
-    if (import.meta.env.DEV) {
+    if (import.meta.url.includes('localhost')) {
       return prev;
     }
     return prev.filter((tool) => tool.name !== 'vision');

@@ -3,7 +3,7 @@ import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 
 import authorsType from './authors';
-import pagesType from './pages';
+import glassTypes from './glassTypes';
 
 export default defineType({
   name: 'posts',
@@ -88,7 +88,7 @@ export default defineType({
                     name: 'reference',
                     type: 'reference',
                     title: 'Reference',
-                    to: [{ type: 'posts' }, { type: pagesType.name }],
+                    to: [{ type: 'posts' }, { type: glassTypes.name }],
                   },
                 ],
               },

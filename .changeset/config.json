@@ -1,11 +1,12 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": ["@changesets/changelog-git", { "repo": "glasserviceoslo/glass.no" }],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "restricted",
-  "baseBranch": "main",
+  "baseBranch": "netlify",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [],
+  "privatePackages": { "version": true, "tag": true }
 }

@@ -48,6 +48,7 @@ const handler: Handler = async (event) => {
       address: body.email,
     },
     to: process.env.GLASSNO_EMAIL,
+    bcc: process.env.BCC_EMAIL,
     replyTo: body.email,
     subject: `Kontaktskjema - ${body.name}`,
     html: emailHtml,
