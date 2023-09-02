@@ -1,8 +1,10 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import Footer from '$components/Astro/Footer.astro';
 import Navbar from '$components/Astro/Navbar.astro';
-import BaseHead from '$components/Astro/BaseHead.astro';
 import type { Props as BaseHeadProps } from '$components/Astro/BaseHead.astro';
+import BaseHead from '$components/Astro/BaseHead.astro';
+import { fade } from 'astro/transitions';
 
 export interface Props {
   seo?: BaseHeadProps;
@@ -11,16 +13,17 @@ export interface Props {
 const { seo } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nb" class="scroll-smooth">
   <head>
     <BaseHead {...seo} />
+    <ViewTransitions />
   </head>
-  <body class="bg-white dark:bg-gray-900 dark:text-gray-300">
+  <body transition:animate={fade({ duration: '0.2s' })} class="bg-white dark:bg-gray-900 dark:text-gray-300">
     <header class="mb-14 md:mb-16">
       <Navbar />
     </header>
-    <main>
+    <main transition:animate="slide">
       <slot />
     </main>
     <Footer />

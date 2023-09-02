@@ -1,5 +1,3 @@
-/** @jsxImportSource react */
-
 /**
  * This component is responsible for rendering a preview of a post inside the Studio.
  */
