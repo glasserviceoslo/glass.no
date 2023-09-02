@@ -1,5 +1,5 @@
 [build]
-  command = "yarn build"
+  command = "pnpm build"
   publish = "dist"
 
 [[redirects]]
@@ -14,6 +14,6 @@
 
 
 [dev]
-  command = "yarn start"
+  command = "pnpm preview"
   targetPort = 5001
   envFiles = [".env"]
