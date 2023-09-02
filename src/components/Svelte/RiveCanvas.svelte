@@ -10,6 +10,4 @@
   });
 </script>
 
-<section class="flex flex-col justify-center items-center">
-  <canvas class="h-1/2 w-1/2" width={1000} height={1000} bind:this={canvas} />
-</section>
+<canvas id="canvas" class="mx-auto h-auto w-3/5 lg:h-[90%] lg:w-[90%]" width="500" height="500" bind:this={canvas} />

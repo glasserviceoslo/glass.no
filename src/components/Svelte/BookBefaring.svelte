@@ -11,7 +11,7 @@
 </script>
 
 <button data-cal-link="glassno/befaring" class="btn-primary hidden md:block">
-  <span class="hidden lg:block">Gratis Befaring</span>
+  <span class="hidden pointer-events-none lg:block">Gratis Befaring</span>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
