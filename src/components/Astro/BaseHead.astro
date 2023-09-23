@@ -87,7 +87,11 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 </script>
 
 <!-- Google tag (gtag.js) -->
-<script async type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
+<script
+  async
+  type="text/partytown"
+  data-cookiecategory="analytics"
+  src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
 <script type="text/partytown">
 window.dataLayer = window.dataLayer || [];
 function gtag() {

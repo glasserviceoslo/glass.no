@@ -4,7 +4,7 @@ import Layout from '$layouts/Page.astro';
 ---
 
 <Layout>
-  <div class="flex h-[calc(100vh-289px)] w-screen items-center justify-center bg-gray-100 p-10">
+  <div class="flex h-[calc(100vh-289px)] min-h-0 w-screen items-center justify-center bg-gray-100 p-10 overflow-y-auto">
     <article class="flex w-screen items-center">
       <div class="container flex flex-col items-center justify-center px-5 text-gray-700 md:flex-row">
         <section class="max-w-lg">
@@ -32,7 +32,7 @@ import Layout from '$layouts/Page.astro';
               ></path>
             </svg>
 
-            Back to hompage
+             Back to hompage
           </a>
         </section>
       </div>

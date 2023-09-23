@@ -12,7 +12,10 @@
       layout: 'column_view',
     });
 
-    Cal('ui', { styles: { branding: { brandColor: '#000000' } }, hideEventTypeDetails: false, layout: 'column_view' });
+    Cal('ui', {
+      hideEventTypeDetails: false,
+      layout: 'column_view',
+    });
   });
 </script>
 

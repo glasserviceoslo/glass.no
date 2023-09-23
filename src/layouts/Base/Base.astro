@@ -28,13 +28,10 @@ const { seo } = Astro.props;
       import 'vanilla-cookieconsent/dist/cookieconsent.css';
       import 'vanilla-cookieconsent/src/cookieconsent.js';
       window.addEventListener('load', function () {
-        // obtain plugin
-        var cc = initCookieConsent();
-        console.log(cc);
+        const cc = initCookieConsent();
 
-        // run plugin with your configuration
         cc.run({
-          current_lang: 'nb_no',
+          current_lang: 'no',
           autoclear_cookies: true, // default: false
           page_scripts: true, // default: false
 
@@ -67,78 +64,78 @@ const { seo } = Astro.props;
           },
 
           languages: {
-            en: {
+            no: {
               consent_modal: {
-                title: 'We use cookies!',
+                title: 'Vi bruker informasjonskapsler!',
                 description:
-                  'Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent. <button type="button" data-cc="c-settings" class="cc-link">Let me choose</button>',
+                  'Hei, dette nettstedet bruker nødvendige informasjonskapsler for å sikre riktig drift og sporing av informasjonskapsler for å forstå hvordan du samhandler med det. Sistnevnte vil kun bli satt etter samtykke. <button type="button" data-cc="c-settings" class="cc-link">Instillinger</button>',
                 primary_btn: {
-                  text: 'Accept all',
-                  role: 'accept_all', // 'accept_selected' or 'accept_all'
+                  text: 'Godta alle',
+                  role: 'accept_all',
                 },
                 secondary_btn: {
-                  text: 'Reject all',
-                  role: 'accept_necessary', // 'settings' or 'accept_necessary'
+                  text: 'Avvis alle',
+                  role: 'accept_necessary',
                 },
               },
               settings_modal: {
-                title: 'Cookie preferences',
-                save_settings_btn: 'Save settings',
-                accept_all_btn: 'Accept all',
-                reject_all_btn: 'Reject all',
-                close_btn_label: 'Close',
-                // cookie_table_caption: 'Cookie list',
+                title: 'Innstillinger for informasjonskapsler',
+                save_settings_btn: 'Lagre innstillinger',
+                accept_all_btn: 'Godta alle',
+                reject_all_btn: 'Avvis alle',
+                close_btn_label: 'Lukk',
                 cookie_table_headers: [
-                  { col1: 'Name' },
-                  { col2: 'Domain' },
-                  { col3: 'Expiration' },
-                  { col4: 'Description' },
+                  {
+                    col1: 'Navn',
+                  },
+                  {
+                    col2: 'Domene',
+                  },
+                  {
+                    col3: 'Utløpsdato',
+                  },
+                  {
+                    col4: 'Beskrivelse',
+                  },
                 ],
                 blocks: [
                   {
-                    title: 'Cookie usage 📢',
+                    title: 'Bruk av informasjonskapsler 📢',
                     description:
-                      'I use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want. For more details relative to cookies and other sensitive data, please read the full <a href="#" class="cc-link">privacy policy</a>.',
+                      'Jeg bruker informasjonskapsler for å sikre de grunnleggende funksjonene på nettstedet og forbedre din online opplevelse. Du kan velge for hver kategori om du vil delta eller ikke når som helst. For flere detaljer relatert til informasjonskapsler og annen sensitiv data, vennligst les fullstendig <a href="#" class="cc-link">personvernpolicy</a>.',
                   },
                   {
-                    title: 'Strictly necessary cookies',
+                    title: 'Strengt nødvendige informasjonskapsler',
                     description:
-                      'These cookies are essential for the proper functioning of my website. Without these cookies, the website would not work properly',
+                      'Disse informasjonskapslene er essensielle for riktig funksjon av mitt nettsted. Uten disse informasjonskapslene ville nettstedet ikke fungere ordentlig',
                     toggle: {
                       value: 'necessary',
                       enabled: true,
-                      readonly: true, // cookie categories with readonly=true are all treated as "necessary cookies"
+                      readonly: true,
                     },
                   },
                   {
-                    title: 'Performance and Analytics cookies',
-                    description: 'These cookies allow the website to remember the choices you have made in the past',
+                    title: 'Ytelse og analyse-informasjonskapsler',
+                    description: 'Disse informasjonskapslene lar nettstedet huske valgene du har gjort tidligere',
                     toggle: {
-                      value: 'analytics', // your cookie category
+                      value: 'analytics',
                       enabled: false,
                       readonly: false,
                     },
                     cookie_table: [
-                      // list of all expected cookies
                       {
-                        col1: '^_ga', // match all cookies starting with "_ga"
+                        col1: '^_ga',
                         col2: 'google.com',
-                        col3: '2 years',
-                        col4: 'description ...',
+                        col3: '2 år',
+                        col4: 'beskrivelse ...',
                         is_regex: true,
-                      },
-                      {
-                        col1: '_gid',
-                        col2: 'google.com',
-                        col3: '1 day',
-                        col4: 'description ...',
                       },
                     ],
                   },
                   {
-                    title: 'Advertisement and Targeting cookies',
+                    title: 'Annonsering og målrettede informasjonskapsler',
                     description:
-                      'These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you',
+                      'Disse informasjonskapslene samler inn informasjon om hvordan du bruker nettstedet, hvilke sider du har besøkt, og hvilke linker du har klikket på. Alle dataene er anonymisert og kan ikke brukes til å identifisere deg',
                     toggle: {
                       value: 'targeting',
                       enabled: false,
@@ -146,9 +143,9 @@ const { seo } = Astro.props;
                     },
                   },
                   {
-                    title: 'More information',
+                    title: 'Mer informasjon',
                     description:
-                      'For any queries in relation to our policy on cookies and your choices, please <a class="cc-link" href="kontakt">contact us</a>.',
+                      'For spørsmål angående vår informasjonskapselpolicy og dine valg, vennligst <a class="cc-link" href="kontakt">kontakt oss</a>.',
                   },
                 ],
               },
