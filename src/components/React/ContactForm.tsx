@@ -24,7 +24,8 @@ export const ContactForm = () => {
     await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(data),
-    }).then(() => setIsSubmitting(false));
+    });
+    setIsSubmitting(false);
   };
 
   const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
