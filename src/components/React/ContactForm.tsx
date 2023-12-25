@@ -1,10 +1,11 @@
+import { waveform } from 'ldrs';
 import { useEffect, useState } from 'react';
 import { useForm, FormProvider, type FieldValues } from 'react-hook-form';
-import { Waveform } from '@uiball/loaders';
 import { DropzoneField } from './DropzoneField';
 import { GoogleMap } from './GoogleMap';
 import { AddressInput } from './AddressInput';
 
+waveform.register('l-waveform');
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -128,7 +129,7 @@ export const ContactForm = () => {
                         className="btn-primary flex w-full items-center justify-center"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? <Waveform color="white" size={20} /> : <span>Send</span>}
+                        {isSubmitting ? <l-waveform></l-waveform> : <span>Send</span>}
                       </button>
                     </form>
                   </FormProvider>

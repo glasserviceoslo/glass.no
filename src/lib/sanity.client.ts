@@ -10,10 +10,10 @@ import {
   docSlugsQuery,
   settingsQuery,
   categoriesQuery,
-  Category,
+  type Category,
   pagesQuery,
   latestPostsQuery,
-  DocType,
+  type DocType,
   pageBySlugQuery,
 } from '$lib/sanity.queries';
 
