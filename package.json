@@ -13,7 +13,7 @@
     "vercel:dev": "vercel dev --listen 5001",
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "start": "astro preview",
     "astro": "astro",
     "clean": "rm -rf node_modules dist .netlify/",
     "sanity:export": "sanity dataset export glassno sanity-export.tar.gz",
@@ -23,6 +23,7 @@
     "release": "changeset publish"
   },
   "dependencies": {
+    "@astrojs/node": "^7.0.2",
     "@astrojs/partytown": "2.0.2",
     "@astrojs/react": "3.0.8",
     "@astrojs/svelte": "5.0.2",

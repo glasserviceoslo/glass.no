@@ -3,7 +3,8 @@ import tailwind from '@astrojs/tailwind';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
-import vercel from '@astrojs/vercel/serverless';
+
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,5 +28,7 @@ export default defineConfig({
     port: 5001,
   },
   output: 'server',
-  adapter: vercel(),
+  adapter: node({
+    mode: 'standalone',
+  }),
 });
