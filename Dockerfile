@@ -14,7 +14,6 @@ ARG CLIENT_ID=${CLIENT_ID}
 ARG URL=${URL}
 ARG CLIENT_SECRET=${CLIENT_SECRET}
 
-
 RUN corepack enable
 WORKDIR /app
 
@@ -40,4 +39,4 @@ ENV CLIENT_SECRET=${CLIENT_SECRET}
 ENV HOST=0.0.0.0
 ENV PORT=8100
 EXPOSE 8100
-CMD node ./dist/server/entry.mjs
+CMD node server.mjs
