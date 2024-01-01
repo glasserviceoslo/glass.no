@@ -12,7 +12,7 @@
     "dev:ssl": "astro dev & caddy run",
     "dev": "astro dev",
     "build": "astro build",
-    "start": "node server.mjs",
+    "start": "astro preview",
     "astro": "astro",
     "clean": "rm -rf node_modules dist .netlify/",
     "sanity:export": "sanity dataset export glassno sanity-export.tar.gz",
