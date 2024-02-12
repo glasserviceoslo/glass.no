@@ -7,13 +7,16 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   const transporter = createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: true,
     service: 'gmail',
     auth: {
       type: 'OAuth2',
-      user: process.env.GMAIL_USER,
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+      user: import.meta.env.GMAIL_USER,
+      clientId: import.meta.env.CLIENT_ID,
+      clientSecret: import.meta.env.CLIENT_SECRET,
+      refreshToken: import.meta.env.GMAIL_REFRESH_TOKEN,
     },
   });
 
@@ -26,7 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
   const emailHtml = render(
     ContactFormEmail({
-      baseUrl: process.env.URL || 'https://glass.no',
+      baseUrl: import.meta.env.URL || 'https://glass.no',
       sender: body.name,
       address: body.address,
       email: body.email,
@@ -48,8 +51,8 @@ export const POST: APIRoute = async ({ request }) => {
       name: body.name,
       address: body.email,
     },
-    to: process.env.GLASSNO_EMAIL,
-    bcc: process.env.BCC_EMAIL,
+    to: import.meta.env.GLASSNO_EMAIL,
+    bcc: import.meta.env.BCC_EMAIL,
     replyTo: body.email,
     subject: `Kontaktskjema - ${body.name}`,
     html: emailHtml,
