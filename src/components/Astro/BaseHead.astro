@@ -47,7 +47,7 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 <meta property="twitter:image" content={image} />
 
 <!-- Cookie Consent -->
-<link rel="stylesheet" href="cookieconsent.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css" />
 
 <!-- Google Fonts -->
 <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -93,11 +93,11 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
   data-cookiecategory="analytics"
   src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
 <script type="text/partytown">
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
 
-gtag('config', 'G-BQJLEM0TPE');
+  gtag('config', 'G-BQJLEM0TPE');
 </script>

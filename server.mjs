@@ -2,7 +2,6 @@ import express from 'express';
 import { handler as ssrHandler } from './dist/server/entry.mjs';
 
 const PORT = process.env.PORT || 5001;
-console.log({ PORT });
 const URL = process.env.URL || `http://localhost:${PORT}`;
 
 const app = express();

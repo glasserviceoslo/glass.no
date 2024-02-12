@@ -113,9 +113,6 @@ dependencies:
   tailwindcss:
     specifier: ^3.3.3
     version: 3.4.0
-  vanilla-cookieconsent:
-    specifier: ^2.9.2
-    version: 2.9.2
   zod:
     specifier: ^3.22.2
     version: 3.22.4
@@ -10444,10 +10441,6 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
-    dev: false
-
-  /vanilla-cookieconsent@2.9.2:
-    resolution: {integrity: sha512-SHAS5W0DBvvcUtjmVvvYkhmLPmTlgwKzFvViUp5mBimbZCdZKbDQzwyk/TgYq02+61RrtxmDdLGzDWNFpSbsGQ==}
     dev: false
 
   /vary@1.1.2:
