@@ -7,11 +7,13 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   const transporter = createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
+    service: 'gmail',
     auth: {
+      type: 'OAuth2',
       user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSWORD,
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.GMAIL_REFRESH_TOKEN,
     },
   });
 

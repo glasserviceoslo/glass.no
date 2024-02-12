@@ -9,7 +9,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev:ssl": "astro dev & caddy run",
+    "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
     "build": "astro build",
     "start": "node server.mjs",
