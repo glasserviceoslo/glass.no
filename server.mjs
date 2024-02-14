@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { handler as ssrHandler } from './dist/server/entry.mjs';
 
 const PORT = process.env.PORT || 5001;
