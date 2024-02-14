@@ -41,6 +41,7 @@
     "@sanity/preview-kit": "^3.1.6",
     "@sanity/vision": "^3.16.2",
     "astro": "4.0.7",
+    "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "express": "^4.18.2",
     "flowbite": "^1.8.1",

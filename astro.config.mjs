@@ -7,7 +7,7 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://glass.no',
+  site: 'https://www.glass.no',
   sitemap: true,
   integrations: [
     tailwind({
