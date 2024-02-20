@@ -8,7 +8,7 @@ const URL = process.env.URL || `http://localhost:${PORT}`;
 const app = express();
 const base = '/';
 
-app.use(base, cors({ origin: 'https://*.glass.no' }));
+app.use(cors());
 app.use(base, express.static('dist/client/'));
 app.use(ssrHandler);
 
