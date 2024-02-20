@@ -8,7 +8,8 @@ const URL = process.env.URL || `http://localhost:${PORT}`;
 const app = express();
 const base = '/';
 
+app.use(base, cors({ origin: '*' }));
 app.use(base, express.static('dist/client/'));
-app.use(cors(), ssrHandler);
+app.use(ssrHandler);
 
 app.listen(PORT, () => console.log(`Listening on ${URL}`));
