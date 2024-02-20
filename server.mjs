@@ -8,8 +8,8 @@ const URL = process.env.URL || `http://localhost:${PORT}`;
 const app = express();
 const base = '/';
 
-app.use(cors());
-app.use((_req, res, next) => {
+app.use(base, cors());
+app.use(base, (_req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
