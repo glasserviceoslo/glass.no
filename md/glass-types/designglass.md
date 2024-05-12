@@ -1,0 +1,47 @@
+
+---
+layout: glassType
+title: "Designglass"
+seoKeywords: undefined
+seoKeyphrase: undefined
+categories: undefined
+date: 2023-01-15 09:14:04.976Z
+description: "Vi tilbyr et bredt utvalg av designglass med ulike egenskaper og funksjoner. Bla. farget glass, laminert glass, etset glass, emaljert glass med mer."
+---
+
+Vi tilbyr et bredt utvalg av designglass med forskjellige egenskaper og funksjoner, blant annet farget glass, laminert glass, etset glass, emaljert glass med mer.
+
+Interiørglass er et perfekt valg for deg som ønsker å gi hjemmet et særeget preg. Her er det mye å velge mellom, og våre eksperter hjelper deg gjerne å finne ut hva som blir best for ditt hjem.
+
+## Eksempler på designglass:
+
+* Silketrykt glass
+* Laminert glass med farget eller hvitt mellomlag
+* Syreetset glass
+* Teksturglass
+* Emaljert glass
+* Speil
+
+## Ornamentglass
+
+Ornamentglass er glass med mønster som er innpreget under produksjonen. Vi har delt våre ornamentglass inn i to familier, DECORGLASS med klassiske mønstre og MASTERGLASS med moderne mønstre. 
+
+I tillegg leverer vi ornamentglass som tilfører estetiske verdier gjennom sitt mønster. De har et stort lysgjennomslipp, men hindrer innsyn. Sortimentet består av glass som har sine designrøtter i 60- og 70-tallet. 
+
+Ornamentglass forsynes med mønster allerede under produksjonen. Det varme glasset passerer da mellom valser med mønster som preges i glassets overflate.
+
+## Farget glass
+
+Det finnes flere forskjellige måter å farge glass på, blant annet:
+
+**Gjennomfarget glass** (PARSOL i grått, bronse og grønt) er glass som farges ved fremstillingen. Glasset er gjennomsiktlig som en farget væske.
+
+**Emaljert glass** (EMALIT) er glass der emaljefargen brennes inn i forbindelse med herdingen. Våre ornamentglass i MASTERGLASS-serien kan emaljebelegges.
+
+**Laminert glass med farget folie mellom glasslagene** (STADIP COLOR) gir helt gjennomsiktige glass.
+
+**Lakkert glass** (PLANILAQUE EVOLUTION) kan bearbeides, men ikke herdes. For at glasset skal bli sikres dersom det knuser så kan vi utstyre det med en plastfolie på den lakkerte baksiden.
+
+## Etset glass
+
+Etset glass (SATINOVO) slipper gjennom dagslyset, men hindrer innsyn. Etset glass erstatter den eldre teknikken hvor man såndblåste glasset.

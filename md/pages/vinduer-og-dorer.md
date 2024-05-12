@@ -1,0 +1,63 @@
+
+---
+layout: page
+title: "Vinduer og dører - reparasjon og utskiftning"
+isNavElement: false
+seoKeywords: undefined
+seoKeyphrase: undefined
+categories: undefined
+date: 2024-05-12 15:07:49.044Z
+description: "Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres."
+---
+
+Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres.
+
+
+
+Dersom du trenger akutthjelp - ring vår døgnbemannede vakttelefon.
+
+## 91 58 49 40
+
+
+
+![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/d88cc3be51ad1d9b081c5f4831cfdf7e5dbd57ee-1920x1080.png)
+
+## **Knust vindu eller gammelt, slitt glass?**
+
+Har et vindu knust eller ønsker du å modernisere gamle vinduer med nytt, moderne glass? Da kan vi hjelpe deg å løse det. 
+
+[**Les mer om reparasjon og utskifting av glass her.**](/odelagt-vindusglass)
+
+
+
+
+
+![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/b87c989c823d78cff988b00d7e63bd4e7fdb9c09-2016x1512.jpg)
+
+## Nye vinduer for ethvert hjem
+
+Enten du bygger nytt hus eller pusser opp så er det viktig å investere i kvalitetsvinduer. Vi leverer vinduer fra både Lyssand og Frekhaug, og vil hjelpe deg å finne riktig vindu for ethvert hjem. 
+
+[**Se alle våre vinduer her, og finn riktig for deg.**](/vinduer)
+
+
+
+![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/093c9ad317d068d61324a38f9e13a28156d84b56-1492x1000.jpg)
+
+## Dører
+
+Kvalitetsdører har en plass i hvert hjem - gammelt som nytt. Vi leverer ytterdører, smijernsdører, verandadører med mer! 
+
+[**Finn riktig dør for ditt hjem her.**](/dorer)
+
+
+
+
+
+![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/e25f305845a13a0516d7625c21f061d5a3f3e5e8-1920x1080.png)
+
+## Tak over ytterdør
+
+Et éntretak, eller baldakin, er en fantastisk enkel løsning for å holde været ute i vårt nordiske klima. Det fungerer i alle hjem, og er en fin og simpel løsning for å øke helhetsinntrykket på hjemmet ditt. 
+
+[**Se mer om løsningene her.**](/tak-over-ytterdor)

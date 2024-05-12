@@ -1,0 +1,55 @@
+
+---
+layout: page
+title: "Speil til hele hjemmet"
+isNavElement: false
+seoKeywords: undefined
+seoKeyphrase: undefined
+categories: undefined
+date: 2023-02-27 16:48:15.794Z
+description: "Vi tilbyr alle typer speil, om det så er helfigurspeil til soverommet, baderomsspeil eller speil fra gulv til tak til gangen, og leverer skreddersydde løsninger til alle hjem. "
+---
+
+Speil er en fantastisk måte å gi mer liv til et hjem på. Bruk speil for å få hjemmet til å føles mer romslig ut, for å gjøre hjemmet lysere på eller bruk det som et vanlig speil for å sjekke hvordan du ser ut i dag. 
+
+Vi tilbyr alle typer speil, om det så er helfigurspeil til soverommet, baderomsspeil eller speil fra gulv til tak til gangen, og leverer skreddersydde løsninger til alle hjem. 
+
+**Vi leverer speil i alle fasonger**
+
+* Firkantet speil
+* Rundt speil
+* Ovalt speil
+* Veggspeil
+* Speil til gangen
+* Helfigursspeil
+* Baderomsspeil
+* Smart speil
+* Toveis speil
+* Sotet, bronse og antikkspeil
+* Dørspeil
+
+
+
+![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/74cc70de0c22e8c77052d46c4dcc00cc204df5aa-1440x900.jpg)
+
+## Unike løsninger til ditt hjem
+
+Om det er noe vi har fått erfart i glassbransjen så er det at alle hjem krever unike løsninger. Derfor leverer vi speil som dekker alle dine behov. Blant annet så leverer vi speil med hull, utsparinger og med innhakk - perfekt om du ønsker å gjøre det til en permanent del av interiøret. Speilene leveres som enkeltglass med polerte kanter som standard, men kan også leveres med:
+
+* Sotet glass
+* Bronze glass
+* Antikkglass
+* Fasettslipte glasskanter
+* Beskyttelsesfolie på baksiden
+
+## Montering av speil
+
+Et speil kan monteres på ulike måter, enten med klips, lim, dobbelsidig teip, spor eller med skruer. Du velger hvordan du ønsker å ha det selv, men dersom du gjør en mer avansert installasjon anbefaler vi at du bruker oss til installasjonen.Vi leverer også separate speilglass etter behov.
+
+## Speil til arbeidsplassen
+
+Vi leverer skreddersydde speil til arbeidsplasser - ta kontakt for en uforpliktende samtale.
+
+
+
+[Se våre glassvegger- og glassdører som du kan bruke til å pynte hjemmet ditt med.](/smijernsdor)
