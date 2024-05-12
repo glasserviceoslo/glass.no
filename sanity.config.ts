@@ -1,11 +1,10 @@
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import { previewDocumentNode } from '$plugins/previewPane';
 import { productionUrl } from '$plugins/productionUrl';
 import { apiVersion, dataset, previewSecretId, projectId } from '$lib/sanity.api';
 import schemas from '$schemas';
-import Logo from '$components/React/StudioLogo';
+import { Logo } from '$components/React/StudioLogo';
 import { media } from 'sanity-plugin-media';
 import Navbar from '$components/React/StudioNavbar';
 
@@ -24,11 +23,11 @@ export default defineConfig({
     deskTool({
       // defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
-    // productionUrl({
-    //   apiVersion,
-    //   previewSecretId,
-    //   types: [schemas[0].name],
-    // }),
+    productionUrl({
+      apiVersion,
+      previewSecretId,
+      types: [schemas[0].name],
+    }),
     media(),
     visionTool(),
   ],
