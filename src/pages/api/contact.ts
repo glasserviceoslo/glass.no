@@ -69,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
     console.error(error);
     return new Response(null, {
       status: 500,
-      statusText: `Something unexpected happened, please try again later!`,
+      statusText: 'Something unexpected happened, please try again later!',
     });
   }
 };
