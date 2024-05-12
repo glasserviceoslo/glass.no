@@ -1,4 +1,4 @@
-import GlassType from '$components/React/GlassType';
+import { GlassType } from '$components/React/GlassType';
 import { TagIcon } from '@sanity/icons';
 import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
