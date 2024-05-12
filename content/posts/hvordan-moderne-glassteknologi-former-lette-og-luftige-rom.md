@@ -1,11 +1,11 @@
 ---
-title: Hvordan moderne glassteknologi former lette og luftige rom
+title: "Hvordan moderne glassteknologi former lette og luftige rom"
 slug: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.240Z 
-description: 
+date: 2024-05-12 16:42:08.104Z 
+description: ""
 ---
 
 ## Hvordan moderne glassrekkverk former lette og luftige rom

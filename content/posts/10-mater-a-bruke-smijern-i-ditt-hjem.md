@@ -1,11 +1,11 @@
 ---
-title: 10 måter å bruke smijern i ditt hjem
+title: "10 måter å bruke smijern i ditt hjem"
 slug: 10-mater-a-bruke-smijern-i-ditt-hjem
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.238Z 
-description: 
+date: 2024-05-12 16:42:08.104Z 
+description: ""
 ---
 
 ## 10 måter å bruke [smijern](https://www.s-glass.no/smijernsdor/) i ditt hjem

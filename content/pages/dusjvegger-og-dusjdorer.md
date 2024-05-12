@@ -1,12 +1,12 @@
 ---
-title: Dusjvegger og dusjdører
+title: "Dusjvegger og dusjdører"
 slug: dusjvegger-og-dusjdorer
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
 date: 2023-02-10 17:45:07.439Z
-description: Finn din neste dusjvegg eller dusjdør hos oss, og gjør dusjhjørnet ditt komplett. Vi leverer luksuøse alternativer for alle typer hjem.
+description: "Finn din neste dusjvegg eller dusjdør hos oss, og gjør dusjhjørnet ditt komplett. Vi leverer luksuøse alternativer for alle typer hjem."
 ---
 
 Vi leverer skreddersydde dusjvegger og dusjdører til ditt hjem. De kommer i alle former og farger, og med lekre detaljer som håndtak og hengsler som tilpasses etter behov.

@@ -1,12 +1,12 @@
 ---
-title: Skap en luftig atmosfære med glassvegger på kontoret
+title: "Skap en luftig atmosfære med glassvegger på kontoret"
 slug: glassvegger
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
 date: 2023-03-28 16:12:53.939Z
-description: Kontorvegger i glass er et utmerket valg for å dele opp moderne arbeidsplasser- og kontor. Les mer om fordelene med kontorvegger i glass.
+description: "Kontorvegger i glass er et utmerket valg for å dele opp moderne arbeidsplasser- og kontor. Les mer om fordelene med kontorvegger i glass."
 ---
 
 Moderne kontor kjennetegnes gjerne av store, åpne landskap som har mye naturlig lysinnslipp. De er sjeldent delt av med trange ganger og små, innklemte rom - de er heller luftige og delt av i mindre seksjoner med glassvegger- og dører.

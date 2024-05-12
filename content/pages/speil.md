@@ -1,12 +1,12 @@
 ---
-title: Speil til hele hjemmet
+title: "Speil til hele hjemmet"
 slug: speil
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
 date: 2023-02-27 16:48:15.794Z
-description: Vi tilbyr alle typer speil, om det så er helfigurspeil til soverommet, baderomsspeil eller speil fra gulv til tak til gangen, og leverer skreddersydde løsninger til alle hjem. 
+description: "Vi tilbyr alle typer speil, om det så er helfigurspeil til soverommet, baderomsspeil eller speil fra gulv til tak til gangen, og leverer skreddersydde løsninger til alle hjem. "
 ---
 
 Speil er en fantastisk måte å gi mer liv til et hjem på. Bruk speil for å få hjemmet til å føles mer romslig ut, for å gjøre hjemmet lysere på eller bruk det som et vanlig speil for å sjekke hvordan du ser ut i dag. 

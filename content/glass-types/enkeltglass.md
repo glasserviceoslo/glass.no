@@ -1,11 +1,11 @@
 ---
-title: Enkeltglass
+title: "Enkeltglass"
 slug: enkeltglass
 seoKeywords: 3mm glass, 4mm glass, diamant, enkeltglass
 seoKeyphrase: Enkeltglass
 categories: 
 date: 2023-01-15 09:22:22.802Z 
-description: Den vanligste typen glass som brukes til bygningsformål kalles enkeltglass eller floatglass. Les mer om enkeltglass her.
+description: "Den vanligste typen glass som brukes til bygningsformål kalles enkeltglass eller floatglass. Les mer om enkeltglass her."
 ---
 
 Den vanligste typen glass som brukes til bygningsformål kalles enkeltglass eller floatglass. Denne typen glass kan variere i tykkelse fra 0,6 mm til 25 mm, men for bygningsformål brukes vanligvis tykkelser på mellom 4 og 12 mm.

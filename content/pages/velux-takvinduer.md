@@ -1,12 +1,12 @@
 ---
-title: Velux takvinduer
+title: "Velux takvinduer"
 slug: velux-takvinduer
 isNavElement: true
 seoKeywords: takvindu, velux, velux takvindu
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.253Z
-description: Har du et gammelt takvindu som lekker, eller ønsker du rett og slett bare å få inn mer lys i hjemmet ditt? Da er et Velux takvindu det perfekte valget.
+date: 2024-05-12 16:42:08.108Z
+description: "Har du et gammelt takvindu som lekker, eller ønsker du rett og slett bare å få inn mer lys i hjemmet ditt? Da er et Velux takvindu det perfekte valget."
 ---
 
 ## [Glass.no](http://glass.no) er sertifisert montør og hjelper deg å finne det perfekte Velux-vinduet for deg!

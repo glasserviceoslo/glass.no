@@ -1,12 +1,12 @@
 ---
-title: På jakt etter en ny dør?
+title: "På jakt etter en ny dør?"
 slug: dorer
 isNavElement: false
 seoKeywords: ytterdør, innerdør, smijernsdør, balkongdør, verandadør, inngangsdør, dør
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.243Z
-description: Glass.no hjelper deg gjerne med å installere alle typer dører i ditt hjem. Vi leverer kvalitet i alle ledd og vi har mange års erfaring med dørinstallasjoner.
+date: 2024-05-12 16:42:08.105Z
+description: "Glass.no hjelper deg gjerne med å installere alle typer dører i ditt hjem. Vi leverer kvalitet i alle ledd og vi har mange års erfaring med dørinstallasjoner."
 ---
 
 Leter du etter en ny dør til hjemmet ditt? Vi har både ytterdører, verandadører, balkongdører, franske dører og smijernsdører - en dør til ethvert hjem.

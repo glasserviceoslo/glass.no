@@ -1,11 +1,11 @@
 ---
-title: Temperert glass
+title: "Temperert glass"
 slug: temperert-glass
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.241Z 
-description: 
+date: 2024-05-12 16:42:08.104Z 
+description: ""
 ---
 
 ## Herdet glass: En god løsning for ditt kontor

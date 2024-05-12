@@ -1,12 +1,12 @@
 ---
-title: Vinduer og dører - reparasjon og utskiftning
+title: "Vinduer og dører - reparasjon og utskiftning"
 slug: vinduer-og-dorer
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:34:07.242Z
-description: Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres.
+date: 2024-05-12 16:42:08.105Z
+description: "Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres."
 ---
 
 Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres.

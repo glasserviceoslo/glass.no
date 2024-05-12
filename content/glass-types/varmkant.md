@@ -1,11 +1,11 @@
 ---
-title: Varm kant
+title: "Varm kant"
 slug: varmkant
 seoKeywords: varmkant, passiv solforsterking, optiwhite
 seoKeyphrase: varmkant
 categories: 
 date: 2023-01-15 09:52:38.069Z 
-description: Vinduer med varm kant er en energieffektiv løsning for å redusere varmetapet fra vinduene, og hjelper deg å senke strømforbruket.
+description: "Vinduer med varm kant er en energieffektiv løsning for å redusere varmetapet fra vinduene, og hjelper deg å senke strømforbruket."
 ---
 
 Vinduer med varm kant er en moderne og energieffektiv løsning for ethvert hjem. Disse vinduene har et spesielt isolerende materiale rundt kanten av glasset, som reduserer varmetapet og dermed senker strømregningen.

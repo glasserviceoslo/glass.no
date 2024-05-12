@@ -1,11 +1,11 @@
 ---
-title: Soldempende glass
+title: "Soldempende glass"
 slug: soldempende-glass
 seoKeywords: Solbeskyttelse, folie, lysisolering
 seoKeyphrase: Solbeskyttelsesglass
 categories: 
 date: 2023-01-15 09:50:38.789Z 
-description: Gjør boligen din svalere på en solrik dag med soldempende glass, som slipper gjennom opptil 70% av lyset - men kun 35% av varmen.
+description: "Gjør boligen din svalere på en solrik dag med soldempende glass, som slipper gjennom opptil 70% av lyset - men kun 35% av varmen."
 ---
 
 Soldempende glass er med på å gjøre boligen din svalere på solrike dager. Det forhindrer også at møbler blir solbleket. Glasset slipper gjennom opptil 70% av lyset, men bare 35% av varmen.

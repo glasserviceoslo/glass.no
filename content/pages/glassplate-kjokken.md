@@ -1,12 +1,12 @@
 ---
-title: Glassplate kjøkken
+title: "Glassplate kjøkken"
 slug: glassplate-kjokken
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
 date: 2023-02-27 17:37:57.310Z
-description: 
+description: ""
 ---
 
 Vi leverer glassplater som monteres over kjøkkenbenken, og skreddersyr de etter dine behov. Velg mellom ulike fasong, finish, farge med mer.

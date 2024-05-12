@@ -1,12 +1,12 @@
 ---
-title: Forvandle hjemmet med en innglasset balkong
+title: "Forvandle hjemmet med en innglasset balkong"
 slug: innglasset-balkong-vinterhage
 isNavElement: true
 seoKeywords: 
 seoKeyphrase: 
 categories: 
 date: 2023-03-03 17:14:31.189Z
-description: I et land preget av dårlig vær og lange vintere, er en innglasset balkong en utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger her.
+description: "I et land preget av dårlig vær og lange vintere, er en innglasset balkong en utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger her."
 ---
 
 I et land preget av dårlig vær og lange vintere, er en innglasset balkong en utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger her.
