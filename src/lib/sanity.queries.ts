@@ -6,6 +6,7 @@ const queryFields = `
   mainImage {
     asset->{
       _id,
+      "_ref":_id,
       originalFilename,
       altText,
       description,
@@ -26,6 +27,7 @@ const queryFields = `
       ...,
         asset->{
           _id,
+          "_ref":_id,
           _type,
           originalFilename,
           altText,
@@ -40,7 +42,7 @@ const queryFields = `
 export const settingsQuery = `*[_type == "settings"][0]`;
 
 export const indexQuery = `
-*[_type == "posts"] | order(date desc, _updatedAt desc) 
+*[_type == $type] | order(date desc, _updatedAt desc) 
 {
   ${queryFields}
 }`;

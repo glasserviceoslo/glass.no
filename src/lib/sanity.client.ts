@@ -17,7 +17,7 @@ import {
   pageBySlugQuery,
 } from '$lib/sanity.queries';
 
-const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
+export const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
 
 export async function getSettings(): Promise<Settings> {
   if (client) {
@@ -26,9 +26,9 @@ export async function getSettings(): Promise<Settings> {
   return {};
 }
 
-export async function getAllPosts(): Promise<Post[]> {
+export async function getAllPosts(type = 'posts'): Promise<Post[]> {
   if (client) {
-    return (await client.fetch(indexQuery)) || [];
+    return (await client.fetch(indexQuery, { type })) || [];
   }
   return [];
 }

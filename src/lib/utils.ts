@@ -6,12 +6,12 @@ export const generateRandomId = () =>
 
 export const getBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = function () {
+    reader.onload = () => {
       resolve(reader.result as string);
     };
-    reader.onerror = function (error) {
+    reader.onerror = (error) => {
       reject(error);
     };
   });
