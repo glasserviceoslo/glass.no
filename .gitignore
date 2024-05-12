@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 backup*
 .vercel
+
+node_modules
