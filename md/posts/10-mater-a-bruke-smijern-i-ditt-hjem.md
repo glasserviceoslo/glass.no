@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "10 måter å bruke smijern i ditt hjem"
-seoKeywords: undefined
-seoKeyphrase: null
-categories: undefined
-date: 2024-05-12 16:15:20.276Z
-description: "null"
+seoKeywords: 
+seoKeyphrase: 
+categories: 
+date: 2024-05-12 16:26:54.961Z
+description: ""
 ---
 
 ## 10 måter å bruke [smijern](https://www.s-glass.no/smijernsdor/) i ditt hjem

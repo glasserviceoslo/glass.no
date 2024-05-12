@@ -2,10 +2,10 @@
 layout: page
 title: "Vinduer og dører - reparasjon og utskiftning"
 isNavElement: false
-seoKeywords: undefined
-seoKeyphrase: null
-categories: undefined
-date: 2024-05-12 16:15:20.277Z
+seoKeywords: 
+seoKeyphrase: 
+categories: 
+date: 2024-05-12 16:26:54.963Z
 description: "Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres."
 ---
 

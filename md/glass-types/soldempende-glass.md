@@ -3,7 +3,7 @@ layout: glassType
 title: "Soldempende glass"
 seoKeywords: Solbeskyttelse, folie, lysisolering
 seoKeyphrase: Solbeskyttelsesglass
-categories: undefined
+categories: 
 date: 2023-01-15 09:50:38.789Z
 description: "Gjør boligen din svalere på en solrik dag med soldempende glass, som slipper gjennom opptil 70% av lyset - men kun 35% av varmen."
 ---

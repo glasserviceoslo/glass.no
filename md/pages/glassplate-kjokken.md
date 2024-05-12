@@ -2,11 +2,11 @@
 layout: page
 title: "Glassplate kjøkken"
 isNavElement: false
-seoKeywords: undefined
-seoKeyphrase: null
-categories: undefined
+seoKeywords: 
+seoKeyphrase: 
+categories: 
 date: 2023-02-27 17:37:57.310Z
-description: "null"
+description: ""
 ---
 
 Vi leverer glassplater som monteres over kjøkkenbenken, og skreddersyr de etter dine behov. Velg mellom ulike fasong, finish, farge med mer.

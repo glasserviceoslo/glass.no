@@ -67,11 +67,11 @@ async function main() {
     const content = `---
 layout: glassType
 title: "${post.title}"
-seoKeywords: ${post.seoKeywords?.join(', ')}
-seoKeyphrase: ${post.seoKeyphrase}
-categories: ${post.categories}
+seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
+seoKeyphrase: ${post?.seoKeyphrase ?? ''}
+categories: ${post?.categories ?? ''}
 date: ${date} ${time}
-description: "${post.description}"
+description: "${post?.description ?? ''}"
 ---
 
 ${PortableText(post.body, options)}
@@ -87,11 +87,11 @@ ${PortableText(post.body, options)}
     const content = `---
 layout: post
 title: "${post.title}"
-seoKeywords: ${post.seoKeywords?.join(', ')}
-seoKeyphrase: ${post.seoKeyphrase}
-categories: ${post.categories}
+seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
+seoKeyphrase: ${post?.seoKeyphrase ?? ''}
+categories: ${post?.categories ?? ''}
 date: ${date} ${time}
-description: "${post.description}"
+description: "${post?.description ?? ''}"
 ---
 
 ${PortableText(post.body, options)}
@@ -108,11 +108,11 @@ ${PortableText(post.body, options)}
 layout: page
 title: "${page.title}"
 isNavElement: false
-seoKeywords: ${page.seoKeywords?.join(', ')}
-seoKeyphrase: ${page.seoKeyphrase}
-categories: ${page.categories}
+seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
+seoKeyphrase: ${page?.seoKeyphrase ?? ''}
+categories: ${page?.categories ?? ''}
 date: ${date} ${time}
-description: "${page.description}"
+description: "${page?.description ?? ''}"
 ---
 
 ${PortableText(page.body, options)}
@@ -129,11 +129,11 @@ ${PortableText(page.body, options)}
 layout: page
 title: "${page.title}"
 isNavElement: true
-seoKeywords: ${page.seoKeywords?.join(', ')}
-seoKeyphrase: ${page.seoKeyphrase}
-categories: ${page.categories}
+seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
+seoKeyphrase: ${page?.seoKeyphrase ?? ''}
+categories: ${page?.categories ?? ''}
 date: ${date} ${time}
-description: "${page.description}"
+description: "${page?.description ?? ''}"
 ---
 
 ${PortableText(page.body, options)}

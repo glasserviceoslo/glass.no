@@ -2,11 +2,11 @@
 layout: page
 title: "Homepage"
 isNavElement: false
-seoKeywords: undefined
-seoKeyphrase: null
-categories: undefined
+seoKeywords: 
+seoKeyphrase: 
+categories: 
 date: 2023-01-11 12:42:07.068Z
-description: "null"
+description: ""
 ---
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/c7f290476d4a8dbf9efcbaeb08507e279748c3a5-2965x2965.jpg)

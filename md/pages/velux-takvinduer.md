@@ -3,9 +3,9 @@ layout: page
 title: "Velux takvinduer"
 isNavElement: true
 seoKeywords: takvindu, velux, velux takvindu
-seoKeyphrase: null
-categories: undefined
-date: 2024-05-12 16:15:20.282Z
+seoKeyphrase: 
+categories: 
+date: 2024-05-12 16:26:54.966Z
 description: "Har du et gammelt takvindu som lekker, eller ønsker du rett og slett bare å få inn mer lys i hjemmet ditt? Da er et Velux takvindu det perfekte valget."
 ---
 
