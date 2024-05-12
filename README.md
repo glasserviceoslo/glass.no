@@ -65,18 +65,18 @@ async function main() {
   const glassTypesContent = glassTypes.map((post) => {
     const [date, time] = new Date(post?.date || new Date()).toISOString().split('T');
     const content = `---
-layout: glassType
-title: "${post.title}"
+title: ${post.title}
+slug: ${post.slug}
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
-date: ${date} ${time}
-description: "${post?.description ?? ''}"
+date: ${date} ${time} 
+description: ${post?.description ?? ''}
 ---
 
 ${PortableText(post.body, options)}
 `;
-    const filename = join(import.meta.dirname, `md/glass-types/${post.slug}.md`);
+    const filename = join(import.meta.dirname, `content/glass-types/${post.slug}.md`);
 
     writeFileSync(filename, content);
     console.log('The file was saved!', filename);
@@ -85,18 +85,18 @@ ${PortableText(post.body, options)}
   const postsContent = posts.map((post) => {
     const [date, time] = new Date(post?.date || new Date()).toISOString().split('T');
     const content = `---
-layout: post
-title: "${post.title}"
+title: ${post.title}
+slug: ${post.slug}
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
-date: ${date} ${time}
-description: "${post?.description ?? ''}"
+date: ${date} ${time} 
+description: ${post?.description ?? ''}
 ---
 
 ${PortableText(post.body, options)}
 `;
-    const filename = join(import.meta.dirname, `md/posts/${post.slug}.md`);
+    const filename = join(import.meta.dirname, `content/posts/${post.slug}.md`);
 
     writeFileSync(filename, content);
     console.log('The file was saved!', filename);
@@ -105,19 +105,19 @@ ${PortableText(post.body, options)}
   const pagesContent = pages.map((page) => {
     const [date, time] = new Date(page?.date || new Date()).toISOString().split('T');
     const content = `---
-layout: page
-title: "${page.title}"
+title: ${page.title}
+slug: ${page.slug}
 isNavElement: false
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}
 categories: ${page?.categories ?? ''}
 date: ${date} ${time}
-description: "${page?.description ?? ''}"
+description: ${page?.description ?? ''}
 ---
 
 ${PortableText(page.body, options)}
 `;
-    const filename = join(import.meta.dirname, `md/pages/${page.slug}.md`);
+    const filename = join(import.meta.dirname, `content/pages/${page.slug}.md`);
 
     writeFileSync(filename, content);
     console.log('The file was saved!', filename);
@@ -126,19 +126,19 @@ ${PortableText(page.body, options)}
   const navPagesContent = navPages.map((page) => {
     const [date, time] = new Date(page?.date || new Date()).toISOString().split('T');
     const content = `---
-layout: page
-title: "${page.title}"
+title: ${page.title}
+slug: ${page.slug}
 isNavElement: true
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}
 categories: ${page?.categories ?? ''}
 date: ${date} ${time}
-description: "${page?.description ?? ''}"
+description: ${page?.description ?? ''}
 ---
 
 ${PortableText(page.body, options)}
 `;
-    const filename = join(import.meta.dirname, `md/pages/${page.slug}.md`);
+    const filename = join(import.meta.dirname, `content/pages/${page.slug}.md`);
 
     writeFileSync(filename, content);
     console.log('The file was saved!', filename);
@@ -148,6 +148,5 @@ ${PortableText(page.body, options)}
 }
 
 main().catch(console.error);
-
 ```
 
