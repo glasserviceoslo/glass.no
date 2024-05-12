@@ -37,6 +37,8 @@ const queryFields = `
   },
   "slug": slug.current,
   "author": author->{name, picture},
+  seoKeywords,
+  seoKeyphrase,
 `;
 
 export const settingsQuery = `*[_type == "settings"][0]`;

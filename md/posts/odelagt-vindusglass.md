@@ -1,11 +1,10 @@
-
 ---
 layout: post
 title: "Skifte vindusglass - hjelp når du trenger det"
-seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeywords: knust glass, knust vindu, akutthjelp, sikring av knust glass, skifte vindusglass, modernisere vindu
+seoKeyphrase: null
 categories: undefined
-date: 2024-05-12 15:07:49.043Z
+date: 2024-05-12 16:15:20.274Z
 description: "Trenger du hjelp med å skifte knust vindusglass? Vi hjelper deg 24 timer i døgnet. "
 ---
 

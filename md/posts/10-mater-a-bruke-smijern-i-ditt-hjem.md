@@ -1,11 +1,10 @@
-
 ---
 layout: post
 title: "10 måter å bruke smijern i ditt hjem"
 seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeyphrase: null
 categories: undefined
-date: 2024-05-12 15:07:49.043Z
+date: 2024-05-12 16:15:20.276Z
 description: "null"
 ---
 

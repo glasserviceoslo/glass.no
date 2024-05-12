@@ -23,11 +23,11 @@ All commands are run from the root of the project, from a terminal:
 To export your Sanity content as markdown, copy and add this script to a new `.ts` file,
 and then run with `bun ${filename}.ts`.
 
-```js
+```ts
 import { join } from 'node:path';
 import { writeFileSync } from 'node:fs';
 import { apiVersion, dataset, projectId, useCdn } from '$lib/sanity.api';
-import { client, getAllPages, getAllPosts } from '$lib/sanity.client';
+import { getAllPages, getAllPosts } from '$lib/sanity.client';
 // @ts-expect-error Type
 import PortableText from '@sanity/block-content-to-markdown';
 
@@ -56,7 +56,7 @@ const serializers = {
 };
 
 async function main() {
-  const options = { serializers, apiVersion, dataset, projectId, useCdn }
+  const options = { serializers, apiVersion, dataset, projectId, useCdn };
   const posts = await getAllPosts();
   const glassTypes = await getAllPosts('glassTypes');
   const navPages = await getAllPages(true);
@@ -64,11 +64,10 @@ async function main() {
 
   const glassTypesContent = glassTypes.map((post) => {
     const [date, time] = new Date(post?.date || new Date()).toISOString().split('T');
-    const content = `
----
+    const content = `---
 layout: glassType
 title: "${post.title}"
-seoKeywords: ${post.seoKeywords}
+seoKeywords: ${post.seoKeywords?.join(', ')}
 seoKeyphrase: ${post.seoKeyphrase}
 categories: ${post.categories}
 date: ${date} ${time}
@@ -85,11 +84,10 @@ ${PortableText(post.body, options)}
 
   const postsContent = posts.map((post) => {
     const [date, time] = new Date(post?.date || new Date()).toISOString().split('T');
-    const content = `
----
+    const content = `---
 layout: post
 title: "${post.title}"
-seoKeywords: ${post.seoKeywords}
+seoKeywords: ${post.seoKeywords?.join(', ')}
 seoKeyphrase: ${post.seoKeyphrase}
 categories: ${post.categories}
 date: ${date} ${time}
@@ -106,12 +104,11 @@ ${PortableText(post.body, options)}
 
   const pagesContent = pages.map((page) => {
     const [date, time] = new Date(page?.date || new Date()).toISOString().split('T');
-    const content = `
----
+    const content = `---
 layout: page
 title: "${page.title}"
 isNavElement: false
-seoKeywords: ${page.seoKeywords}
+seoKeywords: ${page.seoKeywords?.join(', ')}
 seoKeyphrase: ${page.seoKeyphrase}
 categories: ${page.categories}
 date: ${date} ${time}
@@ -128,12 +125,11 @@ ${PortableText(page.body, options)}
 
   const navPagesContent = navPages.map((page) => {
     const [date, time] = new Date(page?.date || new Date()).toISOString().split('T');
-    const content = `
----
+    const content = `---
 layout: page
 title: "${page.title}"
 isNavElement: true
-seoKeywords: ${page.seoKeywords}
+seoKeywords: ${page.seoKeywords?.join(', ')}
 seoKeyphrase: ${page.seoKeyphrase}
 categories: ${page.categories}
 date: ${date} ${time}

@@ -1,9 +1,8 @@
-
 ---
 layout: glassType
 title: "Beskyttelsesglass"
-seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeywords: Beskyttelsesglass, stadip protect, securit
+seoKeyphrase: Beskyttelsesglass
 categories: undefined
 date: 2023-01-15 09:07:35.827Z
 description: "Det finnes flere typer beskyttelsesglass og sikkerhetsglass, og de fungerer gjerne som multifunksjonelle glass. Les mer her."

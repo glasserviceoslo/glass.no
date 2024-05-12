@@ -1,9 +1,8 @@
-
 ---
 layout: glassType
 title: "Designglass"
-seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeywords: Ornamentglass, Farget glass, Etset glass, satinovo
+seoKeyphrase: Designglass
 categories: undefined
 date: 2023-01-15 09:14:04.976Z
 description: "Vi tilbyr et bredt utvalg av designglass med ulike egenskaper og funksjoner. Bla. farget glass, laminert glass, etset glass, emaljert glass med mer."

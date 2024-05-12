@@ -1,11 +1,10 @@
-
 ---
 layout: post
 title: "Temperert glass"
 seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeyphrase: null
 categories: undefined
-date: 2024-05-12 15:07:49.044Z
+date: 2024-05-12 16:15:20.277Z
 description: "null"
 ---
 

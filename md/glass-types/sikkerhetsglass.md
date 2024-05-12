@@ -1,9 +1,8 @@
-
 ---
 layout: glassType
 title: "Sikkerhetsglass"
-seoKeywords: undefined
-seoKeyphrase: undefined
+seoKeywords: Laminert glass, Herdet glass, Glassgulv, Beskyttelse
+seoKeyphrase: Sikkerhetsglass
 categories: undefined
 date: 2023-01-15 09:46:37.053Z
 description: "Sikkerhetsglass tåler mer enn vanlig glass, og er aktuelt å bruke til flere forskjellige applikasjoner. Les mer om sikkerhetsglass her."
