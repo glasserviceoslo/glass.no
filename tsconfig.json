@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "module": "bundler",
+    "module": "ESNext",
     "target": "ESNext",
     "baseUrl": ".",
     "paths": {
