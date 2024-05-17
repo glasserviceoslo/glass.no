@@ -5,11 +5,16 @@
   "type": "module",
   "engineStrict": true,
   "engines": {
-    "node": "^20"
+    "node": "^20",
+    "bun": "^1.1.0",
+    "npm": "please use bun",
+    "yarn": "please use bun",
+    "pnpm": "please use bun"
   },
   "scripts": {
     "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
+    "dev:prod": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"astro dev --port 5001\"",
     "build": "astro build",
     "start": "node server.mjs",
     "astro": "astro",
@@ -40,6 +45,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-kit": "^3.1.6",
     "@sanity/vision": "^3.41.1",
+    "@tinacms/datalayer": "^1.2.34",
     "astro": "4.8.2",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
@@ -47,6 +53,8 @@
     "flowbite": "^1.8.1",
     "framer-motion": "^10.12.16",
     "ldrs": "^1.0.1",
+    "lucia": "^3.2.0",
+    "mongodb-level": "^0.0.4",
     "nodemailer": "^6.9.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

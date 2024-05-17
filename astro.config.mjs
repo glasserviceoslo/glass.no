@@ -24,7 +24,5 @@ export default defineConfig({
     svelte(),
   ],
   output: 'server',
-  adapter: node({
-    mode: 'middleware',
-  }),
+  adapter: node({ mode: 'middleware' }),
 });

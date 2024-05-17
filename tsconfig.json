@@ -1,13 +1,14 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "bundler",
     "target": "ESNext",
     "baseUrl": ".",
     "paths": {
-      "$*": ["src/*"]
+      "$*": ["src/*"],
+      "$tina/*": ["tina/*"]
     },
-    "jsx": "preserve",
+    // "jsx": "preserve",
     "jsxImportSource": "react"
   }
 }
