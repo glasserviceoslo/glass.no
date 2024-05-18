@@ -1,8 +1,8 @@
 ---
 import Layout from '$layouts/Page.astro';
 import BlogPost from '$components/Astro/BlogPost.astro';
-import { getSanityImageURL } from '$lib/sanity.image';
-import { getAllPages, getDocBySlug } from '$lib/sanity.client';
+import { client } from '$tina/__generated__/databaseClient';
+import type { Page } from '$tina/__generated__/types';
 
 // rss({
 //   title: 'Example Blog',
@@ -16,7 +16,9 @@ import { getAllPages, getDocBySlug } from '$lib/sanity.client';
 //   })),
 // });
 
-const post = await getDocBySlug(Astro.params.page!, 'pages', true);
+// const post = await getDocBySlug(Astro.params.page!, 'pages', true);
+const result = await client.queries.page({ relativePath: `${Astro.params.page}.md` });
+const post  = result.data.page as Page
 
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');
@@ -24,9 +26,9 @@ if (Object.keys(post).length <= 0) {
 
 const seo = {
   title: post.title,
-  description: post.description,
-  keywords: post.seoKeywords?.join(','),
-  image: post.mainImage && getSanityImageURL(post.mainImage).width(1200).url(),
+  description: post?.description || '',
+  keywords: post?.seoKeywords || '',
+  image: post?.mainImage?.url || '',
 };
 ---
 
