@@ -1,8 +1,8 @@
 ---
 import Layout from '$layouts/Post.astro';
 import BlogPost from '$components/Astro/BlogPost.astro';
-import { getDocBySlug } from '$lib/sanity.client';
-
+import { client } from '$tina/__generated__/databaseClient';
+import type { GlassType } from '$tina/__generated__/types';
 // rss({
 //   title: 'Example Blog',
 //   description: 'An example blog on Astro',
@@ -17,12 +17,13 @@ import { getDocBySlug } from '$lib/sanity.client';
 
 const { slug } = Astro.params;
 
-const post = await getDocBySlug(slug!, 'glassTypes');
+const result = await client.queries.glassType({ relativePath: `${slug}.md` });
+const post  = result.data.glassType as GlassType
 
 const seo = {
   title: post.title,
-  description: post.description,
-  keywords: post.seoKeywords?.join(','),
+  description: post?.description || '',
+  keywords: post?.seoKeywords  || '',
 };
 ---
 

@@ -1,9 +1,7 @@
 ---
-import { sanityPortableText } from '$lib/sanity.portableText';
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 const { value } = Astro.props;
 ---
 
-<!-- <Fragment set:html={sanityPortableText(value)} /> -->
 <TinaMarkdown client:only="react" content={value} />
