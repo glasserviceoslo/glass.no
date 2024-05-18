@@ -1,26 +1,7 @@
 import { LocalBackendAuthProvider } from '@tinacms/datalayer';
 import databaseClient from '$tina/__generated__/databaseClient';
 import type { APIContext, APIRoute } from 'astro';
-
-type DatabaseClient = typeof databaseClient;
-
-type Routes = { [key: string]: { handler: (req: Request, opts: ANY) => Promise<ANY>; secure: boolean } };
-
-interface CustomBackendAuthProvider {
-  initialize?: () => Promise<void>;
-  isAuthorized: (
-    req: Request,
-  ) => Promise<{ isAuthorized: true } | { isAuthorized: false; errorMessage: string; errorCode: number }>;
-  extraRoutes?: Routes;
-}
-
-export interface CustomTinaBackendOptions {
-  databaseClient: DatabaseClient;
-  authProvider: CustomBackendAuthProvider;
-  options?: {
-    basePath?: string;
-  };
-}
+import type { CustomTinaBackendOptions, DatabaseClient, CustomBackendAuthProvider, Routes } from '$types';
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
@@ -55,8 +36,8 @@ function MakeNodeApiHandler({
   databaseClient: DatabaseClient;
   opts: { basePath: string };
 }) {
-  const tinaBackendHandler: APIRoute = async ({ request, url }: APIContext) => {
-    const path = url.pathname.replace(opts.basePath, '');
+  const tinaBackendHandler: APIRoute = async (ctx: APIContext) => {
+    const path = ctx.url.pathname.replace(opts.basePath, '');
     const routes = path.split('/').filter(Boolean);
 
     if (!routes.length) {
@@ -65,15 +46,16 @@ function MakeNodeApiHandler({
 
     const allRoutes: Routes = {
       gql: {
-        handler: async (req, opts) => {
-          if (req.method !== 'POST') {
+        handler: async (ctx, opts) => {
+          const { request } = ctx;
+          if (request.method !== 'POST') {
             return new Response(
               JSON.stringify({ error: 'Method not allowed. Only POST requests are supported by /gql' }),
               { status: 405 },
             );
           }
 
-          const body = await req.json();
+          const body = await request.json();
           const { query, variables } = body;
 
           if (!query || !variables) {
@@ -98,7 +80,7 @@ function MakeNodeApiHandler({
 
     const { handler, secure } = currentRoute;
     if (secure) {
-      const isAuth = await isAuthorized(request);
+      const isAuth = await isAuthorized(ctx.request);
       if (!isAuth.isAuthorized) {
         return new Response(JSON.stringify({ error: isAuth.errorMessage || 'not authorized' }), {
           status: isAuth.errorCode || 401,
@@ -106,7 +88,7 @@ function MakeNodeApiHandler({
       }
     }
 
-    return handler(request, opts);
+    return handler(ctx, opts);
   };
 
   return tinaBackendHandler;

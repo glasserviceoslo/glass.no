@@ -16,10 +16,12 @@ import type { Page } from '$tina/__generated__/types';
 //   })),
 // });
 
-// const post = await getDocBySlug(Astro.params.page!, 'pages', true);
+if (Astro.params?.page?.includes('favicon')) {
+  console.log('redirecting');
+}
+
 const result = await client.queries.page({ relativePath: `${Astro.params.page}.md` });
 const post  = result.data.page as Page
-
 if (Object.keys(post).length <= 0) {
   return Astro.redirect('/404');
 }
