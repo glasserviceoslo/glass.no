@@ -5,6 +5,8 @@ import PostPreview from '$components/Astro/PostPreview.astro';
 import { getAllPosts } from '$lib/sanity.client';
 import Container from '$components/Astro/Container.astro';
 import BlogPreview from '$components/Astro/BlogPreview.astro';
+import { client } from '$tina/__generated__/databaseClient';
+import type { Post } from '$tina/__generated__/types';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS Blogg',
@@ -12,7 +14,10 @@ const seo = {
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
 };
 
-const posts = await getAllPosts();
+// const posts = await getAllPosts();
+
+const postsResponse = await client.queries.postConnection()
+const posts = postsResponse.data?.postConnection?.edges?.map((post) =>  post?.node) as Post[]
 ---
 
 <Layout seo={seo}>
