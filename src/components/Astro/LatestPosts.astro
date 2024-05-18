@@ -1,9 +1,11 @@
 ---
-import { getLatestPosts } from '$lib/sanity.client';
+import { client } from '$tina/__generated__/databaseClient';
+import type { Post } from '$tina/__generated__/types';
 import BlogPreview from './BlogPreview.astro';
 import Container from './Container.astro';
 
-const posts = await getLatestPosts(0, 3);
+const result = await client.queries.postConnection({ first: 3 })
+const posts = result.data?.postConnection?.edges?.map((post) =>  post?.node) as Post[]
 ---
 
 <section class="my-20 space-y-20">

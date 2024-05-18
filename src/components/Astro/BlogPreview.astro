@@ -12,10 +12,11 @@ const { post, path } = Astro.props;
 
 const getExcerpt = () => {
   if (!post.description) {
-    const postContent = post.body.children.find((p:{type: string, children: {text: string}[]}) => p.type === 'p').children[0].text || '';
+    const postContent = post.body?.children?.find((p:{type: string, children: {text: string}[]}) => p.type === 'p').children[0].text || '';
     return `${postContent.substring(0, 100).trim()}...`;
   }
 };
+console.log(path)
 ---
 
 <div
