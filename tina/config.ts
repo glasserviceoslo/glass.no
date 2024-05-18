@@ -18,10 +18,14 @@ export default defineConfig({
     publicFolder: 'public',
   },
   media: {
-    tina: {
-      mediaRoot: 'uploads',
-      publicFolder: 'public',
+    loadCustomStore: async () => {
+      const pack = await import('next-tinacms-s3');
+      return pack.TinaCloudS3MediaStore;
     },
+    // tina: {
+    //   mediaRoot: 'uploads',
+    //   publicFolder: 'public',
+    // },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
