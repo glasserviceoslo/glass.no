@@ -1,7 +1,6 @@
 ---
 import NavLink from './NavLink.astro';
 import BookBefaring from '$components/Svelte/BookBefaring.svelte';
-import { getAllDocsSlugs, getAllPages } from '$lib/sanity.client';
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
 import { client } from '$tina/__generated__/databaseClient';
@@ -13,13 +12,12 @@ const glassTypes = glassTypeConnection.data.glassTypeConnection?.edges?.map((edg
   slug: edge?.node?.slug,
   title: edge?.node?.title,
 })) || [];
-// console.log(glassTypes)
 
-const pageConnection = await client.queries.pageConnection({ filter: { isNavElement: { eq: true } } })
+const pageConnection = await client.queries.pageConnection()
 const pages = pageConnection.data.pageConnection?.edges?.map((page) => page?.node) as Page[]
-const navElements = pages.sort((a, b) => (a.navTitle as string).localeCompare(b.navTitle as string))
+const navElements = pages.filter((page) => page.isNavElement).sort((a, b) => (a.navTitle as string).localeCompare(b.navTitle as string))
 
-const products = (await getAllPages(false)).filter((page) => page.slug !== 'home');
+const products = pages.filter((page) => page.slug !== 'home');
 ---
 
 <nav
