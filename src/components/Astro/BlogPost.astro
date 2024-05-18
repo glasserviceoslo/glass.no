@@ -1,12 +1,11 @@
 ---
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 import { Image } from 'astro:assets';
-import type { Post } from '$lib/sanity.queries';
 import PostBody from './PostBody.astro';
 import PortableText from './PortableText.astro';
+import type { GlassType, Page, Post } from '$tina/__generated__/types';
 
 export interface Props {
-  post: Post;
+  post: Page | Post | GlassType;
 }
 
 const { post } = Astro.props;
@@ -19,10 +18,10 @@ const { post } = Astro.props;
         <Image
           width={2000}
           height={800}
-          alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
+          alt={post.mainImage?.alt || ''}
           class="max-h-full w-full object-cover"
           loading="lazy"
-          src={getSanityImageURL(post.mainImage).fit('fillmax').url()}
+          src={post.mainImage?.url || ''}
         />
       </div>
     )

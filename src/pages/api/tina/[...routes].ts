@@ -125,14 +125,8 @@ export const customHandler = CustomTinaNodeBackend({
   databaseClient,
 });
 
-export const GET: APIRoute = async (context) => {
-  return customHandler(context);
-};
+const handleRequest: APIRoute = async (context) => customHandler(context);
 
-export const POST: APIRoute = async (context) => {
-  return customHandler(context);
-};
-
-export const ALL: APIRoute = async (context) => {
-  return customHandler(context);
-};
+export const GET = handleRequest;
+export const POST = handleRequest;
+export const ALL = handleRequest;
