@@ -33,28 +33,27 @@ export async function uploadMedia(
   let prefix = directory.replace(/^\//, '').replace(/\/$/, '');
   if (prefix) prefix = `${prefix}/`;
 
+  const key = mediaRoot ? path.join(mediaRoot, `${prefix + filename}`) : `${prefix + filename}`;
+
   const params: PutObjectCommandInput = {
     Bucket: bucket,
-    Key: mediaRoot ? path.join(mediaRoot, prefix + filename) : prefix + filename,
+    Key: key,
     Body: blob,
     ACL: 'public-read',
   };
+
   const command = new PutObjectCommand(params);
 
   try {
     await client.send(command);
-    const src = cdnUrl + prefix + filename;
+    const src = `${cdnUrl}/${bucket}/${prefix + filename}`;
     return new Response(
       JSON.stringify({
         type: 'file',
         id: prefix + filename,
         filename,
         directory: prefix,
-        thumbnails: {
-          '75x75': src,
-          '400x400': src,
-          '1000x1000': src,
-        },
+        thumbnails: { '75x75': src, '400x400': src, '1000x1000': src },
         src,
       }),
       { status: 200 },
@@ -131,7 +130,7 @@ export async function listMedia(
           const strippedKey = stripMediaRoot(mediaRoot, file.Key as string);
           return strippedKey !== prefix;
         })
-        .map(getS3ToTinaFunc(cdnUrl, mediaRoot)),
+        .map(getS3ToTinaFunc(cdnUrl, bucket, mediaRoot)),
     );
 
     return new Response(JSON.stringify({ items, offset: response.NextMarker }), { status: 200 });
@@ -143,16 +142,14 @@ export async function listMedia(
 
 export async function deleteAsset(request: Request, client: S3Client, bucket: string): Promise<Response> {
   const url = new URL(request.url);
-  const media = url.searchParams.get('media');
-  if (!media) {
-    return new Response(JSON.stringify({ error: 'No media provided' }), { status: 400 });
-  }
-  const [, objectKey] = media.split('/');
+  const media = url.pathname;
+  const objectKey = media.split('/').at(-1);
 
   const params: DeleteObjectCommandInput = {
     Bucket: bucket,
     Key: objectKey,
   };
+
   const command = new DeleteObjectCommand(params);
 
   try {
@@ -164,13 +161,13 @@ export async function deleteAsset(request: Request, client: S3Client, bucket: st
   }
 }
 
-function getS3ToTinaFunc(cdnUrl: string, mediaRoot?: string) {
+function getS3ToTinaFunc(cdnUrl: string, bucket: string, mediaRoot?: string) {
   return function s3ToTina(file: _Object): Media {
     const strippedKey = stripMediaRoot(mediaRoot || '', file?.Key || '');
     const filename = path.basename(strippedKey);
     const directory = `${path.dirname(strippedKey)}/`;
 
-    const src = cdnUrl + file.Key;
+    const src = `${cdnUrl}/${bucket}/${filename}`;
     return {
       id: file?.Key || '',
       filename,
