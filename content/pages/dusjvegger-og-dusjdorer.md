@@ -1,21 +1,23 @@
 ---
-title: "Dusjvegger og dusjdører"
+categories: null
+mainImage:
+  url: >-
+    https://cdn.sanity.io/images/csbn9wp4/transformed-data/39898a97c1d74a4e463a0d43e09a69c8e6b6ee30-1600x1032.jpg?fit=max&auto=format
+  alt: Dusjvegger og dusjdør i glass i et luksuøst hjem
+gallery:
+  isNavElement: true
+title: Dusjvegger og dusjdører
 slug: dusjvegger-og-dusjdorer
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/39898a97c1d74a4e463a0d43e09a69c8e6b6ee30-1600x1032.jpg?fit=max&auto=format",
-  "alt": "Dusjvegger og dusjdør i glass i et luksuøst hjem"
-}
 isNavElement: false
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2023-02-10 17:45:07.439Z
-description: "Finn din neste dusjvegg eller dusjdør hos oss, og gjør dusjhjørnet ditt komplett. Vi leverer luksuøse alternativer for alle typer hjem."
+seoKeywords: null
+seoKeyphrase: null
+description: >-
+  Finn din neste dusjvegg eller dusjdør hos oss, og gjør dusjhjørnet ditt
+  komplett. Vi leverer luksuøse alternativer for alle typer hjem.
+date: 2023-02-10T17:45:07.439Z
 ---
 
 Vi leverer skreddersydde dusjvegger og dusjdører til ditt hjem. De kommer i alle former og farger, og med lekre detaljer som håndtak og hengsler som tilpasses etter behov.
-
-
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/39898a97c1d74a4e463a0d43e09a69c8e6b6ee30-1600x1032.jpg)
 
@@ -28,8 +30,6 @@ Driver du og pusser opp badet, eller bygger du nytt hus? Vi leverer dusjvegger e
 * Dusjhjørne
 * Fristående dusjvegg
 * Dusjdører
-
-
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/ad2640dd340a7e1bb1d27e05fa941b44ca5ffe1c-4000x2668.jpg)
 
@@ -45,7 +45,5 @@ Når du kjøper glassvegger til baderommet hos oss så har du mange muligheter. 
 * Hengsler og beslag i krom, børstet look, matt sort, natureloksert eller polert messing.
 
 Våre dusjvegger- og dusjdører leveres også med selvrensende glass, som er tilnærmet behandlingsfritt.
-
-
 
 [Les mer om våre fristående glassvegger som du kan bruke overalt i hjemmet.](/10-mater-a-bruke-smijern-i-ditt-hjem)

@@ -1,19 +1,24 @@
 ---
-title: "Vi hjelper deg å skifte vinduer"
+categories: null
+mainImage:
+  url: >-
+    https://cdn.sanity.io/images/csbn9wp4/transformed-data/b2e1b4eb47098d64ae5798e79466e39b77d02af9-3827x2552.jpg?fit=max&auto=format
+  alt: Stue med innerdører med glass så vel som klassiske vinduer med sprosser
+title: Vi hjelper deg å skifte vinduer
 slug: vinduer
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/b2e1b4eb47098d64ae5798e79466e39b77d02af9-3827x2552.jpg?fit=max&auto=format",
-  "alt": "Stue med innerdører med glass så vel som klassiske vinduer med sprosser"
-}
 isNavElement: true
-seoKeywords: vindu, nye vinduer, frekhaug, lyssand, nytt vindu, skifte vindu, lavere strømkostnad
-seoKeyphrase: 
-categories: 
-date: 2024-05-18 17:37:02.776Z
-description: "Driver du og pusser opp, eller bygger du nytt? Vi leverer vinduer for alle hjem - moderne og klassiske. Bestill befaring i dag, så hjelper vi deg."
+navTitle: Vindu
+seoKeywords: >-
+  vindu, nye vinduer, frekhaug, lyssand, nytt vindu, skifte vindu, lavere
+  strømkostnad
+seoKeyphrase: null
+description: >-
+  Driver du og pusser opp, eller bygger du nytt? Vi leverer vinduer for alle
+  hjem - moderne og klassiske. Bestill befaring i dag, så hjelper vi deg.
+date: 2024-05-18T17:37:02.776Z
 ---
 
-## [Glass.no](http://Glass.no) - vinduspesialisten siden 1889
+## [Glass.no](http://glass.no) - vinduspesialisten siden 1889
 
 Driver du og pusser opp, eller bygger du nytt? Vi leverer vinduer for alle hjem - moderne og klassiske. Bestill befaring i dag, så hjelper vi deg.
 
@@ -21,11 +26,7 @@ Usikker på hvilke vinduer som ville passet i ditt hjem? Bestill befaring fra os
 
 ## [Bestill befaring](https://www.glass.no/kontakt)
 
-
-
-[**Har du knust et vindu? Få hjelp her!**](/odelagt-vindusglass)
-
-
+**[Har du knust et vindu? Få hjelp her!](/odelagt-vindusglass)**
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/21ccd8cfaed7e16e0f39c0149b4108c45525dfad-3827x2552.jpg)
 
@@ -33,23 +34,17 @@ Usikker på hvilke vinduer som ville passet i ditt hjem? Bestill befaring fra os
 
 Vi leverer et bredt utvalg av vinduer til alle typer hjem, moderne som klassiske. Nye vinduer har mange fordeler ovenfor gamle vinduer, som blant annet at fører til lavere strømkostnad takket være bedre isolasjonsevne.
 
-
-
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/dd1e60826451e1814f1db63f195a2276e8fc2755-1500x2250.jpg)
 
 ## Moderne vinduer
 
 Moderne vindudesign defineres med enkle designtrekk, simple linjer og store, åpner vindusflater. De passer i de aller fleste hjem, og du kan få de med en rekke forskjellige funksjoner og egenskaper.
 
-
-
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/b2e1b4eb47098d64ae5798e79466e39b77d02af9-3827x2552.jpg)
 
 ## Klassiske vinduer
 
 Klassiske design på vinduene kjennes igjen av et avrundet formspråk, sprosser og utformingen av lukkemekanismen. De har gjerne fler detaljer enn moderne vinduer, og passer inn i klassiske, flotte hus som har behov av rehabilitering. Selv om vinduene har et klassisk utseende, så har vinduene akkurat like gode egenskaper som vinduer med moderne utseende.
-
-
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/1db020400af126626165a5cc7401e069077078dd-7300x4872.jpg)
 

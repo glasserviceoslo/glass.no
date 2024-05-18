@@ -1,21 +1,23 @@
 ---
-title: "Forvandle hjemmet med en innglasset balkong"
+categories: null
+mainImage:
+  url: >-
+    https://cdn.sanity.io/images/csbn9wp4/transformed-data/eb5d7475f618e986624e1be7b781c4e551570fc5-5000x3000.jpg?fit=max&auto=format
+  alt: Innglasset balkong med to utemøbelstoler
+title: Forvandle hjemmet med en innglasset balkong
 slug: innglasset-balkong-vinterhage
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/eb5d7475f618e986624e1be7b781c4e551570fc5-5000x3000.jpg?fit=max&auto=format",
-  "alt": "Innglasset balkong med to utemøbelstoler"
-}
 isNavElement: true
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2023-03-03 17:14:31.189Z
-description: "I et land preget av dårlig vær og lange vintere, er en innglasset balkong en utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger her."
+navTitle: Innglassing
+seoKeywords: null
+seoKeyphrase: null
+description: >-
+  I et land preget av dårlig vær og lange vintere, er en innglasset balkong en
+  utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger
+  her.
+date: 2023-03-03T17:14:31.189Z
 ---
 
 I et land preget av dårlig vær og lange vintere, er en innglasset balkong en utmerket løsning for å gjøre utesesongen lenger. Les mer om våre løsninger her.
-
-
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/f1c67e3bf20cd09fb364f8c0d1bc4be9d06372b2-5000x3000.jpg)
 
@@ -23,15 +25,11 @@ I et land preget av dårlig vær og lange vintere, er en innglasset balkong en u
 
 Det er mange grunner å ville glasse inn én balkong eller terrasse. Hovedgrunnen til mange er rett og slett at det forlenger utesesongen. Norge er et land med en begrenset utesesong, men gjennom å velge å glasse inn enten balkongen eller verandaen så er det mulig å forlenge utesesongen. Våre glassløsninger er både isolerende, og holder varmen inne og kulda ute, og ser bra ut i alle typer hus- og leiligheter. De holder også pollen, støv og insekter ute, og gjør livet lettere. I byområder så er innglassing også en fin måte å holde ute støy på.
 
-
-
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/d37af17df7cf955ff46faba34ee79199668fa1df-5000x3000.jpg)
 
 ## Bruk det som et ekstra rom
 
 En innglasset balkong gir deg mange muligheter, blant annet at du kan møblere der med møbler som ellers ikke tåler vær- og kulde. Sett ut en vanlig sofa, en lenestol og kanskje til og med et spisebord - og få et ekstra rom som kan brukes året rundt.
-
-
 
 ![](https://cdn.sanity.io/images/csbn9wp4/transformed-data/efc87f85ff5d9cce2dbbad2c3e4745901cda57c8-5000x3000.jpg)
 
@@ -42,7 +40,5 @@ Mange drømmer om et stort og åpent rom som kan brukes for å oppholde seg i n�
 ## Få en profesjonelt innglasset balkong eller en vinterhage
 
 Ta kontakt med oss for en uforpliktende befaring, så får du smakstips- og råd for hva som hadde blitt best for deg og for ditt hjem.
-
-
 
 Les mer om våre lekre [smijernsløsninger](/smijernsdor) her. De er også mulig å bruke inne i for eksempel en vinterhage.
