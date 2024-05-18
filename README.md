@@ -30,6 +30,7 @@ import { apiVersion, dataset, projectId, useCdn } from '$lib/sanity.api';
 import { getAllPages, getAllPosts } from '$lib/sanity.client';
 // @ts-expect-error Type
 import PortableText from '@sanity/block-content-to-markdown';
+import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 
 const { getImageUrl } = PortableText;
 
@@ -67,6 +68,17 @@ async function main() {
     const content = `---
 title: "${post.title}"
 slug: ${post.slug}
+mainImage: ${post.mainImage
+        ? JSON.stringify(
+          {
+            url: getSanityImageURL(post?.mainImage).url(),
+            alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
+          },
+          null,
+          2,
+        )
+        : '{ url: "", alt: "" }'
+      }
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
@@ -87,6 +99,17 @@ ${PortableText(post.body, options)}
     const content = `---
 title: "${post.title}"
 slug: ${post.slug}
+mainImage: ${post.mainImage
+        ? JSON.stringify(
+          {
+            url: getSanityImageURL(post?.mainImage).url(),
+            alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
+          },
+          null,
+          2,
+        )
+        : '{ url: "", alt: "" }'
+      }
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
@@ -107,6 +130,17 @@ ${PortableText(post.body, options)}
     const content = `---
 title: "${page.title}"
 slug: ${page.slug}
+mainImage: ${page.mainImage
+        ? JSON.stringify(
+          {
+            url: getSanityImageURL(page?.mainImage).url(),
+            alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
+          },
+          null,
+          2,
+        )
+        : '{ url: "", alt: "" }'
+      }
 isNavElement: false
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}
@@ -128,6 +162,17 @@ ${PortableText(page.body, options)}
     const content = `---
 title: "${page.title}"
 slug: ${page.slug}
+mainImage: ${page.mainImage
+        ? JSON.stringify(
+          {
+            url: getSanityImageURL(page?.mainImage).url(),
+            alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
+          },
+          null,
+          2,
+        )
+        : '{ url: "", alt: "" }'
+      }
 isNavElement: true
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}
