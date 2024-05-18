@@ -1,10 +1,14 @@
 ---
 title: "Glassrekkverk: Renovasjon av hjemmet med riktig glassdesing"
 slug: glassrekkverk-renovasjon-av-hjemmet-med-riktig-glassdesing
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/aca0537a3d8de12702a0875f09aaf54974d8273d-280x280.png?fit=max&auto=format",
+  "alt": "vindu28-min-280x280"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.103Z 
+date: 2024-05-18 17:37:02.765Z 
 description: ""
 ---
 

@@ -1,11 +1,15 @@
 ---
 title: "På jakt etter en ny dør?"
 slug: dorer
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/093c9ad317d068d61324a38f9e13a28156d84b56-1492x1000.jpg?fit=max&auto=format",
+  "alt": "Ung gutt som går inn gjennom en grå Diplomat-dør"
+}
 isNavElement: false
 seoKeywords: ytterdør, innerdør, smijernsdør, balkongdør, verandadør, inngangsdør, dør
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.105Z
+date: 2024-05-18 17:37:02.768Z
 description: "Glass.no hjelper deg gjerne med å installere alle typer dører i ditt hjem. Vi leverer kvalitet i alle ledd og vi har mange års erfaring med dørinstallasjoner."
 ---
 

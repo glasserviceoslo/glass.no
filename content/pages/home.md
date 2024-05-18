@@ -1,6 +1,7 @@
 ---
 title: "Homepage"
 slug: home
+mainImage: { url: "", alt: "" }
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 

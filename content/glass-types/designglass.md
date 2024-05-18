@@ -1,6 +1,7 @@
 ---
 title: "Designglass"
 slug: designglass
+mainImage: { url: "", alt: "" }
 seoKeywords: Ornamentglass, Farget glass, Etset glass, satinovo
 seoKeyphrase: Designglass
 categories: 

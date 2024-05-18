@@ -1,6 +1,7 @@
 ---
 title: "Selvrensende glass"
 slug: selvrensende-glass
+mainImage: { url: "", alt: "" }
 seoKeywords: Smussavvisende, bærekraftig
 seoKeyphrase: Smussavvisende glass
 categories: 

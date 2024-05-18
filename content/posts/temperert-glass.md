@@ -1,10 +1,11 @@
 ---
 title: "Temperert glass"
 slug: temperert-glass
+mainImage: { url: "", alt: "" }
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.104Z 
+date: 2024-05-18 17:37:02.768Z 
 description: ""
 ---
 

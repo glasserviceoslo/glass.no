@@ -1,11 +1,15 @@
 ---
 title: "Vi hjelper deg å skifte vinduer"
 slug: vinduer
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/b2e1b4eb47098d64ae5798e79466e39b77d02af9-3827x2552.jpg?fit=max&auto=format",
+  "alt": "Stue med innerdører med glass så vel som klassiske vinduer med sprosser"
+}
 isNavElement: true
 seoKeywords: vindu, nye vinduer, frekhaug, lyssand, nytt vindu, skifte vindu, lavere strømkostnad
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.107Z
+date: 2024-05-18 17:37:02.776Z
 description: "Driver du og pusser opp, eller bygger du nytt? Vi leverer vinduer for alle hjem - moderne og klassiske. Bestill befaring i dag, så hjelper vi deg."
 ---
 

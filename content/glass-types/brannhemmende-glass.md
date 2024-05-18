@@ -1,6 +1,7 @@
 ---
 title: "Brannhemmende glass"
 slug: brannhemmende-glass
+mainImage: { url: "", alt: "" }
 seoKeywords: Brannhemmende glass, E Klassifisering, EW-klassifisering
 seoKeyphrase: Brannhemmende glass
 categories: 

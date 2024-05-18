@@ -1,6 +1,10 @@
 ---
 title: "Skap en luftig atmosfære med glassvegger på kontoret"
 slug: glassvegger
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/f6fee5e905c8714afb5f40590be4eb442e500b8d-4500x3000.jpg?fit=max&auto=format",
+  "alt": "Lyst, moderne kontor"
+}
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 

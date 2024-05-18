@@ -1,6 +1,10 @@
 ---
 title: "Glassplate kjøkken"
 slug: glassplate-kjokken
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/bd7637690edc2e05279ba92c7fd03b6261335e84-5000x3000.jpg?fit=max&auto=format",
+  "alt": "Moderne kjøkken med hvit glassplate"
+}
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 

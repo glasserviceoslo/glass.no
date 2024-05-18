@@ -1,6 +1,7 @@
 ---
 title: "Energipareglass"
 slug: energipareglass
+mainImage: { url: "", alt: "" }
 seoKeywords: Solbeskyttelse, CO2-utslipp, Lysoverføring, Lysrefleksjon
 seoKeyphrase: Energipareglass
 categories: 

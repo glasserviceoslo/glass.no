@@ -1,6 +1,7 @@
 ---
 title: "Enkeltglass"
 slug: enkeltglass
+mainImage: { url: "", alt: "" }
 seoKeywords: 3mm glass, 4mm glass, diamant, enkeltglass
 seoKeyphrase: Enkeltglass
 categories: 

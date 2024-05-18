@@ -1,10 +1,14 @@
 ---
 title: "Skifte vindusglass - hjelp når du trenger det"
 slug: odelagt-vindusglass
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/c7f290476d4a8dbf9efcbaeb08507e279748c3a5-2965x2965.jpg?fit=max&auto=format",
+  "alt": "Lekker hytte med store vinduer"
+}
 seoKeywords: knust glass, knust vindu, akutthjelp, sikring av knust glass, skifte vindusglass, modernisere vindu
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.103Z 
+date: 2024-05-18 17:37:02.766Z 
 description: "Trenger du hjelp med å skifte knust vindusglass? Vi hjelper deg 24 timer i døgnet. "
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: "Isolerglass"
 slug: isolerglass
+mainImage: { url: "", alt: "" }
 seoKeywords: isolering, isolasjon, isolerglass
 seoKeyphrase: Isolerglass
 categories: 

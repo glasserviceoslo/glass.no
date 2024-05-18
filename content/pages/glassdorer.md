@@ -1,6 +1,10 @@
 ---
 title: "Slipp inn dagslyset med skyvedører i glass"
 slug: glassdorer
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/546426812175d5bded5119cdeb43487236cbc783-5000x3000.jpg?fit=max&auto=format",
+  "alt": "Store og flotte skyvedører i glass"
+}
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 

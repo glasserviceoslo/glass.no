@@ -1,6 +1,7 @@
 ---
 title: "Varm kant"
 slug: varmkant
+mainImage: { url: "", alt: "" }
 seoKeywords: varmkant, passiv solforsterking, optiwhite
 seoKeyphrase: varmkant
 categories: 

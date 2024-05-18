@@ -1,6 +1,10 @@
 ---
 title: "Speil til hele hjemmet"
 slug: speil
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/c40d8af73eabb1d5b5b6e0e1c5ce477a0d5f6fbc-2560x1822.jpg?fit=max&auto=format",
+  "alt": "Moderne bad med rundt speil og store, åpne vinduer"
+}
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 

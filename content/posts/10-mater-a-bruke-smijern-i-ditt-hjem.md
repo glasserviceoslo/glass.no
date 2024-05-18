@@ -1,10 +1,14 @@
 ---
 title: "10 måter å bruke smijern i ditt hjem"
 slug: 10-mater-a-bruke-smijern-i-ditt-hjem
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/98f779032f2080b82b889c705b6935578bea0c89-1920x1080.jpg?fit=max&auto=format",
+  "alt": "smijernsvegger-03"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.104Z 
+date: 2024-05-18 17:37:02.767Z 
 description: ""
 ---
 

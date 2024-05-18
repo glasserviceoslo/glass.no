@@ -1,6 +1,10 @@
 ---
 title: "Forvandle hjemmet med en innglasset balkong"
 slug: innglasset-balkong-vinterhage
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/eb5d7475f618e986624e1be7b781c4e551570fc5-5000x3000.jpg?fit=max&auto=format",
+  "alt": "Innglasset balkong med to utemøbelstoler"
+}
 isNavElement: true
 seoKeywords: 
 seoKeyphrase: 

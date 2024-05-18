@@ -1,10 +1,14 @@
 ---
 title: "De beste glass typene for enhver rom"
 slug: de-beste-glass-typene-for-enhver-rom
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/496cc2a2e6e0d109e820ed68621b95602c1a6b8b-280x280.jpg?fit=max&auto=format",
+  "alt": "vindu"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.104Z 
+date: 2024-05-18 17:37:02.768Z 
 description: ""
 ---
 

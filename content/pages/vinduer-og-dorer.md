@@ -1,11 +1,15 @@
 ---
 title: "Vinduer og dører - reparasjon og utskiftning"
 slug: vinduer-og-dorer
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/646406033dc3350405f5e03bfe21c2a10b8df676-5486x3765.jpg?fit=max&auto=format",
+  "alt": "Ytterdører i smijern"
+}
 isNavElement: false
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.105Z
+date: 2024-05-18 17:37:02.768Z
 description: "Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres."
 ---
 

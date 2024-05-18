@@ -1,10 +1,14 @@
 ---
 title: "Hvordan moderne glassteknologi former lette og luftige rom"
 slug: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/b6cc8c189355f64a31a18c4e7e230f76a31ae1d6-1118x745.png?fit=max&auto=format",
+  "alt": "glasshus-min"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.104Z 
+date: 2024-05-18 17:37:02.768Z 
 description: ""
 ---
 

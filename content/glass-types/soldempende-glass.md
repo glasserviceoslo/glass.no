@@ -1,6 +1,7 @@
 ---
 title: "Soldempende glass"
 slug: soldempende-glass
+mainImage: { url: "", alt: "" }
 seoKeywords: Solbeskyttelse, folie, lysisolering
 seoKeyphrase: Solbeskyttelsesglass
 categories: 

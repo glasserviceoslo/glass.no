@@ -1,6 +1,7 @@
 ---
 title: "Beskyttelsesglass"
 slug: beskyttelsesglass
+mainImage: { url: "", alt: "" }
 seoKeywords: Beskyttelsesglass, stadip protect, securit
 seoKeyphrase: Beskyttelsesglass
 categories: 

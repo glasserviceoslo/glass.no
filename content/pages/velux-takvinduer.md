@@ -1,11 +1,15 @@
 ---
 title: "Velux takvinduer"
 slug: velux-takvinduer
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/38aa46e6164ca72466b4b073c565e735d89d5740-5000x3333.jpg?fit=max&auto=format",
+  "alt": "Velux-takvindu-i-et-grønt-og-moderne-soverom"
+}
 isNavElement: true
 seoKeywords: takvindu, velux, velux takvindu
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.108Z
+date: 2024-05-18 17:37:02.783Z
 description: "Har du et gammelt takvindu som lekker, eller ønsker du rett og slett bare å få inn mer lys i hjemmet ditt? Da er et Velux takvindu det perfekte valget."
 ---
 

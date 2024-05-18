@@ -1,10 +1,14 @@
 ---
 title: "Hva er Glassmester"
 slug: hva-er-glassmester
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/4e8f9edeaba94bb50a34d6bea21fe76834d5543d-280x280.png?fit=max&auto=format",
+  "alt": "glassmester1-1-280x280"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.104Z 
+date: 2024-05-18 17:37:02.767Z 
 description: ""
 ---
 

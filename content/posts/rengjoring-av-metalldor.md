@@ -1,10 +1,14 @@
 ---
 title: "Rengjøring av metalldør"
 slug: rengjoring-av-metalldor
+mainImage: {
+  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/24ed57a0904c94d76e039cd9607bef0983df15e5-711x465.png?fit=max&auto=format",
+  "alt": "ren-sglass-min"
+}
 seoKeywords: 
 seoKeyphrase: 
 categories: 
-date: 2024-05-12 16:42:08.103Z 
+date: 2024-05-18 17:37:02.765Z 
 description: ""
 ---
 

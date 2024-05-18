@@ -1,6 +1,7 @@
 ---
 title: "Sikkerhetsglass"
 slug: sikkerhetsglass
+mainImage: { url: "", alt: "" }
 seoKeywords: Laminert glass, Herdet glass, Glassgulv, Beskyttelse
 seoKeyphrase: Sikkerhetsglass
 categories: 

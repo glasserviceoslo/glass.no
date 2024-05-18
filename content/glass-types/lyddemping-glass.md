@@ -1,6 +1,7 @@
 ---
 title: "Lyddemping glass"
 slug: lyddemping-glass
+mainImage: { url: "", alt: "" }
 seoKeywords: lyddemping, lydisolering, lydkontroll, lydisolerende glass
 seoKeyphrase: Lyddemping glass
 categories: 
