@@ -1,26 +1,29 @@
 ---
-import { parseImages } from '$lib/sanity.image';
+import { extractImageUrls } from '$lib/utils';
+import { client } from '$tina/__generated__/databaseClient';
 
-const images = await parseImages('pages', 'home', 'svg');
+const result = await client.queries.page({ relativePath: 'home.md' });
+const imageNodes = result.data.page.body.children.find((child:ANY) => child.type === 'ul')
+const imageUrls = extractImageUrls(imageNodes)
 ---
 
 <article id="default-carousel" class="relative h-1/2 md:h-3/4" data-carousel="slide">
   <!-- Carousel wrapper -->
   <figure class="relative z-0 h-full overflow-hidden">
     {
-      images &&
-        images.map((img) => (
+      imageUrls &&
+        imageUrls.map((img) => (
           <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
-            <source media="(min-width:768px)" srcset={img.large} type="image/webp" />
-            <source media="(max-width:600px)" srcset={img.small} type="image/webp" />
-            <img class="h-full w-full object-cover" src={img.default} alt={img.altText} />
+            <!-- <source media="(min-width:768px)" srcset={img} type="image/webp" /> -->
+            <!-- <source media="(max-width:600px)" srcset={img} type="image/webp" /> -->
+            <img class="h-full w-full object-cover" src={img.url} alt={img.alt} />
           </picture>
         ))
     }
   </figure>
   <!-- Slider indicators -->
   <div class="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 space-x-3">
-    {images.map((_v, i) => <div class="h-3 w-3 rounded-full" data-carousel-slide-to={i} />)}
+    {imageUrls.map((_v, i) => <div class="h-3 w-3 rounded-full" data-carousel-slide-to={i} />)}
   </div>
   <!-- Slider controls -->
   <button
