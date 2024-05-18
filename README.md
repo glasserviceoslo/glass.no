@@ -26,13 +26,24 @@ and then run with `bun ${filename}.ts`.
 ```ts
 import { join } from 'node:path';
 import { writeFileSync } from 'node:fs';
-import { apiVersion, dataset, projectId, useCdn } from '$lib/sanity.api';
+import createImageUrlBuilder from '@sanity/image-url';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import { getAllPages, getAllPosts } from '$lib/sanity.client';
 // @ts-expect-error Type
 import PortableText from '@sanity/block-content-to-markdown';
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
 
 const { getImageUrl } = PortableText;
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+const dataset = import.meta.env.PUBLIC_SANITY_DATASET;
+const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || 'v2021-10-21';
+const useCdn = import.meta.env.PUBLIC_SANITY_REVALIDATE_SECRET ? false : import.meta.env.NODE_ENV === 'production';
+
+const builder = createImageUrlBuilder({ projectId, dataset });
+
+const getSanityImageURL = (source: SanityImageSource) => builder.image(source).auto('format').fit('max');
+
+const removeExt = (filename: string) => filename.split('.').slice(0, -1).join('');
 
 const serializers = {
   types: {
@@ -68,17 +79,18 @@ async function main() {
     const content = `---
 title: "${post.title}"
 slug: ${post.slug}
-mainImage: ${post.mainImage
+mainImage: ${
+      post.mainImage
         ? JSON.stringify(
-          {
-            url: getSanityImageURL(post?.mainImage).url(),
-            alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
-          },
-          null,
-          2,
-        )
+            {
+              url: getSanityImageURL(post?.mainImage).url(),
+              alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
+            },
+            null,
+            2,
+          )
         : '{ url: "", alt: "" }'
-      }
+    }
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
@@ -99,17 +111,18 @@ ${PortableText(post.body, options)}
     const content = `---
 title: "${post.title}"
 slug: ${post.slug}
-mainImage: ${post.mainImage
+mainImage: ${
+      post.mainImage
         ? JSON.stringify(
-          {
-            url: getSanityImageURL(post?.mainImage).url(),
-            alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
-          },
-          null,
-          2,
-        )
+            {
+              url: getSanityImageURL(post?.mainImage).url(),
+              alt: post?.mainImage?.altText || removeExt(post?.mainImage?.asset.originalFilename),
+            },
+            null,
+            2,
+          )
         : '{ url: "", alt: "" }'
-      }
+    }
 seoKeywords: ${post.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${post?.seoKeyphrase ?? ''}
 categories: ${post?.categories ?? ''}
@@ -130,17 +143,18 @@ ${PortableText(post.body, options)}
     const content = `---
 title: "${page.title}"
 slug: ${page.slug}
-mainImage: ${page.mainImage
+mainImage: ${
+      page.mainImage
         ? JSON.stringify(
-          {
-            url: getSanityImageURL(page?.mainImage).url(),
-            alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
-          },
-          null,
-          2,
-        )
+            {
+              url: getSanityImageURL(page?.mainImage).url(),
+              alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
+            },
+            null,
+            2,
+          )
         : '{ url: "", alt: "" }'
-      }
+    }
 isNavElement: false
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}
@@ -162,17 +176,18 @@ ${PortableText(page.body, options)}
     const content = `---
 title: "${page.title}"
 slug: ${page.slug}
-mainImage: ${page.mainImage
+mainImage: ${
+      page.mainImage
         ? JSON.stringify(
-          {
-            url: getSanityImageURL(page?.mainImage).url(),
-            alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
-          },
-          null,
-          2,
-        )
+            {
+              url: getSanityImageURL(page?.mainImage).url(),
+              alt: page?.mainImage?.altText || removeExt(page?.mainImage?.asset.originalFilename),
+            },
+            null,
+            2,
+          )
         : '{ url: "", alt: "" }'
-      }
+    }
 isNavElement: true
 seoKeywords: ${page.seoKeywords?.join(', ') ?? ''}
 seoKeyphrase: ${page?.seoKeyphrase ?? ''}

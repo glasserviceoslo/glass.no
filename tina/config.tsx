@@ -1,6 +1,7 @@
-import { LocalAuthProvider, defineConfig, type TinaField } from 'tinacms';
+import { LocalAuthProvider, defineConfig, type Template, type TinaField } from 'tinacms';
 import * as pkg from 'tinacms-authjs/dist/tinacms';
 const { TinaUserCollection } = pkg;
+import React from 'react';
 
 const branch = process.env.GITHUB_BRANCH || process.env.HEAD || 'main';
 
@@ -51,11 +52,6 @@ export default defineConfig({
         path: 'content/pages',
         fields: [
           mainImageField,
-          // {
-          //   name: 'hero',
-          //   type: 'image',
-          //   label: 'Hero Image',
-          // },
           {
             type: 'string',
             name: 'title',
@@ -75,6 +71,30 @@ export default defineConfig({
             label: 'Navigation',
             description: 'Show in navigation menu',
             required: true,
+          },
+          {
+            label: 'Nav title',
+            name: 'navTitle',
+            type: 'string',
+            ui: {
+              component: (props: ANY) => {
+                const isNav = props.form?.getFieldState('isNavElement')?.value;
+                if (isNav) {
+                  const { input, field } = props;
+                  return (
+                    <div className="my-4">
+                      <label htmlFor={input.name} className="block text-sm font-medium">
+                        {field.label}
+                      </label>
+                      <div className="mt-1">
+                        <input id={input.name} className="py-2 px-4 block" type="text" {...input} />
+                      </div>
+                    </div>
+                  );
+                }
+                return <div />;
+              },
+            },
           },
           {
             type: 'string',
