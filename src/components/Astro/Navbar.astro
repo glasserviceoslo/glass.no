@@ -17,7 +17,7 @@ const pageConnection = await client.queries.pageConnection()
 const pages = pageConnection.data.pageConnection?.edges?.map((page) => page?.node) as Page[]
 const navElements = pages.filter((page) => page.isNavElement).sort((a, b) => (a.navTitle as string).localeCompare(b.navTitle as string))
 
-const products = pages.filter((page) => page.slug !== 'home');
+const products = pages.filter((page) => !page.isNavElement && page.slug !== 'home');
 ---
 
 <nav
