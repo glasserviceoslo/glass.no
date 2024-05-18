@@ -13,7 +13,7 @@ const { post } = Astro.props;
 
 <article class="h-full min-h-[calc(100vh-289px)]">
   {
-    post.mainImage && (
+    post.mainImage?.url && (
       <div class="h-[40vw]">
         <Image
           width={2000}
@@ -21,7 +21,7 @@ const { post } = Astro.props;
           alt={post.mainImage?.alt || ''}
           class="max-h-full w-full object-cover"
           loading="lazy"
-          src={post.mainImage?.url || ''}
+          src={post.mainImage?.url}
         />
       </div>
     )
