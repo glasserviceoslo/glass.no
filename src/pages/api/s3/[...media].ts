@@ -2,19 +2,14 @@ import { deleteAsset, listMedia, uploadMedia } from '$lib/tina.mediaHandler';
 import { S3Client } from '@aws-sdk/client-s3';
 import type { APIRoute } from 'astro';
 
+const endpoint = process.env.S3_ENDPOINT || '';
 const bucket = process.env.S3_BUCKET || '';
 const region = process.env.S3_REGION || 'het-fin-1';
+
 let mediaRoot = '';
 if (mediaRoot) {
-  if (!mediaRoot.endsWith('/')) {
-    mediaRoot = `${mediaRoot}/`;
-  }
-  if (mediaRoot.startsWith('/')) {
-    mediaRoot = mediaRoot.substr(1);
-  }
+  mediaRoot = `${mediaRoot.replace(/\/+$/, '').replace(/^\/+/, '')}/`;
 }
-
-const endpoint = 'https://storage-api.glass.no';
 
 const client = new S3Client({
   endpoint,
