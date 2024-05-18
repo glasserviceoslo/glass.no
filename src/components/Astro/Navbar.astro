@@ -4,13 +4,20 @@ import BookBefaring from '$components/Svelte/BookBefaring.svelte';
 import { getAllDocsSlugs, getAllPages } from '$lib/sanity.client';
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
+import { client } from '$tina/__generated__/databaseClient';
+import type { Page } from '$tina/__generated__/types';
 
-const glassTyper = (await getAllDocsSlugs('glassTypes')).map((s) => ({
-  slug: s.slug,
-  title: s.slug!.charAt(0).toUpperCase() + s.slug!.slice(1).split('-').join(' '),
-}));
 
-const navElements = (await getAllPages(true)).sort((a, b) => a.navbar.navTitle.localeCompare(b.navbar.navTitle));
+const glassTypeConnection = await client.queries.glassTypeConnection()
+const glassTypes = glassTypeConnection.data.glassTypeConnection?.edges?.map((edge) => ({
+  slug: edge?.node?.slug,
+  title: edge?.node?.title,
+})) || [];
+// console.log(glassTypes)
+
+const pageConnection = await client.queries.pageConnection({ filter: { isNavElement: { eq: true } } })
+const pages = pageConnection.data.pageConnection?.edges?.map((page) => page?.node) as Page[]
+const navElements = pages.sort((a, b) => (a.navTitle as string).localeCompare(b.navTitle as string))
 
 const products = (await getAllPages(false)).filter((page) => page.slug !== 'home');
 ---
@@ -76,7 +83,7 @@ const products = (await getAllPages(false)).filter((page) => page.slug !== 'home
                 href={`/${element.slug}`}
                 class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
               >
-                {element.navbar.navTitle}
+                {element.navTitle}
               </NavLink>
             </li>
           ))
@@ -156,7 +163,7 @@ const products = (await getAllPages(false)).filter((page) => page.slug !== 'home
           >
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
               {
-                glassTyper.map((item) => (
+                glassTypes.map((item) => (
                   <li>
                     <NavLink
                       href={`/glasstyper/${item.slug}`}
