@@ -3,7 +3,7 @@ import databaseClient from '$tina/__generated__/databaseClient';
 import type { APIContext, APIRoute } from 'astro';
 import type { CustomTinaBackendOptions, DatabaseClient, CustomBackendAuthProvider, Routes } from '$types';
 
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
+// const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
 function CustomTinaNodeBackend({ authProvider, databaseClient, options }: CustomTinaBackendOptions) {
   const { initialize, isAuthorized, extraRoutes } = authProvider;
@@ -31,7 +31,7 @@ function MakeNodeApiHandler({
   databaseClient,
   opts,
 }: {
-  isAuthorized: (req: Request) => Promise<{ isAuthorized: boolean; errorCode?: number; errorMessage?: string }>;
+  isAuthorized: (ctx: APIContext) => Promise<{ isAuthorized: boolean; errorCode?: number; errorMessage?: string }>;
   extraRoutes?: Routes;
   databaseClient: DatabaseClient;
   opts: { basePath: string };
@@ -80,7 +80,7 @@ function MakeNodeApiHandler({
 
     const { handler, secure } = currentRoute;
     if (secure) {
-      const isAuth = await isAuthorized(ctx.request);
+      const isAuth = await isAuthorized(ctx);
       if (!isAuth.isAuthorized) {
         return new Response(JSON.stringify({ error: isAuth.errorMessage || 'not authorized' }), {
           status: isAuth.errorCode || 401,

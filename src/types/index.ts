@@ -22,7 +22,7 @@ export type Routes = { [key: string]: { handler: (context: APIContext, opts: ANY
 export interface CustomBackendAuthProvider {
   initialize?: () => Promise<void>;
   isAuthorized: (
-    req: Request,
+    ctx: APIContext,
   ) => Promise<{ isAuthorized: true } | { isAuthorized: false; errorMessage: string; errorCode: number }>;
   extraRoutes?: Routes;
 }
