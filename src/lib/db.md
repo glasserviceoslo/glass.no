@@ -1,39 +1,50 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import mongoose from 'mongoose';
+import { MongodbAdapter } from '@lucia-auth/adapter-mongodb';
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+interface UserDoc {
+  password: string;
+  username: string;
 }
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+interface SessionDoc {
+  user_id: string;
+  expires_at: Date;
+}
+
+const UserSchema = new mongoose.Schema<UserDoc>(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-};
+  { collection: 'users' },
+);
 
-let client;
-let clientPromise: Promise<MongoClient>;
+export const UserModel = mongoose.models.User || mongoose.model<UserDoc>('User', UserSchema);
 
-if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
+export const SessionSchema = new mongoose.Schema<SessionDoc>(
+  {
+    user_id: {
+      type: String,
+      required: true,
+    },
+    expires_at: {
+      type: Date,
+      required: true,
+    },
+  },
+  { collection: 'sessions' },
+);
 
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
-  }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
-}
+export const SessionModel = mongoose.models.Session || mongoose.model<SessionDoc>('Session', SessionSchema);
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
-export default clientPromise;
+export const adapter = new MongodbAdapter(
+  // @ts-expect-error TODO: fix this
+  mongoose.connection.collection<SessionDoc>('sessions'),
+  mongoose.connection.collection<UserDoc>('users'),
+);
