@@ -17,7 +17,7 @@ import type { Page } from '$tina/__generated__/types';
 // });
 
 if (Astro.params?.page?.includes('favicon')) {
-  console.log('redirecting');
+  return Astro.redirect('/404');
 }
 
 const result = await client.queries.page({ relativePath: `${Astro.params.page}.md` });
