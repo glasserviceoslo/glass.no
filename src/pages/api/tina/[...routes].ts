@@ -2,8 +2,10 @@ import { LocalBackendAuthProvider } from '@tinacms/datalayer';
 import databaseClient from '$tina/__generated__/databaseClient';
 import type { APIContext, APIRoute } from 'astro';
 import type { CustomTinaBackendOptions, DatabaseClient, CustomBackendAuthProvider, Routes } from '$types';
+import { AstroAuthBackend } from '$lib/tina.auth';
+import authConfig from 'auth:config';
 
-// const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
 function CustomTinaNodeBackend({ authProvider, databaseClient, options }: CustomTinaBackendOptions) {
   const { initialize, isAuthorized, extraRoutes } = authProvider;
@@ -95,7 +97,10 @@ function MakeNodeApiHandler({
 }
 
 export const customHandler = CustomTinaNodeBackend({
-  authProvider: LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider,
+  authProvider: !isLocal
+    ? (LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider)
+    : AstroAuthBackend(authConfig),
+  // authProvider: LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider,
   // authProvider: isLocal
   //   ? LocalBackendAuthProvider()
   //   : AuthJsBackendAuthProvider({

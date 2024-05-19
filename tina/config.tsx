@@ -1,6 +1,83 @@
-import { LocalAuthProvider, defineConfig, type TinaField } from 'tinacms';
+import { AbstractAuthProvider, LocalAuthProvider, defineConfig, type TinaField } from 'tinacms';
 import * as pkg from 'tinacms-authjs/dist/tinacms';
 import React from 'react';
+import { signIn, signOut } from 'auth-astro/client';
+import { Auth } from '@auth/core';
+import type { Session } from '@auth/core/types';
+import clientPromise from '../src/lib/db';
+import type { Adapter } from '@auth/core/adapters';
+import GitHub from '@auth/core/providers/github';
+// import Google from '@auth/core/providers/google';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+
+const authConfig = {
+  // adapter: MongoDBAdapter(clientPromise) as Adapter,
+  providers: [
+    // Google({
+    //   clientId: import.meta.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
+    // }),
+    GitHub({
+      clientId: import.meta.env?.GITHUB_CLIENT_ID,
+      clientSecret: import.meta.env?.GITHUB_CLIENT_SECRET,
+    }),
+  ],
+  secret: 'J7SLsE0B1EdUFz7FJW0NAxMUh6P4yA1b5zKcg1NTGI0=',
+};
+
+export async function getSession(req: Request, options = authConfig): Promise<Session | null> {
+  options.secret ??= 'J7SLsE0B1EdUFz7FJW0NAxMUh6P4yA1b5zKcg1NTGI0=';
+  options.trustHost ??= true;
+
+  const url = new URL(`${options.prefix}/session`, req.url);
+  const response = (await Auth(new Request(url, { headers: req.headers }), options)) as Response;
+  const { status = 200 } = response;
+
+  const data = await response.json();
+
+  if (!data || !Object.keys(data).length) return null;
+  if (status === 200) return data;
+  throw new Error(data.message);
+}
+
+class DefaultAuthJSProvider extends AbstractAuthProvider {
+  readonly callbackUrl: string;
+  readonly name: string;
+  readonly redirect: boolean;
+  constructor(props?: {
+    name?: string;
+    callbackUrl?: string;
+    redirect?: boolean;
+  }) {
+    super();
+    this.name = props?.name || 'tina';
+    this.callbackUrl = props?.callbackUrl || '/admin/index.html';
+    this.redirect = props?.redirect ?? false;
+  }
+  async authenticate(ctx: ANY): Promise<any> {
+    console.log(ctx);
+    return signIn(this.name, { callbackUrl: this.callbackUrl });
+  }
+  getToken() {
+    return Promise.resolve({ id_token: '' });
+  }
+  async getUser() {
+    // const request = new Request('http://localhost:5001');
+    // const session = await getSession(request);
+    // return session?.user || false;
+  }
+  async logout() {
+    if (this.redirect) {
+      await signOut({ redirect: true, callbackUrl: this.callbackUrl });
+    }
+    await signOut({ callbackUrl: this.callbackUrl });
+  }
+
+  async authorize(context?: any): Promise<any> {
+    const user: any = (await getSession(context))?.user || {};
+    return user.role === 'user';
+  }
+}
 
 const { TinaUserCollection } = pkg;
 const branch = process.env.GITHUB_BRANCH || process.env.HEAD || 'main';
@@ -25,7 +102,8 @@ const mainImageField: TinaField = {
 };
 
 export default defineConfig({
-  authProvider: new LocalAuthProvider(),
+  authProvider: new DefaultAuthJSProvider(),
+  // authProvider: new LocalAuthProvider(),
   branch,
 
   // // Get this from tina.io

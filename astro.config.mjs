@@ -4,7 +4,7 @@ import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
 import node from '@astrojs/node';
-// import auth from 'auth-astro';
+import auth from 'auth-astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,8 +23,10 @@ export default defineConfig({
     }),
     react(),
     svelte(),
-    // auth(),
+    auth(),
   ],
   output: 'server',
-  adapter: node({ mode: 'middleware' }),
+  adapter: node({
+    mode: 'middleware',
+  }),
 });
