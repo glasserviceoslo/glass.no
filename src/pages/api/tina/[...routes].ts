@@ -100,15 +100,6 @@ export const customHandler = CustomTinaNodeBackend({
   authProvider: !isLocal
     ? (LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider)
     : AstroAuthBackend(authConfig),
-  // authProvider: LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider,
-  // authProvider: isLocal
-  //   ? LocalBackendAuthProvider()
-  //   : AuthJsBackendAuthProvider({
-  //     authOptions: TinaAuthJSOptions({
-  //       databaseClient,
-  //       secret: process.env.NEXTAUTH_SECRET as string,
-  //     }),
-  //   }),
   databaseClient,
 });
 
