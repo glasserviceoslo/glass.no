@@ -3,7 +3,7 @@ import databaseClient from '$tina/__generated__/databaseClient';
 import type { APIContext, APIRoute } from 'astro';
 import type { CustomTinaBackendOptions, DatabaseClient, CustomBackendAuthProvider, Routes } from '$types';
 import { AstroAuthBackend } from '$lib/tina.auth';
-import authConfig from 'auth:config';
+import { config } from '$auth/config';
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
 
@@ -97,9 +97,9 @@ function MakeNodeApiHandler({
 }
 
 export const customHandler = CustomTinaNodeBackend({
-  authProvider: !isLocal
+  authProvider: isLocal
     ? (LocalBackendAuthProvider() as unknown as CustomBackendAuthProvider)
-    : AstroAuthBackend(authConfig),
+    : AstroAuthBackend(config),
   databaseClient,
 });
 
@@ -107,4 +107,3 @@ const handleRequest: APIRoute = async (context) => customHandler(context);
 
 export const GET = handleRequest;
 export const POST = handleRequest;
-export const ALL = handleRequest;
