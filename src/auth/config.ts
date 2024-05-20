@@ -13,5 +13,5 @@ export const config: AuthConfig = {
       clientSecret: import.meta.env?.GITHUB_CLIENT_SECRET,
     }),
   ],
-  secret: 'J7SLsE0B1EdUFz7FJW0NAxMUh6P4yA1b5zKcg1NTGI0=',
+  secret: import.meta.env?.AUTH_SECRET,
 };
