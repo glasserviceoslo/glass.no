@@ -29,8 +29,7 @@ class CustomAuthJSProvider extends AbstractAuthProvider {
     try {
       const response = await fetch('/api/auth/session');
       const session = await response.json();
-      console.log('session', session.user);
-      return Promise.resolve(session.user) || Promise.resolve(false);
+      return session.user || false;
     } catch (e) {
       console.error('Error fetching user info from GitHub', e);
       return false;
