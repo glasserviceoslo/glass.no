@@ -19,9 +19,6 @@ RUN bun run build
 
 FROM base AS runtime
 
-RUN curl -sf https://gobinaries.com/tj/node-prune | sh && \
-    node-prune
-
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
