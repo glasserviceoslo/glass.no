@@ -1,5 +1,5 @@
 import { LocalBackendAuthProvider } from '@tinacms/datalayer';
-import databaseClient from '$tina/__generated__/databaseClient';
+import databaseClient from '$tina/__generated__/client';
 import type { APIContext, APIRoute } from 'astro';
 import type { CustomTinaBackendOptions, DatabaseClient, CustomBackendAuthProvider, Routes } from '$types';
 import { AstroAuthBackend } from '$lib/tina.auth';

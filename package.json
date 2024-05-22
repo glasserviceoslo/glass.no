@@ -15,7 +15,8 @@
     "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
     "dev:prod": "tinacms dev -c \"astro dev --port 5001\"",
-    "build": "astro build",
+    "build": "rm -rf dist && astro build",
+    "preview": "astro preview",
     "start": "node server.mjs",
     "astro": "astro",
     "clean": "rm -rf node_modules dist .netlify/",
@@ -27,6 +28,7 @@
     "release": "changeset publish"
   },
   "dependencies": {
+    "@astrojs/check": "^0.7.0",
     "@astrojs/node": "^8.2.5",
     "@astrojs/partytown": "2.1.0",
     "@astrojs/react": "3.3.4",
@@ -45,6 +47,7 @@
     "@rive-app/canvas": "^2.15.6",
     "@tinacms/datalayer": "^1.2.34",
     "astro": "4.8.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "express": "^4.19.2",

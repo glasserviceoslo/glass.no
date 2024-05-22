@@ -1,11 +1,9 @@
 ---
 import Layout from '$layouts/Page.astro';
-import PostPreview from '$components/Astro/PostPreview.astro';
 
-import { getAllPosts } from '$lib/sanity.client';
 import Container from '$components/Astro/Container.astro';
 import BlogPreview from '$components/Astro/BlogPreview.astro';
-import { client } from '$tina/__generated__/databaseClient';
+import { client } from '$tina/__generated__/client';
 import type { Post } from '$tina/__generated__/types';
 
 const seo = {

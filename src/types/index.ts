@@ -1,4 +1,4 @@
-import type databaseClient from '$tina/__generated__/databaseClient';
+import type databaseClient from '$tina/__generated__/client';
 import type { APIContext } from 'astro';
 import type { FileWithPath } from 'react-dropzone';
 

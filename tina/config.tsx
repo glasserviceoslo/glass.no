@@ -67,8 +67,9 @@ const mainImageField: TinaField = {
 };
 
 export default defineConfig({
-  authProvider: isLocal ? new LocalAuthProvider() : new CustomAuthJSProvider(),
-  branch,
+  token: '6a19b59a9d44fb4784a07b3a7de285689172554c',
+  clientId: '4b87665d-5407-4f9f-ae3c-bcd62089e101',
+  branch: 'cms',
   build: {
     outputFolder: 'admin',
     publicFolder: 'public',
@@ -275,7 +276,7 @@ export default defineConfig({
       },
     ],
   },
-  contentApiUrlOverride: '/api/tina/gql',
+  // contentApiUrlOverride: '/api/tina/gql',
   // search: {
   //   tina: {
   //     indexerToken: '<Your Search Token>',
