@@ -10,7 +10,10 @@ COPY package.json bun.lockb ./
 FROM base AS prod-deps
 RUN bun install --production
 
-FROM base AS build
+FROM base AS build-deps
+RUN bun install
+
+FROM build-deps AS build
 COPY . .
 RUN bun run build
 
