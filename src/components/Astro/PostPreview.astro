@@ -1,6 +1,5 @@
 ---
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
-import type { Post } from '$lib/sanity.queries';
+import type { Post } from '$tina/__generated__/types';
 import { Image } from 'astro:assets';
 
 export interface Props {
@@ -16,13 +15,13 @@ const { post, path } = Astro.props;
     <h3 class="mb-3 text-3xl leading-snug">
       <a href={`/${path}/${post.slug}`}>
         {
-          post.mainImage && (
+          post.mainImage?.url && (
             <Image
               width={720}
               height={420}
-              alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
+              alt={post.mainImage.alt || ''}
               loading="lazy"
-              src={getSanityImageURL(post.mainImage).url()}
+              src={post.mainImage.url}
             />
           )
         }
