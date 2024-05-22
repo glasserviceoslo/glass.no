@@ -1,6 +1,6 @@
 FROM node:lts AS base
 
-RUN curl -fsSL https://bun.sh/install | bash
+RUN curl -fsSL https://bun.sh/install | bash && source /root/.bashrc 
 WORKDIR /app
 
 COPY package.json bun.lockb ./
