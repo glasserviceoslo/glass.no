@@ -22,8 +22,8 @@ const mainImageField: TinaField = {
 };
 
 export default defineConfig({
-  token: '6a19b59a9d44fb4784a07b3a7de285689172554c',
-  clientId: '4b87665d-5407-4f9f-ae3c-bcd62089e101',
+  token: process.env.TINA_CLOUD_TOKEN,
+  clientId: process.env.TINA_CLOUD_CLIENT_ID,
   branch,
   build: {
     outputFolder: 'admin',
@@ -232,8 +232,7 @@ export default defineConfig({
   },
   search: {
     tina: {
-      indexerToken: '<Your Search Token>',
-      stopwordLanguages: ['no'],
+      indexerToken: process.env.TINA_CLOUD_SEARCH_TOKEN,
     },
     indexBatchSize: 100,
     maxSearchIndexFieldLength: 100,
