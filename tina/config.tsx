@@ -69,7 +69,7 @@ const mainImageField: TinaField = {
 export default defineConfig({
   token: '6a19b59a9d44fb4784a07b3a7de285689172554c',
   clientId: '4b87665d-5407-4f9f-ae3c-bcd62089e101',
-  branch: 'cms',
+  branch: 'tinacms',
   build: {
     outputFolder: 'admin',
     publicFolder: 'public',
