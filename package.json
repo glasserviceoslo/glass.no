@@ -15,7 +15,7 @@
     "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
     "dev:prod": "tinacms dev -c \"astro dev --port 5001\"",
-    "build": "rm -rf dist && astro build",
+    "build": "rm -rf dist && tinacms build && astro build",
     "preview": "astro preview",
     "start": "node server.mjs",
     "clean": "rm -rf node_modules dist",
