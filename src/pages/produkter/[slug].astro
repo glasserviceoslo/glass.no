@@ -1,8 +1,8 @@
 ---
-import Layout from '$layouts/Post.astro';
-import BlogPost from '$components/Astro/BlogPost.astro';
-import { client } from '$tina/__generated__/client';
-import type { Page } from '$tina/__generated__/types';
+import Layout from '../../layouts/Post.astro';
+import client from '../../../tina/__generated__/client';
+import type { Page } from '../../../tina/__generated__/types';
+import BlogPost from '../../components/Astro/BlogPost.astro';
 
 const { slug } = Astro.params;
 

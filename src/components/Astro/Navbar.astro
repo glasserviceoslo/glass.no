@@ -1,11 +1,10 @@
 ---
 import NavLink from './NavLink.astro';
-import BookBefaring from '$components/Svelte/BookBefaring.svelte';
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
-import { client } from '$tina/__generated__/client';
-import type { Page } from '$tina/__generated__/types';
-
+import client from '../../../tina/__generated__/client';
+import type { Page } from '../../../tina/__generated__/types';
+import BookBefaring from '../Svelte/BookBefaring.svelte';
 
 const glassTypeConnection = await client.queries.glassTypeConnection()
 const glassTypes = glassTypeConnection.data.glassTypeConnection?.edges?.map((edge) => ({

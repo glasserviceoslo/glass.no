@@ -1,6 +1,6 @@
 ---
-import { extractImageUrls } from '$lib/utils';
-import { client } from '$tina/__generated__/client';
+import client from '../../../tina/__generated__/client';
+import { extractImageUrls } from '../../lib/utils';
 
 const result = await client.queries.page({ relativePath: 'home.md' });
 const imageNodes = result.data.page.body.children.find((child:ANY) => child.type === 'ul')
