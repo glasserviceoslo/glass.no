@@ -1,11 +1,11 @@
 ---
 categories: null
+gallery:
+  isNavElement: true
 mainImage:
   url: >-
     https://cdn.sanity.io/images/csbn9wp4/transformed-data/39898a97c1d74a4e463a0d43e09a69c8e6b6ee30-1600x1032.jpg?fit=max&auto=format
   alt: Dusjvegger og dusjdør i glass i et luksuøst hjem
-gallery:
-  isNavElement: true
 title: Dusjvegger og dusjdører
 slug: dusjvegger-og-dusjdorer
 isNavElement: false
