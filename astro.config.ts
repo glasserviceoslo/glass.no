@@ -7,6 +7,13 @@ import node from '@astrojs/node';
 
 export default defineConfig({
   site: 'https://www.glass.no',
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['path', 'url'],
+      },
+    },
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     partytown({ config: { forward: ['dataLayer.push'] } }),
