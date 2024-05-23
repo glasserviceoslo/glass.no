@@ -1,9 +1,9 @@
-import type { FileWithPreview } from '$types';
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 import { render } from '@react-email/render';
-import ContactFormEmail from '$components/Emails/ContactFormEmail';
 import type { APIRoute } from 'astro';
+import ContactFormEmail from '../../components/Emails/ContactFormEmail';
+import type { FileWithPreview } from '../../types';
 
 export const POST: APIRoute = async ({ request }) => {
   const transporter = createTransport({

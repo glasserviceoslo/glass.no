@@ -1,10 +1,10 @@
 ---
-import Layout from '$layouts/Page.astro';
+import Layout from '../../layouts/Page.astro';
 
-import Container from '$components/Astro/Container.astro';
-import BlogPreview from '$components/Astro/BlogPreview.astro';
-import { client } from '$tina/__generated__/client';
-import type { Post } from '$tina/__generated__/types';
+import Container from '../../components/Astro/Container.astro';
+import BlogPreview from '../../components/Astro/BlogPreview.astro';
+import client from '../../../tina/__generated__/client';
+import type { Post } from '../../../tina/__generated__/types';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS Blogg',

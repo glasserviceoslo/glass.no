@@ -1,4 +1,4 @@
-import { MotionValue, motionValue, animate, type AnimationOptionsWithValueOverrides } from 'framer-motion';
+import { type MotionValue, motionValue, animate, type AnimationOptionsWithValueOverrides } from 'framer-motion';
 
 const DEFAULT_PAN_TRANSITON: AnimationOptionsWithValueOverrides<number> = {
   type: 'spring',

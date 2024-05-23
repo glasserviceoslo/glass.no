@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, useTransform } from 'framer-motion';
 import * as utils from './utils';
-import useLayoutEffect from '$hooks/react/useLayoutEffect';
+import useLayoutEffect from '../../../hooks/react/useLayoutEffect';
 
 interface BoxProps {
   children: React.ReactNode;

@@ -1,9 +1,9 @@
 import { Controller, useFormContext, type FieldValues, type Control } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
-import { generateRandomId, getBase64 } from '$lib/utils';
 import { useEffect, useState } from 'react';
-import { classNames } from '$lib/classNames';
-import type { FileWithPreview } from '$types';
+import { classNames } from 'tinacms';
+import { generateRandomId, getBase64 } from '../../lib/utils';
+import type { FileWithPreview } from '../../types';
 
 interface DropzoneFieldProps {
   name: string;
