@@ -14,8 +14,7 @@
   "scripts": {
     "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
-    "dev:prod": "tinacms dev -c \"astro dev --port 5001\"",
-    "build": "rm -rf dist && tinacms build && astro telemetry disable && astro build",
+    "build": "rm -rf dist && && astro telemetry disable && astro build",
     "preview": "astro preview",
     "start": "node server.mjs",
     "clean": "rm -rf node_modules dist",
@@ -25,6 +24,7 @@
     "release": "changeset publish"
   },
   "dependencies": {
+    "@astrojs/markdoc": "^0.11.0",
     "@astrojs/node": "^8.2.5",
     "@astrojs/partytown": "2.1.0",
     "@astrojs/react": "3.3.4",
@@ -34,6 +34,8 @@
     "@changesets/cli": "^2.27.1",
     "@googlemaps/js-api-loader": "^1.16.6",
     "@hookform/resolvers": "^3.3.4",
+    "@keystatic/astro": "^5.0.0",
+    "@keystatic/core": "^0.5.17",
     "@react-email/components": "^0.0.14",
     "@react-email/render": "^0.0.12",
     "@rive-app/canvas": "^2.15.6",
@@ -51,13 +53,11 @@
     "svelte": "^4.2.16",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
-    "tinacms": "^1.6.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
     "@sentry/vite-plugin": "^2.16.1",
-    "@tinacms/cli": "^1.5.45",
     "@types/google.maps": "^3.55.8",
     "@types/node": "^20.12.11",
     "@types/nodemailer": "^6.4.15",
