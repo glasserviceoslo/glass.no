@@ -58,7 +58,7 @@ export default config({
   },
   collections: {
     pages: collection({
-      columns: ["title", "date"],
+      columns: ["title", "updatedAt"],
       previewUrl: "/preview/start?branch={branch}&to=/pages/{slug}",
       label: "Pages",
       slugField: "title",
@@ -101,8 +101,12 @@ export default config({
             false: fields.empty(),
           }
         ),
-        date: fields.date({
-          label: "Date",
+        publishedAt: fields.date({
+          label: "Published at",
+          defaultValue: { kind: "today" },
+        }),
+        updatedAt: fields.date({
+          label: "Last updated",
           defaultValue: { kind: "today" },
         }),
         content: fields.markdoc({
@@ -111,8 +115,9 @@ export default config({
         }),
       },
     }),
+
     posts: collection({
-      columns: ["title", "date"],
+      columns: ["title", "updatedAt"],
       entryLayout: "content",
       previewUrl: "/preview/start?branch={branch}&to=/posts/{slug}",
       label: "Posts",
@@ -144,8 +149,12 @@ export default config({
           label: "Keywords",
           description: "Comma separated list of keywords",
         }),
-        date: fields.date({
-          label: "Date",
+        publishedAt: fields.date({
+          label: "Published at",
+          defaultValue: { kind: "today" },
+        }),
+        updatedAt: fields.date({
+          label: "Last updated",
           defaultValue: { kind: "today" },
         }),
         content: fields.markdoc({
@@ -154,8 +163,9 @@ export default config({
         }),
       },
     }),
+
     glassTypes: collection({
-      columns: ["title", "date"],
+      columns: ["title", "updatedAt"],
       entryLayout: "content",
       previewUrl: "/preview/start?branch={branch}&to=/glass-types/{slug}",
       label: "Glass types",
@@ -187,8 +197,12 @@ export default config({
           label: "Keywords",
           description: "Comma separated list of keywords",
         }),
-        date: fields.date({
-          label: "Date",
+        publishedAt: fields.date({
+          label: "Published at",
+          defaultValue: { kind: "today" },
+        }),
+        updatedAt: fields.date({
+          label: "Last updated",
           defaultValue: { kind: "today" },
         }),
         content: fields.markdoc({

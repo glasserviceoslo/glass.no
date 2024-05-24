@@ -3,6 +3,8 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
+    "strictNullChecks": true,
+    "allowJs": true,
     // "jsx": "preserve",
     "jsxImportSource": "react"
   }
