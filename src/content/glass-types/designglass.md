@@ -1,11 +1,8 @@
 ---
 title: "Designglass"
-slug: designglass
-mainImage: { url: "", alt: "" }
 seoKeywords: Ornamentglass, Farget glass, Etset glass, satinovo
 seoKeyphrase: Designglass
-categories: 
-date: 2023-01-15 09:14:04.976Z 
+date: 2023-01-15 09:14:04.976Z
 description: "Vi tilbyr et bredt utvalg av designglass med ulike egenskaper og funksjoner. Bla. farget glass, laminert glass, etset glass, emaljert glass med mer."
 ---
 
@@ -15,18 +12,18 @@ Interiørglass er et perfekt valg for deg som ønsker å gi hjemmet et særeget 
 
 ## Eksempler på designglass:
 
-* Silketrykt glass
-* Laminert glass med farget eller hvitt mellomlag
-* Syreetset glass
-* Teksturglass
-* Emaljert glass
-* Speil
+- Silketrykt glass
+- Laminert glass med farget eller hvitt mellomlag
+- Syreetset glass
+- Teksturglass
+- Emaljert glass
+- Speil
 
 ## Ornamentglass
 
-Ornamentglass er glass med mønster som er innpreget under produksjonen. Vi har delt våre ornamentglass inn i to familier, DECORGLASS med klassiske mønstre og MASTERGLASS med moderne mønstre. 
+Ornamentglass er glass med mønster som er innpreget under produksjonen. Vi har delt våre ornamentglass inn i to familier, DECORGLASS med klassiske mønstre og MASTERGLASS med moderne mønstre.
 
-I tillegg leverer vi ornamentglass som tilfører estetiske verdier gjennom sitt mønster. De har et stort lysgjennomslipp, men hindrer innsyn. Sortimentet består av glass som har sine designrøtter i 60- og 70-tallet. 
+I tillegg leverer vi ornamentglass som tilfører estetiske verdier gjennom sitt mønster. De har et stort lysgjennomslipp, men hindrer innsyn. Sortimentet består av glass som har sine designrøtter i 60- og 70-tallet.
 
 Ornamentglass forsynes med mønster allerede under produksjonen. Det varme glasset passerer da mellom valser med mønster som preges i glassets overflate.
 

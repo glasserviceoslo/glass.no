@@ -1,11 +1,9 @@
 ---
 title: "Varm kant"
-slug: varmkant
 mainImage: { url: "", alt: "" }
 seoKeywords: varmkant, passiv solforsterking, optiwhite
 seoKeyphrase: varmkant
-categories: 
-date: 2023-01-15 09:52:38.069Z 
+date: 2023-01-15 09:52:38.069Z
 description: "Vinduer med varm kant er en energieffektiv løsning for å redusere varmetapet fra vinduene, og hjelper deg å senke strømforbruket."
 ---
 

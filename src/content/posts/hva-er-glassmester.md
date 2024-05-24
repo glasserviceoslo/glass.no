@@ -1,14 +1,8 @@
 ---
 title: "Hva er Glassmester"
-slug: hva-er-glassmester
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/4e8f9edeaba94bb50a34d6bea21fe76834d5543d-280x280.png?fit=max&auto=format",
-  "alt": "glassmester1-1-280x280"
-}
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.770Z 
+seoKeywords:
+seoKeyphrase:
+date: 2024-05-24 17:32:18.770Z
 description: ""
 ---
 
@@ -18,13 +12,13 @@ For å finne en mester som er relevant for glassverket ditt, må du gjøre grund
 
 ### Hva bør du vurdere når du velger glassmester?
 
-* Det er viktige elementer du må vurdere når du velger glassmester. Vi har listet disse elementene for deg!
-* Forsikre deg om at mesteren har god erfaring,
-* Du bør be om å se på tidligere fullførte prosjekter,
-* Han / hun må forplikte seg til å gjennomføre prosjektet fullt ut,
-* Ikke still krav som overgår dine forventninger til budsjett,
-* Ha tilstrekkelig utstyr og tekniske fasiliteter,
-* Han / hun bør kunne tilby praktiske løsninger.
+- Det er viktige elementer du må vurdere når du velger glassmester. Vi har listet disse elementene for deg!
+- Forsikre deg om at mesteren har god erfaring,
+- Du bør be om å se på tidligere fullførte prosjekter,
+- Han / hun må forplikte seg til å gjennomføre prosjektet fullt ut,
+- Ikke still krav som overgår dine forventninger til budsjett,
+- Ha tilstrekkelig utstyr og tekniske fasiliteter,
+- Han / hun bør kunne tilby praktiske løsninger.
 
 Samarbeid med en mester som oppfyller disse kravene vil være en veldig stor fordel for deg. Hvis du bryr deg om detaljer er det viktig å være velge riktig glassmester. Riktig glassmester er lik flott resultat.
 

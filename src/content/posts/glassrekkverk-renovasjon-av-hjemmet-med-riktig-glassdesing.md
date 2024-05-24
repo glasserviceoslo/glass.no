@@ -1,14 +1,8 @@
 ---
 title: "Glassrekkverk: Renovasjon av hjemmet med riktig glassdesing"
-slug: glassrekkverk-renovasjon-av-hjemmet-med-riktig-glassdesing
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/aca0537a3d8de12702a0875f09aaf54974d8273d-280x280.png?fit=max&auto=format",
-  "alt": "vindu28-min-280x280"
-}
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.768Z 
+seoKeywords:
+seoKeyphrase:
+date: 2024-05-24 17:32:18.768Z
 description: ""
 ---
 
@@ -17,8 +11,6 @@ description: ""
 Om det er personlig eller kommersielt rom, er det ikke noe rom i verden som er komplett, uten riktig sett med glassrekkverk. Å velge riktig glassdesign for ditt hjem, er en av de viktigste investeringene du vil gjøre for å forbedre kvaliteten i rommet.
 
 Har du nettopp kjøpt eller [planlegger å kjøpe et nytt hjem](http://meglerportalen.no), eller vil renovere hjemmet ditt for noe mer moderne fra ny tid? Uten å endre mye på hjemmet ditt, kan du faktisk oppnå effekten med trendy glassdesign som er skreddersydd for dine rom. Slik kan du gjøre hjemmet ditt til en blendende suksess med stilige glassdesign og rammer.
-
-
 
 [vindu11-min](https://cdn.sanity.io/images/csbn9wp4/transformed-data/1c48f25c3ca1cd4600086940c25b1bd7d16d9f9f-1000x800.png)
 
@@ -34,15 +26,11 @@ Glassrekkverket blir sett av to typer mennesker - de som ser det som en del av d
 
 Hvis hjemmet ditt har en vakker utsikt fra utsiden, er det bare fornuftig å tenke på hva slags glassrekkverk du bør velge. Hvis du vil ha en balanse mellom synlighet og personvern, anbefales det at du velger smijernsvegger eller franskedør som det også kalles. Denne standard designen er spesielt laget for boligområder, laget av førsteklasse. Dette glassrekkverket gir en naturskjønn utsikt over den vakre hagen din mens du slapper av i stuen din, samtidig som det sørger for rikelig med privatliv for folk som okkuperer plassen.
 
-
-
 [rekkverk-s-glass-1199x800](https://cdn.sanity.io/images/csbn9wp4/transformed-data/bcd2b8aebd945c78f23b4d1ce22d23fe0c8ce55e-1199x800.jpg)
 
 ### Orientering av solen
 
 Dette kan høres ut som en merkelig faktor, men solens posisjon er viktig når du velger et trendy vindusglassdesign. Hvis du ikke planlegger det bra, kan du befinne deg i et hjem fullt av uønsket sollys på sen ettermiddag, eller bli rystet ut av søvnen av brennende solstråler. Basert på interiøret og vinkelen på rommene dine, kan du velge mellom en rekke alternativer hos Svendsen&sön. Vi hjelper til med å finne gode løsninger.
-
-
 
 [vindu2-min](https://cdn.sanity.io/images/csbn9wp4/transformed-data/58192bc7d0b70c08c00ac6b5860892324b022d87-1000x800.png)
 

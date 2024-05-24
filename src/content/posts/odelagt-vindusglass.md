@@ -1,14 +1,8 @@
 ---
 title: "Skifte vindusglass - hjelp når du trenger det"
-slug: odelagt-vindusglass
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/c7f290476d4a8dbf9efcbaeb08507e279748c3a5-2965x2965.jpg?fit=max&auto=format",
-  "alt": "Lekker hytte med store vinduer"
-}
 seoKeywords: knust glass, knust vindu, akutthjelp, sikring av knust glass, skifte vindusglass, modernisere vindu
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.769Z 
+seoKeyphrase:
+date: 2024-05-24 17:32:18.769Z
 description: "Trenger du hjelp med å skifte knust vindusglass? Vi hjelper deg 24 timer i døgnet. "
 ---
 
@@ -18,15 +12,11 @@ Bestill befaring i dag, så tar vi en titt på hva du trenger hjelp med. Etter d
 
 **Vi har en døgnbemannet vakttelefon. Ring _91 58 49 40_ så hjelper vi deg, når enn du trenger det.**
 
-
-
 [Lekker hytte med store vinduer](https://cdn.sanity.io/images/csbn9wp4/transformed-data/c7f290476d4a8dbf9efcbaeb08507e279748c3a5-2965x2965.jpg)
 
 ## Vi hjelper deg
 
 Trenger du nye vinduer, eller vil du bare ha hjelp til å skifte vindusglass i gamle vinduer? Våre vinduspesialister hjelper deg å finne den beste løsningen for deg, om det så er utskifting av gamle vinduer, eller om det er så enkelt som å bytte glass i gamle vinduer.
-
-
 
 [Knust vindusglass](https://cdn.sanity.io/images/csbn9wp4/transformed-data/d88cc3be51ad1d9b081c5f4831cfdf7e5dbd57ee-1920x1080.png)
 
@@ -34,15 +24,11 @@ Trenger du nye vinduer, eller vil du bare ha hjelp til å skifte vindusglass i g
 
 Har du vært uheldig og klart å knuse et vindu? Da hjelper vi deg mer enn gjerne. Vi har døgnbemannet vakttelefon som du kan ringe om du trenger hjelp med sikring av et knust vindu. I vanlige fall anbefaler vi at du bestiller en befaring, så hjelper vi deg med å finne ut hva du trenger, og om det er mulig å bare skifte ut det knuste glasset.
 
-
-
 [Dugg på innsiden av vindu](https://cdn.sanity.io/images/csbn9wp4/transformed-data/a40e1e2ed8cae0b2b90ed183c0b0f4b00ed96b84-1920x1080.png)
 
 ## Bytte vindusglass
 
 Ønsker du å skifte glass i de gamle vinduene dine så er det fullt mulig. Det kan være en kostnadseffektiv måte å senke strømkostnadene dine på, da du slipper å skifte annet enn bare selve glasset. Nytt vindusglass er mer isolerende og mer effektivt enn gammelt glass, og du kan få de med en rekke egenskaper. Vurderer du å bare skifte glasset så bør du også gå over og sjekke slik at karmer ikke er slitte og utette, og at de resterende delene av vinduet er i god stand.
-
-
 
 [To håndverkere installerer et nytt vindu](https://cdn.sanity.io/images/csbn9wp4/transformed-data/1db020400af126626165a5cc7401e069077078dd-7300x4872.jpg)
 
@@ -52,10 +38,10 @@ Har du vært uheldig og klart å knuse et vindu? Da hjelper vi deg mer enn gjern
 
 Fordeler med nytt vindusglass:
 
-* Lavere strømkostnader
-* Redusert varmetap
-* Forbedret inneklima
-* Mindre vedlikehold
+- Lavere strømkostnader
+- Redusert varmetap
+- Forbedret inneklima
+- Mindre vedlikehold
 
 [Dugg i mellom tolagsglass i et ødelagt vindu](https://cdn.sanity.io/images/csbn9wp4/transformed-data/fe158f6b8e4034bcbcb657ef04a15b111d973ea2-1920x1080.png)
 
@@ -63,13 +49,11 @@ Fordeler med nytt vindusglass:
 
 Dersom du opplever dugg mellom vindusglassene så betyr det at vinduet ditt er punktert. At et vindu er punktert betyr at det har skjedd en brist i mellom vindusramme og innerkarm, og luften i mellom glassene har sivet ut. Da kommer det varm luft inn i mellom vindusglassene, og det dannes kondens. Dersom et vindu er punktert er det svært viktig å få dette skiftet så fort som mulig, da det vil samles kondens i vindusrammen, og den vil etter hvert råtne.
 
-
-
 [Moderne vinduer i et moderne hjem](https://cdn.sanity.io/images/csbn9wp4/transformed-data/dd1e60826451e1814f1db63f195a2276e8fc2755-1500x2250.jpg)
 
 ## Installasjon av nye vinduer
 
-Vi har vinduer i alle former og stiler, og hjelper deg å finne rett vindu for ditt hjem. Vi har vinduer i moderne stil, men vi har også vinduer til gamle hus. Med et stort utvalg så kan vi garantert finne vinduer som kler ditt hus. 
+Vi har vinduer i alle former og stiler, og hjelper deg å finne rett vindu for ditt hjem. Vi har vinduer i moderne stil, men vi har også vinduer til gamle hus. Med et stort utvalg så kan vi garantert finne vinduer som kler ditt hus.
 
 [**Les mer om våre nye vinduer.**](/vinduer)
 
@@ -77,12 +61,12 @@ Vi har vinduer i alle former og stiler, og hjelper deg å finne rett vindu for d
 
 Vi leverer isolerglass som standard, men vi tilbyr også:
 
-* Soldempende glass
-* UV-filtrerende glass
-* Smussavvisende glass
-* Støydempende glass
-* Sikkerhetsglass
-* Brannglass
+- Soldempende glass
+- UV-filtrerende glass
+- Smussavvisende glass
+- Støydempende glass
+- Sikkerhetsglass
+- Brannglass
 
 ## Typene vindusglass:
 

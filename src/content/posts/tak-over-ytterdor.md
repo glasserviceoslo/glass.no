@@ -1,20 +1,12 @@
 ---
 title: "Baldakin over ytterdøra - moderne design for alle hjem"
-slug: tak-over-ytterdor
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/e25f305845a13a0516d7625c21f061d5a3f3e5e8-1920x1080.png?fit=max&auto=format",
-  "alt": "Baldakin over ytterdør"
-}
 seoKeywords: baldakin, tak over inngangsdør, tak over ytterdør, glasstak, tak over dør
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.766Z 
+seoKeyphrase:
+date: 2024-05-24 17:32:18.766Z
 description: "Sliter du med at det regner inn når ytterdøra åpnes, eller leter seg snøen helt opp mot døra på vinterstid? Da er en baldakin, eller et tak over inngangsdøren din løsningen!"
 ---
 
 Sliter du med at det regner inn når ytterdøra åpnes, eller leter seg snøen helt opp mot døra på vinterstid? Da er en baldakin, eller et tak over inngangsdøren din løsningen!
-
-
 
 [Hvit ytterdør på et sortmalt hus med glasstak over døra](https://cdn.sanity.io/images/csbn9wp4/transformed-data/e25f305845a13a0516d7625c21f061d5a3f3e5e8-1920x1080.png)
 

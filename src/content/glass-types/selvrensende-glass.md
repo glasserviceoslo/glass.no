@@ -1,11 +1,8 @@
 ---
 title: "Selvrensende glass"
-slug: selvrensende-glass
-mainImage: { url: "", alt: "" }
 seoKeywords: Smussavvisende, bærekraftig
 seoKeyphrase: Smussavvisende glass
-categories: 
-date: 2023-01-15 09:48:35.105Z 
+date: 2023-01-15 09:48:35.105Z
 description: "Selvvaskende glass holder seg rent med været - og er en fantastisk løsning for vinduer som sitter utilgjengelig for vindusvask."
 ---
 

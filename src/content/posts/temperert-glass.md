@@ -1,19 +1,14 @@
 ---
 title: "Temperert glass"
-slug: temperert-glass
-mainImage: { url: "", alt: "" }
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.772Z 
+seoKeywords:
+seoKeyphrase:
+date: 2024-05-24 17:32:18.772Z
 description: ""
 ---
 
 ## Herdet glass: En god løsning for ditt kontor
 
 Er det noe som er bedre enn en ukomplisert og behagelig glassrute? Glass er et fantastisk materiale for innredning av et rom, som foreksempel en kontor. Ofte er det bekymringer om herdetglass er et riktig alternativ å velge, utenom dens herlige estetikk. Spørsmålet om det er et virkelig funksjonelt og langvarig materiale kan forekomme. Svaret er, ja!
-
-
 
 ### Hva er herdet glass?
 

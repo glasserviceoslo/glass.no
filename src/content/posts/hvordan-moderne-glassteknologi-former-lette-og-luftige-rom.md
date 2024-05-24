@@ -1,22 +1,14 @@
 ---
 title: "Hvordan moderne glassteknologi former lette og luftige rom"
-slug: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
-mainImage: {
-  "url": "https://cdn.sanity.io/images/csbn9wp4/transformed-data/b6cc8c189355f64a31a18c4e7e230f76a31ae1d6-1118x745.png?fit=max&auto=format",
-  "alt": "glasshus-min"
-}
-seoKeywords: 
-seoKeyphrase: 
-categories: 
-date: 2024-05-24 17:32:18.772Z 
+seoKeywords:
+seoKeyphrase:
+date: 2024-05-24 17:32:18.772Z
 description: ""
 ---
 
 ## Hvordan moderne glassrekkverk former lette og luftige rom
 
 [Glass](https://s-glass.no)
-
-
 
 [metalldorer-s-glass-533x800](https://cdn.sanity.io/images/csbn9wp4/transformed-data/a859698764a692844697c85baba8f263bbbc8be4-533x800.jpg)
 

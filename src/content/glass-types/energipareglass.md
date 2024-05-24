@@ -1,11 +1,8 @@
 ---
 title: "Energipareglass"
-slug: energipareglass
-mainImage: { url: "", alt: "" }
 seoKeywords: Solbeskyttelse, CO2-utslipp, Lysoverføring, Lysrefleksjon
 seoKeyphrase: Energipareglass
-categories: 
-date: 2023-01-15 09:17:48.586Z 
+date: 2023-01-15 09:17:48.586Z
 description: "Energispareglass, også kjent som lavenergiglass, er et populært valg for å redusere varmetap og energikostnader i boliger og bygninger. "
 ---
 
