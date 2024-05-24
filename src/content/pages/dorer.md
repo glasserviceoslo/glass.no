@@ -1,11 +1,14 @@
 ---
 title: "På jakt etter en ny dør?"
+description: >-
+  Glass.no hjelper deg gjerne med å installere alle typer dører i ditt hjem. Vi
+  leverer kvalitet i alle ledd og vi har mange års erfaring med
+  dørinstallasjoner.
+seoKeyphrase: dør
+seoKeywords: ytterdør, innerdør, smijernsdør, balkongdør, verandadør, inngangsdør, dør
 navigation:
   discriminant: false
-seoKeywords: ytterdør, innerdør, smijernsdør, balkongdør, verandadør, inngangsdør, dør
-seoKeyphrase:
-date: 2024-05-24 17:32:18.773Z
-description: "Glass.no hjelper deg gjerne med å installere alle typer dører i ditt hjem. Vi leverer kvalitet i alle ledd og vi har mange års erfaring med dørinstallasjoner."
+publishedAt: 2024-05-24
 ---
 
 Leter du etter en ny dør til hjemmet ditt? Vi har både ytterdører, verandadører, balkongdører, franske dører og smijernsdører - en dør til ethvert hjem.
@@ -25,8 +28,6 @@ De absolutt mest populære dørene vi leverer er smijernsdører, og det er ikke 
 ## Verandadører og balkongdører
 
 En god terassedør forlenger hjemmet på varme dager. Men enda viktigere så holder den været ute på de resterende dagene av året. Har du en gammel verandadør så taper du gjerne mye energi ut og slipper varme inn. Vi leverer alle type veranda- og balkongdører - bare ta kontakt!
-
-##
 
 [Sko som står foran en ytterdør fra Diplomat som står på gløtt](https://cdn.sanity.io/images/csbn9wp4/transformed-data/29517f2053ff89ed2b29670e3320ca9e12d9136a-1600x2400.jpg)
 

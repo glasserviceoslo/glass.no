@@ -2,7 +2,7 @@
 title: "Glassrekkverk: Renovasjon av hjemmet med riktig glassdesing"
 seoKeywords:
 seoKeyphrase:
-date: 2024-05-24 17:32:18.768Z
+publishedAt: 2024-05-24 17:32:18.768Z
 description: ""
 ---
 

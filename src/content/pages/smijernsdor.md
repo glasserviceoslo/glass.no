@@ -6,7 +6,7 @@ navigation:
     title: Smijernsdør
 seoKeywords: smijernsdør, art deco, smijernsvegg, glassvegg, glassdør, metalldør med glass
 seoKeyphrase: smijernsdør
-date: 2024-05-24 17:32:18.777Z
+publishedAt: 2024-05-24 17:32:18.777Z
 description: "Smijernsdører- og smijernsvegger har et industrielt utseende, og egner seg perfekt i hjemmet for å dele av rom, i inngangsparti, for å dele av rom eller kontor, som soveromsdør eller for å ramme inn et kjøkken - det er fantasien som setter grensene for hva det kan brukes til."
 ---
 

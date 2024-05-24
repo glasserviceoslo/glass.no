@@ -4,7 +4,7 @@ navigation:
   discriminant: false
 seoKeywords:
 seoKeyphrase:
-date: 2023-01-11 12:42:07.068Z
+publishedAt: 2023-01-11 12:42:07.068Z
 description: ""
 ---
 

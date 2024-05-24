@@ -6,7 +6,7 @@ navigation:
     title: Vindu
 seoKeywords: vindu, nye vinduer, frekhaug, lyssand, nytt vindu, skifte vindu, lavere strømkostnad
 seoKeyphrase:
-date: 2024-05-24 17:32:18.776Z
+publishedAt: 2024-05-24 17:32:18.776Z
 description: "Driver du og pusser opp, eller bygger du nytt? Vi leverer vinduer for alle hjem - moderne og klassiske. Bestill befaring i dag, så hjelper vi deg."
 ---
 

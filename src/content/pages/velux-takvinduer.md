@@ -6,7 +6,7 @@ navigation:
     title: Velux
 seoKeywords: takvindu, velux, velux takvindu
 seoKeyphrase:
-date: 2024-05-24 17:32:18.777Z
+publishedAt: 2024-05-24 17:32:18.777Z
 description: "Har du et gammelt takvindu som lekker, eller ønsker du rett og slett bare å få inn mer lys i hjemmet ditt? Da er et Velux takvindu det perfekte valget."
 ---
 

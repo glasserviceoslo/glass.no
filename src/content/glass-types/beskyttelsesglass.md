@@ -2,7 +2,7 @@
 title: "Beskyttelsesglass"
 seoKeywords: Beskyttelsesglass, stadip protect, securit
 seoKeyphrase: Beskyttelsesglass
-date: 2023-01-15 09:07:35.827Z
+publishedAt: 2023-01-15 09:07:35.827Z
 description: "Det finnes flere typer beskyttelsesglass og sikkerhetsglass, og de fungerer gjerne som multifunksjonelle glass. Les mer her."
 ---
 

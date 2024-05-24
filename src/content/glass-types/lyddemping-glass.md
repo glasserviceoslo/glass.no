@@ -2,7 +2,7 @@
 title: "Lyddemping glass"
 seoKeywords: lyddemping, lydisolering, lydkontroll, lydisolerende glass
 seoKeyphrase: Lyddemping glass
-date: 2023-01-15 09:23:32.101Z
+publishedAt: 2023-01-15 09:23:32.101Z
 description: "Med økende vei-, jernbane- og flytrafikk har støyisolasjon blitt en veldig viktig glassegenskap. I dag er støyisolering et ubestridt krav i ..."
 ---
 

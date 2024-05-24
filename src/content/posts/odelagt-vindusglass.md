@@ -2,7 +2,7 @@
 title: "Skifte vindusglass - hjelp når du trenger det"
 seoKeywords: knust glass, knust vindu, akutthjelp, sikring av knust glass, skifte vindusglass, modernisere vindu
 seoKeyphrase:
-date: 2024-05-24 17:32:18.769Z
+publishedAt: 2024-05-24 17:32:18.769Z
 description: "Trenger du hjelp med å skifte knust vindusglass? Vi hjelper deg 24 timer i døgnet. "
 ---
 

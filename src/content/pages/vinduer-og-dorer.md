@@ -4,7 +4,7 @@ navigation:
   discriminant: false
 seoKeywords:
 seoKeyphrase:
-date: 2024-05-24 17:32:18.773Z
+publishedAt: 2024-05-24 17:32:18.773Z
 description: "Vinduer og dører er forbruksvarer, og har en viss levetid. Avhengig av hvor godt vedlikeholdt de har vært, jo lenger vil de vare. Vi hjelper deg å finne ut hva som må gjøres."
 ---
 

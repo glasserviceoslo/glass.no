@@ -2,7 +2,7 @@
 title: "Temperert glass"
 seoKeywords:
 seoKeyphrase:
-date: 2024-05-24 17:32:18.772Z
+publishedAt: 2024-05-24 17:32:18.772Z
 description: ""
 ---
 

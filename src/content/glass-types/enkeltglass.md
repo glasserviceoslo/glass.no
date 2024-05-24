@@ -2,7 +2,7 @@
 title: "Enkeltglass"
 seoKeywords: 3mm glass, 4mm glass, diamant, enkeltglass
 seoKeyphrase: Enkeltglass
-date: 2023-01-15 09:22:22.802Z
+publishedAt: 2023-01-15 09:22:22.802Z
 description: "Den vanligste typen glass som brukes til bygningsformål kalles enkeltglass eller floatglass. Les mer om enkeltglass her."
 ---
 

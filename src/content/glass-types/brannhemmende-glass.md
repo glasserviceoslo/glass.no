@@ -3,7 +3,7 @@ title: "Brannhemmende glass"
 mainImage: { url: "", alt: "" }
 seoKeywords: Brannhemmende glass, E Klassifisering, EW-klassifisering
 seoKeyphrase: Brannhemmende glass
-date: 2023-01-15 09:11:55.062Z
+publishedAt: 2023-01-15 09:11:55.062Z
 description: "Brannhemmende glass er spesialglass som gir midlertidig beskyttelse i tilfelle at det oppstår brann. "
 ---
 

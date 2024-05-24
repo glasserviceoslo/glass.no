@@ -2,7 +2,7 @@
 title: "Isolerglass"
 seoKeywords: isolering, isolasjon, isolerglass
 seoKeyphrase: Isolerglass
-date: 2023-01-15 09:20:39.179Z
+publishedAt: 2023-01-15 09:20:39.179Z
 description: "Isolerglass brukes for å isolere for både varmetap- og støy, og passer for mange forskjellige applikasjoner. Les mer om isolerglass her."
 ---
 

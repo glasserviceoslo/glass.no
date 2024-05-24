@@ -2,7 +2,7 @@
 title: "10 måter å bruke smijern i ditt hjem"
 seoKeywords:
 seoKeyphrase:
-date: 2024-05-24 17:32:18.771Z
+publishedAt: 2024-05-24 17:32:18.771Z
 description: ""
 ---
 

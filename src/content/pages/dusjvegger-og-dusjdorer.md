@@ -4,7 +4,7 @@ navigation:
   discriminant: false
 seoKeywords:
 seoKeyphrase:
-date: 2023-02-10 17:45:07.439Z
+publishedAt: 2023-02-10 17:45:07.439Z
 description: "Finn din neste dusjvegg eller dusjdør hos oss, og gjør dusjhjørnet ditt komplett. Vi leverer luksuøse alternativer for alle typer hjem."
 ---
 
