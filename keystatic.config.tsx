@@ -1,11 +1,64 @@
 import { config, fields, collection } from "@keystatic/core";
 
+const featuredMedia = fields.conditional(
+  fields.select({
+    label: "Featured media",
+    description: "Optional image/video options for an optional hero media.",
+    options: [
+      { label: "No media", value: "none" },
+      { label: "Image", value: "image" },
+      { label: "Video", value: "video" },
+    ],
+    defaultValue: "none",
+  }),
+  {
+    none: fields.empty(),
+    image: fields.object({
+      asset: fields.image({
+        label: "Image",
+        directory: "public/uploads/images",
+        publicPath: "/uploads/images/",
+        validation: { isRequired: true },
+      }),
+      alt: fields.text({
+        label: "Alt",
+        description: "Image alt text.",
+      }),
+    }),
+    // "video" condition
+    video: fields.object({
+      url: fields.url({
+        label: "A YouTube video URL.",
+      }),
+      image: fields.object({
+        asset: fields.image({
+          label: "Image",
+          description: "Thumbnail image override for the video.",
+          directory: "public/uploads/images",
+          publicPath: "/uploads/images/",
+        }),
+        alt: fields.text({
+          label: "Alt",
+          description: "Image alt text.",
+        }),
+      }),
+    }),
+  }
+);
+
 export default config({
   storage: {
     kind: "local",
   },
+  ui: {
+    brand: {
+      name: "glass.no",
+      mark: () => <img src="/favicon.svg" height={30} alt="Logo" />,
+    },
+  },
   collections: {
     pages: collection({
+      columns: ["title", "date"],
       previewUrl: "/preview/start?branch={branch}&to=/pages/{slug}",
       label: "Pages",
       slugField: "title",
@@ -23,19 +76,7 @@ export default config({
             description: "This will define the file/folder name for this entry",
           },
         }),
-        // mainImage: fields.cloudImage({
-        //   url: fields.image({
-        //     label: "Main image",
-        //   }),
-        //   alt: fields.text({
-        //     label: "Alt text",
-        //   }),
-        // }),
-        mainImage: fields.image({
-          label: "Main image",
-          directory: "public/assets/uploads",
-          publicPath: "/assets/uploads/",
-        }),
+        featuredMedia,
         description: fields.text({
           label: "Description",
           description: "Description for search engine optimization",
@@ -71,6 +112,8 @@ export default config({
       },
     }),
     posts: collection({
+      columns: ["title", "date"],
+      entryLayout: "content",
       previewUrl: "/preview/start?branch={branch}&to=/posts/{slug}",
       label: "Posts",
       slugField: "title",
@@ -88,19 +131,7 @@ export default config({
             description: "This will define the file/folder name for this entry",
           },
         }),
-        // mainImage: fields.cloudImage({
-        //   url: fields.image({
-        //     label: "Main image",
-        //   }),
-        //   alt: fields.text({
-        //     label: "Alt text",
-        //   }),
-        // }),
-        mainImage: fields.image({
-          label: "Main image",
-          directory: "public/assets/uploads",
-          publicPath: "/assets/uploads/",
-        }),
+        featuredMedia,
         description: fields.text({
           label: "Description",
           description: "Description for search engine optimization",
@@ -124,6 +155,8 @@ export default config({
       },
     }),
     glassTypes: collection({
+      columns: ["title", "date"],
+      entryLayout: "content",
       previewUrl: "/preview/start?branch={branch}&to=/glass-types/{slug}",
       label: "Glass types",
       slugField: "title",
@@ -141,19 +174,7 @@ export default config({
             description: "This will define the file/folder name for this entry",
           },
         }),
-        // mainImage: fields.cloudImage({
-        //   url: fields.image({
-        //     label: "Main image",
-        //   }),
-        //   alt: fields.text({
-        //     label: "Alt text",
-        //   }),
-        // }),
-        mainImage: fields.image({
-          label: "Main image",
-          directory: "public/assets/uploads",
-          publicPath: "/assets/uploads/",
-        }),
+        featuredMedia,
         description: fields.text({
           label: "Description",
           description: "Description for search engine optimization",
@@ -176,5 +197,27 @@ export default config({
         }),
       },
     }),
+    // media: collection({
+    //   label: "Media",
+    //   slugField: "filename",
+    //   schema: {
+    //     filename: fields.text({
+    //       label: "Filename",
+    //       validation: { isRequired: true },
+    //     }),
+    //     image: fields.image({
+    //       label: "Image",
+    //       validation: { isRequired: true },
+    //       directory: "public/uploads",
+    //       publicPath: "/uploads",
+    //     }),
+    //   },
+    // }),
   },
+  // singletons: {
+  //   settings: singleton({
+  //     label: "Settings",
+  //     schema: {},
+  //   }),
+  // },
 });

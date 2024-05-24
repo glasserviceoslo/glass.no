@@ -29,3 +29,5 @@ backup*
 .vercel
 
 node_modules
+
+.astro
