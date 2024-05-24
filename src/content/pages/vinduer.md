@@ -1,6 +1,9 @@
 ---
 title: "Vi hjelper deg å skifte vinduer"
-isNavElement: true
+navigation:
+  discriminant: true
+  value:
+    title: Vindu
 seoKeywords: vindu, nye vinduer, frekhaug, lyssand, nytt vindu, skifte vindu, lavere strømkostnad
 seoKeyphrase:
 date: 2024-05-24 17:32:18.776Z

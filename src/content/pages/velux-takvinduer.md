@@ -1,6 +1,9 @@
 ---
 title: "Velux takvinduer"
-isNavElement: true
+navigation:
+  discriminant: true
+  value:
+    title: Velux
 seoKeywords: takvindu, velux, velux takvindu
 seoKeyphrase:
 date: 2024-05-24 17:32:18.777Z
