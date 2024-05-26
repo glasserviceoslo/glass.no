@@ -1,18 +1,22 @@
 ---
 import { Image } from 'astro:assets';
-import PortableText from './PortableText.astro';
-import type { Post } from '../../../tina/__generated__/types';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: Post;
+  post: CollectionEntry<'posts'>;
   path: string;
 }
 
 const { post, path } = Astro.props;
 
-const getExcerpt = () => {
-  if (!post.description) {
-    const postContent = post.body?.children?.find((p:{type: string, children: {text: string}[]}) => p.type === 'p').children[0].text || '';
+const getExcerpt = async () => {
+  if (!post.data.description) {
+    const postContent = post.body
+      .replace(/^\s*$(?:\r\n?|\n)/gm, '')
+      .split('\n')
+      .filter((line) => !line.startsWith('#') && !line.startsWith('['))
+      .join(' ');
+
     return `${postContent.substring(0, 100).trim()}...`;
   }
 };
@@ -25,18 +29,20 @@ const getExcerpt = () => {
     <Image
       width={1000}
       height={667}
-      alt={post?.mainImage?.alt || ''}
+      alt={post?.data.featuredMedia?.type === 'image' ? post?.data.featuredMedia?.alt ?? '' : ''}
       class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
       loading="lazy"
-      src={post?.mainImage?.url || '/assets/placeholder.jpg'}
+      src={post?.data.featuredMedia?.type === 'image'
+        ? post?.data.featuredMedia?.alt ?? '/assets/placeholder.jpg'
+        : '/assets/placeholder.jpg'}
     />
   </div>
   <div class="relative mt-6">
     <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
-      {post.title}
+      {post.data.title}
     </h3>
     <p class="mb-8 mt-6 text-gray-600 dark:text-gray-300">
-      {post.description ? <PortableText value={post.description} /> : getExcerpt()}
+      {post.data.description ? <p>{post.data.description}</p> : getExcerpt()}
     </p>
     <a class="inline-block" href={`/${path}/${post.slug}`}>
       <span class="text-info dark:text-blue-300">Les mer</span>
