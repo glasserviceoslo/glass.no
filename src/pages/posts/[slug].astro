@@ -19,7 +19,7 @@ const seo = {
   title: post.data.title,
   description: post.data.description || '',
   keywords: post.data.seoKeywords || '',
-  image: post.data.featuredMedia?.type === 'image' ? post.data.featuredMedia?.alt ?? '' : '',
+  image: post.data.featuredMedia?.type === 'image' ? post.data.featuredMedia?.asset?.src ?? '' : '',
 };
 ---
 

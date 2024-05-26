@@ -1,40 +1,45 @@
 ---
 import { Image } from 'astro:assets';
 import PostBody from './PostBody.astro';
-import PortableText from './PortableText.astro';
-import type { GlassType, Page, Post } from '../../../tina/__generated__/types';
+import type { CollectionEntry } from 'astro:content';
+import ArticleImage from './ArticleImage.astro';
+import ArticleLink from './ArticleLink.astro';
 
 export interface Props {
-  post: Page | Post | GlassType;
+  post: CollectionEntry<'pages' | 'posts' | 'glasstypes'>;
 }
 
 const { post } = Astro.props;
+
+const { Content } = await post.render();
 ---
 
 <article class="h-full min-h-[calc(100vh-289px)]">
   {
-    post.mainImage?.url && (
+    post.data.featuredMedia?.type === 'image' && post.data.featuredMedia?.asset?.src && (
       <div class="h-[40vw]">
         <Image
           width={2000}
           height={800}
-          alt={post.mainImage?.alt || ''}
+          alt={post.data.featuredMedia?.alt || ''}
           class="max-h-full w-full object-cover"
           loading="lazy"
-          src={post.mainImage?.url}
+          src={post.data.featuredMedia?.asset?.src || ''}
         />
       </div>
     )
   }
   <header class="mb-10 flex flex-col items-center justify-center pt-8 text-center md:mb-12">
     <h1 class="text-4xl font-bold leading-tight tracking-normal md:pr-8 md:text-6xl">
-      {post.title}
+      {post.data.title}
     </h1>
     <h4
       class="mt-5 text-lg md:pl-8 md:text-left [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200"
     >
-      <PortableText value={post.description} />
+      <p>{post.data.description}</p>
     </h4>
   </header>
-  <PostBody content={post.body} />
+  <PostBody>
+    <Content components={{ img: ArticleImage, a: ArticleLink }} />
+  </PostBody>
 </article>

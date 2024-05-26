@@ -42,22 +42,22 @@ const featuredMediaSchema = z
 const navigationSchema = z
   .object({
     discriminant: z.boolean(),
-    navigation: z
+    value: z
       .object({
-        title: z.string().optional(),
+        title: z.string(),
       })
       .optional(),
   })
   .refine(
     (data) => {
-      if (data.discriminant && !data.navigation?.title) {
+      if (data.discriminant && !data.value) {
         return false;
       }
       return true;
     },
     {
       message: 'Navigation title is required when showing in navigation menu',
-      path: ['navigation', 'title'],
+      path: ['value', 'title'],
     },
   );
 

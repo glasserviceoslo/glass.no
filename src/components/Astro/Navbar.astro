@@ -2,21 +2,12 @@
 import NavLink from './NavLink.astro';
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
-import client from '../../../tina/__generated__/client';
-import type { Page } from '../../../tina/__generated__/types';
 import BookBefaring from '../Svelte/BookBefaring.svelte';
+import { getCollection } from 'astro:content';
 
-const glassTypeConnection = await client.queries.glassTypeConnection()
-const glassTypes = glassTypeConnection.data.glassTypeConnection?.edges?.map((edge) => ({
-  slug: edge?.node?.slug,
-  title: edge?.node?.title,
-})) || [];
-
-const pageConnection = await client.queries.pageConnection()
-const pages = pageConnection.data.pageConnection?.edges?.map((page) => page?.node) as Page[]
-const navElements = pages.filter((page) => page.isNavElement).sort((a, b) => (a.navTitle as string).localeCompare(b.navTitle as string))
-
-const products = pages.filter((page) => !page.isNavElement && page.slug !== 'home');
+const navElements = await getCollection('pages', ({ data }) => data.navigation.discriminant);
+const products = await getCollection('pages', ({ data, slug }) => !data.navigation.discriminant && slug !== 'home');
+const glasstypes = await getCollection('glasstypes');
 ---
 
 <nav
@@ -80,7 +71,7 @@ const products = pages.filter((page) => !page.isNavElement && page.slug !== 'hom
                 href={`/${element.slug}`}
                 class="block rounded py-2 pl-3 pr-4 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-primary-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
               >
-                {element.navTitle}
+                {element.data.navigation.value?.title}
               </NavLink>
             </li>
           ))
@@ -126,7 +117,7 @@ const products = pages.filter((page) => !page.isNavElement && page.slug !== 'hom
                       href={`/produkter/${item.slug}`}
                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
-                      {item.title}
+                      {item.data.title}
                     </NavLink>
                   </li>
                 ))
@@ -160,13 +151,13 @@ const products = pages.filter((page) => !page.isNavElement && page.slug !== 'hom
           >
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
               {
-                glassTypes.map((item) => (
+                glasstypes.map((item) => (
                   <li>
                     <NavLink
                       href={`/glasstyper/${item.slug}`}
                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
-                      {item.title}
+                      {item.data.title}
                     </NavLink>
                   </li>
                 ))
