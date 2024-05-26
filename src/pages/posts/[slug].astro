@@ -1,25 +1,25 @@
 ---
-import client from "../../../tina/__generated__/client";
-import type { Post } from "../../../tina/__generated__/types";
-import BlogPost from "../../components/Astro/BlogPost.astro";
-import Layout from "../../layouts/Post.astro";
-
-
+import BlogPost from '../../components/Astro/BlogPost.astro';
+import Layout from '../../layouts/Post.astro';
+import { getEntry } from 'astro:content';
 
 const { slug } = Astro.params;
 
-// if (slug === 'smijernsdor' || slug === 'velux-takvinduer' || slug === 'home') {
-//  return Astro.redirect('/404');
-// }
+if (slug === undefined || slug === 'smijernsdor' || slug === 'velux-takvinduer' || slug === 'home') {
+  return Astro.redirect('/404');
+}
 
-const result = await client.queries.post({ relativePath: `${slug}.md` });
-const post  = result.data.post as Post
+const post = await getEntry('posts', slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
 
 const seo = {
-  title: post.title,
-  description: post?.description || '',
-  keywords: post?.seoKeywords || '',
-  image: post?.mainImage?.url || '',
+  title: post.data.title,
+  description: post.data.description || '',
+  keywords: post.data.seoKeywords || '',
+  image: post.data.featuredMedia?.type === 'image' ? post.data.featuredMedia?.alt ?? '' : '',
 };
 ---
 
