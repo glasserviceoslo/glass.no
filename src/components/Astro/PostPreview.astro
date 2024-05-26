@@ -1,10 +1,9 @@
 ---
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
-import type { Post } from '$lib/sanity.queries';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: Post;
+  post: CollectionEntry<'posts'>;
   path: string;
 }
 
@@ -16,19 +15,19 @@ const { post, path } = Astro.props;
     <h3 class="mb-3 text-3xl leading-snug">
       <a href={`/${path}/${post.slug}`}>
         {
-          post.mainImage && (
+          post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset && (
             <Image
               width={720}
               height={420}
-              alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
+              alt={post.data.featuredMedia?.value?.alt || ''}
               loading="lazy"
-              src={getSanityImageURL(post.mainImage).url()}
+              src={post.data.featuredMedia?.value.asset}
             />
           )
         }
-        {post.title}
+        {post.data.title}
       </a>
     </h3>
-    {post.description && <p class="mb-4 text-lg leading-relaxed">{post.description}</p>}
+    {post.data.description && <p class="mb-4 text-lg leading-relaxed">{post.data.description}</p>}
   </div>
 </article>

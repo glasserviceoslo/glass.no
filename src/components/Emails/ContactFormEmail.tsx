@@ -13,7 +13,6 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 interface ContactFormEmailProps {
   baseUrl: string;
@@ -42,7 +41,7 @@ export const ContactFormEmail = ({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-[40px] w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Section className="mt-[32px]">
-              <img
+              <Img
                 src={`${baseUrl}/public/assets/favicon.png`}
                 width="40"
                 height="37"

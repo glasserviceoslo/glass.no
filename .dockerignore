@@ -1,0 +1,7 @@
+.DS_Store
+node_modules
+dist
+.prettierrc
+.nvmrc
+Caddyfile
+CHANGELOG.md

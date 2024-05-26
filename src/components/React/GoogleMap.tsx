@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useRef } from 'react';
-import { useGoogleMaps } from '$hooks/react/useGoogleMaps';
+import { useGoogleMaps } from '../../hooks/react/useGoogleMaps';
 
 export const GoogleMap = () => {
   const mapRef = useRef(null);
@@ -20,5 +20,5 @@ export const GoogleMap = () => {
     }
   }, [googleMaps]);
 
-  return <div ref={mapRef} className="relative h-[700px] rounded-lg shadow-lg"></div>;
+  return <div ref={mapRef} className="relative h-[700px] rounded-lg shadow-lg" />;
 };

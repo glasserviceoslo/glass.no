@@ -1,8 +1,8 @@
 ---
-import Footer from '$components/Astro/Footer.astro';
-import Navbar from '$components/Astro/Navbar.astro';
-import type { Props as BaseHeadProps } from '$components/Astro/BaseHead.astro';
-import BaseHead from '$components/Astro/BaseHead.astro';
+import type { Props as BaseHeadProps } from '../../components/Astro/BaseHead.astro';
+import BaseHead from '../../components/Astro/BaseHead.astro';
+import Footer from '../../components/Astro/Footer.astro';
+import Navbar from '../../components/Astro/Navbar.astro';
 
 export interface Props {
   seo?: BaseHeadProps;
@@ -24,135 +24,6 @@ const { seo } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <script>
-      import 'vanilla-cookieconsent/dist/cookieconsent.css';
-      import 'vanilla-cookieconsent/src/cookieconsent.js';
-      window.addEventListener('load', function () {
-        const cc = initCookieConsent();
-
-        cc.run({
-          current_lang: 'no',
-          autoclear_cookies: true, // default: false
-          page_scripts: true, // default: false
-
-          // mode: 'opt-in'                          // default: 'opt-in'; value: 'opt-in' or 'opt-out'
-          // delay: 0,                               // default: 0
-          // auto_language: '',                      // default: null; could also be 'browser' or 'document'
-          // autorun: true,                          // default: true
-          // force_consent: false,                   // default: false
-          // hide_from_bots: true,                   // default: true
-          // remove_cookie_tables: false             // default: false
-          // cookie_name: 'cc_cookie',               // default: 'cc_cookie'
-          // cookie_expiration: 182,                 // default: 182 (days)
-          // cookie_necessary_only_expiration: 182   // default: disabled
-          // cookie_domain: location.hostname,       // default: current domain
-          // cookie_path: '/',                       // default: root
-          // cookie_same_site: 'Lax',                // default: 'Lax'
-          // use_rfc_cookie: false,                  // default: false
-          // revision: 0,                            // default: 0
-
-          onFirstAction: function (user_preferences, cookie) {
-            // callback triggered only once on the first accept/reject action
-          },
-
-          onAccept: function (cookie) {
-            // callback triggered on the first accept/reject action, and after each page load
-          },
-
-          onChange: function (cookie, changed_categories) {
-            // callback triggered when user changes preferences after consent has already been given
-          },
-
-          languages: {
-            no: {
-              consent_modal: {
-                title: 'Vi bruker informasjonskapsler!',
-                description:
-                  'Hei, dette nettstedet bruker nødvendige informasjonskapsler for å sikre riktig drift og sporing av informasjonskapsler for å forstå hvordan du samhandler med det. Sistnevnte vil kun bli satt etter samtykke. <button type="button" data-cc="c-settings" class="cc-link">Instillinger</button>',
-                primary_btn: {
-                  text: 'Godta alle',
-                  role: 'accept_all',
-                },
-                secondary_btn: {
-                  text: 'Avvis alle',
-                  role: 'accept_necessary',
-                },
-              },
-              settings_modal: {
-                title: 'Innstillinger for informasjonskapsler',
-                save_settings_btn: 'Lagre innstillinger',
-                accept_all_btn: 'Godta alle',
-                reject_all_btn: 'Avvis alle',
-                close_btn_label: 'Lukk',
-                cookie_table_headers: [
-                  {
-                    col1: 'Navn',
-                  },
-                  {
-                    col2: 'Domene',
-                  },
-                  {
-                    col3: 'Utløpsdato',
-                  },
-                  {
-                    col4: 'Beskrivelse',
-                  },
-                ],
-                blocks: [
-                  {
-                    title: 'Bruk av informasjonskapsler 📢',
-                    description:
-                      'Jeg bruker informasjonskapsler for å sikre de grunnleggende funksjonene på nettstedet og forbedre din online opplevelse. Du kan velge for hver kategori om du vil delta eller ikke når som helst. For flere detaljer relatert til informasjonskapsler og annen sensitiv data, vennligst les fullstendig <a href="#" class="cc-link">personvernpolicy</a>.',
-                  },
-                  {
-                    title: 'Strengt nødvendige informasjonskapsler',
-                    description:
-                      'Disse informasjonskapslene er essensielle for riktig funksjon av mitt nettsted. Uten disse informasjonskapslene ville nettstedet ikke fungere ordentlig',
-                    toggle: {
-                      value: 'necessary',
-                      enabled: true,
-                      readonly: true,
-                    },
-                  },
-                  {
-                    title: 'Ytelse og analyse-informasjonskapsler',
-                    description: 'Disse informasjonskapslene lar nettstedet huske valgene du har gjort tidligere',
-                    toggle: {
-                      value: 'analytics',
-                      enabled: false,
-                      readonly: false,
-                    },
-                    cookie_table: [
-                      {
-                        col1: '^_ga',
-                        col2: 'google.com',
-                        col3: '2 år',
-                        col4: 'beskrivelse ...',
-                        is_regex: true,
-                      },
-                    ],
-                  },
-                  {
-                    title: 'Annonsering og målrettede informasjonskapsler',
-                    description:
-                      'Disse informasjonskapslene samler inn informasjon om hvordan du bruker nettstedet, hvilke sider du har besøkt, og hvilke linker du har klikket på. Alle dataene er anonymisert og kan ikke brukes til å identifisere deg',
-                    toggle: {
-                      value: 'targeting',
-                      enabled: false,
-                      readonly: false,
-                    },
-                  },
-                  {
-                    title: 'Mer informasjon',
-                    description:
-                      'For spørsmål angående vår informasjonskapselpolicy og dine valg, vennligst <a class="cc-link" href="kontakt">kontakt oss</a>.',
-                  },
-                ],
-              },
-            },
-          },
-        });
-      });
-    </script>
+    <!-- <script type="module" src="./cookieconsent-config.js"></script> -->
   </body>
 </html>

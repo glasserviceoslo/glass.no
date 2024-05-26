@@ -1,22 +1,23 @@
 ---
 import { Image } from 'astro:assets';
-import { getSanityImageURL, removeExt } from '$lib/sanity.image';
-import type { Post } from '$lib/sanity.queries';
-import PortableText from './PortableText.astro';
-import { blocksToText } from '$lib/sanity.portableText';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: Post;
+  post: CollectionEntry<'posts'>;
   path: string;
 }
 
 const { post, path } = Astro.props;
-const getExcerpt = () => {
-  if (!post.description) {
-    const postContent = blocksToText(post.body);
-    const firstSentenceRegex = new RegExp(`${post.title}`, 'i');
-    const contentWithoutFirstSentence = postContent.replace(firstSentenceRegex, '');
-    return contentWithoutFirstSentence.substring(0, 100).trim() + '...';
+
+const getExcerpt = async () => {
+  if (!post.data.description) {
+    const postContent = post.body
+      .replace(/^\s*$(?:\r\n?|\n)/gm, '')
+      .split('\n')
+      .filter((line) => !line.startsWith('#') && !line.startsWith('['))
+      .join(' ');
+
+    return `${postContent.substring(0, 100).trim()}...`;
   }
 };
 ---
@@ -25,34 +26,23 @@ const getExcerpt = () => {
   class="group rounded-3xl border border-gray-100 bg-white bg-opacity-50 p-6 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none sm:p-8"
 >
   <div class="relative overflow-hidden rounded-xl">
-    {
-      post.mainImage ? (
-        <Image
-          width={1000}
-          height={667}
-          alt={post.mainImage.asset.altText || removeExt(post.mainImage.asset.originalFilename)}
-          class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
-          loading="lazy"
-          src={getSanityImageURL(post.mainImage).fit('fillmax').url()}
-        />
-      ) : (
-        <Image
-          width={1000}
-          height={667}
-          alt={post.title || ''}
-          class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
-          loading="lazy"
-          src="/assets/placeholder.jpg"
-        />
-      )
-    }
+    <Image
+      width={1000}
+      height={667}
+      alt={post?.data.featuredMedia?.discriminant === 'image' ? post?.data.featuredMedia?.value?.alt ?? '' : ''}
+      class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
+      loading="lazy"
+      src={post?.data.featuredMedia?.discriminant === 'image'
+        ? post?.data.featuredMedia?.value.asset ?? '/assets/placeholder.jpg'
+        : '/assets/placeholder.jpg'}
+    />
   </div>
   <div class="relative mt-6">
     <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
-      {post.title}
+      {post.data.title}
     </h3>
     <p class="mb-8 mt-6 text-gray-600 dark:text-gray-300">
-      {post.description ? <PortableText value={post.description} /> : getExcerpt()}
+      {post.data.description ? <p>{post.data.description}</p> : getExcerpt()}
     </p>
     <a class="inline-block" href={`/${path}/${post.slug}`}>
       <span class="text-info dark:text-blue-300">Les mer</span>

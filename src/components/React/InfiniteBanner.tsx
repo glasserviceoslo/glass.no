@@ -1,4 +1,4 @@
-import { motion, MotionValue, useMotionTemplate, useTransform } from 'framer-motion';
+import { motion, type MotionValue, useMotionTemplate, useTransform } from 'framer-motion';
 
 interface InfiniteBannerProps extends React.HTMLProps<HTMLDivElement> {
   clock: MotionValue<number>;

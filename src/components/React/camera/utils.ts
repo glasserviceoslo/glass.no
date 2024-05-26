@@ -1,4 +1,4 @@
-import { MotionValue, motionValue, animate, AnimationOptionsWithValueOverrides } from 'framer-motion';
+import { type MotionValue, motionValue, animate, type AnimationOptionsWithValueOverrides } from 'framer-motion';
 
 const DEFAULT_PAN_TRANSITON: AnimationOptionsWithValueOverrides<number> = {
   type: 'spring',
@@ -94,7 +94,7 @@ export class Camera {
     rotation: MotionValue<number>;
   };
   following: {
-    interval: NodeJS.Timer;
+    interval: number;
     target: CameraTarget;
   } | null = null;
 
@@ -143,7 +143,7 @@ export class Camera {
     panToTarget();
     this.following = {
       target,
-      interval: setInterval(panToTarget, 100),
+      interval: setInterval(panToTarget, 100) as unknown as number,
     };
   }
 

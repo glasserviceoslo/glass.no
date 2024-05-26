@@ -1,9 +1,12 @@
 ---
-import { getLatestPosts } from '$lib/sanity.client';
+import { getCollection } from 'astro:content';
 import BlogPreview from './BlogPreview.astro';
 import Container from './Container.astro';
 
-const posts = await getLatestPosts(0, 3);
+const collection = await getCollection('posts');
+const posts = collection
+  .toSorted((postA, postB) => new Date(postB.data.publishedAt).valueOf() - new Date(postA.data.publishedAt).valueOf())
+  .slice(0, 3);
 ---
 
 <section class="my-20 space-y-20">

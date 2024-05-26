@@ -1,8 +1,7 @@
 ---
-import Layout from '$layouts/Page.astro';
-import BlogPost from '$components/Astro/BlogPost.astro';
-import { getSanityImageURL } from '$lib/sanity.image';
-import { getAllPages, getDocBySlug } from '$lib/sanity.client';
+import Layout from '../layouts/Page.astro';
+import BlogPost from '../components/Astro/BlogPost.astro';
+import { getEntry } from 'astro:content';
 
 // rss({
 //   title: 'Example Blog',
@@ -15,18 +14,21 @@ import { getAllPages, getDocBySlug } from '$lib/sanity.client';
 //     pubDate: item.publishedAt,
 //   })),
 // });
+if (!Astro.params.page) {
+  return Astro.redirect('/404');
+}
 
-const post = await getDocBySlug(Astro.params.page!, 'pages', true);
+const post = await getEntry('pages', Astro.params.page);
 
-if (Object.keys(post).length <= 0) {
+if (!post) {
   return Astro.redirect('/404');
 }
 
 const seo = {
-  title: post.title,
-  description: post.description,
-  keywords: post.seoKeywords?.join(','),
-  image: post.mainImage && getSanityImageURL(post.mainImage).width(1200).url(),
+  title: post.data.title,
+  description: post.data.description || '',
+  keywords: post.data.seoKeywords || '',
+  image: post.data.featuredMedia?.discriminant === 'image' ? post.data.featuredMedia?.value.asset ?? '' : '',
 };
 ---
 

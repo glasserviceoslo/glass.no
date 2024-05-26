@@ -1,6 +1,6 @@
 ---
-import '$styles/index.css';
-import settings from '$data/settings';
+import '../../styles/index.css';
+import settings from '../../data/settings';
 
 export interface Props {
   title?: string;
@@ -47,8 +47,8 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
 <meta property="twitter:image" content={image} />
 
 <!-- Cookie Consent -->
-<link rel="stylesheet" href="cookieconsent.css" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css" />
+<script defer data-domain="glass.no" src="https://analytics.glass.no/js/script.js"></script>
 <!-- Google Fonts -->
 <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,11 +93,11 @@ const image = new URL(Astro.props.image || '/images/glass.png', Astro.site);
   data-cookiecategory="analytics"
   src="https://www.googletagmanager.com/gtag/js?id=G-BQJLEM0TPE"></script>
 <script type="text/partytown">
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
 
-gtag('config', 'G-BQJLEM0TPE');
+  gtag('config', 'G-BQJLEM0TPE');
 </script>

@@ -1,4 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow: /studio
-Sitemap: https://glass.no/sitemap.xml
+Disallow: /admin/*
+Sitemap: https://www.glass.no/sitemap.xml

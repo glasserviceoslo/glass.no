@@ -1,5 +1,6 @@
 ---
-import settings from '$data/settings';
+import settings from "../../data/settings";
+
 
 const { title, permalink, publishDate, ogImageUrl, description } = Astro.props;
 
@@ -20,7 +21,7 @@ const ldData = {
       width: 512,
       height: 512,
     },
-    url: 'https://example.com/about/',
+    url: 'https://www.example.com/about/',
     sameAs: [`${settings.url}`, `${settings.facebookURL}`, `${settings.twitterURL}`, `${settings.instagramURL}`],
   },
   headline: `${title}`,
@@ -39,4 +40,4 @@ const ldData = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(ldData)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(ldData)} />

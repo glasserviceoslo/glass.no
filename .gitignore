@@ -1,5 +1,6 @@
 # build output
 dist/
+build/
 .output/
 .netlify/
 .react-email/
@@ -25,3 +26,8 @@ pnpm-debug.log*
 .eslintrc*
 
 backup*
+.vercel
+
+node_modules
+
+.astro

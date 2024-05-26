@@ -5,7 +5,10 @@ export const useInterval = (callback: CallableFunction, interval: number): Inter
 class Interval {
   private timer: number | null = null;
 
-  constructor(private callback: CallableFunction, private interval: number) {}
+  constructor(
+    private callback: CallableFunction,
+    private interval: number,
+  ) {}
 
   start() {
     this.timer = setInterval(this.callback, this.interval);

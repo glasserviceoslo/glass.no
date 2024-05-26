@@ -3,11 +3,9 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
-    "baseUrl": ".",
-    "paths": {
-      "$*": ["src/*"]
-    },
-    "jsx": "preserve",
+    "strictNullChecks": true,
+    "allowJs": true,
+    // "jsx": "preserve",
     "jsxImportSource": "react"
   }
 }

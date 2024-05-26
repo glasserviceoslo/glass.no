@@ -1,10 +1,11 @@
+import { waveform } from 'ldrs';
 import { useEffect, useState } from 'react';
 import { useForm, FormProvider, type FieldValues } from 'react-hook-form';
-import { Waveform } from '@uiball/loaders';
 import { DropzoneField } from './DropzoneField';
 import { GoogleMap } from './GoogleMap';
 import { AddressInput } from './AddressInput';
 
+waveform.register('l-waveform');
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,7 +25,8 @@ export const ContactForm = () => {
     await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(data),
-    }).then(() => setIsSubmitting(false));
+    });
+    setIsSubmitting(false);
   };
 
   const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,7 +129,7 @@ export const ContactForm = () => {
                         className="btn-primary flex w-full items-center justify-center"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? <Waveform color="white" size={20} /> : <span>Send</span>}
+                        {isSubmitting ? <l-waveform></l-waveform> : <span>Send</span>}
                       </button>
                     </form>
                   </FormProvider>

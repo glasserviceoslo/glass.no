@@ -6,13 +6,22 @@ export const generateRandomId = () =>
 
 export const getBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = function () {
+    reader.onload = () => {
       resolve(reader.result as string);
     };
-    reader.onerror = function (error) {
+    reader.onerror = (error) => {
       reject(error);
     };
   });
 };
+
+export function extractImageUrls(body: string): { src: string; alt: string }[] {
+  const imageRegex = /\[(.*?)\]\((.*?\.(?:jpg|png))\)/g;
+  const matches = body.match(imageRegex) || [];
+  return matches.map((match) => {
+    const [_, alt, src] = match.match(/\[(.*?)\]\((.*?\.(?:jpg|png))\)/) || [];
+    return { alt, src };
+  });
+}

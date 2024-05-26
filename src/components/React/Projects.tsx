@@ -1,7 +1,7 @@
 import React from 'react';
 import { Camera, CameraTarget, useCamera, utils } from './camera';
 import { InfiniteBanner } from './InfiniteBanner';
-import { useClock } from '$hooks/react/hooks';
+import { useClock } from '../../hooks/react/hooks';
 
 const bannerOneImages = ['site-2.png', 'site-4.jpeg', 'site-5.jpeg', 'site-7.jpeg', 'site-8.png'];
 

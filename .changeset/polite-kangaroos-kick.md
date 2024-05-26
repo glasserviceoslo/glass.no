@@ -1,5 +1,5 @@
 ---
-"glass.no": major
+'glass.no': major
 ---
 
 Migrates to Astro v3
