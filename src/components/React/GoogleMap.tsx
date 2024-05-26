@@ -13,7 +13,7 @@ export const GoogleMap = () => {
         center,
         zoom: 15,
       });
-      new googleMaps.marker.AdvancedMarkerElement({
+      new googleMaps.Marker({
         position: center,
         map: newMap,
       });
