@@ -29,11 +29,11 @@ const getExcerpt = async () => {
     <Image
       width={1000}
       height={667}
-      alt={post?.data.featuredMedia?.type === 'image' ? post?.data.featuredMedia?.alt ?? '' : ''}
+      alt={post?.data.featuredMedia?.discriminant === 'image' ? post?.data.featuredMedia?.value?.alt ?? '' : ''}
       class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
       loading="lazy"
-      src={post?.data.featuredMedia?.type === 'image'
-        ? post?.data.featuredMedia?.alt ?? '/assets/placeholder.jpg'
+      src={post?.data.featuredMedia?.discriminant === 'image'
+        ? post?.data.featuredMedia?.value.asset ?? '/assets/placeholder.jpg'
         : '/assets/placeholder.jpg'}
     />
   </div>
