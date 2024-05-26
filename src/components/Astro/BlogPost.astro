@@ -16,15 +16,15 @@ const { Content } = await post.render();
 
 <article class="h-full min-h-[calc(100vh-289px)]">
   {
-    post.data.featuredMedia?.type === 'image' && post.data.featuredMedia?.asset?.src && (
+    post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset && (
       <div class="h-[40vw]">
         <Image
           width={2000}
           height={800}
-          alt={post.data.featuredMedia?.alt || ''}
+          alt={post.data.featuredMedia?.value?.alt || ''}
           class="max-h-full w-full object-cover"
           loading="lazy"
-          src={post.data.featuredMedia?.asset?.src || ''}
+          src={post.data.featuredMedia?.value.asset || ''}
         />
       </div>
     )

@@ -15,13 +15,13 @@ const { post, path } = Astro.props;
     <h3 class="mb-3 text-3xl leading-snug">
       <a href={`/${path}/${post.slug}`}>
         {
-          post.data.featuredMedia?.type === 'image' && post.data.featuredMedia?.asset?.src && (
+          post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset && (
             <Image
               width={720}
               height={420}
-              alt={post.data.featuredMedia?.alt || ''}
+              alt={post.data.featuredMedia?.value?.alt || ''}
               loading="lazy"
-              src={post.data.featuredMedia?.asset?.src}
+              src={post.data.featuredMedia?.value.asset}
             />
           )
         }

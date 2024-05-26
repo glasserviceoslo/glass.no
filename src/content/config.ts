@@ -1,43 +1,30 @@
 import { z, defineCollection } from 'astro:content';
 
 const featuredMediaSchema = z
-  .union([
+  .discriminatedUnion('discriminant', [
     z.object({
-      type: z.literal('none'),
-    }),
-    z.object({
-      type: z.literal('image'),
-      asset: z.object({
-        src: z.string().min(1, 'Image is required').url('Invalid URL format'),
+      discriminant: z.literal('image'),
+      value: z.object({
+        asset: z.string().min(1, 'Image is required'),
+        alt: z.string().optional(),
       }),
-      alt: z.string().optional(),
     }),
     z.object({
-      type: z.literal('video'),
-      url: z.string().url('Invalid URL format'),
-      image: z
-        .object({
-          asset: z.string().url('Invalid URL format').optional(),
+      discriminant: z.literal('video'),
+      value: z.object({
+        url: z.string().min(1, 'Video URL is required').url('Must be a valid URL'),
+        image: z.object({
+          asset: z.string().min(1),
           alt: z.string().optional(),
-        })
-        .optional(),
+        }),
+      }),
+    }),
+    z.object({
+      discriminant: z.literal('none'),
+      value: z.null().optional(),
     }),
   ])
-  .refine(
-    (data) => {
-      if (data.type === 'image' && !data.asset.src) {
-        return false;
-      }
-      if (data.type === 'video' && !data.url) {
-        return false;
-      }
-      return true;
-    },
-    {
-      message: 'Featured media is not valid',
-    },
-  )
-  .optional();
+  .default({ discriminant: 'none', value: null });
 
 const navigationSchema = z
   .object({
