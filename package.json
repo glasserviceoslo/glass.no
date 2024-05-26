@@ -18,13 +18,15 @@
     "preview": "astro preview",
     "start": "node server.mjs",
     "clean": "rm -rf node_modules dist",
+    "format": "pnpm format:code",
+    "format:code": "prettier -w . --cache --plugin-search-dir=.",
     "version": "changeset version && bun install --no-frozen-lockfile && bun format",
     "update-deps": "bunx npm-check-updates --root --format group -i",
     "typecheck": "tsc --noEmit",
     "release": "changeset publish"
   },
   "dependencies": {
-    "@astrojs/markdoc": "^0.11.0",
+    "@astrojs/mdx": "^3.0.1",
     "@astrojs/node": "^8.2.5",
     "@astrojs/partytown": "2.1.0",
     "@astrojs/react": "3.3.4",
@@ -56,7 +58,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.3",
     "@sentry/vite-plugin": "^2.16.1",
     "@types/google.maps": "^3.55.8",
     "@types/node": "^20.12.11",
@@ -66,6 +67,9 @@
     "autoprefixer": "^10.4.19",
     "cssnano": "^6.0.1",
     "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.14.0",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "typescript": "^5.4.5"
   }
 }

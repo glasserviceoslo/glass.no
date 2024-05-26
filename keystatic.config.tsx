@@ -63,6 +63,7 @@ export default config({
   collections: {
     pages: collection({
       columns: ['title', 'updatedAt'],
+      entryLayout: 'content',
       previewUrl: '/preview/start?branch={branch}&to=/pages/{slug}',
       label: 'Pages',
       slugField: 'title',
@@ -115,7 +116,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          // extension: 'md',
         }),
       },
     }),
@@ -163,7 +163,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          // extension: 'md',
         }),
       },
     }),
@@ -211,7 +210,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          // extension: 'md',
         }),
       },
     }),
