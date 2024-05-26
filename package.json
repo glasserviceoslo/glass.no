@@ -14,7 +14,7 @@
   "scripts": {
     "dev:ssl": "astro dev --port 5001 & caddy run",
     "dev": "astro dev",
-    "build": "rm -rf dist && && astro telemetry disable && astro build",
+    "build": "rm -rf dist && astro telemetry disable && astro build",
     "preview": "astro preview",
     "start": "node server.mjs",
     "clean": "rm -rf node_modules dist",
