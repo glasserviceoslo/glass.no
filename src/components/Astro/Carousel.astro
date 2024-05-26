@@ -1,10 +1,9 @@
 ---
-import client from '../../../tina/__generated__/client';
+import { getEntry } from 'astro:content';
 import { extractImageUrls } from '../../lib/utils';
 
-const result = await client.queries.page({ relativePath: 'home.md' });
-const imageNodes = result.data.page.body.children.find((child:ANY) => child.type === 'ul')
-const imageUrls = extractImageUrls(imageNodes)
+const homePage = await getEntry('pages', 'home');
+const imageUrls = extractImageUrls(homePage.body);
 ---
 
 <article id="default-carousel" class="relative h-1/2 md:h-3/4" data-carousel="slide">
@@ -16,7 +15,7 @@ const imageUrls = extractImageUrls(imageNodes)
           <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
             <!-- <source media="(min-width:768px)" srcset={img} type="image/webp" /> -->
             <!-- <source media="(max-width:600px)" srcset={img} type="image/webp" /> -->
-            <img class="h-full w-full object-cover" src={img.url} alt={img.alt} />
+            <img class="h-full w-full object-cover" src={img.src} alt={img.alt} />
           </picture>
         ))
     }

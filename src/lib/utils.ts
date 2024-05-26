@@ -17,13 +17,11 @@ export const getBase64 = (file: File) => {
   });
 };
 
-export function extractImageUrls(node: ANY): { url: string; alt: string }[] {
-  if (!node.children) return [];
-
-  return node.children.flatMap((child: ANY) => {
-    if (child.type === 'img' && child.url) {
-      return [{ url: child.url, alt: child.alt || '' }];
-    }
-    return extractImageUrls(child);
+export function extractImageUrls(body: string): { src: string; alt: string }[] {
+  const imageRegex = /\[(.*?)\]\((.*?\.(?:jpg|png))\)/g;
+  const matches = body.match(imageRegex) || [];
+  return matches.map((match) => {
+    const [_, alt, src] = match.match(/\[(.*?)\]\((.*?\.(?:jpg|png))\)/) || [];
+    return { alt, src };
   });
 }
