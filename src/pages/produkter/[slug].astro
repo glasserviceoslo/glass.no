@@ -1,19 +1,22 @@
 ---
 import Layout from '../../layouts/Post.astro';
-import client from '../../../tina/__generated__/client';
-import type { Page } from '../../../tina/__generated__/types';
 import BlogPost from '../../components/Astro/BlogPost.astro';
+import { getEntry } from 'astro:content';
 
 const { slug } = Astro.params;
+if (slug === undefined) {
+  return Astro.redirect('/404');
+}
 
-const result = await client.queries.page({ relativePath: `${slug}.md` });
-const post  = result.data.page as Page
-
+const post = await getEntry('pages', slug);
+if (!post) {
+  return Astro.redirect('/404');
+}
 
 const seo = {
-  title: post.title,
-  description: post.description || '',
-  keywords: post.seoKeywords || '',
+  title: post.data.title,
+  description: post.data.description || '',
+  keywords: post.data.seoKeywords || '',
 };
 ---
 
