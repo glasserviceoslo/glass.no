@@ -1,10 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Page.astro';
-
 import Container from '../../components/Astro/Container.astro';
 import BlogPreview from '../../components/Astro/BlogPreview.astro';
-import client from '../../../tina/__generated__/client';
-import type { Post } from '../../../tina/__generated__/types';
 
 const seo = {
   title: 'Glass-Service Svendsen og Sønn AS Blogg',
@@ -12,18 +10,10 @@ const seo = {
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
 };
 
-// const posts = await getAllPosts();
-
-const postsResponse = await client.queries.postConnection()
-const posts = postsResponse.data?.postConnection?.edges?.map((post) =>  post?.node) as Post[]
+const posts = await getCollection('posts');
 ---
 
 <Layout seo={seo}>
-  <!-- <div class="min-h-[calc(100vh-289px)] px-12 py-8">
-    <section class="grid gap-12 md:grid-cols-2 2xl:grid-cols-3">
-      {posts.map((post) => <PostPreview path="posts" post={post} />)}
-    </section>
-  </div> -->
   <div class="my-20 space-y-40">
     <Container>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

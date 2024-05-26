@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import type { Post } from '../../../tina/__generated__/types';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: Post;
+  post: CollectionEntry<'posts'>;
   path: string;
 }
 
@@ -15,19 +15,19 @@ const { post, path } = Astro.props;
     <h3 class="mb-3 text-3xl leading-snug">
       <a href={`/${path}/${post.slug}`}>
         {
-          post.mainImage?.url && (
+          post.data.featuredMedia?.type === 'image' && post.data.featuredMedia?.asset?.src && (
             <Image
               width={720}
               height={420}
-              alt={post.mainImage.alt || ''}
+              alt={post.data.featuredMedia?.alt || ''}
               loading="lazy"
-              src={post.mainImage.url}
+              src={post.data.featuredMedia?.asset?.src}
             />
           )
         }
-        {post.title}
+        {post.data.title}
       </a>
     </h3>
-    {post.description && <p class="mb-4 text-lg leading-relaxed">{post.description}</p>}
+    {post.data.description && <p class="mb-4 text-lg leading-relaxed">{post.data.description}</p>}
   </div>
 </article>
