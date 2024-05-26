@@ -1,11 +1,12 @@
 ---
-import client from '../../../tina/__generated__/client';
-import type { Post } from '../../../tina/__generated__/types';
+import { getCollection } from 'astro:content';
 import BlogPreview from './BlogPreview.astro';
 import Container from './Container.astro';
 
-const result = await client.queries.postConnection({ first: 3 })
-const posts = result.data?.postConnection?.edges?.map((post) =>  post?.node) as Post[]
+const collection = await getCollection('posts');
+const posts = collection
+  .toSorted((postA, postB) => new Date(postB.data.publishedAt).valueOf() - new Date(postA.data.publishedAt).valueOf())
+  .slice(0, 3);
 ---
 
 <section class="my-20 space-y-20">
