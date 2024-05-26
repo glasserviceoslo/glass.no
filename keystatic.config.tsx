@@ -48,7 +48,11 @@ const featuredMedia = fields.conditional(
 
 export default config({
   storage: {
-    kind: 'local',
+    kind: 'github',
+    repo: {
+      owner: import.meta.env.PUBLIC_GITHUB_OWNER,
+      name: import.meta.env.PUBLIC_GITHUB_REPO,
+    },
   },
   ui: {
     brand: {
