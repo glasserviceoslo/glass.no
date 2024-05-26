@@ -9,4 +9,4 @@ const text = await Astro.slots.render('default');
 const isImage = href.includes('.png') || href.includes('.jpg');
 ---
 
-{isImage ? <img src={href} alt={text} class="rounded-md shadow" /> : <a href={href}>{text}</a>}
+{isImage ? <img src={href} alt={text} class="rounded-md shadow" /> : <a href={href} set:html={text} />}
