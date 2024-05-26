@@ -1,0 +1,23 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+type Props = {
+  src: string | ImageMetadata;
+  // src will be ImageMetadata type in case you use an image from your content and string in case you use some external image
+  alt: string;
+};
+
+const { src, alt } = Astro.props;
+---
+
+<figure>
+  {
+    typeof src === 'string' ? (
+      <img src={src} alt={alt} class="rounded-3xl" />
+    ) : (
+      <Image {src} {alt} class="rounded-3xl" />
+    )
+  }
+  {alt && <figcaption class="text-center">{alt}</figcaption>}
+</figure>
