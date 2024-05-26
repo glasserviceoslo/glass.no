@@ -1,9 +1,9 @@
 ---
-title: "Baldakin over ytterdøra - moderne design for alle hjem"
+title: 'Baldakin over ytterdøra - moderne design for alle hjem'
 seoKeywords: baldakin, tak over inngangsdør, tak over ytterdør, glasstak, tak over dør
 seoKeyphrase:
 publishedAt: 2024-05-24 17:32:18.766Z
-description: "Sliter du med at det regner inn når ytterdøra åpnes, eller leter seg snøen helt opp mot døra på vinterstid? Da er en baldakin, eller et tak over inngangsdøren din løsningen!"
+description: 'Sliter du med at det regner inn når ytterdøra åpnes, eller leter seg snøen helt opp mot døra på vinterstid? Da er en baldakin, eller et tak over inngangsdøren din løsningen!'
 ---
 
 Sliter du med at det regner inn når ytterdøra åpnes, eller leter seg snøen helt opp mot døra på vinterstid? Da er en baldakin, eller et tak over inngangsdøren din løsningen!
