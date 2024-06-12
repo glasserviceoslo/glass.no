@@ -1,6 +1,5 @@
 ---
 import { getEntry } from 'astro:content';
-import { Picture } from 'astro:assets';
 import { extractImageUrls } from '../../lib/utils';
 
 const homePage = await getEntry('pages', 'home');
@@ -13,22 +12,11 @@ const imageUrls = extractImageUrls(homePage.body);
     {
       imageUrls &&
         imageUrls.map((img) => (
-          <Picture
-            src={img.src}
-            alt={img.alt}
-            pictureAttributes={{
-              class: 'h-full w-full duration-1000 ease-in-out',
-              'data-carousel-item': 'data-carousel-item',
-            }}
-            class="h-full w-full object-cover"
-            inferSize
-          />
-
-          // <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
-          //   <!-- <source media="(min-width:768px)" srcset={img} type="image/webp" /> -->
-          //   <!-- <source media="(max-width:600px)" srcset={img} type="image/webp" /> -->
-          //   <img class="h-full w-full object-cover" src={img.src} alt={img.alt} />
-          // </picture>
+          <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>
+            <!-- <source media="(min-width:768px)" srcset={img} type="image/webp" /> -->
+            <!-- <source media="(max-width:600px)" srcset={img} type="image/webp" /> -->
+            <img class="h-full w-full object-cover" src={img.src} alt={img.alt} />
+          </picture>
         ))
     }
   </figure>
