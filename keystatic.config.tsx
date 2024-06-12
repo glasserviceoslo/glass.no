@@ -16,8 +16,8 @@ const featuredMedia = fields.conditional(
     image: fields.object({
       asset: fields.image({
         label: 'Image',
-        directory: 'src/assets/images/',
-        publicPath: '@/assets/images/',
+        directory: 'public/uploads/images',
+        publicPath: '/uploads/images/',
         validation: { isRequired: true },
       }),
       alt: fields.text({
@@ -34,8 +34,8 @@ const featuredMedia = fields.conditional(
         asset: fields.image({
           label: 'Image',
           description: 'Thumbnail image override for the video.',
-          directory: 'src/assets/images/',
-          publicPath: '@/assets/images/',
+          directory: 'public/uploads/images',
+          publicPath: '/uploads/images/',
         }),
         alt: fields.text({
           label: 'Alt',
@@ -46,18 +46,14 @@ const featuredMedia = fields.conditional(
   },
 );
 
-const storage = import.meta.env.DEV
-  ? { kind: 'local' as const }
-  : {
-      kind: 'github' as const,
-      repo: {
-        owner: import.meta.env.PUBLIC_GITHUB_OWNER,
-        name: import.meta.env.PUBLIC_GITHUB_REPO,
-      },
-    };
-
 export default config({
-  storage,
+  storage: {
+    kind: 'github',
+    repo: {
+      owner: import.meta.env.PUBLIC_GITHUB_OWNER,
+      name: import.meta.env.PUBLIC_GITHUB_REPO,
+    },
+  },
   ui: {
     brand: {
       name: 'glass.no',
@@ -72,7 +68,7 @@ export default config({
     pages: collection({
       columns: ['title', 'updatedAt'],
       entryLayout: 'content',
-      previewUrl: '/preview/start?branch={branch}&to=/produkter/{slug}',
+      previewUrl: '/preview/start?branch={branch}&to=/pages/{slug}',
       label: 'Pages',
       slugField: 'title',
       path: 'src/content/pages/*',
@@ -124,12 +120,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          options: {
-            image: {
-              directory: 'src/assets/images/pages',
-              publicPath: '@/assets/images/pages/',
-            },
-          },
         }),
       },
     }),
@@ -177,12 +167,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          options: {
-            image: {
-              directory: 'src/assets/images/posts',
-              publicPath: '@/assets/images/posts/',
-            },
-          },
         }),
       },
     }),
@@ -230,12 +214,6 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
-          options: {
-            image: {
-              directory: 'src/assets/images/glasstypes',
-              publicPath: '@/assets/images/glasstypes/',
-            },
-          },
         }),
       },
     }),
