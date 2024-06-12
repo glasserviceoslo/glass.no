@@ -6,6 +6,10 @@
     "strictNullChecks": true,
     "allowJs": true,
     // "jsx": "preserve",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/assets/*": ["./src/assets/*"]
+    }
   }
 }
