@@ -12,12 +12,20 @@ const { src, alt } = Astro.props;
 ---
 
 <figure>
-  {
+  <!-- {
     typeof src === 'string' ? (
       <img src={src} alt={alt} class="rounded-3xl" />
     ) : (
       <Image {src} {alt} class="rounded-3xl" />
     )
-  }
+  } -->
+  <Image
+    width={2000}
+    height={800}
+    alt={alt}
+    class="max-h-full w-full object-cover border"
+    loading="lazy"
+    src={typeof src === 'string' ? src : src.toString()}
+  />
   {alt && <figcaption class="text-center">{alt}</figcaption>}
 </figure>

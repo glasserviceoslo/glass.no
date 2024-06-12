@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 type Props = {
   href: string;
 };
@@ -9,4 +11,6 @@ const text = await Astro.slots.render('default');
 const isImage = href.includes('.png') || href.includes('.jpg');
 ---
 
-{isImage ? <img src={href} alt={text} class="rounded-md shadow" /> : <a href={href} set:html={text} />}
+<!-- <img src={href} alt={text} class="rounded-md shadow" /> -->{
+  isImage ? <Image alt={text} class="rounded-md shadow" src={href} inferSize /> : <a href={href} set:html={text} />
+}

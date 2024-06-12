@@ -2,6 +2,7 @@ import type { APIContext } from 'astro';
 
 export async function GET(ctx: APIContext) {
   const url = new URL(ctx.request.url);
+  console.log('🚀 ~ GET ~ url:', url);
   const params = url.searchParams;
   const branch = params.get('branch');
   const to = params.get('to');
@@ -12,6 +13,5 @@ export async function GET(ctx: APIContext) {
   const toUrl = new URL(to, url.origin);
   toUrl.protocol = url.protocol;
   toUrl.host = url.host;
-  console.log('🚀 ~ GET ~ toUrl:', toUrl);
   return ctx.redirect(toUrl.toString());
 }
