@@ -3,29 +3,26 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
 type Props = {
-  src: string | ImageMetadata;
+  src: string;
   // src will be ImageMetadata type in case you use an image from your content and string in case you use some external image
   alt: string;
 };
 
 const { src, alt } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpeg,jpg,png,gif}');
+
+if (!images[src]) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 ---
 
 <figure>
-  <!-- {
-    typeof src === 'string' ? (
-      <img src={src} alt={alt} class="rounded-3xl" />
-    ) : (
-      <Image {src} {alt} class="rounded-3xl" />
-    )
-  } -->
   <Image
     width={2000}
     height={800}
     alt={alt}
     class="max-h-full w-full object-cover border"
     loading="lazy"
-    src={typeof src === 'string' ? src : src.toString()}
+    src={images[src]()}
   />
   {alt && <figcaption class="text-center">{alt}</figcaption>}
 </figure>
