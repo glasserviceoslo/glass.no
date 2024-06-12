@@ -21,7 +21,10 @@ const imageUrls = extractImageUrls(homePage.body);
               'data-carousel-item': 'data-carousel-item',
             }}
             class="h-full w-full object-cover"
+            formats={['avif', 'webp']}
             inferSize
+            widths={[240, 540, 720, 1200]}
+            sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 1200px"
           />
 
           // <picture class="hidden h-full w-full duration-1000 ease-in-out" data-carousel-item>

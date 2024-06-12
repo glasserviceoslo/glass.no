@@ -12,7 +12,8 @@ const { src, alt } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpeg,jpg,png,gif}');
 
-if (!images[src]) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+if (!images[src]()) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+const { default: resolvedImage } = await images[src]?.();
 ---
 
 <figure>
@@ -23,6 +24,8 @@ if (!images[src]) throw new Error(`"${src}" does not exist in glob: "src/assets/
     class="max-h-full w-full object-cover border"
     loading="lazy"
     src={images[src]()}
+    widths={[240, 540, 720, resolvedImage.width]}
+    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${resolvedImage.width}px`}
   />
   {alt && <figcaption class="text-center">{alt}</figcaption>}
 </figure>
