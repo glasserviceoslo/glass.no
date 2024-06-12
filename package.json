@@ -16,7 +16,7 @@
     "dev": "astro dev --port 5001",
     "build": "rm -rf dist && astro telemetry disable && astro build",
     "preview": "astro preview",
-    "start": "node server.mjs",
+    "start": "astro preview",
     "clean": "rm -rf node_modules dist",
     "format": "pnpm format:code",
     "format:code": "prettier -w . --cache --plugin-search-dir=.",
