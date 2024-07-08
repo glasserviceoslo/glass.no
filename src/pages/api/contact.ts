@@ -4,7 +4,6 @@ import { render } from 'jsx-email';
 import type { APIRoute } from 'astro';
 import type { FileWithPreview } from '../../types';
 import { Template as ContactForm } from 'src/components/Emails/ContactFormEmail';
-import { resolve } from 'node:path';
 
 export const POST: APIRoute = async ({ request }) => {
   const transporter = createTransport({
