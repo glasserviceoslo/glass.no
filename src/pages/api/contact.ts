@@ -1,22 +1,22 @@
 import { createTransport } from 'nodemailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
-import { render } from '@react-email/render';
+import { render } from 'jsx-email';
 import type { APIRoute } from 'astro';
-import ContactFormEmail from '../../components/Emails/ContactFormEmail';
 import type { FileWithPreview } from '../../types';
+import { Template as ContactForm } from 'src/components/Emails/ContactFormEmail';
+import { resolve } from 'node:path';
 
 export const POST: APIRoute = async ({ request }) => {
   const transporter = createTransport({
-    host: 'smtp.gmail.com',
+    host: 'send.one.com',
     port: 587,
-    secure: true,
-    service: 'gmail',
+    secure: false,
     auth: {
-      type: 'OAuth2',
-      user: import.meta.env.GMAIL_USER,
-      clientId: import.meta.env.CLIENT_ID,
-      clientSecret: import.meta.env.CLIENT_SECRET,
-      refreshToken: import.meta.env.GMAIL_REFRESH_TOKEN,
+      user: import.meta.env.SENDER_EMAIL,
+      pass: import.meta.env.SENDER_PASSWORD,
+    },
+    tls: {
+      ciphers: 'SSLv3',
     },
   });
 
@@ -27,9 +27,8 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
   const body = await request.json();
-  const emailHtml = render(
-    ContactFormEmail({
-      baseUrl: import.meta.env.URL || 'https://glass.no',
+  const emailHtml = await render(
+    ContactForm({
       sender: body.name,
       address: body.address,
       email: body.email,
@@ -49,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
   const opts: MailOptions = {
     from: {
       name: body.name,
-      address: body.email,
+      address: import.meta.env.SENDER_EMAIL,
     },
     to: import.meta.env.GLASSNO_EMAIL,
     bcc: import.meta.env.BCC_EMAIL,
