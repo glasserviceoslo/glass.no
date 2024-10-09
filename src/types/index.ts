@@ -1,4 +1,8 @@
 import type { FileWithPath } from 'react-dropzone';
+import type { ImageFunction } from 'astro:content';
+import type { TypeOf } from 'zod';
+
+export type ImageObject = TypeOf<ReturnType<ImageFunction>>;
 
 export interface ImgSources {
   default: string;

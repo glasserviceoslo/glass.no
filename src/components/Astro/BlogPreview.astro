@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import type { ImageObject } from 'src/types';
 
 export interface Props {
   post: CollectionEntry<'posts'>;
@@ -20,6 +21,13 @@ const getExcerpt = async () => {
     return `${postContent.substring(0, 100).trim()}...`;
   }
 };
+
+const defaultImage: ImageObject = { src: '/assets/placeholder.jpg', format: 'jpg', width: 1000, height: 667 };
+
+const imageSrc =
+  post?.data.featuredMedia?.discriminant === 'image'
+    ? post?.data.featuredMedia?.value.asset ?? defaultImage
+    : defaultImage;
 ---
 
 <div
@@ -32,9 +40,7 @@ const getExcerpt = async () => {
       alt={post?.data.featuredMedia?.discriminant === 'image' ? post?.data.featuredMedia?.value?.alt ?? '' : ''}
       class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
       loading="lazy"
-      src={post?.data.featuredMedia?.discriminant === 'image'
-        ? post?.data.featuredMedia?.value.asset ?? '/assets/placeholder.jpg'
-        : '/assets/placeholder.jpg'}
+      src={imageSrc}
     />
   </div>
   <div class="relative mt-6">
