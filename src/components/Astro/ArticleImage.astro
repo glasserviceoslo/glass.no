@@ -3,29 +3,48 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
 type Props = {
-  src: string;
+  src: string | ImageMetadata;
   // src will be ImageMetadata type in case you use an image from your content and string in case you use some external image
   alt: string;
 };
 
 const { src, alt } = Astro.props;
+let resolvedImage: ImageMetadata | undefined = undefined;
+let failedToResolve = false;
 
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpeg,jpg,png,gif}');
-
-if (!images[src]()) throw new Error(`"${src}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
-const { default: resolvedImage } = await images[src]?.();
+if (typeof src === 'string') {
+  const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpeg,jpg,png,gif}');
+  if (src in images) {
+    try {
+      const module = await images[src]();
+      resolvedImage = module.default;
+    } catch {
+      failedToResolve = true;
+    }
+  } else {
+    failedToResolve = true;
+  }
+} else {
+  resolvedImage = src;
+}
 ---
 
-<figure>
-  <Image
-    width={2000}
-    height={800}
-    alt={alt}
-    class="max-h-full w-full object-cover border"
-    loading="lazy"
-    src={images[src]()}
-    widths={[240, 540, 720, resolvedImage.width]}
-    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${resolvedImage.width}px`}
-  />
-  {alt && <figcaption class="text-center">{alt}</figcaption>}
-</figure>
+{
+  failedToResolve || !resolvedImage ? (
+    <small class="text-red-500 italic">Could not load the image</small>
+  ) : (
+    <figure>
+      <Image
+        width={2000}
+        height={800}
+        alt={alt}
+        class="max-h-full w-full object-cover border"
+        loading="lazy"
+        src={resolvedImage}
+        widths={[240, 540, 720, resolvedImage.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${resolvedImage.width}px`}
+      />
+      <figcaption class="text-center text-sm italic">{alt || ''}</figcaption>
+    </figure>
+  )
+}
