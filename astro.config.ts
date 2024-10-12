@@ -26,7 +26,7 @@ export default defineConfig({
         forward: ['dataLayer.push'],
       },
     }),
-    react(),
+    react({ experimentalReactChildren: true }),
     svelte(),
     mdx(),
     keystatic(),

@@ -17,7 +17,7 @@ const featuredMedia = fields.conditional(
       asset: fields.image({
         label: 'Image',
         directory: 'src/assets/images/',
-        publicPath: '@assets/images/',
+        publicPath: '@/assets/images/',
         validation: { isRequired: true },
       }),
       alt: fields.text({
@@ -35,7 +35,7 @@ const featuredMedia = fields.conditional(
           label: 'Image',
           description: 'Thumbnail image override for the video.',
           directory: 'src/assets/images/',
-          publicPath: '@assets/images/',
+          publicPath: '@/assets/images/',
         }),
         alt: fields.text({
           label: 'Alt',
@@ -127,7 +127,7 @@ export default config({
           options: {
             image: {
               directory: 'src/assets/images/pages',
-              publicPath: '@assets/images/pages/',
+              publicPath: '@/assets/images/pages/',
             },
           },
         }),
@@ -180,7 +180,7 @@ export default config({
           options: {
             image: {
               directory: 'src/assets/images/posts',
-              publicPath: '@assets/images/posts/',
+              publicPath: '@/assets/images/posts/',
             },
           },
         }),
@@ -233,7 +233,7 @@ export default config({
           options: {
             image: {
               directory: 'src/assets/images/glasstypes',
-              publicPath: '@assets/images/glasstypes/',
+              publicPath: '@/assets/images/glasstypes/',
             },
           },
         }),
