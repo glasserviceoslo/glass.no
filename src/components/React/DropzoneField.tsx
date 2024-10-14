@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import { useEffect, useState } from "react";
-import { generateRandomId, getBase64 } from "../../lib/utils";
+import {  getBase64 } from "../../lib/utils";
 import type { FileWithPreview } from "../../types";
 import { classNames } from "../../lib/classNames";
 
@@ -60,7 +60,7 @@ function Dropzone({ onChange, multiple, name }: DropzoneProps) {
         ...(await Promise.all(
           acceptedFiles.map(async (file) =>
             Object.assign(file, {
-              id: generateRandomId(),
+              id: crypto.randomUUID(),
               preview: URL.createObjectURL(file),
               base64: await getBase64(file),
             })
@@ -69,7 +69,7 @@ function Dropzone({ onChange, multiple, name }: DropzoneProps) {
       ]
       : [
         Object.assign(acceptedFiles[0], {
-          id: generateRandomId(),
+          id: crypto.randomUUID(),
           preview: URL.createObjectURL(acceptedFiles[0]),
           base64: await getBase64(acceptedFiles[0]),
         }),

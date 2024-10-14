@@ -1,6 +1,6 @@
 ---
-import '../../styles/index.css';
-import settings from '../../data/settings';
+import '@/styles/globals.css';
+import settings from '@/data/settings';
 import type { ImageObject } from 'src/types';
 
 export interface Props {
@@ -82,10 +82,6 @@ const image = new URL(imgSrc || '/images/glass.png', Astro.site);
   }
   setTheme();
   document.addEventListener('astro:after-swap', setTheme);
-</script>
-
-<script>
-  import 'flowbite';
 </script>
 
 <!-- Google tag (gtag.js) -->
