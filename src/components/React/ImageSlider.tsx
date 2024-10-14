@@ -3,7 +3,7 @@ import { ImagesSlider } from "@/components/ui/images-slider";
 
 export function ImagesSliderHero({ images }: { images: { src: string; alt: string }[] }) {
   return (
-    <ImagesSlider className="h-[40rem]" images={images} >
+    <ImagesSlider className="relative h-1/2 md:h-3/4" images={images} >
     <motion.div
         initial={{
           opacity: 0,
