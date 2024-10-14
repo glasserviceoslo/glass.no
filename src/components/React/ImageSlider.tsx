@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ImagesSlider } from "@/components/ui/images-slider";
 
-export function ImagesSliderHero({ images }: { images: string[] }) {
+export function ImagesSliderHero({ images }: { images: { src: string; alt: string }[] }) {
   return (
     <ImagesSlider className="h-[40rem]" images={images} >
     <motion.div

@@ -5,7 +5,7 @@ import { extractImageUrls } from '@/lib/utils';
 import { ImagesSliderHero } from '../React/ImageSlider';
 
 const homePage = await getEntry('pages', 'home');
-const imageUrls = extractImageUrls(homePage.body).map((img) => img.src);
+const imageUrls = extractImageUrls(homePage.body);
 ---
 
-<ImagesSliderHero client:only="react" images={imageUrls} />
+<ImagesSliderHero client:visible images={imageUrls} />

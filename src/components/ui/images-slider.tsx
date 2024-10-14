@@ -11,7 +11,7 @@ export const ImagesSlider = ({
   autoplay = true,
   direction = "up",
 }: {
-  images: string[];
+  images: { src: string; alt: string }[];
   children: React.ReactNode;
   overlay?: React.ReactNode;
   overlayClassName?: string;
@@ -21,7 +21,7 @@ export const ImagesSlider = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<string[]>([]);
+  const [loadedImages, setLoadedImages] = useState<{ src: string; alt: string }[]>([]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -44,7 +44,8 @@ export const ImagesSlider = ({
     const loadPromises = images.map((image) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = image;
+        img.src = image.src;
+        img.alt = image.alt;
         img.onload = () => resolve(image);
         img.onerror = reject;
       });
@@ -52,7 +53,7 @@ export const ImagesSlider = ({
 
     Promise.all(loadPromises)
       .then((loadedImages) => {
-        setLoadedImages(loadedImages as string[]);
+        setLoadedImages(loadedImages as { src: string; alt: string }[]);
         setLoading(false);
       })
       .catch((error) => console.error("Failed to load images", error));
@@ -136,7 +137,8 @@ export const ImagesSlider = ({
         <AnimatePresence>
           <motion.img
             key={currentIndex}
-            src={loadedImages[currentIndex]}
+            src={loadedImages[currentIndex].src}
+            alt={loadedImages[currentIndex].alt}
             initial="initial"
             animate="visible"
             exit={direction === "up" ? "upExit" : "downExit"}

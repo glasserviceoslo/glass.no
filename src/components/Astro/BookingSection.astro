@@ -1,6 +1,6 @@
 ---
-import RiveCanvas from "../Svelte/RiveCanvas.svelte";
-
+import RiveCanvas from '../Svelte/RiveCanvas.svelte';
+import { buttonVariants } from '@/components/ui/button';
 ---
 
 <section class="bg-white px-6 py-2 dark:bg-gray-900">
@@ -15,10 +15,7 @@ import RiveCanvas from "../Svelte/RiveCanvas.svelte";
         Vi tilbyr gratis befaring og glassteknisk rådgivning. Bestill uforpliktende befaring i dag, så kommer vi hjem
         til deg og finner ut sammen med deg hva som blir best for ditt hjem. <span>&#128525</span>
       </p>
-      <a
-        href="#"
-        class="mr-3 inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
-      >
+      <a href="#" class={buttonVariants({ variant: 'ghost', size: 'xl' })}>
         Mer info
         <svg class="-mr-1 ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
           ><path
@@ -27,12 +24,7 @@ import RiveCanvas from "../Svelte/RiveCanvas.svelte";
             clip-rule="evenodd"></path>
         </svg>
       </a>
-      <a
-        href="/booking"
-        class="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-      >
-        Book Befaring
-      </a>
+      <a href="/booking" class={buttonVariants({ variant: 'secondary', size: 'xl' })}> Book Befaring </a>
     </div>
     <div class="-order-1 lg:order-none lg:col-span-5 lg:mt-0 lg:flex">
       <RiveCanvas src="/assets/mobile.riv" client:visible />
