@@ -67,3 +67,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary shadow hover:bg-primary/90 h-9 px-4 py-2;
+    color: white !important;
+  }
+}
