@@ -4,6 +4,7 @@ import ThemeToggler from './ThemeToggler.astro';
 import BookBefaring from '../Svelte/BookBefaring.svelte';
 import { getCollection } from 'astro:content';
 import { NavMenu } from '../React/NavMenu';
+import { MobileMenu } from '../React/MobileMenu';
 
 const navElements = await getCollection('pages', ({ data }) => data.navigation.discriminant);
 const products = await getCollection('pages', ({ data, slug }) => !data.navigation.discriminant && slug !== 'home');
@@ -11,7 +12,7 @@ const glasstypes = await getCollection('glasstypes');
 ---
 
 <nav
-  class="fixed left-0 top-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-gray-900"
+  class="fixed left-0 top-0 z-30 w-full border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-600 dark:bg-background"
   transition:persist
 >
   <div class="flex flex-wrap items-center justify-between px-4 lg:px-12">
@@ -19,29 +20,9 @@ const glasstypes = await getCollection('glasstypes');
     <div class="flex items-center gap-2 md:order-2">
       <ThemeToggler />
       <BookBefaring client:visible />
-      <button
-        data-collapse-toggle="navbar-sticky"
-        type="button"
-        class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
-        aria-controls="navbar-sticky"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="h-6 w-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
+      <MobileMenu client:load navElements={navElements} products={products} glasstypes={glasstypes} />
     </div>
-    <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-sticky">
+    <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
       <NavMenu client:load navElements={navElements} products={products} glasstypes={glasstypes} />
     </div>
   </div>
