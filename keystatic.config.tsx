@@ -1,4 +1,42 @@
 import { config, fields, collection } from '@keystatic/core';
+import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components'
+import { Highlighter } from 'lucide-react'
+
+const components: Record<string, ContentComponent> = {
+  Container: wrapper({
+    label: 'Container',
+    schema: {
+      crop: fields.select({
+        label: 'Crop',
+        description: 'Max width container and options',
+        options: [
+          {label: 'normal', value: 'normal'},
+          {label: 'narrow', value: 'narrow'},
+          {label: 'narrower', value: 'narrower'},
+          {label: 'bleed', value: 'bleed'},
+          {label: 'boxed', value: 'boxed'},
+          {label: 'narrow-boxed', value: 'narrow-boxed'},
+        ],
+        defaultValue: 'normal'
+      }),
+    }
+  }),
+  Highlight: mark({
+    label: 'Highlight',
+    icon: <Highlighter size={24} />,
+    schema: {
+      variant: fields.select({
+        label: 'Variant',
+        options: [
+          {label: 'Fluro', value: 'fluro'},
+          {label: 'Minimal', value: 'minimal'},
+          {label: 'Brutalist', value: 'brutalist'},
+        ],
+        defaultValue: 'fluro'
+      }),
+    }
+  })
+}
 
 const featuredMedia = fields.conditional(
   fields.select({
@@ -59,6 +97,13 @@ const storage = import.meta.env.DEV
 export default config({
   storage,
   ui: {
+      navigation: [
+        // 'navigation menu',
+        'pages',
+        'posts',
+        '---',
+        'glasstypes',
+      ],
     brand: {
       name: 'glass.no',
       mark: () => (
@@ -124,6 +169,7 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
+          components,
           options: {
             image: {
               directory: 'src/assets/images/pages',
@@ -177,6 +223,7 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
+          components,
           options: {
             image: {
               directory: 'src/assets/images/posts',
@@ -230,6 +277,7 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Rich Text',
+          components,
           options: {
             image: {
               directory: 'src/assets/images/glasstypes',
