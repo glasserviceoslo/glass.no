@@ -1,6 +1,6 @@
 import { config, fields, collection } from '@keystatic/core';
-import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components'
-import { Highlighter } from 'lucide-react'
+import { wrapper, mark,repeating,  type ContentComponent } from '@keystatic/core/content-components'
+import { Highlighter,  MenuIcon, ChevronDown } from 'lucide-react'
 
 const components: Record<string, ContentComponent> = {
   Container: wrapper({
@@ -37,6 +37,74 @@ const components: Record<string, ContentComponent> = {
     }
   })
 }
+
+const navigationItemSchema: ContentComponent['schema'] = {
+  label: fields.text({ label: 'Label', validation: { length: { min: 1 } } }),
+  link: fields.conditional(
+    fields.select({
+      label: 'Link Type',
+      options: [
+        { label: 'Page', value: 'page' },
+        { label: 'Post', value: 'post' },
+        { label: 'Glass Type', value: 'glasstype' },
+        { label: 'Custom URL', value: 'custom' },
+      ],
+      defaultValue: 'page',
+    }),
+    {
+      page: fields.relationship({
+        label: 'Select Page',
+        collection: 'pages',
+      }),
+      post: fields.relationship({
+        label: 'Select Post',
+        collection: 'posts',
+      }),
+      glasstype: fields.relationship({
+        label: 'Select Glass Type',
+        collection: 'glasstypes',
+      }),
+      custom: fields.url({ label: 'Custom URL' }),
+    }
+  ),
+};
+
+const navigationComponents: Record<string, ContentComponent> = {
+  NavigationItem: repeating({
+    label: 'Navigation Item',
+    icon: <MenuIcon size={24} />,
+    schema: navigationItemSchema,
+    children: ['DropdownItem'],
+    ContentView(props) {
+      return (
+        <div>
+          <div>
+            {props.value.label}
+          </div>
+          {props.children}
+        </div>
+      )
+    },
+  }),
+
+  DropdownItem: repeating({
+    label: 'Dropdown Item',
+    icon: <ChevronDown size={24} />,
+    schema: navigationItemSchema,
+    children: ['DropdownItem'],
+    ContentView(props) {
+      return (
+        <div className='italic'>
+          <div>
+            {props.value.label}
+          </div>
+          {props.children}
+        </div>
+      )
+    },
+  }),
+  
+};
 
 const featuredMedia = fields.conditional(
   fields.select({
@@ -98,10 +166,10 @@ export default config({
   storage,
   ui: {
       navigation: [
-        // 'navigation menu',
+        'navigation',
+        '---',
         'pages',
         'posts',
-        '---',
         'glasstypes',
       ],
     brand: {
@@ -303,6 +371,24 @@ export default config({
     //     }),
     //   },
     // }),
+    navigation: collection({
+      label: 'Navigation',
+      path: 'src/content/navigation/*',
+      format: { contentField: 'items' },
+      slugField: 'name',
+      schema: {
+        name: fields.slug({
+          name: {
+            label: 'Name',
+            validation: { length: { min: 1 } },
+          },
+        }),
+        items: fields.mdx({
+          label: 'Navigation',
+          components: navigationComponents,
+        }),
+      },
+    }),
   },
   // singletons: {
   //   settings: singleton({

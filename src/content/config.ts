@@ -95,4 +95,12 @@ const glasstypes = defineCollection({
     }),
 });
 
-export const collections = { pages, posts, glasstypes };
+const navigation = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string().min(1, 'Name is required'),
+    content: z.string(),
+  }),
+});
+
+export const collections = { pages, posts, glasstypes, navigation };
