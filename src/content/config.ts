@@ -58,7 +58,7 @@ const pages = defineCollection({
       description: z.string().optional(),
       seoKeyphrase: z.string().optional().nullable(),
       seoKeywords: z.string().optional().nullable(),
-      navigation: navigationSchema,
+      navigationTitle: z.string().optional(),
       publishedAt: z.date().default(() => new Date()),
       updatedAt: z.date().default(() => new Date()),
       content: z.string().optional(),
@@ -74,6 +74,7 @@ const posts = defineCollection({
       description: z.string().optional(),
       seoKeyphrase: z.string().optional().nullable(),
       seoKeywords: z.string().optional().nullable(),
+      navigationTitle: z.string().optional(),
       publishedAt: z.date().default(() => new Date()),
       updatedAt: z.date().default(() => new Date()),
       content: z.string().optional(),
@@ -89,17 +90,37 @@ const glasstypes = defineCollection({
       description: z.string().optional(),
       seoKeyphrase: z.string().optional().nullable(),
       seoKeywords: z.string().optional().nullable(),
+      navigationTitle: z.string().optional(),
       publishedAt: z.date().default(() => new Date()),
       updatedAt: z.date().default(() => new Date()),
       content: z.string().optional(),
     }),
 });
 
+const menuItemSchema = z.object({
+  item: z.discriminatedUnion('discriminant', [
+    z.object({ discriminant: z.literal('page'), value: z.string() }),
+    z.object({ discriminant: z.literal('post'), value: z.string() }),
+    z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+  ]),
+  children: z
+    .array(
+      z.object({
+        item: z.discriminatedUnion('discriminant', [
+          z.object({ discriminant: z.literal('page'), value: z.string() }),
+          z.object({ discriminant: z.literal('post'), value: z.string() }),
+          z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+        ]),
+      }),
+    )
+    .optional(),
+});
+
 const navigation = defineCollection({
-  type: 'content',
+  type: 'data',
   schema: z.object({
     name: z.string().min(1, 'Name is required'),
-    content: z.string(),
+    menuItems: z.array(menuItemSchema),
   }),
 });
 

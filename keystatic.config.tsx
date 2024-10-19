@@ -1,6 +1,13 @@
-import { config, fields, collection } from '@keystatic/core';
-import { wrapper, mark,repeating,  type ContentComponent } from '@keystatic/core/content-components'
-import { Highlighter,  MenuIcon, ChevronDown } from 'lucide-react'
+import { config, fields, collection, singleton } from '@keystatic/core';
+import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
+import { getCollection } from 'astro:content';
+import { Highlighter } from 'lucide-react';
+
+const pages = await getCollection('pages');
+const posts = await getCollection('posts');
+const glasstypes = await getCollection('glasstypes');
+
+const allPages = [...pages, ...posts, ...glasstypes];
 
 const components: Record<string, ContentComponent> = {
   Container: wrapper({
@@ -10,16 +17,16 @@ const components: Record<string, ContentComponent> = {
         label: 'Crop',
         description: 'Max width container and options',
         options: [
-          {label: 'normal', value: 'normal'},
-          {label: 'narrow', value: 'narrow'},
-          {label: 'narrower', value: 'narrower'},
-          {label: 'bleed', value: 'bleed'},
-          {label: 'boxed', value: 'boxed'},
-          {label: 'narrow-boxed', value: 'narrow-boxed'},
+          { label: 'normal', value: 'normal' },
+          { label: 'narrow', value: 'narrow' },
+          { label: 'narrower', value: 'narrower' },
+          { label: 'bleed', value: 'bleed' },
+          { label: 'boxed', value: 'boxed' },
+          { label: 'narrow-boxed', value: 'narrow-boxed' },
         ],
-        defaultValue: 'normal'
+        defaultValue: 'normal',
       }),
-    }
+    },
   }),
   Highlight: mark({
     label: 'Highlight',
@@ -28,82 +35,14 @@ const components: Record<string, ContentComponent> = {
       variant: fields.select({
         label: 'Variant',
         options: [
-          {label: 'Fluro', value: 'fluro'},
-          {label: 'Minimal', value: 'minimal'},
-          {label: 'Brutalist', value: 'brutalist'},
+          { label: 'Fluro', value: 'fluro' },
+          { label: 'Minimal', value: 'minimal' },
+          { label: 'Brutalist', value: 'brutalist' },
         ],
-        defaultValue: 'fluro'
+        defaultValue: 'fluro',
       }),
-    }
-  })
-}
-
-const navigationItemSchema: ContentComponent['schema'] = {
-  label: fields.text({ label: 'Label', validation: { length: { min: 1 } } }),
-  link: fields.conditional(
-    fields.select({
-      label: 'Link Type',
-      options: [
-        { label: 'Page', value: 'page' },
-        { label: 'Post', value: 'post' },
-        { label: 'Glass Type', value: 'glasstype' },
-        { label: 'Custom URL', value: 'custom' },
-      ],
-      defaultValue: 'page',
-    }),
-    {
-      page: fields.relationship({
-        label: 'Select Page',
-        collection: 'pages',
-      }),
-      post: fields.relationship({
-        label: 'Select Post',
-        collection: 'posts',
-      }),
-      glasstype: fields.relationship({
-        label: 'Select Glass Type',
-        collection: 'glasstypes',
-      }),
-      custom: fields.url({ label: 'Custom URL' }),
-    }
-  ),
-};
-
-const navigationComponents: Record<string, ContentComponent> = {
-  NavigationItem: repeating({
-    label: 'Navigation Item',
-    icon: <MenuIcon size={24} />,
-    schema: navigationItemSchema,
-    children: ['DropdownItem'],
-    ContentView(props) {
-      return (
-        <div>
-          <div>
-            {props.value.label}
-          </div>
-          {props.children}
-        </div>
-      )
     },
   }),
-
-  DropdownItem: repeating({
-    label: 'Dropdown Item',
-    icon: <ChevronDown size={24} />,
-    schema: navigationItemSchema,
-    children: ['DropdownItem'],
-    ContentView(props) {
-      return (
-        <div className='italic'>
-          <div>
-            {props.value.label}
-          </div>
-          {props.children}
-        </div>
-      )
-    },
-  }),
-  
 };
 
 const featuredMedia = fields.conditional(
@@ -152,6 +91,59 @@ const featuredMedia = fields.conditional(
   },
 );
 
+const menuItemField = fields.conditional(
+  fields.select({
+    label: 'Item Type',
+    options: [
+      { label: 'Page', value: 'page' },
+      { label: 'Post', value: 'post' },
+      { label: 'Glass Type', value: 'glasstype' },
+    ],
+    defaultValue: 'page',
+  }),
+  {
+    page: fields.relationship({ label: 'Page', collection: 'pages' }),
+    post: fields.relationship({ label: 'Post', collection: 'posts' }),
+    glasstype: fields.relationship({ label: 'Glass Type', collection: 'glasstypes' }),
+  },
+);
+
+const menuItemSchema = fields.object({
+  item: menuItemField,
+  children: fields.array(
+    fields.object({
+      item: menuItemField,
+    }),
+    {
+      label: 'Submenu items',
+      itemLabel: (props) => {
+        const item = allPages.find((page) => page.slug === props.fields.item.value.value);
+        return item?.data.title ?? props.fields.item.value.value ?? '';
+      },
+    },
+  ),
+});
+
+export const navigation = singleton({
+  label: 'Navigation',
+  path: 'src/content/navigation/',
+  schema: {
+    name: fields.slug({
+      name: {
+        label: 'Name',
+        validation: { length: { min: 1 } },
+      },
+    }),
+    menuItems: fields.array(menuItemSchema, {
+      label: 'Menu items',
+      itemLabel: (props) => {
+        const item = allPages.find((page) => page.slug === props.fields.item.value.value);
+        return item?.data.navigationTitle ?? props.fields.item.value.value ?? '';
+      },
+    }),
+  },
+});
+
 const storage = import.meta.env.DEV
   ? { kind: 'local' as const }
   : {
@@ -165,13 +157,10 @@ const storage = import.meta.env.DEV
 export default config({
   storage,
   ui: {
-      navigation: [
-        'navigation',
-        '---',
-        'pages',
-        'posts',
-        'glasstypes',
-      ],
+    navigation: {
+      Settings: ['navigation'],
+      Content: ['pages', 'posts', 'glasstypes'],
+    },
     brand: {
       name: 'glass.no',
       mark: () => (
@@ -215,18 +204,10 @@ export default config({
           label: 'Keywords',
           description: 'Comma separated list of keywords',
         }),
-        navigation: fields.conditional(
-          fields.checkbox({
-            label: 'Show in navigation menu',
-            defaultValue: false,
-          }),
-          {
-            true: fields.object({
-              title: fields.text({ label: 'Navigation title' }),
-            }),
-            false: fields.empty(),
-          },
-        ),
+        navigationTitle: fields.text({
+          label: 'Navigation title',
+          description: 'Title to use in navigation menu (optional)',
+        }),
         publishedAt: fields.date({
           label: 'Published at',
           defaultValue: { kind: 'today' },
@@ -280,6 +261,10 @@ export default config({
         seoKeywords: fields.text({
           label: 'Keywords',
           description: 'Comma separated list of keywords',
+        }),
+        navigationTitle: fields.text({
+          label: 'Navigation title',
+          description: 'Title to use in navigation menu (optional)',
         }),
         publishedAt: fields.date({
           label: 'Published at',
@@ -335,6 +320,10 @@ export default config({
           label: 'Keywords',
           description: 'Comma separated list of keywords',
         }),
+        navigationTitle: fields.text({
+          label: 'Navigation title',
+          description: 'Title to use in navigation menu (optional)',
+        }),
         publishedAt: fields.date({
           label: 'Published at',
           defaultValue: { kind: 'today' },
@@ -371,29 +360,6 @@ export default config({
     //     }),
     //   },
     // }),
-    navigation: collection({
-      label: 'Navigation',
-      path: 'src/content/navigation/*',
-      format: { contentField: 'items' },
-      slugField: 'name',
-      schema: {
-        name: fields.slug({
-          name: {
-            label: 'Name',
-            validation: { length: { min: 1 } },
-          },
-        }),
-        items: fields.mdx({
-          label: 'Navigation',
-          components: navigationComponents,
-        }),
-      },
-    }),
   },
-  // singletons: {
-  //   settings: singleton({
-  //     label: "Settings",
-  //     schema: {},
-  //   }),
-  // },
+  singletons: { navigation },
 });
