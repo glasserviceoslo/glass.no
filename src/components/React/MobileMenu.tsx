@@ -1,13 +1,13 @@
-import React from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
-import { NavMenu } from "./NavMenu";
-import type {CollectionEntry } from "astro:content";
+import React from 'react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
+import { NavMenu } from './NavMenu';
+import type { CollectionEntry } from 'astro:content';
 
 interface MobileMenuProps {
-  navElements: CollectionEntry<"pages">[];
-  products: CollectionEntry<"pages">[];
+  navElements: CollectionEntry<'pages'>[];
+  products: CollectionEntry<'pages'>[];
   glasstypes: CollectionEntry<'glasstypes'>[];
 }
 
@@ -21,12 +21,7 @@ export function MobileMenu({ navElements, products, glasstypes }: MobileMenuProp
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-        <NavMenu 
-          navElements={navElements} 
-          products={products} 
-          glasstypes={glasstypes} 
-          isMobile={true}
-        />
+        <NavMenu navElements={navElements} products={products} glasstypes={glasstypes} isMobile={true} />
       </SheetContent>
     </Sheet>
   );

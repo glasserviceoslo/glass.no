@@ -6,8 +6,8 @@ import { getCollection } from 'astro:content';
 import { NavMenu } from '../React/NavMenu';
 import { MobileMenu } from '../React/MobileMenu';
 
-const navElements = await getCollection('pages', ({ data }) => data.navigation.discriminant);
-const products = await getCollection('pages', ({ data, slug }) => !data.navigation.discriminant && slug !== 'home');
+const navElements = await getCollection('pages', ({ data }) => data.navigationTitle);
+const products = await getCollection('pages', ({ data, slug }) => !data.navigationTitle && slug !== 'home');
 const glasstypes = await getCollection('glasstypes');
 ---
 
