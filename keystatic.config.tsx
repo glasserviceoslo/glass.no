@@ -70,7 +70,6 @@ const featuredMedia = fields.conditional(
         description: 'Image alt text.',
       }),
     }),
-    // "video" condition
     video: fields.object({
       url: fields.url({
         label: 'A YouTube video URL.',
@@ -98,6 +97,7 @@ const menuItemField = fields.conditional(
       { label: 'Page', value: 'page' },
       { label: 'Post', value: 'post' },
       { label: 'Glass Type', value: 'glasstype' },
+      { label: 'Custom', value: 'custom' },
     ],
     defaultValue: 'page',
   }),
@@ -105,21 +105,29 @@ const menuItemField = fields.conditional(
     page: fields.relationship({ label: 'Page', collection: 'pages' }),
     post: fields.relationship({ label: 'Post', collection: 'posts' }),
     glasstype: fields.relationship({ label: 'Glass Type', collection: 'glasstypes' }),
+    custom: fields.text({ label: 'Menu item' }),
   },
 );
 
 const menuItemSchema = fields.object({
   item: menuItemField,
+  navigationTitle: fields.text({
+    label: 'Navigation Title',
+    validation: { length: { min: 1 } },
+    description: 'Title to show on the menu',
+  }),
   children: fields.array(
     fields.object({
       item: menuItemField,
+      navigationTitle: fields.text({
+        label: 'Navigation Title',
+        validation: { length: { min: 1 } },
+        description: 'Title to show on the menu',
+      }),
     }),
     {
       label: 'Submenu items',
-      itemLabel: (props) => {
-        const item = allPages.find((page) => page.slug === props.fields.item.value.value);
-        return item?.data.title ?? props.fields.item.value.value ?? '';
-      },
+      itemLabel: (props) => props.fields.navigationTitle.value ?? '',
     },
   ),
 });
@@ -136,10 +144,7 @@ export const navigation = singleton({
     }),
     menuItems: fields.array(menuItemSchema, {
       label: 'Menu items',
-      itemLabel: (props) => {
-        const item = allPages.find((page) => page.slug === props.fields.item.value.value);
-        return item?.data.navigationTitle ?? props.fields.item.value.value ?? '';
-      },
+      itemLabel: (props) => props.fields.navigationTitle.value ?? '',
     }),
   },
 });

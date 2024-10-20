@@ -102,7 +102,9 @@ const menuItemSchema = z.object({
     z.object({ discriminant: z.literal('page'), value: z.string() }),
     z.object({ discriminant: z.literal('post'), value: z.string() }),
     z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+    z.object({ discriminant: z.literal('custom'), value: z.string() }),
   ]),
+  navigationTitle: z.string().min(1, 'Menu title is required'),
   children: z
     .array(
       z.object({
@@ -110,7 +112,9 @@ const menuItemSchema = z.object({
           z.object({ discriminant: z.literal('page'), value: z.string() }),
           z.object({ discriminant: z.literal('post'), value: z.string() }),
           z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+          z.object({ discriminant: z.literal('custom'), value: z.string() }),
         ]),
+        navigationTitle: z.string().min(1, 'Menu title is required'),
       }),
     )
     .optional(),
