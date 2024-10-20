@@ -2,13 +2,12 @@
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
 import BookBefaring from '../Svelte/BookBefaring.svelte';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { NavMenu } from '../React/NavMenu';
 import { MobileMenu } from '../React/MobileMenu';
 
-const navElements = await getCollection('pages', ({ data }) => data.navigationTitle);
-const products = await getCollection('pages', ({ data, slug }) => !data.navigationTitle && slug !== 'home');
-const glasstypes = await getCollection('glasstypes');
+const { data: navigation } = await getEntry('navigation', 'main-navigation');
+const menuItems = navigation?.menuItems;
 ---
 
 <nav
@@ -20,10 +19,10 @@ const glasstypes = await getCollection('glasstypes');
     <div class="flex items-center gap-2 md:order-2">
       <ThemeToggler />
       <BookBefaring client:visible />
-      <MobileMenu client:load navElements={navElements} products={products} glasstypes={glasstypes} />
+      <MobileMenu client:load menuItems={menuItems} />
     </div>
     <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
-      <NavMenu client:load navElements={navElements} products={products} glasstypes={glasstypes} />
+      <NavMenu client:load menuItems={menuItems} />
     </div>
   </div>
 </nav>

@@ -1,27 +1,31 @@
-import React from 'react';
+import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { NavMenu } from './NavMenu';
 import type { CollectionEntry } from 'astro:content';
 
+type MenuItems = CollectionEntry<'navigation'>['data']['menuItems'];
+
 interface MobileMenuProps {
-  navElements: CollectionEntry<'pages'>[];
-  products: CollectionEntry<'pages'>[];
-  glasstypes: CollectionEntry<'glasstypes'>[];
+  menuItems: MenuItems;
 }
 
-export function MobileMenu({ navElements, products, glasstypes }: MobileMenuProps) {
+export function MobileMenu({ menuItems }: MobileMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="md:hidden">
+        <Button variant="ghost" size="icon" className="md:hidden">
           <Menu className="h-6 w-6" />
-          <span className="sr-only">Open main menu</span>
+          <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-        <NavMenu navElements={navElements} products={products} glasstypes={glasstypes} isMobile={true} />
+        <nav className="flex flex-col space-y-4">
+          <NavMenu menuItems={menuItems} isMobile={true} />
+        </nav>
       </SheetContent>
     </Sheet>
   );

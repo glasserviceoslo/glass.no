@@ -105,7 +105,7 @@ const menuItemField = fields.conditional(
     page: fields.relationship({ label: 'Page', collection: 'pages' }),
     post: fields.relationship({ label: 'Post', collection: 'posts' }),
     glasstype: fields.relationship({ label: 'Glass Type', collection: 'glasstypes' }),
-    custom: fields.text({ label: 'Menu item' }),
+    custom: fields.text({ label: 'Slug' }),
   },
 );
 
@@ -132,9 +132,10 @@ const menuItemSchema = fields.object({
   ),
 });
 
-export const navigation = singleton({
+export const navigation = collection({
   label: 'Navigation',
-  path: 'src/content/navigation/',
+  slugField: 'name',
+  path: 'src/content/navigation/*',
   schema: {
     name: fields.slug({
       name: {
@@ -349,6 +350,7 @@ export default config({
         }),
       },
     }),
+    navigation,
     // media: collection({
     //   label: "Media",
     //   slugField: "filename",
@@ -366,5 +368,5 @@ export default config({
     //   },
     // }),
   },
-  singletons: { navigation },
+  // singletons: { navigation },
 });

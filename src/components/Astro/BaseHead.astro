@@ -69,7 +69,7 @@ const image = new URL(imgSrc || '/images/glass.png', Astro.site);
 <!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
 <!-- LocalStorage Theme Check -->
-<script>
+<script is:inline>
   function setTheme() {
     if (
       localStorage.getItem('color-theme') === 'dark' ||

@@ -1,0 +1,57 @@
+name: Main Navigation
+menuItems:
+  - item:
+      discriminant: page
+      value: smijernsdor
+    navigationTitle: Smijernsdør
+    children: []
+  - item:
+      discriminant: custom
+      value: produkter
+    navigationTitle: Produkter
+    children:
+      - item:
+          discriminant: page
+          value: vinduer
+        navigationTitle: Vindu
+      - item:
+          discriminant: page
+          value: velux-takvinduer
+        navigationTitle: Velux
+      - item:
+          discriminant: page
+          value: speil
+        navigationTitle: Speil
+      - item:
+          discriminant: page
+          value: dorer
+        navigationTitle: Dør
+      - item:
+          discriminant: page
+          value: glassvegger
+        navigationTitle: Glassvegg
+      - item:
+          discriminant: page
+          value: glassdorer
+        navigationTitle: Glassdør
+      - item:
+          discriminant: post
+          value: glassrekkverk-renovasjon-av-hjemmet-med-riktig-glassdesing
+        navigationTitle: Glassrekkverk
+      - item:
+          discriminant: page
+          value: innglasset-balkong-vinterhage
+        navigationTitle: Vinterhage
+      - item:
+          discriminant: post
+          value: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
+        navigationTitle: Innglasset Balkong
+      - item:
+          discriminant: page
+          value: glassplate-kjokken
+        navigationTitle: Glassplate Kjøkken
+  - item:
+      discriminant: custom
+      value: kontakt
+    navigationTitle: Kontakt Oss
+    children: []

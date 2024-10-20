@@ -13,104 +13,99 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react';
 import type { CollectionEntry } from 'astro:content';
 
+type MenuItems = CollectionEntry<'navigation'>['data']['menuItems'];
+
 interface NavMenuProps {
-  navElements: CollectionEntry<'pages'>[];
-  products: CollectionEntry<'pages'>[];
-  glasstypes: CollectionEntry<'glasstypes'>[];
+  menuItems: MenuItems;
   isMobile?: boolean;
 }
 
-export function NavMenu({ navElements, products, glasstypes, isMobile = false }: NavMenuProps) {
-  const [openProduct, setOpenProduct] = useState(false);
-  const [openGlasstype, setOpenGlasstype] = useState(false);
+export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
+
+  const toggleItem = (title: string) => {
+    setOpenItems((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
+  const renderMenuItem = (item: MenuItems[number]) => {
+    const hasChildren = item.children && item.children.length > 0;
+
+    if (isMobile) {
+      if (hasChildren) {
+        return (
+          <Collapsible
+            key={item.navigationTitle}
+            open={openItems[item.navigationTitle]}
+            onOpenChange={() => toggleItem(item.navigationTitle)}
+          >
+            <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-medium">
+              {item.navigationTitle}
+              <ChevronDown
+                className={cn('h-4 w-4 transition-transform', openItems[item.navigationTitle] && 'rotate-180')}
+              />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="mt-2 space-y-2">
+              {item.children!.map((child) => (
+                <a key={child.navigationTitle} href={getItemHref(child.item)} className="block pl-4 text-sm">
+                  {child.navigationTitle}
+                </a>
+              ))}
+            </CollapsibleContent>
+          </Collapsible>
+        );
+      } else {
+        return (
+          <a key={item.navigationTitle} href={getItemHref(item.item)} className="text-lg font-medium">
+            {item.navigationTitle}
+          </a>
+        );
+      }
+    } else {
+      return (
+        <NavigationMenuItem key={item.navigationTitle}>
+          {hasChildren ? (
+            <>
+              <NavigationMenuTrigger>{item.navigationTitle}</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  {item.children!.map((child) => (
+                    <ListItem key={child.navigationTitle} title={child.navigationTitle} href={getItemHref(child.item)}>
+                      {/* Add description if available */}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </>
+          ) : (
+            <NavigationMenuLink className={navigationMenuTriggerStyle()} href={getItemHref(item.item)}>
+              {item.navigationTitle}
+            </NavigationMenuLink>
+          )}
+        </NavigationMenuItem>
+      );
+    }
+  };
+
+  const getItemHref = (item: MenuItems[number]['item']) => {
+    switch (item.discriminant) {
+      case 'page':
+        return `/${item.value}`;
+      case 'post':
+        return `/blog/${item.value}`;
+      case 'glasstype':
+        return `/glasstyper/${item.value}`;
+      case 'custom':
+        return `/${item.value.toLowerCase().replace(/\s+/g, '-')}`;
+    }
+  };
 
   if (isMobile) {
-    return (
-      <nav className="flex flex-col space-y-4">
-        {navElements.map((element) => (
-          <a key={element.slug} href={`/${element.slug}`} className="text-lg font-medium">
-            {element.data.navigationTitle}
-          </a>
-        ))}
-
-        <Collapsible open={openProduct} onOpenChange={setOpenProduct}>
-          <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-medium">
-            Produkter
-            <ChevronDown className={cn('h-4 w-4 transition-transform', openProduct && 'rotate-180')} />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="mt-2 space-y-2">
-            {products.map((product) => (
-              <a key={product.slug} href={`/produkter/${product.slug}`} className="block pl-4 text-sm">
-                {product.data.title}
-              </a>
-            ))}
-          </CollapsibleContent>
-        </Collapsible>
-
-        <Collapsible open={openGlasstype} onOpenChange={setOpenGlasstype}>
-          <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-medium">
-            Glasstyper
-            <ChevronDown className={cn('h-4 w-4 transition-transform', openGlasstype && 'rotate-180')} />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="mt-2 space-y-2">
-            {glasstypes.map((glasstype) => (
-              <a key={glasstype.slug} href={`/glasstyper/${glasstype.slug}`} className="block pl-4 text-sm">
-                {glasstype.data.title}
-              </a>
-            ))}
-          </CollapsibleContent>
-        </Collapsible>
-
-        <a href="/kontakt" className="text-lg font-medium">
-          Kontakt Oss
-        </a>
-      </nav>
-    );
+    return <nav className="flex flex-col space-y-4">{menuItems.map(renderMenuItem)}</nav>;
   }
 
   return (
     <NavigationMenu>
-      <NavigationMenuList>
-        {navElements.map((element) => (
-          <NavigationMenuItem key={element.slug}>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()} href={`/${element.slug}`}>
-              {element.data.navigationTitle}
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Produkter</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {products.map((product) => (
-                <ListItem key={product.slug} title={product.data.title} href={`/produkter/${product.slug}`}>
-                  {product.data.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Glasstyper</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {glasstypes.map((glasstype) => (
-                <ListItem key={glasstype.slug} title={glasstype.data.title} href={`/glasstyper/${glasstype.slug}`}>
-                  {glasstype.data.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/kontakt">
-            Kontakt Oss
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
+      <NavigationMenuList>{menuItems.map(renderMenuItem)}</NavigationMenuList>
     </NavigationMenu>
   );
 }
