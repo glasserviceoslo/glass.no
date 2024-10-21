@@ -91,7 +91,7 @@ export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
       case 'page':
         return `/${item.value}`;
       case 'post':
-        return `/blog/${item.value}`;
+        return `/posts/${item.value}`;
       case 'glasstype':
         return `/glasstyper/${item.value}`;
       case 'custom':
