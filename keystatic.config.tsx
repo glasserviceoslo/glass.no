@@ -1,17 +1,13 @@
+import '@/styles/globals.css';
+import { FAQ } from '@/components/React/FAQ';
 import { config, fields, collection, singleton } from '@keystatic/core';
 import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
-import { getCollection } from 'astro:content';
-import { Highlighter } from 'lucide-react';
-
-const pages = await getCollection('pages');
-const posts = await getCollection('posts');
-const glasstypes = await getCollection('glasstypes');
-
-const allPages = [...pages, ...posts, ...glasstypes];
+import { Highlighter, CircleHelp, Box } from 'lucide-react';
 
 const components: Record<string, ContentComponent> = {
   Container: wrapper({
     label: 'Container',
+    icon: <Box size={24} />,
     schema: {
       crop: fields.select({
         label: 'Crop',
@@ -41,6 +37,31 @@ const components: Record<string, ContentComponent> = {
         ],
         defaultValue: 'fluro',
       }),
+    },
+  }),
+
+  FAQ: wrapper({
+    label: 'FAQ',
+    icon: <CircleHelp size={24} />,
+    schema: {
+      items: fields.array(
+        fields.object({
+          question: fields.text({
+            label: 'Question',
+            validation: { length: { min: 1 } },
+          }),
+          answer: fields.text({
+            label: 'Answer',
+            multiline: true,
+          }),
+        }),
+        {
+          itemLabel: (props) => props.fields.question.value || 'FAQ Item',
+        },
+      ),
+    },
+    ContentView(props) {
+      return <FAQ items={[...props.value.items]} />;
     },
   }),
 };
