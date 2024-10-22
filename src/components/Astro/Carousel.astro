@@ -7,4 +7,8 @@ const homePage = await getEntry('pages', 'home');
 const imageUrls = extractImageUrls(homePage.body);
 ---
 
-<ImagesSliderHero client:idle images={imageUrls} />
+<ImagesSliderHero client:only="react" images={imageUrls}>
+  <div slot="fallback" class="relative h-1/2 md:h-3/4">
+    <img src={imageUrls[0].src} alt={imageUrls[0].alt} loading="lazy" class="w-full h-full object-cover" />
+  </div>
+</ImagesSliderHero>
