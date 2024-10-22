@@ -7,4 +7,4 @@ const homePage = await getEntry('pages', 'home');
 const imageUrls = extractImageUrls(homePage.body);
 ---
 
-<ImagesSliderHero client:visible images={imageUrls} />
+<ImagesSliderHero client:idle images={imageUrls} />
