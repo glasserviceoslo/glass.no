@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 import { FAQ } from '@/components/React/FAQ';
-import { config, fields, collection, singleton } from '@keystatic/core';
+import { config, fields, collection } from '@keystatic/core';
 import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
 import { Highlighter, CircleHelp, Box } from 'lucide-react';
 

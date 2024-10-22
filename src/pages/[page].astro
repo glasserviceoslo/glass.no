@@ -1,37 +1,26 @@
 ---
-import Layout from '../layouts/Page.astro';
-import BlogPost from '../components/Astro/BlogPost.astro';
-import { getEntry } from 'astro:content';
+import Layout from '@/layouts/Page.astro';
+import BlogPost from '@/components/Astro/BlogPost.astro';
+import { getCollection } from 'astro:content';
 
-// rss({
-//   title: 'Example Blog',
-//   description: 'An example blog on Astro',
-//   customData: `<language>en-us</language>`,
-//   items: allBlogPosts.map(item => ({
-//     title: item.title,
-//     description: item.description,
-//     link: `/posts/${item.slug.current}`,
-//     pubDate: item.publishedAt,
-//   })),
-// });
-if (!Astro.params.page) {
-  return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { page: page.slug },
+    props: { page },
+  }));
 }
 
-const post = await getEntry('pages', Astro.params.page);
-
-if (!post) {
-  return Astro.redirect('/404');
-}
+const { page } = Astro.props;
 
 const seo = {
-  title: post.data.title,
-  description: post.data.description || '',
-  keywords: post.data.seoKeywords || '',
-  image: post.data.featuredMedia?.discriminant === 'image' ? post.data.featuredMedia?.value.asset ?? '' : '',
+  title: page.data.title,
+  description: page.data.description || '',
+  keywords: page.data.seoKeywords || '',
+  image: page.data.featuredMedia?.discriminant === 'image' ? page.data.featuredMedia?.value.asset ?? '' : '',
 };
 ---
 
 <Layout seo={seo}>
-  <BlogPost post={post} />
+  <BlogPost post={page} />
 </Layout>

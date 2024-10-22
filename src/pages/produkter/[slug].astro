@@ -1,25 +1,25 @@
 ---
-import Layout from '../../layouts/Post.astro';
-import BlogPost from '../../components/Astro/BlogPost.astro';
-import { getEntry } from 'astro:content';
+import Layout from '@/layouts/Post.astro';
+import BlogPost from '@/components/Astro/BlogPost.astro';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
-if (slug === undefined) {
-  return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
 }
 
-const post = await getEntry('pages', slug);
-if (!post) {
-  return Astro.redirect('/404');
-}
+const { page } = Astro.props;
 
 const seo = {
-  title: post.data.title,
-  description: post.data.description || '',
-  keywords: post.data.seoKeywords || '',
+  title: page.data.title,
+  description: page.data.description || '',
+  keywords: page.data.seoKeywords || '',
 };
 ---
 
 <Layout seo={seo}>
-  <BlogPost post={post} />
+  <BlogPost post={page} />
 </Layout>
