@@ -11,56 +11,32 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
-import type { CollectionEntry } from 'astro:content';
 
-type MenuItems = CollectionEntry<'navigation'>['data']['menuItems'];
+type MenuItem = {
+  item: { discriminant: 'page' | 'post' | 'glasstype' | 'custom'; value: string };
+  navigationTitle: string;
+  children?: MenuItem[];
+  grandchildren?: MenuItem[];
+};
+
+type MenuItems = MenuItem[];
 
 interface NavMenuProps {
   menuItems: MenuItems;
-  isMobile?: boolean;
 }
 
-export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
+export function NavMenu({ menuItems }: NavMenuProps) {
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
 
   const toggleItem = (title: string) => {
     setOpenItems((prev) => ({ ...prev, [title]: !prev[title] }));
   };
 
-  const renderMenuItem = (item: MenuItems[number]) => {
+  const renderMenuItem = (item: MenuItems[number], level: number = 0) => {
     const hasChildren = item.children && item.children.length > 0;
+    const hasGrandchildren = item.grandchildren && item.grandchildren.length > 0;
 
-    if (isMobile) {
-      if (hasChildren) {
-        return (
-          <Collapsible
-            key={item.navigationTitle}
-            open={openItems[item.navigationTitle]}
-            onOpenChange={() => toggleItem(item.navigationTitle)}
-          >
-            <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-medium">
-              {item.navigationTitle}
-              <ChevronDown
-                className={cn('h-4 w-4 transition-transform', openItems[item.navigationTitle] && 'rotate-180')}
-              />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-2 space-y-2">
-              {item.children!.map((child) => (
-                <a key={child.navigationTitle} href={getItemHref(child.item)} className="block pl-4 text-sm">
-                  {child.navigationTitle}
-                </a>
-              ))}
-            </CollapsibleContent>
-          </Collapsible>
-        );
-      } else {
-        return (
-          <a key={item.navigationTitle} href={getItemHref(item.item)} className="text-lg font-medium">
-            {item.navigationTitle}
-          </a>
-        );
-      }
-    } else {
+    if (level === 0) {
       return (
         <NavigationMenuItem key={item.navigationTitle}>
           {hasChildren ? (
@@ -68,11 +44,7 @@ export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
               <NavigationMenuTrigger>{item.navigationTitle}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {item.children!.map((child) => (
-                    <ListItem key={child.navigationTitle} title={child.navigationTitle} href={getItemHref(child.item)}>
-                      {/* Add description if available */}
-                    </ListItem>
-                  ))}
+                  {item.children?.map((child) => renderMenuItem(child, level + 1))}
                 </ul>
               </NavigationMenuContent>
             </>
@@ -83,6 +55,45 @@ export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
           )}
         </NavigationMenuItem>
       );
+    } else if (level === 1) {
+      if (hasGrandchildren) {
+        return (
+          <li key={item.navigationTitle}>
+            <Collapsible open={openItems[item.navigationTitle]} onOpenChange={() => toggleItem(item.navigationTitle)}>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-sm font-medium">
+                <span className="flex items-center">
+                  {item.navigationTitle}
+                  <ChevronDown
+                    className={cn('h-4 w-4 transition-transform ml-1', openItems[item.navigationTitle] && 'rotate-180')}
+                  />
+                </span>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <ul className="mt-2 space-y-1">
+                  {item.grandchildren?.map((grandchild) => (
+                    <li key={grandchild.navigationTitle}>
+                      <a
+                        href={getItemHref(grandchild.item)}
+                        className="block py-1 text-sm text-muted-foreground hover:text-accent-foreground"
+                      >
+                        {grandchild.navigationTitle}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
+          </li>
+        );
+      } else {
+        return (
+          <li key={item.navigationTitle}>
+            <a href={getItemHref(item.item)} className="block py-2 text-sm font-medium hover:text-accent-foreground">
+              {item.navigationTitle}
+            </a>
+          </li>
+        );
+      }
     }
   };
 
@@ -99,13 +110,9 @@ export function NavMenu({ menuItems, isMobile = false }: NavMenuProps) {
     }
   };
 
-  if (isMobile) {
-    return <nav className="flex flex-col space-y-4">{menuItems.map(renderMenuItem)}</nav>;
-  }
-
   return (
     <NavigationMenu>
-      <NavigationMenuList>{menuItems.map(renderMenuItem)}</NavigationMenuList>
+      <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item))}</NavigationMenuList>
     </NavigationMenu>
   );
 }
@@ -124,7 +131,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
             {...props}
           >
             <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            {children && <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</div>}
           </a>
         </NavigationMenuLink>
       </li>

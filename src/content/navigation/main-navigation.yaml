@@ -14,42 +14,56 @@ menuItems:
           discriminant: page
           value: vinduer
         navigationTitle: Vindu
+        grandchildren:
+          - item:
+              discriminant: glasstype
+              value: isolerglass
+            navigationTitle: Isolerglass
       - item:
           discriminant: page
           value: velux-takvinduer
         navigationTitle: Velux
+        grandchildren: []
       - item:
           discriminant: page
           value: speil
         navigationTitle: Speil
+        grandchildren: []
       - item:
           discriminant: page
           value: dorer
         navigationTitle: Dør
+        grandchildren: []
       - item:
           discriminant: page
           value: glassvegger
         navigationTitle: Glassvegg
+        grandchildren: []
       - item:
           discriminant: page
           value: glassdorer
         navigationTitle: Glassdør
+        grandchildren: []
       - item:
           discriminant: post
           value: glassrekkverk-renovasjon-av-hjemmet-med-riktig-glassdesing
         navigationTitle: Glassrekkverk
+        grandchildren: []
       - item:
           discriminant: page
           value: innglasset-balkong-vinterhage
         navigationTitle: Vinterhage
+        grandchildren: []
       - item:
           discriminant: post
           value: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
         navigationTitle: Innglasset Balkong
+        grandchildren: []
       - item:
           discriminant: page
           value: glassplate-kjokken
         navigationTitle: Glassplate Kjøkken
+        grandchildren: []
   - item:
       discriminant: custom
       value: kontakt

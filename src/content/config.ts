@@ -54,6 +54,27 @@ const glasstypes = defineCollection({
   schema: baseContentSchema,
 });
 
+const grandchildItemSchema = z.object({
+  item: z.discriminatedUnion('discriminant', [
+    z.object({ discriminant: z.literal('page'), value: z.string() }),
+    z.object({ discriminant: z.literal('post'), value: z.string() }),
+    z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+    z.object({ discriminant: z.literal('custom'), value: z.string() }),
+  ]),
+  navigationTitle: z.string().min(1, 'Menu title is required'),
+});
+
+const childItemSchema = z.object({
+  item: z.discriminatedUnion('discriminant', [
+    z.object({ discriminant: z.literal('page'), value: z.string() }),
+    z.object({ discriminant: z.literal('post'), value: z.string() }),
+    z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
+    z.object({ discriminant: z.literal('custom'), value: z.string() }),
+  ]),
+  navigationTitle: z.string().min(1, 'Menu title is required'),
+  grandchildren: z.array(grandchildItemSchema).optional(),
+});
+
 const menuItemSchema = z.object({
   item: z.discriminatedUnion('discriminant', [
     z.object({ discriminant: z.literal('page'), value: z.string() }),
@@ -62,19 +83,7 @@ const menuItemSchema = z.object({
     z.object({ discriminant: z.literal('custom'), value: z.string() }),
   ]),
   navigationTitle: z.string().min(1, 'Menu title is required'),
-  children: z
-    .array(
-      z.object({
-        item: z.discriminatedUnion('discriminant', [
-          z.object({ discriminant: z.literal('page'), value: z.string() }),
-          z.object({ discriminant: z.literal('post'), value: z.string() }),
-          z.object({ discriminant: z.literal('glasstype'), value: z.string() }),
-          z.object({ discriminant: z.literal('custom'), value: z.string() }),
-        ]),
-        navigationTitle: z.string().min(1, 'Menu title is required'),
-      }),
-    )
-    .optional(),
+  children: z.array(childItemSchema).optional(),
 });
 
 const navigation = defineCollection({

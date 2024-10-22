@@ -130,6 +130,28 @@ const menuItemField = fields.conditional(
   },
 );
 
+const grandchildItemSchema = fields.object({
+  item: menuItemField,
+  navigationTitle: fields.text({
+    label: 'Navigation Title',
+    validation: { length: { min: 1 } },
+    description: 'Title to show on the menu',
+  }),
+});
+
+const childItemSchema = fields.object({
+  item: menuItemField,
+  navigationTitle: fields.text({
+    label: 'Navigation Title',
+    validation: { length: { min: 1 } },
+    description: 'Title to show on the menu',
+  }),
+  grandchildren: fields.array(grandchildItemSchema, {
+    label: 'Grandchild items',
+    itemLabel: (props) => props.fields.navigationTitle.value ?? '',
+  }),
+});
+
 const menuItemSchema = fields.object({
   item: menuItemField,
   navigationTitle: fields.text({
@@ -137,20 +159,10 @@ const menuItemSchema = fields.object({
     validation: { length: { min: 1 } },
     description: 'Title to show on the menu',
   }),
-  children: fields.array(
-    fields.object({
-      item: menuItemField,
-      navigationTitle: fields.text({
-        label: 'Navigation Title',
-        validation: { length: { min: 1 } },
-        description: 'Title to show on the menu',
-      }),
-    }),
-    {
-      label: 'Submenu items',
-      itemLabel: (props) => props.fields.navigationTitle.value ?? '',
-    },
-  ),
+  children: fields.array(childItemSchema, {
+    label: 'Child items',
+    itemLabel: (props) => props.fields.navigationTitle.value ?? '',
+  }),
 });
 
 export const navigation = collection({
