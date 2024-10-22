@@ -30,6 +30,7 @@
     "@astrojs/node": "8.3.4",
     "@astrojs/partytown": "2.1.2",
     "@astrojs/react": "3.6.2",
+    "@astrojs/sitemap": "^3.2.1",
     "@astrojs/svelte": "5.7.2",
     "@astrojs/tailwind": "5.1.2",
     "@changesets/changelog-git": "^0.1.14",
