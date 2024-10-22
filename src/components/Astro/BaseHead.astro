@@ -2,6 +2,8 @@
 import '@/styles/globals.css';
 import settings from '@/data/settings';
 import type { ImageObject } from 'src/types';
+import { getEntry } from 'astro:content';
+import { extractImageUrls } from '@/lib/utils';
 
 export interface Props {
   title?: string;
@@ -17,6 +19,9 @@ const keywords = Astro.props.keywords || settings.keywords;
 const canonicalURL = Astro.props.canonicalURL || new URL(Astro.url.pathname, Astro.site);
 const imgSrc = typeof Astro.props.image === 'string' ? Astro.props.image : Astro.props.image?.src;
 const image = new URL(imgSrc || '/images/glass.png', Astro.site);
+
+const homePage = await getEntry('pages', 'home');
+const imageUrls = extractImageUrls(homePage.body);
 ---
 
 <meta charset="utf-8" />
@@ -30,6 +35,9 @@ const image = new URL(imgSrc || '/images/glass.png', Astro.site);
 <meta name="keywords" content={keywords} />
 <!-- sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Preload images -->
+{imageUrls.map((url) => <link rel="preload" href={url.src} as="image" />)}
 
 <!-- Canonical -->
 <link rel="canonical" href={canonicalURL} />
