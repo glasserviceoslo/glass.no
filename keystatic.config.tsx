@@ -1,4 +1,3 @@
-import '@/styles/globals.css';
 import { FAQ } from '@/components/React/FAQ';
 import { config, fields, collection } from '@keystatic/core';
 import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
