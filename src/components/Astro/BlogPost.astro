@@ -19,7 +19,7 @@ const { Content } = await post.render();
 <article class="h-full min-h-[calc(100vh-289px)]">
   {
     post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset && (
-      <div class="h-[40vw]">
+      <div class="h-[30vw]">
         <Image
           width={2000}
           height={800}
@@ -31,12 +31,12 @@ const { Content } = await post.render();
       </div>
     )
   }
-  <header class="mb-10 flex flex-col items-center justify-center pt-8 text-center md:mb-12">
-    <h1 class="text-4xl font-bold leading-tight tracking-normal md:pr-8 md:text-6xl">
+  <header class="mb-4 flex flex-col items-center justify-center pt-2 text-center md:mb-6">
+    <h1 class="text-2xl font-bold leading-tight tracking-normal md:pr-6 md:text-4xl">
       {post.data.title}
     </h1>
     <h4
-      class="mt-5 text-lg md:pl-8 md:text-left [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200"
+      class="mt-2 text-sm md:pl-6 md:text-left [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200"
     >
     </h4>
   </header>
