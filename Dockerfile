@@ -1,5 +1,5 @@
 # Use the official Bun image
-FROM oven/bun:latest AS base
+FROM oven/bun:slim AS base
 WORKDIR /usr/src/app
 
 # Install dependencies into temp directory
@@ -21,6 +21,7 @@ RUN bun run build
 
 # Create the production image
 FROM base AS release
+RUN apt-get update && apt-get install -y curl
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=build /usr/src/app/dist ./dist
 
