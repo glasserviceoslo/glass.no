@@ -12,12 +12,11 @@ const components: Record<string, ContentComponent> = {
         label: 'Crop',
         description: 'Max width container and options',
         options: [
+          { label: 'wide', value: 'wide' },
           { label: 'normal', value: 'normal' },
           { label: 'narrow', value: 'narrow' },
           { label: 'narrower', value: 'narrower' },
-          { label: 'bleed', value: 'bleed' },
           { label: 'boxed', value: 'boxed' },
-          { label: 'narrow-boxed', value: 'narrow-boxed' },
         ],
         defaultValue: 'normal',
       }),

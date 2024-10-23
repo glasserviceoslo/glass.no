@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import ArticleImage from './ArticleImage.astro';
 import ArticleLink from './ArticleLink.astro';
 import FAQ from './FAQ.astro';
+import Container from './Container.astro';
 
 export interface Props {
   post: CollectionEntry<'pages' | 'posts' | 'glasstypes'>;
@@ -40,6 +41,6 @@ const { Content } = await post.render();
     </h4>
   </header>
   <PostBody>
-    <Content components={{ img: ArticleImage, a: ArticleLink, FAQ }} />
+    <Content components={{ img: ArticleImage, a: ArticleLink, FAQ, Container }} />
   </PostBody>
 </article>
