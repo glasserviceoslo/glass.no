@@ -12,13 +12,13 @@
     "pnpm": "please use bun"
   },
   "scripts": {
-    "dev:ssl": "astro dev --port 5001 & caddy run",
-    "dev": "astro dev --port 5001",
-    "build": "rm -rf dist && astro telemetry disable && astro build",
+    "dev:ssl": "bunx --bun astro dev --port 5001 & caddy run",
+    "dev": "bunx --bun astro dev --port 5001",
+    "build": "rm -rf dist && astro telemetry disable && bunx --bun astro build",
     "preview": "astro preview",
     "start": "astro preview",
     "clean": "rm -rf node_modules dist",
-    "format": "pnpm format:code",
+    "format": "bun format:code",
     "format:code": "prettier -w . --cache --plugin-search-dir=.",
     "version": "changeset version && bun install --no-frozen-lockfile && bun format",
     "update-deps": "bunx npm-check-updates --root --format group -i",

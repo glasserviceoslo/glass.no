@@ -1,26 +1,32 @@
-FROM node:lts AS base
+# Use the official Bun image
+FROM oven/bun:slim AS base
+WORKDIR /usr/src/app
 
-RUN curl -fsSL https://bun.sh/install | bash 
-ENV PATH="${PATH}:/root/.bun/bin"
+# Install dependencies into temp directory
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
 
-WORKDIR /app
+# Install production dependencies
+RUN mkdir -p /temp/prod
+COPY package.json bun.lockb /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile --production
 
-COPY package.json bun.lockb ./
-
-FROM base AS prod-deps
-RUN bun install --production
-
-FROM base AS build-deps
-RUN bun install
-
-FROM build-deps AS build
+# Build the application
+FROM base AS build
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 RUN bun run build
 
-FROM base AS runtime
+# Create the production image
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY --from=build /usr/src/app/dist ./dist
 
-COPY --from=prod-deps /app/node_modules ./node_modules
-COPY --from=build /app/dist ./dist
-
+# Set environment variables and run the app
 ENV HOST=0.0.0.0
-CMD ["node", "./dist/server/entry.mjs"] 
+ENV NODE_ENV=production
+USER bun
+EXPOSE 3000/tcp
+CMD ["bun", "run", "./dist/server/entry.mjs"]
