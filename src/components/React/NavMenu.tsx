@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn, getItemHref } from '@/lib/utils';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,15 +11,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
-
-type MenuItem = {
-  item: { discriminant: 'page' | 'post' | 'glasstype' | 'custom'; value: string };
-  navigationTitle: string;
-  children?: MenuItem[];
-  grandchildren?: MenuItem[];
-};
-
-type MenuItems = MenuItem[];
+import type { MenuItems } from '@/types';
 
 interface NavMenuProps {
   menuItems: MenuItems;
@@ -94,19 +86,6 @@ export function NavMenu({ menuItems }: NavMenuProps) {
           </li>
         );
       }
-    }
-  };
-
-  const getItemHref = (item: MenuItems[number]['item']) => {
-    switch (item.discriminant) {
-      case 'page':
-        return `/${item.value}`;
-      case 'post':
-        return `/posts/${item.value}`;
-      case 'glasstype':
-        return `/glasstyper/${item.value}`;
-      case 'custom':
-        return `/${item.value.toLowerCase().replace(/\s+/g, '-')}`;
     }
   };
 

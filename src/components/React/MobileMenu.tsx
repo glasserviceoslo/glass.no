@@ -4,16 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-type MenuItem = {
-  item: { discriminant: 'page' | 'post' | 'glasstype' | 'custom'; value: string };
-  navigationTitle: string;
-  children?: MenuItem[];
-  grandchildren?: MenuItem[];
-};
-
-type MenuItems = MenuItem[];
+import { cn, getItemHref } from '@/lib/utils';
+import type { MenuItem, MenuItems } from '@/types';
 
 interface MobileMenuProps {
   menuItems: MenuItems;
@@ -31,6 +23,11 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
     const hasChildren = item.children && item.children.length > 0;
     const hasGrandchildren = item.grandchildren && item.grandchildren.length > 0;
 
+    const linkProps = {
+      href: getItemHref(item.item),
+      onClick: () => setIsOpen(false),
+    };
+
     if (level === 0) {
       return (
         <Collapsible
@@ -39,7 +36,13 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
           onOpenChange={() => toggleItem(item.navigationTitle)}
         >
           <CollapsibleTrigger className="flex w-full items-center justify-between text-lg font-medium">
-            {item.navigationTitle}
+            {hasChildren ? (
+              <span>{item.navigationTitle}</span>
+            ) : (
+              <a {...linkProps} className="w-full text-left">
+                {item.navigationTitle}
+              </a>
+            )}
             {hasChildren && (
               <ChevronDown
                 className={cn('h-4 w-4 transition-transform', openItems[item.navigationTitle] && 'rotate-180')}
@@ -62,25 +65,32 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
             onOpenChange={() => toggleItem(item.navigationTitle)}
           >
             <CollapsibleTrigger className="flex w-full items-center justify-between text-base font-medium pl-4 pr-2">
-              <span>{item.navigationTitle}</span>
+              <a {...linkProps} className="w-full text-left">
+                {item.navigationTitle}
+              </a>
               <ChevronDown
                 className={cn('h-4 w-4 transition-transform', openItems[item.navigationTitle] && 'rotate-180')}
               />
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-2 space-y-2 pl-8">
               {item.grandchildren?.map((grandchild) => (
-                <div key={grandchild.navigationTitle} className="text-sm">
+                <a
+                  key={grandchild.navigationTitle}
+                  href={getItemHref(grandchild.item)}
+                  onClick={() => setIsOpen(false)}
+                  className="block text-sm"
+                >
                   {grandchild.navigationTitle}
-                </div>
+                </a>
               ))}
             </CollapsibleContent>
           </Collapsible>
         );
       } else {
         return (
-          <div key={item.navigationTitle} className="text-base font-medium pl-4">
+          <a {...linkProps} key={item.navigationTitle} className="block text-base font-medium pl-4">
             {item.navigationTitle}
-          </div>
+          </a>
         );
       }
     }

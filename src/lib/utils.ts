@@ -1,8 +1,9 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import type { MenuItems } from '@/types';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 export const getBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
@@ -24,4 +25,17 @@ export function extractImageUrls(body: string): { src: string; alt: string }[] {
     const [_, alt, src] = match.match(/\[(.*?)\]\((.*?\.(?:jpg|png))\)/) || [];
     return { alt, src };
   });
+}
+
+export function getItemHref(item: MenuItems[number]['item']) {
+  switch (item.discriminant) {
+    case 'page':
+      return `/${item.value}`;
+    case 'post':
+      return `/posts/${item.value}`;
+    case 'glasstype':
+      return `/glasstyper/${item.value}`;
+    case 'custom':
+      return `/${item.value.toLowerCase().replace(/\s+/g, '-')}`;
+  }
 }

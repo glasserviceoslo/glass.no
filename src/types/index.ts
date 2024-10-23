@@ -16,3 +16,12 @@ export interface FileWithPreview extends FileWithPath {
   preview: string;
   base64: string;
 }
+
+export type MenuItem = {
+  item: { discriminant: 'page' | 'post' | 'glasstype' | 'custom'; value: string };
+  navigationTitle: string;
+  children?: MenuItem[];
+  grandchildren?: MenuItem[];
+};
+
+export type MenuItems = MenuItem[];
