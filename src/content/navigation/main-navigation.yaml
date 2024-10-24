@@ -16,9 +16,8 @@ menuItems:
         navigationTitle: Vindu
         grandchildren:
           - item:
-              discriminant: glasstype
-              value: isolerglass
-            navigationTitle: Isolerglass
+              discriminant: page
+            navigationTitle: Bytte vindu
       - item:
           discriminant: page
           value: velux-takvinduer
