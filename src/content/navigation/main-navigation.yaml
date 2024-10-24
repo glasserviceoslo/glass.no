@@ -14,7 +14,11 @@ menuItems:
           discriminant: page
           value: vinduer
         navigationTitle: Vindu
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: custom
+              value: bytte vindu
+            navigationTitle: bytte vindu
       - item:
           discriminant: page
           value: velux-takvinduer
