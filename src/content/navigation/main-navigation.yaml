@@ -16,8 +16,8 @@ menuItems:
         navigationTitle: Vindu
         grandchildren:
           - item:
-              discriminant: custom
-              value: bytte vindu
+              discriminant: page
+              value: bytte-vindu
             navigationTitle: bytte vindu
       - item:
           discriminant: page
