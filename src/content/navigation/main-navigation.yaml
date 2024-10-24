@@ -19,6 +19,10 @@ menuItems:
               discriminant: page
               value: bytte-vindu
             navigationTitle: bytte vindu
+          - item:
+              discriminant: page
+              value: bytte-glass-i-vindu
+            navigationTitle: bytte glass i vindu
       - item:
           discriminant: page
           value: velux-takvinduer
