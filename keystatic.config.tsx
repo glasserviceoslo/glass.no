@@ -109,6 +109,42 @@ const featuredMedia = fields.conditional(
   },
 );
 
+const redirectStatusCode = fields.integer({
+  label: 'Code',
+  description: 'A status code for redirect (301, 302, 303 etc)',
+  defaultValue: 301,
+  validation: { isRequired: true, min: 300, max: 308 },
+});
+
+const redirect = fields.conditional(
+  fields.select({
+    label: 'Redirect',
+    description: 'Option to redirect to another page/post',
+    options: [
+      { label: 'Do not redirect', value: 'none' },
+      { label: 'Page', value: 'pages' },
+      { label: 'Post', value: 'posts' },
+      { label: 'Glass Type', value: 'glasstyper' },
+    ],
+    defaultValue: 'none',
+  }),
+  {
+    none: fields.empty(),
+    pages: fields.object({
+      redirectTo: fields.relationship({ label: 'Select a page from the list:', collection: 'pages' }),
+      statusCode: redirectStatusCode,
+    }),
+    posts: fields.object({
+      redirectTo: fields.relationship({ label: 'Select a post from the list:', collection: 'posts' }),
+      statusCode: redirectStatusCode,
+    }),
+    glasstyper: fields.object({
+      redirectTo: fields.relationship({ label: 'Select a glasstype from the list:', collection: 'glasstypes' }),
+      statusCode: redirectStatusCode,
+    }),
+  },
+);
+
 const menuItemField = fields.conditional(
   fields.select({
     label: 'Item Type',
@@ -191,6 +227,73 @@ const storage = import.meta.env.DEV
       },
     };
 
+const sharedSchema = {
+  title: fields.slug({
+    name: {
+      label: 'Title',
+      description: 'The title of the post',
+      validation: { isRequired: true, length: { min: 20 } },
+    },
+    slug: {
+      label: 'SEO-friendly slug',
+      description: 'This will define the url/link for the post',
+    },
+  }),
+  heading: fields.text({
+    label: 'Title',
+    description: 'The title of the post',
+    validation: { isRequired: true },
+  }),
+  featuredMedia,
+  metaDescription: fields.text({
+    label: 'Meta Description',
+    description: 'Description for search engine optimization',
+  }),
+  seoKeyphrase: fields.text({
+    label: 'Keyphrase',
+    description: 'Keyphrase for search engine optimization',
+  }),
+  seoKeywords: fields.text({
+    label: 'Keywords',
+    description: 'Comma separated list of keywords',
+  }),
+  redirect,
+  publishedAt: fields.date({
+    label: 'Published at',
+    defaultValue: { kind: 'today' },
+  }),
+  updatedAt: fields.date({
+    label: 'Last updated',
+    defaultValue: { kind: 'today' },
+  }),
+} satisfies ContentComponent['schema'];
+
+// Function to create a collection with shared properties
+const createCollection = (name: string, label: string, schemaItems?: ContentComponent['schema']) =>
+  collection({
+    columns: ['title', 'updatedAt'],
+    entryLayout: 'content',
+    previewUrl: `/preview/start?branch={branch}&to/${name}/{slug}`,
+    label,
+    slugField: 'title',
+    path: `src/content/${name}/*`,
+    format: { contentField: 'content' },
+    schema: {
+      ...sharedSchema,
+      ...schemaItems,
+      content: fields.mdx({
+        label: 'Rich Text',
+        components,
+        options: {
+          image: {
+            directory: `src/assets/images/${name}`,
+            publicPath: `@/assets/images/${name}/`,
+          },
+        },
+      }),
+    },
+  });
+
 export default config({
   storage,
   ui: {
@@ -208,179 +311,9 @@ export default config({
     },
   },
   collections: {
-    pages: collection({
-      columns: ['title', 'updatedAt'],
-      entryLayout: 'content',
-      previewUrl: '/preview/start?branch={branch}&to=/produkter/{slug}',
-      label: 'Pages',
-      slugField: 'title',
-      path: 'src/content/pages/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({
-          name: {
-            label: 'Title',
-            description: 'The title of the post',
-            validation: { isRequired: true },
-          },
-          slug: {
-            label: 'SEO-friendly slug',
-            description: 'This will define the file/folder name for this entry',
-          },
-        }),
-        featuredMedia,
-        description: fields.text({
-          label: 'Description',
-          description: 'Description for search engine optimization',
-        }),
-        seoKeyphrase: fields.text({
-          label: 'Keyphrase',
-          description: 'Keyphrase for search engine optimization',
-        }),
-        seoKeywords: fields.text({
-          label: 'Keywords',
-          description: 'Comma separated list of keywords',
-        }),
-        navigationTitle: fields.text({
-          label: 'Navigation title',
-          description: 'Title to use in navigation menu (optional)',
-        }),
-        publishedAt: fields.date({
-          label: 'Published at',
-          defaultValue: { kind: 'today' },
-        }),
-        updatedAt: fields.date({
-          label: 'Last updated',
-          defaultValue: { kind: 'today' },
-        }),
-        content: fields.mdx({
-          label: 'Rich Text',
-          components,
-          options: {
-            image: {
-              directory: 'src/assets/images/pages',
-              publicPath: '@/assets/images/pages/',
-            },
-          },
-        }),
-      },
-    }),
-
-    posts: collection({
-      columns: ['title', 'updatedAt'],
-      entryLayout: 'content',
-      previewUrl: '/preview/start?branch={branch}&to=/posts/{slug}',
-      label: 'Posts',
-      slugField: 'title',
-      path: 'src/content/posts/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({
-          name: {
-            label: 'Title',
-            description: 'The title of the post',
-            validation: { isRequired: true },
-          },
-          slug: {
-            label: 'SEO-friendly slug',
-            description: 'This will define the file/folder name for this entry',
-          },
-        }),
-        featuredMedia,
-        description: fields.text({
-          label: 'Description',
-          description: 'Description for search engine optimization',
-        }),
-        seoKeyphrase: fields.text({
-          label: 'Keyphrase',
-          description: 'Keyphrase for search engine optimization',
-        }),
-        seoKeywords: fields.text({
-          label: 'Keywords',
-          description: 'Comma separated list of keywords',
-        }),
-        navigationTitle: fields.text({
-          label: 'Navigation title',
-          description: 'Title to use in navigation menu (optional)',
-        }),
-        publishedAt: fields.date({
-          label: 'Published at',
-          defaultValue: { kind: 'today' },
-        }),
-        updatedAt: fields.date({
-          label: 'Last updated',
-          defaultValue: { kind: 'today' },
-        }),
-        content: fields.mdx({
-          label: 'Rich Text',
-          components,
-          options: {
-            image: {
-              directory: 'src/assets/images/posts',
-              publicPath: '@/assets/images/posts/',
-            },
-          },
-        }),
-      },
-    }),
-
-    glasstypes: collection({
-      columns: ['title', 'updatedAt'],
-      entryLayout: 'content',
-      previewUrl: '/preview/start?branch={branch}&to=/glasstypes/{slug}',
-      label: 'Glass types',
-      slugField: 'title',
-      path: 'src/content/glasstypes/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({
-          name: {
-            label: 'Title',
-            description: 'The title of the post',
-            validation: { isRequired: true },
-          },
-          slug: {
-            label: 'SEO-friendly slug',
-            description: 'This will define the file/folder name for this entry',
-          },
-        }),
-        featuredMedia,
-        description: fields.text({
-          label: 'Description',
-          description: 'Description for search engine optimization',
-        }),
-        seoKeyphrase: fields.text({
-          label: 'Keyphrase',
-          description: 'Keyphrase for search engine optimization',
-        }),
-        seoKeywords: fields.text({
-          label: 'Keywords',
-          description: 'Comma separated list of keywords',
-        }),
-        navigationTitle: fields.text({
-          label: 'Navigation title',
-          description: 'Title to use in navigation menu (optional)',
-        }),
-        publishedAt: fields.date({
-          label: 'Published at',
-          defaultValue: { kind: 'today' },
-        }),
-        updatedAt: fields.date({
-          label: 'Last updated',
-          defaultValue: { kind: 'today' },
-        }),
-        content: fields.mdx({
-          label: 'Rich Text',
-          components,
-          options: {
-            image: {
-              directory: 'src/assets/images/glasstypes',
-              publicPath: '@/assets/images/glasstypes/',
-            },
-          },
-        }),
-      },
-    }),
+    pages: createCollection('pages', 'Pages'),
+    posts: createCollection('posts', 'Posts'),
+    glasstypes: createCollection('glasstypes', 'Glass types'),
     navigation,
     // media: collection({
     //   label: "Media",
