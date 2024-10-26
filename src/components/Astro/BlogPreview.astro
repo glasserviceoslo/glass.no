@@ -10,7 +10,7 @@ export interface Props {
 const { post, path } = Astro.props;
 
 const getExcerpt = async () => {
-  if (!post.data.description) {
+  if (!post.data.metaDescription) {
     const postContent = post.body
       .replace(/^\s*$(?:\r\n?|\n)/gm, '')
       .split('\n')
@@ -55,7 +55,7 @@ const imageSrc =
       {post.data.title}
     </h3>
     <p class="mb-8 mt-6 text-gray-600 dark:text-gray-300">
-      {post.data.description ? <p>{post.data.description}</p> : getExcerpt()}
+      {post.data.metaDescription ? <p>{post.data.metaDescription}</p> : getExcerpt()}
     </p>
     <a class="inline-block" href={`/${path}/${post.slug}`}>
       <span class="text-info dark:text-blue-300">Les mer</span>
