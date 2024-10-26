@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Post.astro';
 import BlogPost from '../../components/Astro/BlogPost.astro';
 import { getCollection } from 'astro:content';
+import type { SeoProps } from '@/components/Astro/BaseHead.astro';
 
 export async function getStaticPaths() {
   const glasstypes = await getCollection('glasstypes');
@@ -13,9 +14,15 @@ export async function getStaticPaths() {
 
 const { glasstype } = Astro.props;
 
-const seo = {
+const redirect = glasstype.data.redirect;
+const shouldRedirect = redirect && redirect.discriminant !== 'none';
+if (shouldRedirect) {
+  return Astro.redirect(`/${redirect.discriminant}/${redirect.value.redirectTo}`, redirect.value.statusCode);
+}
+
+const seo: SeoProps = {
   title: glasstype.data.title,
-  description: glasstype.data.description || '',
+  metaDescription: glasstype.data.metaDescription || '',
   keywords: glasstype.data.seoKeywords || '',
 };
 ---

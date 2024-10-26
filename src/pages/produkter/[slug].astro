@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Post.astro';
 import BlogPost from '@/components/Astro/BlogPost.astro';
 import { getCollection } from 'astro:content';
+import type { SeoProps } from '@/components/Astro/BaseHead.astro';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -13,9 +14,15 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 
-const seo = {
+const redirect = page.data.redirect;
+const shouldRedirect = redirect && redirect.discriminant !== 'none';
+if (shouldRedirect) {
+  return Astro.redirect(`/${redirect.discriminant}/${redirect.value.redirectTo}`, redirect.value.statusCode);
+}
+
+const seo: SeoProps = {
   title: page.data.title,
-  description: page.data.description || '',
+  metaDescription: page.data.metaDescription || '',
   keywords: page.data.seoKeywords || '',
 };
 ---

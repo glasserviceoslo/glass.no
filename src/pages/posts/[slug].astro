@@ -1,4 +1,5 @@
 ---
+import type { SeoProps } from '@/components/Astro/BaseHead.astro';
 import BlogPost from '../../components/Astro/BlogPost.astro';
 import Layout from '../../layouts/Post.astro';
 import { getCollection } from 'astro:content';
@@ -15,9 +16,15 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const seo = {
+const redirect = post?.data.redirect;
+const shouldRedirect = redirect && redirect.discriminant !== 'none';
+if (shouldRedirect) {
+  return Astro.redirect(`/${redirect.discriminant}/${redirect.value.redirectTo}`, redirect.value.statusCode);
+}
+
+const seo: SeoProps = {
   title: post.data.title,
-  description: post.data.description || '',
+  metaDescription: post.data.metaDescription || '',
   keywords: post.data.seoKeywords || '',
   image: post.data.featuredMedia?.discriminant === 'image' ? post.data.featuredMedia?.value.asset ?? '' : '',
 };

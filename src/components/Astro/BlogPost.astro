@@ -33,7 +33,7 @@ const { Content } = await post.render();
   }
   <header class="mb-4 flex flex-col items-center justify-center pt-2 text-center md:mb-6">
     <h1 class="text-2xl font-bold leading-tight tracking-normal md:pr-6 md:text-4xl">
-      {post.data.title}
+      {post.data.heading ?? post.data.title}
     </h1>
     <h4
       class="mt-2 text-sm md:pl-6 md:text-left [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200"

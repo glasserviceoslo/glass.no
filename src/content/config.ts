@@ -27,13 +27,38 @@ const getFeaturedMediaSchema = (image: ImageFunction) =>
     ])
     .default({ discriminant: 'none', value: null });
 
+const redirectStatusCode = z.union([
+  z.literal(300),
+  z.literal(301),
+  z.literal(302),
+  z.literal(303),
+  z.literal(304),
+  z.literal(305),
+  z.literal(306),
+  z.literal(307),
+  z.literal(308),
+]);
+
+const redirectValue = z.object({ redirectTo: z.string(), statusCode: redirectStatusCode });
+
+const redirectSchema = z
+  .discriminatedUnion('discriminant', [
+    z.object({ discriminant: z.literal('none'), value: z.null().optional() }),
+    z.object({ discriminant: z.literal('pages'), value: redirectValue }),
+    z.object({ discriminant: z.literal('posts'), value: redirectValue }),
+    z.object({ discriminant: z.literal('glasstyper'), value: redirectValue }),
+  ])
+  .default({ discriminant: 'none', value: null });
+
 const baseContentSchema = ({ image }: { image: ImageFunction }) =>
   z.object({
     title: z.string().min(1, 'Title is required'),
+    heading: z.string().min(1, 'Heading is required'),
     featuredMedia: getFeaturedMediaSchema(image),
-    description: z.string().optional(),
+    metaDescription: z.string().optional(),
     seoKeyphrase: z.string().optional().nullable(),
     seoKeywords: z.string().optional().nullable(),
+    redirect: redirectSchema,
     publishedAt: z.date().default(() => new Date()),
     updatedAt: z.date().default(() => new Date()),
     content: z.string().optional(),
