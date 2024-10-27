@@ -40,12 +40,12 @@ export function getItemHref(item: MenuItems[number]['item']) {
   }
 }
 
-export async function getExcerpt(content: string) {
+export function getExcerpt(content: string, length = 100) {
   const postContent = content
     .replace(/^\s*$(?:\r\n?|\n)/gm, '')
     .split('\n')
     .filter((line) => !line.startsWith('#') && !line.startsWith('['))
     .join(' ');
 
-  return `${postContent.substring(0, 100).trim()}...`;
+  return `${postContent.substring(0, length).trim()}...`;
 }

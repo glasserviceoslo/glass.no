@@ -4,7 +4,7 @@ import settings from '@/data/settings';
 import type { ImageObject } from 'src/types';
 import { getEntry } from 'astro:content';
 import { extractImageUrls } from '@/lib/utils';
-import { ViewTransitions } from 'astro:transitions';
+
 export interface SeoProps {
   title?: string;
   metaDescription?: string;
@@ -108,4 +108,4 @@ const imageUrls = extractImageUrls(homePage.body);
   gtag('config', 'G-BQJLEM0TPE');
 </script>
 
-<ViewTransitions />
+<!-- <ViewTransitions /> -->
