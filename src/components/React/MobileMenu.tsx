@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
 import { cn, getItemHref } from '@/lib/utils';
 import type { MenuItem, MenuItems } from '@/types';
+import PulsatingButton from '../ui/pulsating-button';
 
 interface MobileMenuProps {
   menuItems: MenuItems;
@@ -31,7 +32,7 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
     if (level === 0) {
       return (
         <Collapsible
-          key={item.navigationTitle}
+          key={crypto.randomUUID()}
           open={openItems[item.navigationTitle]}
           onOpenChange={() => toggleItem(item.navigationTitle)}
         >
@@ -60,7 +61,7 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
       if (hasGrandchildren) {
         return (
           <Collapsible
-            key={item.navigationTitle}
+            key={crypto.randomUUID()}
             open={openItems[item.navigationTitle]}
             onOpenChange={() => toggleItem(item.navigationTitle)}
           >
@@ -75,7 +76,7 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
             <CollapsibleContent className="mt-2 space-y-2 pl-8">
               {item.grandchildren?.map((grandchild) => (
                 <a
-                  key={grandchild.navigationTitle}
+                  key={crypto.randomUUID()}
                   href={getItemHref(grandchild.item)}
                   onClick={() => setIsOpen(false)}
                   className="block text-sm"
@@ -88,7 +89,7 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
         );
       } else {
         return (
-          <a {...linkProps} key={item.navigationTitle} className="block text-base font-medium pl-4">
+          <a {...linkProps} key={crypto.randomUUID()} className="block text-base font-medium pl-4">
             {item.navigationTitle}
           </a>
         );
@@ -105,7 +106,12 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-        <nav className="flex flex-col space-y-4">{menuItems.map((item) => renderMenuItem(item))}</nav>
+        <nav className="flex flex-col space-y-4">
+          {menuItems.map((item) => renderMenuItem(item))}
+          {/* <PulsatingButton key={crypto.randomUUID()} data-cal-link="glassno/befaring">
+            <span className="dark:text-white">Book Befaring</span>
+          </PulsatingButton> */}
+        </nav>
       </SheetContent>
     </Sheet>
   );
