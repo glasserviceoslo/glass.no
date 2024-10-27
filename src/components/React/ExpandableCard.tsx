@@ -3,13 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useOutsideClick } from '@/hooks/react/use-outside-click';
 import { Button, buttonVariants } from '../ui/button';
 import { cn, getExcerpt } from '@/lib/utils';
-
-interface ParsedContent {
-  title: string;
-  image: string;
-  imageAlt: string;
-  text: string;
-}
+import type { ParsedContent } from '@/types';
 
 interface Props {
   content: ParsedContent;
@@ -88,15 +82,17 @@ export function ExpandableCard({ content }: Props) {
                     >
                       {active.title}
                     </motion.h3>
-                    <motion.button
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      data-cal-link="glassno/befaring"
-                      className={cn(`${buttonVariants({ variant: 'default' })} dark:text-white ml-auto`)}
-                    >
-                      Bestill Befaring
-                    </motion.button>
+                    {content.anchorText ? (
+                      <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        data-cal-link="glassno/befaring"
+                        className={cn(`${buttonVariants({ variant: 'default' })} dark:text-white ml-auto`)}
+                      >
+                        {content.anchorText}
+                      </motion.button>
+                    ) : null}
                   </div>
                 </div>
                 <div className="pt-4 relative px-4">

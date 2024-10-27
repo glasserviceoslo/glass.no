@@ -6,7 +6,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react';
 import { cn, getItemHref } from '@/lib/utils';
 import type { MenuItem, MenuItems } from '@/types';
-import PulsatingButton from '../ui/pulsating-button';
 
 interface MobileMenuProps {
   menuItems: MenuItems;
@@ -109,7 +108,7 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
         <nav className="flex flex-col space-y-4">
           {menuItems.map((item) => renderMenuItem(item))}
           <a
-            href="/booking"
+            href="/befaring"
             className={cn(
               'relative text-center cursor-pointer flex justify-center items-center rounded-lg text-white dark:text-black bg-blue-500 dark:bg-blue-500 px-4 py-2',
             )}

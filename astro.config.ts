@@ -47,6 +47,9 @@ const glasstypeRoutes = getRoutes('glasstypes', siteUrl);
 // https://astro.build/config
 export default defineConfig({
   site: siteUrl,
+  redirects: {
+    '/booking': '/befaring',
+  },
   vite: {
     build: {
       rollupOptions: {

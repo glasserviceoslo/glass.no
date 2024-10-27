@@ -1,28 +1,10 @@
 ---
 import { ExpandableCard } from '../React/ExpandableCard';
-import { parse } from 'node-html-parser/dist';
+import { parseContainerContent } from '@/lib/utils';
 
 const { crop } = Astro.props;
-const title = 'Example';
-const image = '/assets/placeholder.jpg';
-const cardId = crypto.randomUUID();
 
 const content = await Astro.slots.render('default');
-
-function parseContainerContent(htmlContent: string) {
-  const root = parse(htmlContent);
-  const title = root.querySelector('h3')?.textContent?.trim() || '';
-  const img = root.querySelector('img');
-  const image = img?.getAttribute('src') || '/assets/placeholder.jpg';
-  const imageAlt = img?.getAttribute('alt') || title;
-  const textNodes = root.querySelectorAll('p');
-  const text = textNodes
-    .map((node) => node.textContent)
-    .join(' ')
-    .trim();
-
-  return { title, image, imageAlt, text };
-}
 
 const parsedContent = parseContainerContent(content);
 ---
