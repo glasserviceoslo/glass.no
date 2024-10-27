@@ -108,9 +108,21 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
       <SheetContent side="right" className="w-[300px] sm:w-[400px]">
         <nav className="flex flex-col space-y-4">
           {menuItems.map((item) => renderMenuItem(item))}
-          {/* <PulsatingButton data-cal-link="glassno/befaring">
-            <span>Book Befaring</span>
-          </PulsatingButton> */}
+          <a
+            href="/booking"
+            className={cn(
+              'relative text-center cursor-pointer flex justify-center items-center rounded-lg text-white dark:text-black bg-blue-500 dark:bg-blue-500 px-4 py-2',
+            )}
+            style={
+              {
+                '--pulse-color': '#0096ff',
+                '--duration': '1.5s',
+              } as React.CSSProperties
+            }
+          >
+            <div className="relative z-10 dark:text-white">Book Befaring</div>
+            <div className="absolute top-1/2 left-1/2 size-full rounded-lg bg-inherit animate-pulse -translate-x-1/2 -translate-y-1/2"></div>
+          </a>
         </nav>
       </SheetContent>
     </Sheet>
