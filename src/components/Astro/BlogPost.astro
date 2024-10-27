@@ -6,6 +6,8 @@ import ArticleImage from './ArticleImage.astro';
 import ArticleLink from './ArticleLink.astro';
 import FAQ from './FAQ.astro';
 import Container from './Container.astro';
+import WordPullUp from '../ui/word-pull-up';
+import TracingBeamWrapper from './TracingBeamWrapper.astro';
 
 export interface Props {
   post: CollectionEntry<'pages' | 'posts' | 'glasstypes'>;
@@ -16,31 +18,48 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<article class="h-full min-h-[calc(100vh-289px)]">
-  {
-    post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset && (
-      <div class="h-[30vw]">
-        <Image
-          width={2000}
-          height={800}
-          alt={post.data.featuredMedia?.value?.alt || ''}
-          class="max-h-full w-full object-cover"
-          loading="lazy"
-          src={post.data.featuredMedia?.value.asset || ''}
-        />
-      </div>
-    )
-  }
-  <header class="mb-4 flex flex-col items-center justify-center pt-2 text-center md:mb-6">
-    <h1 class="text-2xl font-bold leading-tight tracking-normal md:pr-6 md:text-4xl">
-      {post.data.heading ?? post.data.title}
-    </h1>
-    <h4
-      class="mt-2 text-sm md:pl-6 md:text-left [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200"
-    >
-    </h4>
-  </header>
-  <PostBody>
-    <Content components={{ img: ArticleImage, a: ArticleLink, FAQ, Container }} />
-  </PostBody>
+<article class="group min-h-[calc(100vh-289px)]">
+  <div class="relative h-[70vh] min-h-[500px] w-full mb-12">
+    {
+      post.data.featuredMedia?.discriminant === 'image' && post.data.featuredMedia?.value.asset ? (
+        <>
+          <Image
+            width={2000}
+            height={800}
+            alt={post.data.featuredMedia?.value?.alt || ''}
+            class="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+            src={post.data.featuredMedia?.value.asset || ''}
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30 transition-opacity duration-300 group-hover:opacity-90" />
+          <header class="relative h-full flex flex-col items-center justify-center px-4">
+            <WordPullUp
+              client:visible
+              className="max-w-5xl mx-auto text-center text-4xl font-bold tracking-[-0.02em] text-white md:text-7xl leading-[3rem] md:leading-[6rem]"
+              words={post.data.heading ?? post.data.title}
+            />
+            <h4 class="mt-4 text-sm text-white/80 md:text-base [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200">
+              <slot name="meta" />
+            </h4>
+          </header>
+        </>
+      ) : (
+        <header class="h-full flex flex-col items-center justify-center px-4 bg-gradient-to-b from-gray-900 to-gray-800">
+          <WordPullUp
+            client:visible
+            className="max-w-5xl mx-auto text-center text-4xl font-bold tracking-[-0.02em] text-white md:text-7xl leading-[3rem] md:leading-[6rem]"
+            words={post.data.heading ?? post.data.title}
+          />
+          <h4 class="mt-4 text-sm text-white/80 md:text-base [&_a:hover]:text-success [&_a]:underline [&_a]:transition-colors [&_a]:duration-200">
+            <slot name="meta" />
+          </h4>
+        </header>
+      )
+    }
+  </div>
+  <TracingBeamWrapper>
+    <PostBody>
+      <Content components={{ img: ArticleImage, a: ArticleLink, FAQ, Container }} />
+    </PostBody>
+  </TracingBeamWrapper>
 </article>
