@@ -1,4 +1,5 @@
 ---
+import { getExcerpt } from '@/lib/utils';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
@@ -9,17 +10,7 @@ export interface Props {
 
 const { post, path } = Astro.props;
 
-const getExcerpt = async () => {
-  if (!post.data.metaDescription) {
-    const postContent = post.body
-      .replace(/^\s*$(?:\r\n?|\n)/gm, '')
-      .split('\n')
-      .filter((line) => !line.startsWith('#') && !line.startsWith('['))
-      .join(' ');
-
-    return `${postContent.substring(0, 100).trim()}...`;
-  }
-};
+const excerpt = getExcerpt(post.data.metaDescription || post.body);
 
 const imageSrc =
   post?.data.featuredMedia?.discriminant === 'image' ? post?.data.featuredMedia?.value?.asset : undefined;
@@ -55,7 +46,7 @@ const imageSrc =
       {post.data.title}
     </h3>
     <p class="mb-8 mt-6 text-gray-600 dark:text-gray-300">
-      {post.data.metaDescription ? <p>{post.data.metaDescription}</p> : getExcerpt()}
+      {excerpt}
     </p>
     <a class="inline-block" href={`/${path}/${post.slug}`}>
       <span class="text-info dark:text-blue-300">Les mer</span>

@@ -39,3 +39,13 @@ export function getItemHref(item: MenuItems[number]['item']) {
       return `/${item.value.toLowerCase().replace(/\s+/g, '-')}`;
   }
 }
+
+export async function getExcerpt(content: string) {
+  const postContent = content
+    .replace(/^\s*$(?:\r\n?|\n)/gm, '')
+    .split('\n')
+    .filter((line) => !line.startsWith('#') && !line.startsWith('['))
+    .join(' ');
+
+  return `${postContent.substring(0, 100).trim()}...`;
+}

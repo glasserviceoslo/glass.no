@@ -1,5 +1,12 @@
 ---
+import ContainerCard from './ContainerCard.astro';
+
 const { crop } = Astro.props;
+const title = 'Example';
+const image = '/assets/placeholder.jpg';
+const cardId = crypto.randomUUID();
+
+const content = await Astro.slots.render('default');
 ---
 
 {
@@ -8,14 +15,15 @@ const { crop } = Astro.props;
       <slot />
     </div>
   ) : crop === 'normal' ? (
-    <div
-      class={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02]`}
-    >
-      <div class="p-6">
-        <slot />
-      </div>
-    </div>
-  ) : crop === 'narrow' ? (
+    <ContainerCard content={content} />
+  ) : // <div
+  //   class={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02]`}
+  // >
+  //   <div class="p-6">
+  //     <slot />
+  //   </div>
+  // </div>
+  crop === 'narrow' ? (
     <div class={`mx-auto max-w-3xl px-4 sm:px-6 lg:px-8`}>
       <slot />
     </div>
