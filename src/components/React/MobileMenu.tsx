@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -108,8 +108,8 @@ export function MobileMenu({ menuItems }: MobileMenuProps) {
       <SheetContent side="right" className="w-[300px] sm:w-[400px]">
         <nav className="flex flex-col space-y-4">
           {menuItems.map((item) => renderMenuItem(item))}
-          {/* <PulsatingButton key={crypto.randomUUID()} data-cal-link="glassno/befaring">
-            <span className="dark:text-white">Book Befaring</span>
+          {/* <PulsatingButton data-cal-link="glassno/befaring">
+            <span>Book Befaring</span>
           </PulsatingButton> */}
         </nav>
       </SheetContent>

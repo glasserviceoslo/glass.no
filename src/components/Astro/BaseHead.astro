@@ -11,6 +11,7 @@ export interface SeoProps {
   keywords?: string;
   canonicalURL?: URL | string;
   image?: string | ImageObject;
+  preloadCarouselImages?: boolean;
 }
 
 const title = Astro.props.title || settings.title;
@@ -37,7 +38,7 @@ const imageUrls = extractImageUrls(homePage.body);
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Preload images -->
-{imageUrls.map((url) => <link rel="preload" href={url.src} as="image" />)}
+{Astro.props.preloadCarouselImages && imageUrls.map((url) => <link rel="preload" href={url.src} as="image" />)}
 
 <!-- Canonical -->
 <link rel="canonical" href={canonicalURL} />

@@ -3,11 +3,12 @@ import { motion, useTransform, useScroll, useSpring } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface TracingBeamProps {
-  contentHtml: string;
+  contentHtml?: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
-export const TracingBeam = ({ contentHtml, className }: TracingBeamProps) => {
+export const TracingBeam = ({ contentHtml, className, children }: TracingBeamProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -18,9 +19,20 @@ export const TracingBeam = ({ contentHtml, className }: TracingBeamProps) => {
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setSvgHeight(contentRef.current.offsetHeight - 100);
-    }
+    const updateHeight = () => {
+      if (contentRef.current) {
+        setSvgHeight(contentRef.current.offsetHeight - 100);
+      }
+    };
+
+    updateHeight();
+    const timeout = setTimeout(updateHeight, 100);
+    window.addEventListener('resize', updateHeight);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', updateHeight);
+    };
   }, [contentHtml]);
 
   const y1 = useSpring(useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]), {
@@ -88,7 +100,8 @@ export const TracingBeam = ({ contentHtml, className }: TracingBeamProps) => {
           </defs>
         </svg>
       </div>
-      <div ref={contentRef} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      {contentHtml ? <div ref={contentRef} dangerouslySetInnerHTML={{ __html: contentHtml }} /> : null}
+      {children ? <div ref={contentRef}>{children}</div> : null}
     </motion.div>
   );
 };

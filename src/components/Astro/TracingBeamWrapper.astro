@@ -1,11 +1,9 @@
 ---
 import { TracingBeam } from '../ui/tracing-beam';
-
-const content = await Astro.slots.render('default');
 ---
 
 <div class="relative">
-  <TracingBeam client:only="react" contentHtml={content}>
+  <TracingBeam className="px-6" client:only="react">
     <slot />
   </TracingBeam>
 </div>

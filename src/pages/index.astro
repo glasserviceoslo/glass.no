@@ -4,17 +4,42 @@ import BookingSection from '../components/Astro/BookingSection.astro';
 import Hero from '../components/Astro/Hero.astro';
 import LatestPosts from '../components/Astro/LatestPosts.astro';
 import { FeaturesSection } from '@/components/React/FeaturesSection';
+import type { SeoProps } from '@/components/Astro/BaseHead.astro';
 
-const seo = {
+const seo: SeoProps = {
   title: 'Glass-Service Svendsen og Sønn AS',
   metaDescription:
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
+  preloadCarouselImages: true,
 };
 ---
 
 <Layout seo={seo}>
-  <Hero />
-  <BookingSection />
-  <FeaturesSection client:visible />
-  <LatestPosts />
+  {/* Container with responsive padding */}
+  {/* Main content wrapper with responsive spacing */}
+  <div class="flex flex-col">
+    {/* Hero Section - Always First */}
+    <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+      <Hero />
+    </div>
+
+    {/* Features Section - Moves down on mobile */}
+    <div
+      class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-3 md:order-2"
+    >
+      <FeaturesSection client:visible />
+    </div>
+
+    {/* Booking Section - Moves down up mobile */}
+    <div
+      class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-2 md:order-3"
+    >
+      <BookingSection />
+    </div>
+
+    {/* Latest Posts - Always Last */}
+    <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-4">
+      <LatestPosts />
+    </div>
+  </div>
 </Layout>
