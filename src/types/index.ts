@@ -34,3 +34,5 @@ export interface ParsedContent {
   href?: string;
   anchorText?: string;
 }
+
+export type Theme = 'dark' | 'light';

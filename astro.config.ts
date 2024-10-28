@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
-import svelte from '@astrojs/svelte';
 import node from '@astrojs/node';
 import mdx from '@astrojs/mdx';
 import keystatic from '@keystatic/astro';
@@ -67,7 +66,6 @@ export default defineConfig({
       },
     }),
     react({ experimentalReactChildren: true }),
-    svelte(),
     mdx(),
     keystatic(),
     sitemap({

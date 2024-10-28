@@ -4,6 +4,7 @@ import { useOutsideClick } from '@/hooks/react/use-outside-click';
 import { Button, buttonVariants } from '../ui/button';
 import { cn, getExcerpt } from '@/lib/utils';
 import type { ParsedContent } from '@/types';
+import { useCalTheme } from '@/hooks/react/use-update-cal-theme';
 
 interface Props {
   content: ParsedContent;
@@ -12,6 +13,16 @@ export function ExpandableCard({ content }: Props) {
   const [active, setActive] = useState<ParsedContent | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
+  const { calApi } = useCalTheme();
+
+  useEffect(() => {
+    if (calApi && !calApi.loaded) {
+      calApi('ui', {
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
+    }
+  }, []);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -20,7 +31,7 @@ export function ExpandableCard({ content }: Props) {
       }
     }
 
-    if (active && typeof active === 'object') {
+    if (active) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -30,7 +41,14 @@ export function ExpandableCard({ content }: Props) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [active]);
 
-  useOutsideClick(ref, () => setActive(null));
+  useOutsideClick(ref, (event: MouseEvent) => {
+    const calModalBoxes = document.getElementsByTagName('cal-modal-box');
+    const isCalElement = Array.from(calModalBoxes).includes(event.target as Element);
+
+    if (!isCalElement) {
+      setActive(null);
+    }
+  });
 
   return (
     <>

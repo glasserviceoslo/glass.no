@@ -1,10 +1,10 @@
 ---
 import Logo from './Logo.astro';
 import ThemeToggler from './ThemeToggler.astro';
-import BookBefaring from '../Svelte/BookBefaring.svelte';
 import { getEntry } from 'astro:content';
 import { NavMenu } from '../React/NavMenu';
 import { MobileMenu } from '../React/MobileMenu';
+import { BookBefaring } from '../React/BookBefaring';
 
 const { data: navigation } = await getEntry('navigation', 'main-navigation');
 const menuItems = navigation?.menuItems;
@@ -18,7 +18,7 @@ const menuItems = navigation?.menuItems;
     <Logo />
     <div class="flex items-center gap-2 md:order-2">
       <ThemeToggler />
-      <BookBefaring client:visible />
+      <BookBefaring client:load />
       <MobileMenu client:load menuItems={menuItems} />
     </div>
     <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">

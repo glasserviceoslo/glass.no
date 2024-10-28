@@ -1,10 +1,10 @@
 ---
-import BookingPage from '../components/Svelte/BookingPage.svelte';
+import { BookingPage } from '@/components/React/BookingPage';
 import Layout from '../layouts/Page.astro';
 ---
 
 <Layout>
   <!-- <section class="flex h-[calc(100vh-298px)] items-center justify-center"> -->
-  <BookingPage client:visible />
+  <BookingPage client:only="react" />
   <!-- </section> -->
 </Layout>
