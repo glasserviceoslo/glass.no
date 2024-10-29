@@ -1,5 +1,5 @@
 ---
-"glass.no": patch
+'glass.no': patch
 ---
 
 Update README.md

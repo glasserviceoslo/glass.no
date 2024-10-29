@@ -1,5 +1,5 @@
 ---
-"glass.no": major
+'glass.no': major
 ---
 
 Replace Sanity
