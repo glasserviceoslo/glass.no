@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
 import React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 export const HeroHighlight = ({
   children,
@@ -55,7 +56,25 @@ export const HeroHighlight = ({
   );
 };
 
-export const Highlight = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+const highlightVariants = cva('relative inline-block pb-1 px-1 rounded-lg', {
+  variants: {
+    variant: {
+      default: 'bg-gradient-to-r from-indigo-400 to-purple-400 dark:from-indigo-500 dark:to-purple-500',
+      fluro: 'bg-gradient-to-r from-cyan-200 to-blue-200 dark:from-cyan-700 dark:to-blue-700',
+      minimal: 'bg-yellow-200 dark:bg-yellow-700',
+      brutalist: 'bg-black text-white dark:bg-white dark:text-black border-2 border-black dark:border-white',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+interface HighlightProps extends VariantProps<typeof highlightVariants> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const Highlight: React.FC<HighlightProps> = ({ children, className, variant }) => {
   return (
     <motion.span
       initial={{
@@ -74,10 +93,7 @@ export const Highlight = ({ children, className }: { children: React.ReactNode; 
         backgroundPosition: 'left center',
         display: 'inline',
       }}
-      className={cn(
-        `relative inline-block pb-1 px-1 rounded-lg bg-gradient-to-r from-indigo-400 to-purple-400 dark:from-indigo-500 dark:to-purple-500`,
-        className,
-      )}
+      className={cn(highlightVariants({ variant }), className)}
     >
       {children}
     </motion.span>

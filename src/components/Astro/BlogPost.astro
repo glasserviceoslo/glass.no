@@ -8,6 +8,7 @@ import FAQ from './FAQ.astro';
 import Container from './Container.astro';
 import WordPullUp from '../ui/word-pull-up';
 import TracingBeamWrapper from './TracingBeamWrapper.astro';
+import HighlightWrapper from './HighlightWrapper.astro';
 
 export interface Props {
   post: CollectionEntry<'pages' | 'posts' | 'glasstypes'>;
@@ -59,7 +60,7 @@ const { Content } = await post.render();
   </div>
   <TracingBeamWrapper>
     <PostBody>
-      <Content components={{ img: ArticleImage, a: ArticleLink, FAQ, Container }} />
+      <Content components={{ img: ArticleImage, a: ArticleLink, FAQ, Container, Highlight: HighlightWrapper }} />
     </PostBody>
   </TracingBeamWrapper>
 </article>

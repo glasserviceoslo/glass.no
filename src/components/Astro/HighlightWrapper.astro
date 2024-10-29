@@ -1,0 +1,8 @@
+---
+import { Highlight } from '../ui/hero-highlight';
+const { variant } = Astro.props;
+---
+
+<Highlight client:visible variant={variant}>
+  <slot />
+</Highlight>
