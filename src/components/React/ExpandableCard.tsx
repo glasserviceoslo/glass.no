@@ -58,13 +58,13 @@ export function ExpandableCard({ content }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 h-full w-full z-10"
+            className="fixed inset-0 bg-black/50 h-full w-full z-10"
           />
         )}
       </AnimatePresence>
       <AnimatePresence>
         {active ? (
-          <div className="fixed inset-0  grid place-items-center z-[100]">
+          <div className="fixed inset-0 grid place-items-center z-[100]">
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
@@ -133,7 +133,7 @@ export function ExpandableCard({ content }: Props) {
         layoutId={`card-${content.title}-${id}`}
         key={content.title}
         onClick={() => setActive(content)}
-        className="p-4 flex flex-col  hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+        className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
       >
         <div className="flex gap-4 flex-col  w-full">
           <motion.div layoutId={`image-${content.title}-${id}`}>
