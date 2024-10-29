@@ -1,7 +1,7 @@
 import { FAQ } from '@/components/React/FAQ';
 import { config, fields, collection } from '@keystatic/core';
 import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
-import { Highlighter, CircleHelp, Box } from 'lucide-react';
+import { Highlighter, CircleHelp, Box, Link } from 'lucide-react';
 
 const components: Record<string, ContentComponent> = {
   Container: wrapper({
@@ -60,6 +60,34 @@ const components: Record<string, ContentComponent> = {
     },
     ContentView(props) {
       return <FAQ items={[...props.value.items]} />;
+    },
+  }),
+  InternalLink: wrapper({
+    label: 'Internal Link',
+    icon: <Link size={24} />,
+    schema: {
+      target: fields.conditional(
+        fields.select({
+          label: 'Link Type',
+          options: [
+            { label: 'Page', value: 'page' },
+            { label: 'Post', value: 'post' },
+            { label: 'Glass Type', value: 'glasstype' },
+            { label: 'Custom ', value: 'custom' },
+          ],
+          defaultValue: 'page',
+        }),
+        {
+          page: fields.relationship({ label: 'Select a page', collection: 'pages' }),
+          post: fields.relationship({ label: 'Select a post', collection: 'posts' }),
+          glasstype: fields.relationship({ label: 'Select a glass type', collection: 'glasstypes' }),
+          custom: fields.text({ label: 'Select a custom internal link (Example: "/kontakt")' }),
+        },
+      ),
+      text: fields.text({ label: 'Link Text', validation: { length: { min: 1 } } }),
+    },
+    ContentView(props) {
+      return <a href={`#${props.value.target}`}>{props.value.text}</a>;
     },
   }),
 };

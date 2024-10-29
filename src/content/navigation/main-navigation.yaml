@@ -18,11 +18,11 @@ menuItems:
           - item:
               discriminant: page
               value: bytte-vindu
-            navigationTitle: bytte vindu
+            navigationTitle: Bytte Vindu
           - item:
               discriminant: page
               value: bytte-glass-i-vindu
-            navigationTitle: bytte glass i vindu
+            navigationTitle: Bytte Glass i Vindu
       - item:
           discriminant: page
           value: velux-takvinduer
