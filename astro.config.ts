@@ -47,6 +47,18 @@ export default defineConfig({
   site: siteUrl,
   redirects: {
     '/posts/[slug]': '/[slug]',
+    '/10-mater-a-bruke-smijern-i-ditt-hjem': {
+      status: 301,
+      destination: '/hvordan-bruke-smijernsdører',
+    },
+    '/posts/10-mater-a-bruke-smijern-i-ditt-hjem': {
+      status: 301,
+      destination: '/hvordan-bruke-smijernsdører',
+    },
+    '/hvordan-bruke-smijernsdører-10-tips': {
+      status: 301,
+      destination: '/hvordan-bruke-smijernsdører',
+    },
     '/booking': {
       status: 301,
       destination: '/befaring',
