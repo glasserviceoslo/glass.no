@@ -19,7 +19,7 @@ const posts = collection
   </header>
   <Container>
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => <BlogPreview path="posts" post={post} />)}
+      {posts.map((post) => <BlogPreview post={post} />)}
     </div>
   </Container>
   <div class="flex justify-center">

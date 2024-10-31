@@ -25,9 +25,8 @@ function getRoutes(directory: string, prefix: string = '') {
       if (data.navigationTitle) {
         switch (directory) {
           case 'pages':
-            return `${prefix}/${slug}`;
           case 'posts':
-            return `${prefix}/posts/${slug}`;
+            return `${prefix}/${slug}`;
           case 'glasstypes':
             return `${prefix}/glasstyper/${slug}`;
           default:
@@ -47,7 +46,11 @@ const glasstypeRoutes = getRoutes('glasstypes', siteUrl);
 export default defineConfig({
   site: siteUrl,
   redirects: {
-    '/booking': '/befaring',
+    '/posts/[slug]': '/[slug]',
+    '/booking': {
+      status: 301,
+      destination: '/befaring',
+    },
   },
   vite: {
     build: {

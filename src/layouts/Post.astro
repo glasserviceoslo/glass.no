@@ -1,10 +1,10 @@
 ---
 import Layout from './Page.astro';
-import type { Props as BaseHeadProps } from '../components/Astro/BaseHead.astro';
+import type { SeoProps } from '../components/Astro/BaseHead.astro';
 import ArticleSchema from '../components/Astro/ArticleSchema.astro';
 
 export interface Props {
-  seo?: BaseHeadProps;
+  seo?: SeoProps;
 }
 
 const { seo } = Astro.props as Props;

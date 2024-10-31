@@ -14,12 +14,6 @@ export async function getStaticPaths() {
 
 const { glasstype } = Astro.props;
 
-const redirect = glasstype.data.redirect;
-const shouldRedirect = redirect && redirect.discriminant !== 'none';
-if (shouldRedirect) {
-  return Astro.redirect(`/${redirect.discriminant}/${redirect.value.redirectTo}`, redirect.value.statusCode);
-}
-
 const seo: SeoProps = {
   title: glasstype.data.title,
   metaDescription: glasstype.data.metaDescription || '',

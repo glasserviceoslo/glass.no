@@ -46,7 +46,6 @@ const redirectSchema = z
     z.object({ discriminant: z.literal('none'), value: z.null().optional() }),
     z.object({ discriminant: z.literal('pages'), value: redirectValue }),
     z.object({ discriminant: z.literal('posts'), value: redirectValue }),
-    z.object({ discriminant: z.literal('glasstyper'), value: redirectValue }),
   ])
   .default({ discriminant: 'none', value: null });
 

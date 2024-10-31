@@ -5,10 +5,11 @@ import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
   post: CollectionEntry<'posts'>;
-  path: string;
+  path?: string;
 }
 
-const { post, path } = Astro.props;
+const { post } = Astro.props;
+const href = Astro.props?.path ? `/${Astro.props.path}/${post.slug}` : `/${post.slug}`;
 
 const excerpt = getExcerpt(post.data.metaDescription || post.body);
 
@@ -48,7 +49,7 @@ const imageSrc =
     <p class="mb-8 mt-6 text-gray-600 dark:text-gray-300">
       {excerpt}
     </p>
-    <a class="inline-block" href={`/${path}/${post.slug}`}>
+    <a class="inline-block" href={href}>
       <span class="text-info dark:text-blue-300">Les mer</span>
     </a>
   </div>

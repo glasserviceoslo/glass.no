@@ -31,9 +31,8 @@ export function extractImageUrls(body: string): { src: string; alt: string }[] {
 export function getItemHref(item: MenuItems[number]['item']) {
   switch (item.discriminant) {
     case 'page':
-      return `/${item.value}`;
     case 'post':
-      return `/posts/${item.value}`;
+      return `/${item.value}`;
     case 'glasstype':
       return `/glasstyper/${item.value}`;
     case 'custom':

@@ -5,11 +5,22 @@ import { getCollection } from 'astro:content';
 import type { SeoProps } from '@/components/Astro/BaseHead.astro';
 
 export async function getStaticPaths() {
+  const posts = await getCollection('posts');
   const pages = await getCollection('pages');
-  return pages.map((page) => ({
-    params: { page: page.slug },
+
+  const filteredPosts = posts
+    .filter((post) => !['smijernsdor', 'velux-takvinduer', 'home'].includes(post.slug))
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { page: post },
+    }));
+
+  const filteredPages = pages.map((page) => ({
+    params: { slug: page.slug },
     props: { page },
   }));
+
+  return [...filteredPosts, ...filteredPages];
 }
 
 const { page } = Astro.props;
@@ -17,7 +28,7 @@ const { page } = Astro.props;
 const redirect = page.data.redirect;
 const shouldRedirect = redirect && redirect.discriminant !== 'none';
 if (shouldRedirect) {
-  return Astro.redirect(`/${redirect.discriminant}/${redirect.value.redirectTo}`, redirect.value.statusCode);
+  return Astro.redirect(`/${redirect.value.redirectTo}`, redirect.value.statusCode);
 }
 
 const seo: SeoProps = {

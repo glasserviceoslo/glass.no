@@ -124,7 +124,6 @@ const redirect = fields.conditional(
       { label: 'Do not redirect', value: 'none' },
       { label: 'Page', value: 'pages' },
       { label: 'Post', value: 'posts' },
-      { label: 'Glass Type', value: 'glasstyper' },
     ],
     defaultValue: 'none',
   }),
@@ -136,10 +135,6 @@ const redirect = fields.conditional(
     }),
     posts: fields.object({
       redirectTo: fields.relationship({ label: 'Select a post from the list:', collection: 'posts' }),
-      statusCode: redirectStatusCode,
-    }),
-    glasstyper: fields.object({
-      redirectTo: fields.relationship({ label: 'Select a glasstype from the list:', collection: 'glasstypes' }),
       statusCode: redirectStatusCode,
     }),
   },
@@ -273,7 +268,7 @@ const createCollection = (name: string, label: string, schemaItems?: ContentComp
   collection({
     columns: ['title', 'updatedAt'],
     entryLayout: 'content',
-    previewUrl: `/preview/start?branch={branch}&to/${name}/{slug}`,
+    previewUrl: `/preview/start?branch={branch}&to/{slug}`,
     label,
     slugField: 'title',
     path: `src/content/${name}/*`,
