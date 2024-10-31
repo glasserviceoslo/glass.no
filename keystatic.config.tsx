@@ -70,24 +70,28 @@ const components: Record<string, ContentComponent> = {
         fields.select({
           label: 'Link Type',
           options: [
-            { label: 'Page', value: 'page' },
-            { label: 'Post', value: 'post' },
-            { label: 'Glass Type', value: 'glasstype' },
+            { label: 'Page', value: 'pages' },
+            { label: 'Post', value: 'posts' },
+            { label: 'Glass Type', value: 'glasstyper' },
             { label: 'Custom ', value: 'custom' },
           ],
-          defaultValue: 'page',
+          defaultValue: 'pages',
         }),
         {
-          page: fields.relationship({ label: 'Select a page', collection: 'pages' }),
-          post: fields.relationship({ label: 'Select a post', collection: 'posts' }),
-          glasstype: fields.relationship({ label: 'Select a glass type', collection: 'glasstypes' }),
+          pages: fields.relationship({ label: 'Select a page', collection: 'pages' }),
+          posts: fields.relationship({ label: 'Select a post', collection: 'posts' }),
+          glasstyper: fields.relationship({ label: 'Select a glass type', collection: 'glasstypes' }),
           custom: fields.text({ label: 'Select a custom internal link (Example: "/kontakt")' }),
         },
       ),
-      text: fields.text({ label: 'Link Text', validation: { length: { min: 1 } } }),
     },
     ContentView(props) {
-      return <a href={`#${props.value.target}`}>{props.value.text}</a>;
+      return (
+        <div>
+          <small style={{ fontStyle: 'italic', fontWeight: 'bold' }}>Link Text:</small>
+          <a href={`#${props.value.target}`}>{props.children}</a>
+        </div>
+      );
     },
   }),
 };

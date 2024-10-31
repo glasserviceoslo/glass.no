@@ -12,7 +12,7 @@ import matter from 'gray-matter';
 import sitemap from '@astrojs/sitemap';
 
 const contentDir = join(import.meta.dirname, 'src', 'content');
-const siteUrl = 'https://www.glass.no';
+const siteUrl = import.meta.env.DEV ? 'http://localhost:5001' : 'https://www.glass.no';
 
 function getRoutes(directory: string, prefix: string = '') {
   return readdirSync(join(contentDir, directory))
