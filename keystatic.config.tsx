@@ -240,8 +240,8 @@ const sharedSchema = {
     },
   }),
   heading: fields.text({
-    label: 'Title',
-    description: 'The title of the post',
+    label: 'Heading',
+    description: 'The heading of the post (h1)',
     validation: { isRequired: true },
   }),
   featuredMedia,
