@@ -52,16 +52,21 @@ export function NavMenu({ menuItems }: NavMenuProps) {
         return (
           <li key={item.navigationTitle}>
             <Collapsible open={openItems[item.navigationTitle]} onOpenChange={() => toggleItem(item.navigationTitle)}>
-              <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-sm font-medium">
-                <span className="flex items-center">
+              <div className="flex items-center justify-between">
+                <a
+                  href={getItemHref(item.item)}
+                  className="flex-grow py-2 text-sm font-medium hover:text-accent-foreground"
+                >
                   {item.navigationTitle}
+                </a>
+                <CollapsibleTrigger className="p-2">
                   <ChevronDown
-                    className={cn('h-4 w-4 transition-transform ml-1', openItems[item.navigationTitle] && 'rotate-180')}
+                    className={cn('h-4 w-4 transition-transform', openItems[item.navigationTitle] && 'rotate-180')}
                   />
-                </span>
-              </CollapsibleTrigger>
+                </CollapsibleTrigger>
+              </div>
               <CollapsibleContent>
-                <ul className="mt-2 space-y-1">
+                <ul className="mt-2 space-y-1 pl-4">
                   {item.grandchildren?.map((grandchild) => (
                     <li key={grandchild.navigationTitle}>
                       <a
