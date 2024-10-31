@@ -17,7 +17,7 @@ const posts = await getCollection('posts');
   <div class="my-20 space-y-40">
     <Container>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => <BlogPreview path="posts" post={post} />)}
+        {posts.map((post) => <BlogPreview post={post} />)}
       </div>
     </Container>
   </div>
