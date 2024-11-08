@@ -53,8 +53,8 @@ menuItems:
         navigationTitle: Glassdør
         grandchildren: []
       - item:
-          discriminant: post
-          value: glassrekkverk-renovasjon-av-hjemmet-med-riktig-glassdesing
+          discriminant: page
+          value: glassrekkverk
         navigationTitle: Glassrekkverk
         grandchildren: []
       - item:
