@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import node from '@astrojs/node';
 import mdx from '@astrojs/mdx';
@@ -74,11 +73,6 @@ export default defineConfig({
   integrations: [
     tailwind({
       applyBaseStyles: false,
-    }),
-    partytown({
-      config: {
-        forward: ['dataLayer.push'],
-      },
     }),
     react({ experimentalReactChildren: true }),
     mdx(),
