@@ -23,6 +23,8 @@ const image = new URL(imgSrc || '/images/glass.png', Astro.site);
 
 const homePage = await getEntry('pages', 'home');
 const imageUrls = extractImageUrls(homePage.body);
+
+const id = 'GTM-MXPGLQ5';
 ---
 
 <meta charset="utf-8" />
@@ -95,11 +97,6 @@ const imageUrls = extractImageUrls(homePage.body);
 
 <!-- Google Tag Manager -->
 <script is:inline>
-  partytown = {
-    forward: ['dataLayer.push'],
-  };
-</script>
-<script type="text/partytown">
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -112,8 +109,3 @@ const imageUrls = extractImageUrls(homePage.body);
   })(window, document, 'script', 'dataLayer', 'GTM-MXPGLQ5');
 </script>
 <!-- End Google Tag Manager -->
-
-<!-- End Google Tag Manager -->
-
-<!-- End Google Tag Manager -->
-<!-- <ViewTransitions /> -->
