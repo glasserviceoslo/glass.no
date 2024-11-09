@@ -23,8 +23,6 @@ const image = new URL(imgSrc || '/images/glass.png', Astro.site);
 
 const homePage = await getEntry('pages', 'home');
 const imageUrls = extractImageUrls(homePage.body);
-
-const id = 'GTM-MXPGLQ5';
 ---
 
 <meta charset="utf-8" />
@@ -60,8 +58,8 @@ const id = 'GTM-MXPGLQ5';
 <meta property="twitter:image" content={image} />
 
 <!-- Cookie Consent -->
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css" /> -->
-<!-- <script defer data-domain="glass.no" src="https://analytics.glass.no/js/script.js"></script> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" />
+
 <!-- Google Fonts -->
 <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -76,8 +74,6 @@ const id = 'GTM-MXPGLQ5';
 
 <!-- Preload important assets -->
 <!-- <link rel="preload" href="/mobile.riv" as="fetch" crossorigin="anonymous" /> -->
-
-<!-- <script src="https://cdn.skypack.dev/@hotwired/turbo"></script> -->
 
 <!-- LocalStorage Theme Check -->
 <script is:inline>
