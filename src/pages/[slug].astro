@@ -15,10 +15,12 @@ export async function getStaticPaths() {
       props: { page: post },
     }));
 
-  const filteredPages = pages.map((page) => ({
-    params: { slug: page.slug },
-    props: { page },
-  }));
+  const filteredPages = pages
+    .filter((page) => !['home'].includes(page.slug))
+    .map((page) => ({
+      params: { slug: page.slug },
+      props: { page },
+    }));
 
   return [...filteredPosts, ...filteredPages];
 }
