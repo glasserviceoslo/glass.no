@@ -8,26 +8,19 @@ import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const posts = await getCollection('posts');
-const pages = await getCollection('pages');
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('posts');
+  const pages = await getCollection('pages');
+  const allContents = [...posts, ...pages];
+  const allSlugs = allContents.map((p) => p.slug);
 
-const filteredPosts = posts.map((post) => ({
-  params: { slug: post.slug },
-  props: { page: post },
-}));
-
-const filteredPages = pages
-  .filter((page) => !['home'].includes(page.slug))
-  .map((page) => ({
-    params: { slug: page.slug },
-    props: { page },
-  }));
-
-const allSlugs = [...filteredPosts, ...filteredPages].map((p) => p.params.slug);
-export const getStaticPaths = (async () => [...filteredPosts, ...filteredPages]) satisfies GetStaticPaths;
+  return allContents
+    .filter((c) => c.slug !== 'home')
+    .map((c) => ({ params: { slug: c.slug }, props: { page: c, allSlugs } }));
+}) satisfies GetStaticPaths;
 
 const { slug } = Astro.params as Params;
-const { page } = Astro.props;
+const { page, allSlugs } = Astro.props;
 
 if (!allSlugs.includes(slug) || !page) {
   return Astro.redirect('/404');
