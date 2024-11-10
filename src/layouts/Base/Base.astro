@@ -1,5 +1,5 @@
 ---
-import './cookieconsent.css';
+import CookieConsent from '@/components/Astro/CookieConsent.astro';
 import type { SeoProps } from '../../components/Astro/BaseHead.astro';
 import BaseHead from '../../components/Astro/BaseHead.astro';
 import Footer from '../../components/Astro/Footer.astro';
@@ -11,7 +11,6 @@ export interface Props {
 }
 
 const { seo } = Astro.props;
-const linkClasses = buttonVariants({ variant: 'link' });
 ---
 
 <!doctype html>
@@ -37,158 +36,7 @@ const linkClasses = buttonVariants({ variant: 'link' });
         style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <script type="module" define:vars={{ linkClasses }}>
-      import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js';
 
-      CookieConsent.run({
-        guiOptions: {
-          consentModal: {
-            layout: 'box',
-            position: 'bottom right',
-            flipButtons: false,
-            equalWeightButtons: true,
-          },
-          preferencesModal: {
-            layout: 'box',
-            position: 'left right',
-            flipButtons: false,
-            equalWeightButtons: true,
-          },
-        },
-        categories: {
-          necessary: {
-            enabled: true,
-            readOnly: true,
-          },
-          analytics: {
-            autoClear: {
-              cookies: [{ name: /^(_ga|_gid)/ }],
-            },
-
-            // https://cookieconsent.orestbida.com/reference/configuration-reference.html#category-services
-            services: {
-              ga: {
-                label: 'Google Analytics',
-                onAccept: () => {
-                  (function (w, d, s, l, i) {
-                    w[l] = w[l] || [];
-                    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                    var f = d.getElementsByTagName(s)[0],
-                      j = d.createElement(s),
-                      dl = l != 'dataLayer' ? '&l=' + l : '';
-                    j.async = true;
-                    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                    f.parentNode.insertBefore(j, f);
-                  })(window, document, 'script', 'dataLayer', 'GTM-MXPGLQ5');
-                },
-                onReject: () => {
-                  document.cookie = '_ga=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                  document.cookie = '_gid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                  document.cookie = '_gat=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-                  // Remove Google Tag Manager cookies
-                  document.cookie = '_dc_gtm_<property-id>=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-                  // Disable Google Analytics if it was loaded
-                  if (window.ga) {
-                    window.ga('remove');
-                  }
-
-                  var gtmScript = document.querySelector('script[src^="https://www.googletagmanager.com/gtm.js"]');
-                  if (gtmScript) {
-                    gtmScript.parentNode.removeChild(gtmScript);
-                  }
-
-                  console.log('Analytics services rejected');
-                },
-                cookies: [{ name: /^(_ga|_gid|_gat|_dc_gtm_)/ }],
-              },
-            },
-          },
-          ads: {},
-        },
-        language: {
-          default: 'no',
-          translations: {
-            no: {
-              consentModal: {
-                title: 'Vi bruker informasjonskapsler!',
-                description:
-                  'Hei, dette nettstedet bruker nødvendige informasjonskapsler for å sikre riktig drift og sporing av informasjonskapsler for å forstå hvordan du samhandler med det. Sistnevnte vil kun bli satt etter samtykke. <button type="button" data-cc="c-settings" class="cc-link">Instillinger</button>',
-                acceptAllBtn: 'Godta alle',
-                acceptNecessaryBtn: 'Avvis alle',
-                showPreferencesBtn: 'Innstillinger for informasjonskapsler',
-                footer: `<a href="/personvern" class={${linkClasses}} target="_blank">Personvern</a>`,
-              },
-              preferencesModal: {
-                title: 'Innstillinger for informasjonskapsler',
-                savePreferencesBtn: 'Lagre innstillinger',
-                acceptAllBtn: 'Godta alle',
-                acceptNecessaryBtn: 'Avvis alle',
-                closeIconLabel: 'Lukk',
-                sections: [
-                  {
-                    title: 'Bruk av informasjonskapsler 📢',
-                    description: `Vi bruker informasjonskapsler for å sikre de grunnleggende funksjonene på nettstedet og forbedre din online opplevelse. Du kan velge for hver kategori om du vil delta eller ikke når som helst. For flere detaljer relatert til informasjonskapsler og annen sensitiv data, vennligst les fullstendig <a href="/personvern" class={${linkClasses}}>Personvern</a>.`,
-                  },
-                  {
-                    title: 'Strengt nødvendige informasjonskapsler',
-                    description:
-                      'Disse informasjonskapslene er essensielle for riktig funksjon av mitt nettsted. Uten disse informasjonskapslene ville nettstedet ikke fungere ordentlig',
-                    linkedCategory: 'necessary',
-                  },
-                  {
-                    title: 'Ytelse og analyse-informasjonskapsler',
-                    description: 'Disse informasjonskapslene lar nettstedet huske valgene du har gjort tidligere',
-                    linkedCategory: 'analytics',
-                    cookieTable: {
-                      caption: 'Informasjonskapsler',
-                      headers: {
-                        name: 'Navn',
-                        domain: 'Domene',
-                        desc: 'Beskrivelse',
-                      },
-                      body: [
-                        {
-                          name: '_ga',
-                          domain: location.hostname,
-                          desc: 'Google Analytics: Brukes til å skille brukere.',
-                        },
-                        {
-                          name: '_gid',
-                          domain: location.hostname,
-                          desc: 'Google Analytics: Brukes til å skille brukere.',
-                        },
-                        {
-                          name: '_gat',
-                          domain: location.hostname,
-                          desc: 'Google Analytics: Brukes til å begrense antall forespørsler.',
-                        },
-                        {
-                          name: '_dc_gtm_<property-id>',
-                          domain: location.hostname,
-                          desc: 'Google Tag Manager: Brukes til å begrense antall forespørsler.',
-                        },
-                      ],
-                    },
-                  },
-                  // {
-                  //   title: 'Annonsering og målrettede informasjonskapsler',
-                  //   description:
-                  //     'Disse informasjonskapslene samler inn informasjon om hvordan du bruker nettstedet, hvilke sider du har besøkt, og hvilke linker du har klikket på. Alle dataene er anonymisert og kan ikke brukes til å identifisere deg',
-                  //   linkedCategory: 'ads',
-                  // },
-                  {
-                    title: 'Mer informasjon',
-                    description:
-                      'For spørsmål angående vår informasjonskapselpolicy og dine valg, vennligst <a class="cc-link" href="/kontakt">kontakt oss</a>.',
-                  },
-                ],
-              },
-            },
-          },
-        },
-      });
-    </script>
+    <CookieConsent />
   </body>
 </html>

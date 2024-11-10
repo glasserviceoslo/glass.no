@@ -1,25 +1,22 @@
 ---
 import { RiveCanvas } from '@/components/React/RiveCanvas';
 import Layout from '../layouts/Page.astro';
+import { buttonVariants } from '@/components/ui/button';
 ---
 
 <Layout>
-  <div class="flex h-[calc(100vh-289px)] min-h-0 w-screen items-center justify-center bg-gray-100 p-10 overflow-y-auto">
-    <article class="flex w-screen items-center">
-      <div class="container flex flex-col items-center justify-center px-5 text-gray-700 md:flex-row">
-        <section class="max-w-lg">
-          <div class="-order-1 lg:order-none lg:col-span-5 lg:mt-0 lg:flex">
-            <RiveCanvas src="/assets/404.riv" client:visible />
+  <div class="flex min-h-[calc(100vh-289px)] w-full items-center justify-center bg-white p-10 overflow-y-auto">
+    <div class="container mx-auto max-w-6xl px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="order-2">
+          <div class="dark:text-primary-foreground">
+            <h1 class="text-4xl font-bold mb-4">404</h1>
+            <p class="text-2xl font-light leading-normal md:text-3xl mb-4">
+              Beklager, vi kunne ikke finne denne siden.
+            </p>
+            <p class="mb-8">Men ikke bekymre deg, du kan finne massevis av andre ting på vår hjemmeside.</p>
           </div>
-        </section>
-        <section class="max-w-md">
-          <p class="text-2xl font-light leading-normal md:text-3xl">Beklager, vi kunne ikke finne denne siden.</p>
-          <p class="mb-8">Men ikke bekymre deg, du kan finne massevis av andre ting på vår hjemmeside.</p>
-
-          <a
-            href="/"
-            class="mr-3 inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
-          >
+          <a href="/" class={buttonVariants({ variant: 'link' })}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -31,11 +28,15 @@ import Layout from '../layouts/Page.astro';
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
               ></path>
             </svg>
-
-            Back to hompage
+            Tilbake til hjemmeside
           </a>
-        </section>
+        </div>
+        <div class="order-1 flex justify-center">
+          <div class="w-full h-[300px] md:h-[400px]">
+            <RiveCanvas src="/assets/404.riv" client:load />
+          </div>
+        </div>
       </div>
-    </article>
+    </div>
   </div>
 </Layout>

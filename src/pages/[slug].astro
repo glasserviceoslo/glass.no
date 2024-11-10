@@ -3,17 +3,19 @@ import Layout from '@/layouts/Page.astro';
 import BlogPost from '@/components/Astro/BlogPost.astro';
 import { getCollection } from 'astro:content';
 import type { SeoProps } from '@/components/Astro/BaseHead.astro';
+import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from 'astro';
 
-export async function getStaticPaths() {
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+export const getStaticPaths = (async () => {
   const posts = await getCollection('posts');
   const pages = await getCollection('pages');
 
-  const filteredPosts = posts
-    .filter((post) => !['smijernsdor', 'velux-takvinduer', 'home'].includes(post.slug))
-    .map((post) => ({
-      params: { slug: post.slug },
-      props: { page: post },
-    }));
+  const filteredPosts = posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { page: post },
+  }));
 
   const filteredPages = pages
     .filter((page) => !['home'].includes(page.slug))
@@ -23,7 +25,7 @@ export async function getStaticPaths() {
     }));
 
   return [...filteredPosts, ...filteredPages];
-}
+}) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 

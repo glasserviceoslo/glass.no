@@ -1,14 +1,14 @@
+---
+const { src } = Astro.props;
+---
+
 <canvas id="canvas" class="h-[90%] w-[90%]" width="500" height="500"></canvas>
 
-<script is:inline src="https://unpkg.com/@rive-app/canvas@1.0.79"></script>
-<script is:inline>
-  const riveInstance = new rive.Rive({
-    src: '/assets/mobile.riv',
+<script is:inline src="https://unpkg.com/@rive-app/canvas@2.9.1"></script>
+<script is:inline define:vars={{ src }}>
+  new rive.Rive({
+    src,
     canvas: document.getElementById('canvas'),
     autoplay: true,
   });
-
-  if (document.location.pathname !== '/') {
-    riveInstance.cleanup();
-  }
 </script>
