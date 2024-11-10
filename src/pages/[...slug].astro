@@ -28,6 +28,9 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+if (!page) {
+  return Astro.redirect('/404');
+}
 
 const redirect = page.data.redirect;
 const shouldRedirect = redirect && redirect.discriminant !== 'none';
