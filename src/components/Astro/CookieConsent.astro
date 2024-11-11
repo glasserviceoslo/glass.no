@@ -29,10 +29,8 @@ const linkClasses = buttonVariants({ variant: 'link' });
       },
       analytics: {
         autoClear: {
-          cookies: [{ name: /^(_ga|_gid)/ }],
+          cookies: [{ name: /^(_ga|_gid|_gat|_gac|_dc_gtm_)/ }],
         },
-
-        // https://cookieconsent.orestbida.com/reference/configuration-reference.html#category-services
         services: {
           ga: {
             label: 'Google Analytics',
@@ -52,11 +50,9 @@ const linkClasses = buttonVariants({ variant: 'link' });
               document.cookie = '_ga=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
               document.cookie = '_gid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
               document.cookie = '_gat=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-              // Remove Google Tag Manager cookies
+              document.cookie = '_gac=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
               document.cookie = '_dc_gtm_<property-id>=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-              // Disable Google Analytics if it was loaded
               if (window.ga) {
                 window.ga('remove');
               }
@@ -68,11 +64,43 @@ const linkClasses = buttonVariants({ variant: 'link' });
 
               console.log('Analytics services rejected');
             },
-            cookies: [{ name: /^(_ga|_gid|_gat|_dc_gtm_)/ }],
+            cookies: [{ name: /^(_ga|_gid|_gat|_gac|_dc_gtm_)/ }],
           },
         },
       },
-      ads: {},
+      ads: {
+        onAccept: () => {
+          if (window.gtag) {
+            window.gtag('consent', 'update', {
+              ad_storage: 'granted',
+              analytics_storage: 'granted',
+            });
+          } else {
+            console.warn('Google Tag not available.');
+          }
+        },
+        onReject: () => {
+          if (window.gtag) {
+            window.gtag('consent', 'update', {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+            });
+          } else {
+            console.warn('Google Tag not available.');
+          }
+
+          document.cookie = '_gads=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie = '_gac_=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie = 'IDE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.doubleclick.net; path=/;';
+          document.cookie = 'ANID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.google.com; path=/;';
+          document.cookie = 'DSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie = 'NID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.google.com; path=/;';
+          document.cookie = '__gads=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+          console.log('Ads services rejected');
+        },
+        cookies: [{ name: /^(_gads|_gac_|IDE|ANID|DSID|NID|__gads)/ }],
+      },
     },
     language: {
       default: 'no',
@@ -132,19 +160,18 @@ const linkClasses = buttonVariants({ variant: 'link' });
                       desc: 'Google Analytics: Brukes til å begrense antall forespørsler.',
                     },
                     {
+                      name: '_gac',
+                      domain: location.hostname,
+                      desc: 'Google Ads: Inneholder kampanjerelatert informasjon for brukeren.',
+                    },
+                    {
                       name: '_dc_gtm_<property-id>',
                       domain: location.hostname,
-                      desc: 'Google Tag Manager: Brukes til å begrense antall forespørsler.',
+                      desc: 'Google Tag Manager: Brukes til å laste andre tagger som Google Analytics.',
                     },
                   ],
                 },
               },
-              // {
-              //   title: 'Annonsering og målrettede informasjonskapsler',
-              //   description:
-              //     'Disse informasjonskapslene samler inn informasjon om hvordan du bruker nettstedet, hvilke sider du har besøkt, og hvilke linker du har klikket på. Alle dataene er anonymisert og kan ikke brukes til å identifisere deg',
-              //   linkedCategory: 'ads',
-              // },
               {
                 title: 'Mer informasjon',
                 description:
@@ -157,6 +184,7 @@ const linkClasses = buttonVariants({ variant: 'link' });
     },
   });
 </script>
+
 <!-- <style>
   #cc-main {
     .cm__btn {
