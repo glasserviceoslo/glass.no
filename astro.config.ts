@@ -45,7 +45,6 @@ const glasstypeRoutes = getRoutes('glasstypes', siteUrl);
 export default defineConfig({
   site: siteUrl,
   redirects: {
-    '/posts/[slug]': '/[slug]',
     '/10-mater-a-bruke-smijern-i-ditt-hjem': {
       status: 301,
       destination: '/hvordan-bruke-smijernsdører-10-tips',
@@ -74,6 +73,7 @@ export default defineConfig({
       status: 301,
       destination: '/hva-er-glassmester-copy',
     },
+    '/posts/[slug]': '/[slug]',
     '/booking': {
       status: 301,
       destination: '/befaring',
