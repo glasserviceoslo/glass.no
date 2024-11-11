@@ -65,7 +65,7 @@ export default defineConfig({
       status: 301,
       destination: '/glassrekkverk',
     },
-    '/ødelagt-vindusglass': {
+    '/odelagt-vindusglass': {
       status: 301,
       destination: '/vindusglass',
     },
