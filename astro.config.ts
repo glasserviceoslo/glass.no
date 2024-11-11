@@ -73,6 +73,14 @@ export default defineConfig({
       status: 301,
       destination: '/hva-er-glassmester-copy',
     },
+    '/rengjoring-av-metalldor': {
+      status: 301,
+      destination: '/vedlikehold-av-smijernsdorer-slik-gjor-du-det',
+    },
+    '/posts/rengjoring-av-metalldor': {
+      status: 301,
+      destination: '/vedlikehold-av-smijernsdorer-slik-gjor-du-det',
+    },
     '/posts/[slug]': '/[slug]',
     '/booking': {
       status: 301,
