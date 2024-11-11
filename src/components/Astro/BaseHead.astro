@@ -94,19 +94,19 @@ const imageUrls = extractImageUrls(homePage.body);
 <!-- Google Tag Manager -->
 <script is:inline>
   if (!window.dataLayer) {
-    window.dataLayer = [];
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+
     const script = document.createElement('script');
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MXPGLQ5';
     script.onload = () => {
-      // Initialize gtag function
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         window.dataLayer.push(arguments);
       }
       window.gtag = window.gtag || gtag;
 
-      // Set initial consent to denied for everything except necessary
       window.gtag('consent', 'default', {
         analytics_storage: 'denied',
         ad_storage: 'denied',
