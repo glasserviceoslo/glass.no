@@ -71,7 +71,7 @@ export default defineConfig({
     },
     '/hva-er-glassmester-copy': {
       status: 301,
-      destination: '/hva-er-glassmester-copy',
+      destination: '/hva-er-glassmester',
     },
     '/rengjoring-av-metalldor': {
       status: 301,
