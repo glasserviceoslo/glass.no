@@ -48,15 +48,23 @@ export default defineConfig({
     '/posts/[slug]': '/[slug]',
     '/10-mater-a-bruke-smijern-i-ditt-hjem': {
       status: 301,
-      destination: '/hvordan-bruke-smijernsdører',
+      destination: '/hvordan-bruke-smijernsdører-10-tips',
     },
     '/posts/10-mater-a-bruke-smijern-i-ditt-hjem': {
       status: 301,
-      destination: '/hvordan-bruke-smijernsdører',
+      destination: '/hvordan-bruke-smijernsdører-10-tips',
     },
-    '/hvordan-bruke-smijernsdører-10-tips': {
+    '/hvordan-bruke-smijernsdører': {
       status: 301,
-      destination: '/hvordan-bruke-smijernsdører',
+      destination: '/hvordan-bruke-smijernsdører-10-tips',
+    },
+    '/posts/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing': {
+      status: 301,
+      destination: '/glassrekkverk',
+    },
+    '/posts/ødelagt-vindusglass': {
+      status: 301,
+      destination: '/vindusglass',
     },
     '/booking': {
       status: 301,
