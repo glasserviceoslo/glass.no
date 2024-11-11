@@ -62,9 +62,17 @@ export default defineConfig({
       status: 301,
       destination: '/glassrekkverk',
     },
-    '/posts/ødelagt-vindusglass': {
+    '/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing': {
+      status: 301,
+      destination: '/glassrekkverk',
+    },
+    '/ødelagt-vindusglass': {
       status: 301,
       destination: '/vindusglass',
+    },
+    '/hva-er-glassmester-copy': {
+      status: 301,
+      destination: '/hva-er-glassmester-copy',
     },
     '/booking': {
       status: 301,
