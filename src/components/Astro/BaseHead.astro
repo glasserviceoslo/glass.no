@@ -92,16 +92,29 @@ const imageUrls = extractImageUrls(homePage.body);
 </script>
 
 <!-- Google Tag Manager -->
-<!-- <script is:inline>
-  (function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s),
-      dl = l != 'dataLayer' ? '&l=' + l : '';
-    j.async = true;
-    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-MXPGLQ5');
-</script> -->
+<script is:inline>
+  if (!window.dataLayer) {
+    window.dataLayer = [];
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MXPGLQ5';
+    script.onload = () => {
+      // Initialize gtag function
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = window.gtag || gtag;
+
+      // Set initial consent to denied for everything except necessary
+      window.gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+    };
+    document.head.appendChild(script);
+  }
+</script>
 <!-- End Google Tag Manager -->

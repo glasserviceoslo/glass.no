@@ -35,71 +35,68 @@ const linkClasses = buttonVariants({ variant: 'link' });
           ga: {
             label: 'Google Analytics',
             onAccept: () => {
-              (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0],
-                  j = d.createElement(s),
-                  dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-              })(window, document, 'script', 'dataLayer', 'GTM-MXPGLQ5');
+              // Update consent for analytics
+              if (window.gtag) {
+                window.gtag('consent', 'update', {
+                  analytics_storage: 'granted',
+                });
+              }
             },
             onReject: () => {
-              document.cookie = '_ga=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-              document.cookie = '_gid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-              document.cookie = '_gat=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-              document.cookie = '_gac=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-              document.cookie = '_dc_gtm_<property-id>=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+              // Clear analytics cookies
+              const cookies = ['_ga', '_gid', '_gat', '_gac'];
+              cookies.forEach((cookie) => {
+                document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${location.hostname};`;
+              });
 
-              if (window.ga) {
-                window.ga('remove');
+              // Update consent state
+              if (window.gtag) {
+                window.gtag('consent', 'update', {
+                  analytics_storage: 'denied',
+                });
               }
-
-              var gtmScript = document.querySelector('script[src^="https://www.googletagmanager.com/gtm.js"]');
-              if (gtmScript) {
-                gtmScript.parentNode.removeChild(gtmScript);
-              }
-
-              console.log('Analytics services rejected');
             },
-            cookies: [{ name: /^(_ga|_gid|_gat|_gac|_dc_gtm_)/ }],
           },
         },
       },
       ads: {
-        onAccept: () => {
-          if (window.gtag) {
-            window.gtag('consent', 'update', {
-              ad_storage: 'granted',
-              analytics_storage: 'granted',
-            });
-          } else {
-            console.warn('Google Tag not available.');
-          }
+        autoClear: {
+          cookies: [{ name: /^(_gcl|_gads|__gads|_gac|AID|TAID|IDE|ANID)/ }],
         },
-        onReject: () => {
-          if (window.gtag) {
-            window.gtag('consent', 'update', {
-              ad_storage: 'denied',
-              analytics_storage: 'denied',
-            });
-          } else {
-            console.warn('Google Tag not available.');
-          }
+        services: {
+          adsense: {
+            label: 'Google Ads',
+            onAccept: () => {
+              // Update consent for ads
+              if (window.gtag) {
+                window.gtag('consent', 'update', {
+                  ad_storage: 'granted',
+                  ad_user_data: 'granted',
+                  ad_personalization: 'granted',
+                });
+              }
+            },
+            onReject: () => {
+              // Clear advertising cookies
+              const adCookies = ['_gcl', '_gads', '__gads', '_gac', 'AID', 'TAID', 'IDE', 'ANID'];
+              adCookies.forEach((cookie) => {
+                document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${location.hostname};`;
+                document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.doubleclick.net;`;
+              });
 
-          document.cookie = '_gads=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = '_gac_=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = 'IDE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.doubleclick.net; path=/;';
-          document.cookie = 'ANID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.google.com; path=/;';
-          document.cookie = 'DSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = 'NID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.google.com; path=/;';
-          document.cookie = '__gads=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-          console.log('Ads services rejected');
+              // Update consent state
+              if (window.gtag) {
+                window.gtag('consent', 'update', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                });
+              }
+            },
+          },
         },
-        cookies: [{ name: /^(_gads|_gac_|IDE|ANID|DSID|NID|__gads)/ }],
       },
     },
     language: {
@@ -162,12 +159,37 @@ const linkClasses = buttonVariants({ variant: 'link' });
                     {
                       name: '_gac',
                       domain: location.hostname,
-                      desc: 'Google Ads: Inneholder kampanjerelatert informasjon for brukeren.',
+                      desc: 'Google Analytics: Inneholder kampanjerelatert informasjon.',
+                    },
+                  ],
+                },
+              },
+              {
+                title: 'Annonse-informasjonskapsler',
+                description:
+                  'Disse informasjonskapslene brukes til å vise relevante annonser og spore annonsevisninger',
+                linkedCategory: 'ads',
+                cookieTable: {
+                  headers: {
+                    name: 'Navn',
+                    domain: 'Domene',
+                    desc: 'Beskrivelse',
+                  },
+                  body: [
+                    {
+                      name: '_gcl',
+                      domain: location.hostname,
+                      desc: 'Google Ads: Brukes til å spore konverteringer.',
                     },
                     {
-                      name: '_dc_gtm_<property-id>',
+                      name: '_gads',
                       domain: location.hostname,
-                      desc: 'Google Tag Manager: Brukes til å laste andre tagger som Google Analytics.',
+                      desc: 'Google Ads: Brukes til annonsemåling.',
+                    },
+                    {
+                      name: 'IDE',
+                      domain: 'doubleclick.net',
+                      desc: 'Brukes til å vise relevante annonser.',
                     },
                   ],
                 },
