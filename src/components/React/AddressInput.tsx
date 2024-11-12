@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useController } from 'react-hook-form';
 import { Loader } from '@googlemaps/js-api-loader';
-import { useGoogleMaps } from '../../hooks/react/useGoogleMaps';
 
 interface AddressFieldProps {
   name: string;
@@ -10,26 +9,38 @@ interface AddressFieldProps {
 export function AddressInput({ name }: AddressFieldProps) {
   const inputRef = useRef(null);
   const { field } = useController({ name });
-  const googleMaps = useGoogleMaps();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const options = {
-      fields: ['formatted_address', 'geometry', 'name'],
-      strictBounds: false,
-      types: ['address'],
-    };
+    const loader = new Loader({
+      apiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_KEY,
+      version: 'weekly',
+    });
 
-    if (googleMaps && inputRef && inputRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, options);
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place?.formatted_address) {
-          field.onChange(place.formatted_address);
+    async function initializeAutocomplete() {
+      try {
+        await loader.importLibrary('places');
+
+        if (inputRef.current) {
+          const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
+            fields: ['formatted_address', 'geometry', 'name'],
+            strictBounds: false,
+            types: ['address'],
+          });
+
+          autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (place?.formatted_address) {
+              field.onChange(place.formatted_address);
+            }
+          });
         }
-      });
+      } catch (error) {
+        console.error('Error loading Google Maps Autocomplete:', error);
+      }
     }
-  }, [googleMaps]);
+
+    initializeAutocomplete();
+  }, [field]);
 
   return (
     <input

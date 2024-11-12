@@ -5,6 +5,7 @@ import Hero from '../components/Astro/Hero.astro';
 import LatestPosts from '../components/Astro/LatestPosts.astro';
 import { FeaturesSection } from '@/components/React/FeaturesSection';
 import type { SeoProps } from '@/components/Astro/BaseHead.astro';
+import { GoogleReviews } from '@/components/React/GoogleReviews';
 
 const seo: SeoProps = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -36,6 +37,8 @@ const seo: SeoProps = {
     >
       <BookingSection />
     </div>
+
+    <GoogleReviews client:visible />
 
     {/* Latest Posts - Always Last */}
     <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-4">
