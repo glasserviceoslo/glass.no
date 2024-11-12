@@ -93,28 +93,28 @@ const imageUrls = extractImageUrls(homePage.body);
 
 <!-- Google Tag Manager -->
 <script is:inline>
-  if (!window.dataLayer) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MXPGLQ5';
-    script.onload = () => {
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
-      window.gtag = window.gtag || gtag;
-
-      window.gtag('consent', 'default', {
-        analytics_storage: 'denied',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-      });
-    };
-    document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
   }
+  gtag('consent', 'default', {
+    ad_personalization: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    analytics_storage: 'denied',
+    // functionality_storage: 'denied',
+    // personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  });
+</script>
+<script async is:inline src="https://www.googletagmanager.com/gtm.js?id=GTM-MXPGLQ5"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'GTM-MXPGLQ5');
 </script>
 <!-- End Google Tag Manager -->

@@ -19,14 +19,6 @@ const { seo } = Astro.props;
     <BaseHead {...seo} />
   </head>
   <body class="bg-white dark:bg-gray-900 dark:text-gray-300">
-    <header class="mb-14 md:mb-16">
-      <Navbar />
-    </header>
-    <main>
-      <slot />
-    </main>
-    <Footer />
-    <!-- <script type="module" src="./cookieconsent-config.js"></script> -->
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -36,7 +28,13 @@ const { seo } = Astro.props;
         style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-
+    <header class="mb-14 md:mb-16">
+      <Navbar />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <Footer />
     <CookieConsent />
   </body>
 </html>

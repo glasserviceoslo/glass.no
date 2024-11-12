@@ -4,7 +4,7 @@ import { buttonVariants } from '../ui/button';
 const linkClasses = buttonVariants({ variant: 'link' });
 ---
 
-<script type="module" define:vars={{ linkClasses }}>
+<script type="module" is:inline define:vars={{ linkClasses }}>
   import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js';
 
   CookieConsent.run({
