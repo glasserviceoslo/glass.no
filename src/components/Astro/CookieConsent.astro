@@ -39,6 +39,8 @@ const linkClasses = buttonVariants({ variant: 'link' });
               if (window.gtag) {
                 window.gtag('consent', 'update', {
                   analytics_storage: 'granted',
+                  ad_user_data: 'granted',
+                  ad_personalization: 'granted',
                 });
               }
             },
@@ -54,6 +56,8 @@ const linkClasses = buttonVariants({ variant: 'link' });
               if (window.gtag) {
                 window.gtag('consent', 'update', {
                   analytics_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
                 });
               }
             },
