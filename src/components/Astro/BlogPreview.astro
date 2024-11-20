@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: CollectionEntry<'posts'>;
+  post: CollectionEntry<'posts' | 'glasstypes'>;
   path?: string;
 }
 

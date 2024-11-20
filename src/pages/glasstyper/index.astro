@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Page.astro';
+import Container from '../../components/Astro/Container.astro';
+import BlogPreview from '../../components/Astro/BlogPreview.astro';
+
+const seo = {
+  title: 'Glass-Service Svendsen og Sønn AS Blogg',
+  description:
+    'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
+};
+
+const glasstypes = await getCollection('glasstypes');
+---
+
+<Layout seo={seo}>
+  <div class="my-20 space-y-40">
+    <Container>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {glasstypes.map((glasstype) => <BlogPreview post={glasstype} path="glasstyper" />)}
+      </div>
+    </Container>
+  </div>
+</Layout>
