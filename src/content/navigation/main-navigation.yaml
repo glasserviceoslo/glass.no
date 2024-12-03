@@ -31,17 +31,81 @@ menuItems:
           discriminant: page
           value: velux-takvinduer
         navigationTitle: Velux
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: velux-solskjerming
+            navigationTitle: Velux solskjerming
+          - item:
+              discriminant: page
+              value: velux-takvindu
+            navigationTitle: Velux takvindu
+          - item:
+              discriminant: page
+              value: myggnetting-vindu
+            navigationTitle: Myggnetting til vindu
+          - item:
+              discriminant: page
+              value: takterrasse
+            navigationTitle: Takterasse
       - item:
           discriminant: page
           value: speil
         navigationTitle: Speil
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: ovalt-speil
+            navigationTitle: Ovalt speil
+          - item:
+              discriminant: page
+              value: rundt-speil
+            navigationTitle: Rundt speil
+          - item:
+              discriminant: page
+              value: speil-bad
+            navigationTitle: Speil bad
+          - item:
+              discriminant: page
+              value: speil-pa-mal-
+            navigationTitle: Speil på mål
+          - item:
+              discriminant: page
+              value: stort-speil
+            navigationTitle: Stort speil
+          - item:
+              discriminant: page
+              value: vegg-speil
+            navigationTitle: Vegg speil
       - item:
           discriminant: page
           value: dorer
         navigationTitle: Dør
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: ytterdor
+            navigationTitle: Ytterdør
+          - item:
+              discriminant: page
+              value: foldedor
+            navigationTitle: Foldedør
+          - item:
+              discriminant: page
+              value: verandador
+            navigationTitle: Verandadør
+          - item:
+              discriminant: page
+              value: balkongdor
+            navigationTitle: Balkongdør
+          - item:
+              discriminant: page
+              value: innerdor
+            navigationTitle: Innerdør
+          - item:
+              discriminant: page
+              value: baldakin
+            navigationTitle: Baldakin
       - item:
           discriminant: page
           value: glassvegger
@@ -72,6 +136,19 @@ menuItems:
           value: glassplate-kjokken
         navigationTitle: Glassplate Kjøkken
         grandchildren: []
+      - item:
+          discriminant: page
+          value: skyvedor
+        navigationTitle: Skyvedør
+        grandchildren:
+          - item:
+              discriminant: page
+              value: Skyvedører på Mål
+            navigationTitle: Skyvedør på mål
+          - item:
+              discriminant: page
+              value: skyvedor-glass
+            navigationTitle: Skyvedør glass
   - item:
       discriminant: custom
       value: kontakt
