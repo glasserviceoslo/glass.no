@@ -110,17 +110,37 @@ menuItems:
           discriminant: page
           value: glassvegger
         navigationTitle: Glassvegg
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: dusjvegg
+            navigationTitle: Dusjvegg
+          - item:
+              discriminant: page
+              value: glassvegg-kontor
+            navigationTitle: Glassvegg kontor
       - item:
           discriminant: page
           value: glassdorer
         navigationTitle: Glassdør
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: dusjdorer
+            navigationTitle: Dusjdør
       - item:
           discriminant: page
           value: glassrekkverk
         navigationTitle: Glassrekkverk
-        grandchildren: []
+        grandchildren:
+          - item:
+              discriminant: page
+              value: glassrekkverk-inne
+            navigationTitle: Glassrekkverk inne
+          - item:
+              discriminant: page
+              value: glassrekkverk-ute
+            navigationTitle: Glassrekkverk ute
       - item:
           discriminant: page
           value: innglasset-balkong-vinterhage
