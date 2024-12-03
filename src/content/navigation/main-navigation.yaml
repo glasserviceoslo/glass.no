@@ -169,6 +169,11 @@ menuItems:
               discriminant: page
               value: skyvedor-glass
             navigationTitle: Skyvedør glass
+      - item:
+          discriminant: page
+          value: vinterhage
+        navigationTitle: Vinterhage
+        grandchildren: []
   - item:
       discriminant: custom
       value: kontakt
