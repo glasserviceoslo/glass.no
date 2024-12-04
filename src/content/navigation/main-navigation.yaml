@@ -42,10 +42,6 @@ menuItems:
             navigationTitle: Velux takvindu
           - item:
               discriminant: page
-              value: myggnetting-vindu
-            navigationTitle: Myggnetting til vindu
-          - item:
-              discriminant: page
               value: takterrasse
             navigationTitle: Takterasse
       - item:
@@ -98,10 +94,6 @@ menuItems:
               discriminant: page
               value: balkongdor
             navigationTitle: Balkongdør
-          - item:
-              discriminant: page
-              value: innerdor
-            navigationTitle: Innerdør
           - item:
               discriminant: page
               value: baldakin
