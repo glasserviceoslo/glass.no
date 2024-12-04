@@ -75,7 +75,7 @@ menuItems:
             navigationTitle: Vegg speil
       - item:
           discriminant: page
-          value: dorer
+          value: dor
         navigationTitle: Dør
         grandchildren:
           - item:
