@@ -38,6 +38,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@keystatic/astro": "^5.0.0",
     "@keystatic/core": "^0.5.17",
+    "@payloadcms/live-preview": "^3.5.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-collapsible": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -81,6 +82,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

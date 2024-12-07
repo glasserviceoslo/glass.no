@@ -1,0 +1,51 @@
+<div id="live-preview">Loading...</div>
+
+<script>
+  import { subscribe, unsubscribe, ready } from '@payloadcms/live-preview';
+
+  const previewElement = document.getElementById('live-preview');
+
+  const onChange = async (mergedData: any) => {
+    if (!mergedData) {
+      console.error('No data received');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5001/api/preview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ post: mergedData }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const html = await response.text();
+      if (html) {
+        previewElement.innerHTML = html;
+      } else {
+        console.error('Received empty HTML response');
+      }
+    } catch (error) {
+      console.error('Failed to update preview:', error);
+      previewElement.innerHTML = `<div class="error">Failed to load preview: ${error.message}</div>`;
+    }
+  };
+
+  const subscription = subscribe({
+    callback: onChange,
+    depth: 2, // Increased depth to ensure we get all nested data
+    initialData: {},
+    serverURL: 'http://localhost:3000',
+  });
+
+  ready({ serverURL: 'http://localhost:3000' });
+
+  document.addEventListener('astro:unmount', () => {
+    unsubscribe(subscription);
+  });
+</script>

@@ -1,10 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "exclude": ["dist"],
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
     "strictNullChecks": true,
     "allowJs": true,
+    "skipLibCheck": true,
     // "esModuleInterop": true,
     // "allowSyntheticDefaultImports": true,
     "allowUmdGlobalAccess": true,
