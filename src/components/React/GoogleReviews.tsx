@@ -1,66 +1,32 @@
-import { useEffect, useState } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
+import { useMemo } from 'react';
+import { cleanComment, getStarRating } from '@/lib/utils';
+import type { ReviewsData } from '@/types/reviews';
+import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 
-export function GoogleReviews() {
-  const [reviews, setReviews] = useState<Exclude<google.maps.places.PlaceResult['reviews'], undefined>>([]);
-  const center = { lat: 59.920347151202975, lng: 10.734426811873956 };
-  const mapId = 'bd713334a2dc72c';
+interface Props {
+  reviews: ReviewsData;
+}
 
-  useEffect(() => {
-    const loader = new Loader({
-      apiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_KEY,
-      version: 'weekly',
-    });
+export function GoogleReviews({ reviews }: Props) {
+  if (!reviews?.reviews?.length) return null;
 
-    async function fetchReviews() {
-      try {
-        await loader.importLibrary('places');
-        const map = new google.maps.Map(document.createElement('div'), {
-          center,
-          zoom: 15,
-          mapId,
-        });
-
-        const service = new google.maps.places.PlacesService(map);
-
-        console.log(service);
-        const request = {
-          placeId: 'ChIJF2VNQ3luQUYRVL7Kva75zTY',
-          fields: ['name', 'rating', 'formatted_phone_number', 'geometry', 'reviews'],
-        };
-
-        service.getDetails(request, (place, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            console.log(place);
-            setReviews(place?.reviews || []);
-          } else {
-            console.error('Error fetching reviews:', status);
-          }
-        });
-      } catch (error) {
-        console.error('Error loading Google Places:', error);
-      }
-    }
-
-    fetchReviews();
-  }, []);
+  const filteredReviews = useMemo(
+    () =>
+      reviews.reviews
+        .filter((review) => getStarRating(review.starRating) >= 4)
+        .map((review) => ({
+          ...review,
+          comment: cleanComment(review.comment),
+          starRating: getStarRating(review.starRating),
+        }))
+        .sort(() => Math.random() - 0.5),
+    [reviews],
+  ); // Only recompute when reviews change
 
   return (
-    <div>
-      <h2>Google Reviews</h2>
-      {reviews.length > 0 ? (
-        reviews.map((review, index) => (
-          <div key={index} className="review">
-            <p>
-              <strong>{review.author_name}</strong>
-            </p>
-            <p>Rating: {review.rating}</p>
-            <p>{review.text}</p>
-          </div>
-        ))
-      ) : (
-        <p>No reviews available.</p>
-      )}
+    <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-background dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+      <h2 className="pb-14 text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">Hva sier våre kunder</h2>
+      <InfiniteMovingCards items={filteredReviews} speed="slower" />
     </div>
   );
 }

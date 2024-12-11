@@ -58,11 +58,9 @@ export function parseContainerContent(htmlContent: string): ParsedContent {
   const imageAlt = img?.getAttribute('alt') || title;
   const paragraphs = root.querySelectorAll('p');
 
-  let href: string | undefined;
-  let anchorText: string | undefined;
   const link = root.querySelector('p a');
-  href = link?.attributes?.href;
-  anchorText = link?.textContent;
+  const href = link?.attributes?.href;
+  const anchorText = link?.textContent;
 
   const text = paragraphs
     .map((node) => {
@@ -75,4 +73,34 @@ export function parseContainerContent(htmlContent: string): ParsedContent {
     .trim();
 
   return { title, image, imageAlt, text, href, anchorText };
+}
+
+export function getStarRating(rating: string) {
+  switch (rating) {
+    case 'ONE':
+      return 1;
+    case 'TWO':
+      return 2;
+    case 'THREE':
+      return 3;
+    case 'FOUR':
+      return 4;
+    case 'FIVE':
+      return 5;
+    default:
+      return 0;
+  }
+}
+
+export function cleanComment(comment: string | undefined): string {
+  if (!comment) return '';
+
+  // If comment contains "(Original)", extract the original text
+  if (comment.includes('(Original)')) {
+    const originalText = comment.split('(Original)\n')[1];
+    return originalText;
+  }
+
+  // Return the comment as-is if it doesn't contain translations
+  return comment;
 }
