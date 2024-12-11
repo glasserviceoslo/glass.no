@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import type { Review } from '@/types/reviews';
 import React, { useEffect, useState } from 'react';
 
 export const InfiniteMovingCards = ({
@@ -8,14 +9,7 @@ export const InfiniteMovingCards = ({
   pauseOnHover = true,
   className,
 }: {
-  items: {
-    reviewer: {
-      displayName: string;
-      profilePhotoUrl: string;
-    };
-    comment: string;
-    starRating: number;
-  }[];
+  items: (Review & { starRating: number })[];
   direction?: 'left' | 'right';
   speed?: 'fast' | 'normal' | 'slow' | 'slower';
   pauseOnHover?: boolean;

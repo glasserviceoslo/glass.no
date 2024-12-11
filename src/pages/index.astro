@@ -6,7 +6,8 @@ import LatestPosts from '../components/Astro/LatestPosts.astro';
 import { FeaturesSection } from '@/components/React/FeaturesSection';
 import { GoogleReviews } from '@/components/React/GoogleReviews';
 import type { SeoProps } from '@/components/Astro/BaseHead.astro';
-import type { ReviewsData } from '@/types/reviews';
+import type { Review, ReviewsData } from '@/types/reviews';
+import { cleanComment, getStarRating } from '@/lib/utils';
 
 const seo: SeoProps = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -25,7 +26,7 @@ try {
 
 if (!reviews?.reviews?.length) {
   try {
-    const response = await fetch('http://localhost:5001/api/reviews');
+    const response = await fetch(`${import.meta.env.URL}/api/reviews`);
     if (response.ok) {
       const imported = await import('../assets/reviews.json', { with: { type: 'json' } });
       reviews = imported.default as ReviewsData;
@@ -34,6 +35,15 @@ if (!reviews?.reviews?.length) {
     console.error('Failed to fetch reviews:', e);
   }
 }
+
+const filteredReviews = (reviews?.reviews || [])
+  .filter((review) => getStarRating(review.starRating) >= 4)
+  .map((review) => ({
+    ...review,
+    comment: cleanComment(review.comment),
+    starRating: getStarRating(review.starRating),
+  }))
+  .toSorted(() => Math.random() - 0.5) as (Review & { starRating: number })[];
 ---
 
 <Layout seo={seo}>
@@ -55,9 +65,9 @@ if (!reviews?.reviews?.length) {
     </div>
 
     {
-      reviews && (
-        <div class="w-full  order-5 transform transition-all">
-          <GoogleReviews reviews={reviews} client:visible />
+      filteredReviews && (
+        <div class="w-full order-5 transform transition-all">
+          <GoogleReviews reviews={filteredReviews} client:visible />
         </div>
       )
     }

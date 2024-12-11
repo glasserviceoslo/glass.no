@@ -30,7 +30,7 @@ export const ContactForm = () => {
   };
 
   const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let inputPhoneNumber = event.target.value;
+    const inputPhoneNumber = event.target.value;
     // Remove all non-numeric characters from the input phone number
     const numericPhoneNumber = inputPhoneNumber.replace(/\D/g, '');
     let formattedPhoneNumber = '';
@@ -106,7 +106,7 @@ export const ContactForm = () => {
                           rows={3}
                           placeholder="Hva kan vi hjelpe deg med?"
                           {...register('message', { required: true })}
-                        ></textarea>
+                        />
                       </div>
                       {/* <div className="form-check mb-6 text-center">
                       <input
@@ -129,7 +129,7 @@ export const ContactForm = () => {
                         className="btn-primary flex w-full items-center justify-center"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? <l-waveform></l-waveform> : <span>Send</span>}
+                        {isSubmitting ? <l-waveform /> : <span>Send</span>}
                       </button>
                     </form>
                   </FormProvider>

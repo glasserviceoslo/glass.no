@@ -37,7 +37,7 @@ async function getStoredReviews() {
 export const GET: APIRoute = async () => {
   try {
     const auth = new google.auth.GoogleAuth({
-      keyFile: join(process.cwd(), 'credentials.json'),
+      credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS || '{}'),
       scopes: SCOPES,
     });
 
