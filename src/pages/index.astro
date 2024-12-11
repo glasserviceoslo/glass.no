@@ -4,8 +4,10 @@ import BookingSection from '../components/Astro/BookingSection.astro';
 import Hero from '../components/Astro/Hero.astro';
 import LatestPosts from '../components/Astro/LatestPosts.astro';
 import { FeaturesSection } from '@/components/React/FeaturesSection';
+import { GoogleReviews } from '@/components/React/GoogleReviews';
 import type { SeoProps } from '@/components/Astro/BaseHead.astro';
-// import { GoogleReviews } from '@/components/React/GoogleReviews';
+import type { Review, ReviewsData } from '@/types/reviews';
+import { cleanComment, getStarRating } from '@/lib/utils';
 
 const seo: SeoProps = {
   title: 'Glass-Service Svendsen og Sønn AS',
@@ -13,34 +15,63 @@ const seo: SeoProps = {
     'Glass-Service Svendsen & Sønn AS har lang erfaring i glassbransjen - helt siden 1889. Vi leverer skreddersydde løsninger til alle hjem, og har høy kvalitet i alle ledd.',
   preloadCarouselImages: true,
 };
+
+let reviews: ReviewsData | null = null;
+try {
+  const imported = await import('../assets/reviews.json', { with: { type: 'json' } });
+  reviews = imported.default as ReviewsData;
+} catch (e) {
+  console.log('No local reviews found');
+}
+
+if (!reviews?.reviews?.length) {
+  try {
+    const response = await fetch(`${import.meta.env.URL}/api/reviews`);
+    if (response.ok) {
+      const imported = await import('../assets/reviews.json', { with: { type: 'json' } });
+      reviews = imported.default as ReviewsData;
+    }
+  } catch (e) {
+    console.error('Failed to fetch reviews:', e);
+  }
+}
+
+const filteredReviews = (reviews?.reviews || [])
+  .filter((review) => getStarRating(review.starRating) >= 4)
+  .map((review) => ({
+    ...review,
+    comment: cleanComment(review.comment),
+    starRating: getStarRating(review.starRating),
+  }))
+  .toSorted(() => Math.random() - 0.5) as (Review & { starRating: number })[];
 ---
 
 <Layout seo={seo}>
-  {/* Container with responsive padding */}
-  {/* Main content wrapper with responsive spacing */}
   <div class="flex flex-col">
-    {/* Hero Section - Always First */}
     <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16">
       <Hero />
     </div>
 
-    {/* Features Section - Moves down on mobile */}
     <div
       class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-3 md:order-2"
     >
       <FeaturesSection client:visible />
     </div>
 
-    {/* Booking Section - Moves down up mobile */}
     <div
       class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-2 md:order-3"
     >
       <BookingSection />
     </div>
 
-    <!-- <GoogleReviews client:visible /> -->
+    {
+      filteredReviews && (
+        <div class="w-full order-5 transform transition-all">
+          <GoogleReviews reviews={filteredReviews} client:visible />
+        </div>
+      )
+    }
 
-    {/* Latest Posts - Always Last */}
     <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-4">
       <LatestPosts />
     </div>
