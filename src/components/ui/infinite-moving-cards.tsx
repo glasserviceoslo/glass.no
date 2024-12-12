@@ -74,6 +74,7 @@ export const InfiniteMovingCards = ({
                     src={item.reviewer.profilePhotoUrl}
                     alt={item.reviewer.displayName}
                     className="w-10 h-10 rounded-full"
+                    loading="lazy"
                   />
                   <span className="font-medium text-gray-100">{item.reviewer.displayName}</span>
                 </div>
