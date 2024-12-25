@@ -51,21 +51,17 @@ export default defineConfig({
       // 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       // 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       // 'Access-Control-Allow-Credentials': 'true',
-
       // // Security headers
       // 'Cross-Origin-Opener-Policy': 'same-origin-allow-popups', // Less restrictive than 'same-origin' to allow third-party auth
       // 'Cross-Origin-Embedder-Policy': 'require-corp',
       // 'Cross-Origin-Resource-Policy': 'cross-origin', // Allow resources from subdomains
-
       // Standard security headers
       // 'X-Content-Type-Options': 'nosniff',
       // 'X-Frame-Options': 'SAMEORIGIN',
       // 'X-XSS-Protection': '1; mode=block',
       // 'Referrer-Policy': 'strict-origin-when-cross-origin',
-
       // // HSTS (Strict Transport Security)
       // 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-
       // Content Security Policy - more permissive for subdomains
       //   'Content-Security-Policy': `
       //     default-src 'self' https://*.glass.no;
