@@ -24,7 +24,6 @@ FROM base AS release
 RUN apt-get update && apt-get install -y curl
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=build /usr/src/app/dist ./dist
-RUN mkdir -p /usr/src/app/dist/client/404 && mv /usr/src/app/dist/client/404.html /usr/src/app/dist/client/404/index.html
 
 # Set environment variables and run the app
 ENV HOST=0.0.0.0
