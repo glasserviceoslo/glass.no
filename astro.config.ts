@@ -146,6 +146,10 @@ export default defineConfig({
       lastmod: new Date('2024-10-22'),
     }),
   ],
+  trailingSlash: 'never',
+  build: {
+    format: 'directory',
+  },
   output: 'hybrid',
   adapter: node({
     mode: 'standalone',

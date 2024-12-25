@@ -30,4 +30,4 @@ ENV HOST=0.0.0.0
 ENV NODE_ENV=production
 USER bun
 EXPOSE 3000/tcp
-CMD ["bun", "run", "./dist/server/entry.mjs"]
+ENTRYPOINT ["bun", "run", "./dist/server/entry.mjs"]

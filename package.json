@@ -16,7 +16,7 @@
     "dev": "bunx --bun astro dev --port 5001",
     "build": "rm -rf dist && astro telemetry disable && bunx --bun astro build",
     "preview": "astro preview",
-    "start": "astro preview",
+    "start": "bun run ./dist/server/entry.mjs",
     "clean": "rm -rf node_modules dist",
     "format": "bun format:code",
     "format:code": "prettier -w . --cache --plugin-search-dir=.",
