@@ -66,6 +66,19 @@
   body {
     @apply bg-background text-foreground;
   }
+  ol {
+    @apply list-decimal pl-8 space-y-1;
+  }
+  ol ol {
+    @apply list-[lower-alpha] pl-8;
+  }
+  ol ol ol {
+    @apply list-[lower-roman];
+  }
+  ol li {
+    @apply relative;
+    display: list-item;
+  }
 }
 
 @layer components {
