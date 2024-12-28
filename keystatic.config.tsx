@@ -252,7 +252,6 @@ const sharedSchema = {
     label: 'Keywords',
     description: 'Comma separated list of keywords',
   }),
-  redirect,
   publishedAt: fields.date({
     label: 'Published at',
     defaultValue: { kind: 'today' },

@@ -57,7 +57,6 @@ const baseContentSchema = ({ image }: { image: ImageFunction }) =>
     metaDescription: z.string().optional(),
     seoKeyphrase: z.string().optional().nullable(),
     seoKeywords: z.string().optional().nullable(),
-    redirect: redirectSchema,
     publishedAt: z.date().default(() => new Date()),
     updatedAt: z.date().default(() => new Date()),
     content: z.string().optional(),
