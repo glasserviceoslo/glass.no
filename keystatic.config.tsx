@@ -1,5 +1,5 @@
 import { FAQ } from '@/components/React/FAQ';
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
 import { Highlighter, CircleHelp, Box } from 'lucide-react';
 
@@ -212,6 +212,68 @@ export const navigation = collection({
   },
 });
 
+const redirectItemSchema = fields.object({
+  from: fields.text({
+    label: 'Redirect From',
+    description: 'The path to redirect from (e.g., /old-page)',
+    validation: { length: { min: 1 } },
+  }),
+  to: fields.conditional(
+    fields.select({
+      label: 'Redirect To',
+      description: 'Where should this redirect to?',
+      options: [
+        { label: 'Page', value: 'page' },
+        { label: 'Post', value: 'post' },
+        { label: 'Custom URL', value: 'custom' },
+      ],
+      defaultValue: 'page',
+    }),
+    {
+      page: fields.object({
+        page: fields.relationship({
+          label: 'Select Page',
+          collection: 'pages',
+        }),
+        statusCode: redirectStatusCode,
+      }),
+      post: fields.object({
+        post: fields.relationship({
+          label: 'Select Post',
+          collection: 'posts',
+        }),
+        statusCode: redirectStatusCode,
+      }),
+      custom: fields.object({
+        url: fields.text({
+          label: 'Custom URL',
+          description: 'Enter full URL or path (e.g., https://example.com or /new-page)',
+          validation: { length: { min: 1 } },
+        }),
+        statusCode: redirectStatusCode,
+      }),
+    },
+  ),
+});
+
+export const redirects = singleton({
+  label: 'Redirects',
+  path: 'src/content/redirects',
+  schema: {
+    redirects: fields.array(redirectItemSchema, {
+      label: 'Redirect Rules',
+      itemLabel: (props) =>
+        `${props.fields.from.value} → ${
+          props.fields.to.discriminant === 'custom'
+            ? props.fields.to.value.fields.url.value
+            : props.fields.to.discriminant === 'page'
+              ? `Page: ${props.fields.to.value.fields.page.value}`
+              : `Post: ${props.fields.to.value.fields.post.value}`
+        }`,
+    }),
+  },
+});
+
 const storage = import.meta.env.DEV
   ? { kind: 'local' as const }
   : {
@@ -292,7 +354,7 @@ export default config({
   storage,
   ui: {
     navigation: {
-      Settings: ['navigation'],
+      Settings: ['navigation', 'redirects'],
       Content: ['pages', 'posts', 'glasstypes'],
     },
     brand: {
@@ -326,5 +388,5 @@ export default config({
     //   },
     // }),
   },
-  // singletons: { navigation },
+  singletons: { redirects },
 });

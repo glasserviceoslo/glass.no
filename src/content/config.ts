@@ -39,15 +39,38 @@ const redirectStatusCode = z.union([
   z.literal(308),
 ]);
 
-const redirectValue = z.object({ redirectTo: z.string(), statusCode: redirectStatusCode });
+const redirectDestinationSchema = z.discriminatedUnion('discriminant', [
+  z.object({
+    discriminant: z.literal('page'),
+    value: z.object({
+      page: z.string(),
+      statusCode: redirectStatusCode,
+    }),
+  }),
+  z.object({
+    discriminant: z.literal('post'),
+    value: z.object({
+      post: z.string(),
+      statusCode: redirectStatusCode,
+    }),
+  }),
+  z.object({
+    discriminant: z.literal('custom'),
+    value: z.object({
+      url: z.string().min(1),
+      statusCode: redirectStatusCode,
+    }),
+  }),
+]);
 
-const redirectSchema = z
-  .discriminatedUnion('discriminant', [
-    z.object({ discriminant: z.literal('none'), value: z.null().optional() }),
-    z.object({ discriminant: z.literal('pages'), value: redirectValue }),
-    z.object({ discriminant: z.literal('posts'), value: redirectValue }),
-  ])
-  .default({ discriminant: 'none', value: null });
+const redirectItemSchema = z.object({
+  from: z.string().min(1),
+  to: redirectDestinationSchema,
+});
+
+export const redirects = z.object({
+  redirects: z.array(redirectItemSchema),
+});
 
 const baseContentSchema = ({ image }: { image: ImageFunction }) =>
   z.object({
@@ -117,4 +140,4 @@ const navigation = defineCollection({
   }),
 });
 
-export const collections = { pages, posts, glasstypes, navigation };
+export const collections = { pages, posts, glasstypes, navigation, redirects };
