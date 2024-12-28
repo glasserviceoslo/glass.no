@@ -1,6 +1,6 @@
 import { FAQ } from '@/components/React/FAQ';
 import { config, fields, collection, singleton } from '@keystatic/core';
-import { wrapper, mark, type ContentComponent } from '@keystatic/core/content-components';
+import { wrapper, mark, type ContentComponent, block } from '@keystatic/core/content-components';
 import { Highlighter, CircleHelp, Box } from 'lucide-react';
 
 const components: Record<string, ContentComponent> = {
@@ -38,7 +38,7 @@ const components: Record<string, ContentComponent> = {
     },
   }),
 
-  FAQ: wrapper({
+  FAQ: block({
     label: 'FAQ',
     icon: <CircleHelp size={24} />,
     schema: {
@@ -258,7 +258,8 @@ const redirectItemSchema = fields.object({
 
 export const redirects = singleton({
   label: 'Redirects',
-  path: 'src/content/redirects',
+  path: 'src/assets/redirects',
+  format: { data: 'json' },
   schema: {
     redirects: fields.array(redirectItemSchema, {
       label: 'Redirect Rules',

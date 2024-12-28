@@ -140,4 +140,4 @@ const navigation = defineCollection({
   }),
 });
 
-export const collections = { pages, posts, glasstypes, navigation, redirects };
+export const collections = { pages, posts, glasstypes, navigation };
