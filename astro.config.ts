@@ -7,8 +7,8 @@ import keystatic from '@keystatic/astro';
 import { join } from 'node:path';
 import { readdirSync, readFileSync } from 'node:fs';
 import matter from 'gray-matter';
-
 import sitemap from '@astrojs/sitemap';
+import { redirects } from './src/assets/redirects.json' with { type: 'json' };
 
 const contentDir = join(import.meta.dirname, 'src', 'content');
 const siteUrl = 'https://www.glass.no';
@@ -40,6 +40,24 @@ function getRoutes(directory: string, prefix: string = '') {
 const pageRoutes = getRoutes('pages', siteUrl);
 const postRoutes = getRoutes('posts', siteUrl);
 const glasstypeRoutes = getRoutes('glasstypes', siteUrl);
+
+const astroRedirects = redirects.map((redirect) => {
+  let destination = redirect.to.value.redirectTo;
+  switch (redirect.to.discriminant) {
+    case 'pages':
+    case 'posts':
+    case 'glasstypes':
+      destination = `/glasstyper/${redirect.to.value.redirectTo}`;
+      break;
+    case 'custom':
+      destination = redirect.to.value.redirectTo;
+      break;
+  }
+
+  return {
+    [redirect.from]: { status: redirect.to.value.statusCode, destination },
+  };
+});
 
 // https://astro.build/config
 export default defineConfig({
@@ -83,22 +101,18 @@ export default defineConfig({
     },
   },
   redirects: {
-    '/10-mater-a-bruke-smijern-i-ditt-hjem': {
-      status: 301,
-      destination: '/hvordan-bruke-smijernsdører-10-tips',
-    },
-    '/posts/10-mater-a-bruke-smijern-i-ditt-hjem': {
-      status: 301,
-      destination: '/hvordan-bruke-smijernsdører-10-tips',
-    },
-    '/hvordan-bruke-smijernsdører': {
-      status: 301,
-      destination: '/hvordan-bruke-smijernsdører-10-tips',
-    },
-    '/posts/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing': {
-      status: 301,
-      destination: '/glassrekkverk',
-    },
+    // '/10-mater-a-bruke-smijern-i-ditt-hjem': {
+    //   status: 301,
+    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
+    // },
+    // '/posts/10-mater-a-bruke-smijern-i-ditt-hjem': {
+    //   status: 301,
+    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
+    // },
+    // '/hvordan-bruke-smijernsdører': {
+    //   status: 301,
+    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
+    // },
     '/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing': {
       status: 301,
       destination: '/glassrekkverk',

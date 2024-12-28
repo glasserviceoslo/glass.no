@@ -121,20 +121,28 @@ const redirect = fields.conditional(
     label: 'Redirect',
     description: 'Option to redirect to another page/post',
     options: [
-      { label: 'Do not redirect', value: 'none' },
       { label: 'Page', value: 'pages' },
       { label: 'Post', value: 'posts' },
+      { label: 'Glass Type', value: 'glasstyper' },
+      { label: 'Custom URL', value: 'custom' },
     ],
-    defaultValue: 'none',
+    defaultValue: 'pages',
   }),
   {
-    none: fields.empty(),
+    custom: fields.object({
+      redirectTo: fields.url({ label: 'Custom URL', description: 'The URL to redirect to' }),
+      statusCode: redirectStatusCode,
+    }),
     pages: fields.object({
       redirectTo: fields.relationship({ label: 'Select a page from the list:', collection: 'pages' }),
       statusCode: redirectStatusCode,
     }),
     posts: fields.object({
       redirectTo: fields.relationship({ label: 'Select a post from the list:', collection: 'posts' }),
+      statusCode: redirectStatusCode,
+    }),
+    glasstyper: fields.object({
+      redirectTo: fields.relationship({ label: 'Select a glass type from the list:', collection: 'glasstyper' }),
       statusCode: redirectStatusCode,
     }),
   },
@@ -218,42 +226,7 @@ const redirectItemSchema = fields.object({
     description: 'The path to redirect from (e.g., /old-page)',
     validation: { length: { min: 1 } },
   }),
-  to: fields.conditional(
-    fields.select({
-      label: 'Redirect To',
-      description: 'Where should this redirect to?',
-      options: [
-        { label: 'Page', value: 'page' },
-        { label: 'Post', value: 'post' },
-        { label: 'Custom URL', value: 'custom' },
-      ],
-      defaultValue: 'page',
-    }),
-    {
-      page: fields.object({
-        page: fields.relationship({
-          label: 'Select Page',
-          collection: 'pages',
-        }),
-        statusCode: redirectStatusCode,
-      }),
-      post: fields.object({
-        post: fields.relationship({
-          label: 'Select Post',
-          collection: 'posts',
-        }),
-        statusCode: redirectStatusCode,
-      }),
-      custom: fields.object({
-        url: fields.text({
-          label: 'Custom URL',
-          description: 'Enter full URL or path (e.g., https://example.com or /new-page)',
-          validation: { length: { min: 1 } },
-        }),
-        statusCode: redirectStatusCode,
-      }),
-    },
-  ),
+  to: redirect,
 });
 
 export const redirects = singleton({
@@ -264,13 +237,7 @@ export const redirects = singleton({
     redirects: fields.array(redirectItemSchema, {
       label: 'Redirect Rules',
       itemLabel: (props) =>
-        `${props.fields.from.value} → ${
-          props.fields.to.discriminant === 'custom'
-            ? props.fields.to.value.fields.url.value
-            : props.fields.to.discriminant === 'page'
-              ? `Page: ${props.fields.to.value.fields.page.value}`
-              : `Post: ${props.fields.to.value.fields.post.value}`
-        }`,
+        `${props.fields.from.value} → ${props.fields.to.value.fields.redirectTo.value} [${props.fields.to.value.fields.statusCode.value}]`,
     }),
   },
 });
