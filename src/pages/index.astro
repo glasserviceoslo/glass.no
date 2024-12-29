@@ -66,13 +66,13 @@ const filteredReviews = (reviews?.reviews || [])
 
     {
       filteredReviews && (
-        <div class="w-full order-5 transform transition-all">
+        <div class="w-full order-4 transform transition-all">
           <GoogleReviews reviews={filteredReviews} client:visible />
         </div>
       )
     }
 
-    <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-4">
+    <div class="w-full mb-6 sm:mb-8 md:mb-12 lg:mb-16 transform transition-all duration-300 ease-in-out order-5">
       <LatestPosts />
     </div>
   </div>

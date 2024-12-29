@@ -47,7 +47,7 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        'scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]',
+        'scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_80%,transparent)]',
         className,
       )}
     >
@@ -61,10 +61,12 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item) => (
           <li
-            className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
-            style={{
-              background: 'linear-gradient(180deg, var(--slate-800), var(--slate-900)',
-            }}
+            className="w-[350px] max-w-full relative flex-shrink-0  px-8 py-6 md:w-[450px]
+            
+            rounded-3xl border border-gray-100 bg-white bg-opacity-50 p-6 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none"
+            // style={{
+            //   background: 'linear-gradient(180deg, var(--slate-800), var(--slate-900)',
+            // }}
             key={item.reviewer.displayName}
           >
             <blockquote>
@@ -76,11 +78,13 @@ export const InfiniteMovingCards = ({
                     className="w-10 h-10 rounded-full"
                     loading="lazy"
                   />
-                  <span className="font-medium text-gray-100">{item.reviewer.displayName}</span>
+                  <span className="font-semibold text-gray-800 dark:text-white">{item.reviewer.displayName}</span>
                 </div>
-                <div className="text-yellow-400">{'★'.repeat(item.starRating)}</div>
+                <div className="text-yellow-600 text-xl">{'★'.repeat(item.starRating)}</div>
               </div>
-              <span className="relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">{item.comment}</span>
+              <span className="relative z-20 leading-[1.6] text-gray-600 dark:text-gray-300 font-normal">
+                {item.comment}
+              </span>
             </blockquote>
           </li>
         ))}

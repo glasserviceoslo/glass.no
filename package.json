@@ -23,7 +23,8 @@
     "version": "changeset version && bun install --no-frozen-lockfile && bun format",
     "update-deps": "bunx npm-check-updates --root --format group -i",
     "typecheck": "tsc --noEmit",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "shadcn": "bunx --bun shadcn@latest"
   },
   "dependencies": {
     "@astrojs/mdx": "3.1.8",
@@ -84,6 +85,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.5.14",
+    "shadcn-ui": "^0.9.4",
     "typescript": "^5.7.2"
   }
 }
