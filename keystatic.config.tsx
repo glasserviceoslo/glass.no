@@ -131,19 +131,19 @@ const redirect = fields.conditional(
   {
     custom: fields.object({
       redirectTo: fields.url({ label: 'Custom URL', description: 'The URL to redirect to' }),
-      statusCode: redirectStatusCode,
+      status: redirectStatusCode,
     }),
     pages: fields.object({
       redirectTo: fields.relationship({ label: 'Select a page from the list:', collection: 'pages' }),
-      statusCode: redirectStatusCode,
+      status: redirectStatusCode,
     }),
     posts: fields.object({
       redirectTo: fields.relationship({ label: 'Select a post from the list:', collection: 'posts' }),
-      statusCode: redirectStatusCode,
+      status: redirectStatusCode,
     }),
     glasstyper: fields.object({
       redirectTo: fields.relationship({ label: 'Select a glass type from the list:', collection: 'glasstyper' }),
-      statusCode: redirectStatusCode,
+      status: redirectStatusCode,
     }),
   },
 );
@@ -237,7 +237,7 @@ export const redirects = singleton({
     redirects: fields.array(redirectItemSchema, {
       label: 'Redirect Rules',
       itemLabel: (props) =>
-        `${props.fields.from.value} → ${props.fields.to.value.fields.redirectTo.value} [${props.fields.to.value.fields.statusCode.value}]`,
+        `${props.fields.from.value} → ${props.fields.to.value.fields.redirectTo.value} [${props.fields.to.value.fields.status.value}]`,
     }),
   },
 });

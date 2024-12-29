@@ -1,0 +1,114 @@
+{
+  "redirects": [
+    {
+      "from": "/posts/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing",
+      "to": {
+        "discriminant": "pages",
+        "value": {
+          "redirectTo": "glassrekkverk",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing",
+      "to": {
+        "discriminant": "pages",
+        "value": {
+          "redirectTo": "glassrekkverk",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/odelagt-vindusglass",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "vindusglass",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/hva-er-glassmester-copy",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "hva-er-glassmester",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/rengjoring-av-metalldor",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "vedlikehold-av-smijernsdorer-slik-gjor-du-det",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/posts/rengjoring-av-metalldor",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "vedlikehold-av-smijernsdorer-slik-gjor-du-det",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/10-mater-a-bruke-smijern-i-ditt-hjem",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "hvordan-bruke-smijernsdører-10-tips",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/posts/10-mater-a-bruke-smijern-i-ditt-hjem",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "hvordan-bruke-smijernsdører-10-tips",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/hvordan-bruke-smijernsdører",
+      "to": {
+        "discriminant": "posts",
+        "value": {
+          "redirectTo": "hvordan-bruke-smijernsdører-10-tips",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/booking",
+      "to": {
+        "discriminant": "custom",
+        "value": {
+          "redirectTo": "/befaring",
+          "status": 301
+        }
+      }
+    },
+    {
+      "from": "/booking",
+      "to": {
+        "discriminant": "custom",
+        "value": {
+          "redirectTo": "/befaring",
+          "status": 301
+        }
+      }
+    }
+  ]
+}

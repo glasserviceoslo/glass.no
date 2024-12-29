@@ -41,23 +41,45 @@ const pageRoutes = getRoutes('pages', siteUrl);
 const postRoutes = getRoutes('posts', siteUrl);
 const glasstypeRoutes = getRoutes('glasstypes', siteUrl);
 
-const astroRedirects = redirects.map((redirect) => {
-  let destination = redirect.to.value.redirectTo;
-  switch (redirect.to.discriminant) {
-    case 'pages':
-    case 'posts':
-    case 'glasstypes':
-      destination = `/glasstyper/${redirect.to.value.redirectTo}`;
-      break;
-    case 'custom':
-      destination = redirect.to.value.redirectTo;
-      break;
-  }
+const astroRedirects = redirects.reduce(
+  (acc, redirect) => {
+    const { from, to } = redirect;
 
-  return {
-    [redirect.from]: { status: redirect.to.value.statusCode, destination },
-  };
-});
+    if (acc[from]) {
+      console.warn(
+        `Warning: Duplicate redirect found for path "${from}". ` +
+          `Original: "${acc[from].destination}", New: "${to.value.redirectTo}". ` +
+          `Using the latest definition.`,
+      );
+    }
+
+    let destination = to.value.redirectTo;
+    switch (to.discriminant) {
+      case 'pages':
+      case 'posts':
+        destination = `/${to.value.redirectTo}`;
+        break;
+      case 'glasstypes':
+        destination = `/glasstyper/${to.value.redirectTo}`;
+        break;
+      case 'custom':
+        destination = to.value.redirectTo;
+        break;
+    }
+
+    if (from !== destination) {
+      acc[from] = {
+        status: to.value.status,
+        destination,
+      };
+    } else {
+      console.warn(`Warning: Skipping redirect from "${from}" to "${destination}" ` + `to prevent redirect loop.`);
+    }
+
+    return acc;
+  },
+  {} as Record<string, { status: number; destination: string }>,
+);
 
 // https://astro.build/config
 export default defineConfig({
@@ -101,43 +123,8 @@ export default defineConfig({
     },
   },
   redirects: {
-    // '/10-mater-a-bruke-smijern-i-ditt-hjem': {
-    //   status: 301,
-    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
-    // },
-    // '/posts/10-mater-a-bruke-smijern-i-ditt-hjem': {
-    //   status: 301,
-    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
-    // },
-    // '/hvordan-bruke-smijernsdører': {
-    //   status: 301,
-    //   destination: '/hvordan-bruke-smijernsdører-10-tips',
-    // },
-    '/glassrekverk-renovasjon-av-hjemmet-med-riktig-glassdesing': {
-      status: 301,
-      destination: '/glassrekkverk',
-    },
-    '/odelagt-vindusglass': {
-      status: 301,
-      destination: '/vindusglass',
-    },
-    '/hva-er-glassmester-copy': {
-      status: 301,
-      destination: '/hva-er-glassmester',
-    },
-    '/rengjoring-av-metalldor': {
-      status: 301,
-      destination: '/vedlikehold-av-smijernsdorer-slik-gjor-du-det',
-    },
-    '/posts/rengjoring-av-metalldor': {
-      status: 301,
-      destination: '/vedlikehold-av-smijernsdorer-slik-gjor-du-det',
-    },
+    ...astroRedirects,
     '/posts/[slug]': '/[slug]',
-    '/booking': {
-      status: 301,
-      destination: '/befaring',
-    },
   },
   vite: {
     build: {
