@@ -1,6 +1,5 @@
 ---
 import Logo from './Logo.astro';
-const year = new Date().getFullYear();
 ---
 
 <footer class="bg-gray-50 px-8 py-6 dark:bg-background lg:px-12">
@@ -44,7 +43,7 @@ const year = new Date().getFullYear();
     <hr class="my-6 border-gray-300 dark:border-gray-800 sm:mx-auto lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-gray-700 dark:text-gray-300 sm:text-center">
-        © {year} Glass-Service Svendsen og Sønn AS. All Rights Reserved.
+        © {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS. All Rights Reserved.
       </span>
       <div class="mt-4 flex flex-row gap-4 sm:mt-0 sm:ml-4">
         <div class="flex flex-row gap-2">
