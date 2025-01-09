@@ -130,7 +130,7 @@ menuItems:
             navigationTitle: Skyvedør glass
           - item:
               discriminant: page
-              value: Skyvedorer paa Maal
+              value: Skyvedorer-paa-maal
             navigationTitle: Skyvedør på mål
       - item:
           discriminant: page
