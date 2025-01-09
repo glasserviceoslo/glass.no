@@ -46,35 +46,6 @@ menuItems:
             navigationTitle: Takterasse
       - item:
           discriminant: page
-          value: speil
-        navigationTitle: Speil
-        grandchildren:
-          - item:
-              discriminant: page
-              value: ovalt-speil
-            navigationTitle: Ovalt speil
-          - item:
-              discriminant: page
-              value: rundt-speil
-            navigationTitle: Rundt speil
-          - item:
-              discriminant: page
-              value: speil-bad
-            navigationTitle: Speil bad
-          - item:
-              discriminant: page
-              value: speil-pa-mal-
-            navigationTitle: Speil på mål
-          - item:
-              discriminant: page
-              value: stort-speil
-            navigationTitle: Stort speil
-          - item:
-              discriminant: page
-              value: vegg-speil
-            navigationTitle: Vegg speil
-      - item:
-          discriminant: page
           value: dor
         navigationTitle: Dør
         grandchildren:
@@ -165,6 +136,11 @@ menuItems:
           discriminant: page
           value: vinterhage
         navigationTitle: Vinterhage
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: speil-til-hele-hjemmet
+        navigationTitle: Speil
         grandchildren: []
   - item:
       discriminant: custom
