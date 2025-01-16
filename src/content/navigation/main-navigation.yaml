@@ -84,7 +84,7 @@ menuItems:
             navigationTitle: Glassvegg kontor
       - item:
           discriminant: page
-          value: glassdorer
+          value: glassdor
         navigationTitle: Glassdør
         grandchildren:
           - item:
