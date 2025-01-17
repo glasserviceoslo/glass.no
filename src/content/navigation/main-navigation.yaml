@@ -12,7 +12,7 @@ menuItems:
     children:
       - item:
           discriminant: page
-          value: vinduer
+          value: vindu
         navigationTitle: Vindu
         grandchildren:
           - item:
