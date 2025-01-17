@@ -23,10 +23,6 @@ menuItems:
               discriminant: page
               value: bytte-glass-i-vindu
             navigationTitle: Bytte glass i vindu
-          - item:
-              discriminant: post
-              value: skifte-vindusglass
-            navigationTitle: Skifte vindusglass
       - item:
           discriminant: page
           value: velux-takvinduer
