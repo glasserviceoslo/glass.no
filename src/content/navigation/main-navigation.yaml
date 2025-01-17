@@ -106,16 +106,6 @@ menuItems:
             navigationTitle: Glassrekkverk ute
       - item:
           discriminant: page
-          value: innglasset-balkong-vinterhage
-        navigationTitle: Vinterhage
-        grandchildren: []
-      - item:
-          discriminant: post
-          value: hvordan-moderne-glassteknologi-former-lette-og-luftige-rom
-        navigationTitle: Innglasset Balkong
-        grandchildren: []
-      - item:
-          discriminant: page
           value: glassplate-kjokken
         navigationTitle: Glassplate Kjøkken
         grandchildren: []
