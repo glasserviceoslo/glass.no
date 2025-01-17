@@ -39,7 +39,7 @@ menuItems:
           - item:
               discriminant: page
               value: takterrasse
-            navigationTitle: Takterasse
+            navigationTitle: Velux takterasse
       - item:
           discriminant: page
           value: dor
