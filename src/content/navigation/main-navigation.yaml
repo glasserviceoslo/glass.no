@@ -125,7 +125,7 @@ menuItems:
         grandchildren: []
       - item:
           discriminant: page
-          value: glassplate-til-kjøkken
+          value: glassplate-til-kjokken
         navigationTitle: Glassplate kjøkken
         grandchildren: []
   - item:
