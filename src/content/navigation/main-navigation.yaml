@@ -102,11 +102,6 @@ menuItems:
             navigationTitle: Glassrekkverk ute
       - item:
           discriminant: page
-          value: glassplate-kjokken
-        navigationTitle: Glassplate Kjøkken
-        grandchildren: []
-      - item:
-          discriminant: page
           value: skyvedor
         navigationTitle: Skyvedør
         grandchildren:
@@ -127,6 +122,11 @@ menuItems:
           discriminant: page
           value: speil-til-hele-hjemmet
         navigationTitle: Speil
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: glassplate-til-kjøkken
+        navigationTitle: Glassplate kjøkken
         grandchildren: []
   - item:
       discriminant: custom
