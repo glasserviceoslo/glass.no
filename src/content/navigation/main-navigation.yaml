@@ -67,7 +67,7 @@ menuItems:
             navigationTitle: Baldakin
       - item:
           discriminant: page
-          value: glassvegger
+          value: glassvegg
         navigationTitle: Glassvegg
         grandchildren:
           - item:
