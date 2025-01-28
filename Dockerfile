@@ -1,5 +1,5 @@
 # Use the official Bun image
-FROM oven/bun:slim AS base
+FROM oven/bun:1.1.45 AS base
 WORKDIR /usr/src/app
 
 # Install dependencies into temp directory
