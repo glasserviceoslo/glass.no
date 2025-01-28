@@ -25,7 +25,7 @@ menuItems:
             navigationTitle: Bytte glass i vindu
       - item:
           discriminant: page
-          value: velux-takvinduer
+          value: velux
         navigationTitle: Velux
         grandchildren:
           - item:
