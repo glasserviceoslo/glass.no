@@ -36,10 +36,6 @@ menuItems:
               discriminant: page
               value: velux-takvindu
             navigationTitle: Velux takvindu
-          - item:
-              discriminant: page
-              value: takterrasse
-            navigationTitle: Velux takterasse
       - item:
           discriminant: page
           value: dor
