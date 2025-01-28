@@ -109,10 +109,6 @@ menuItems:
               discriminant: page
               value: skyvedor-glass
             navigationTitle: Skyvedør glass
-          - item:
-              discriminant: page
-              value: Skyvedorer-paa-maal
-            navigationTitle: Skyvedør på mål
       - item:
           discriminant: page
           value: vinterhage
