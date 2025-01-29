@@ -79,16 +79,10 @@ export function ExpandableCard({ content }: Props) {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`}>
-                <img
-                  width={200}
-                  height={200}
-                  src={active.image}
-                  alt={active.imageAlt}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-center"
-                />
+              <motion.div layoutId={`image-${active.title}-${id}`} className="w-[70%] aspect-3/2 mx-auto">
+                <img src={active.image} alt={active.imageAlt} className="w-full h-full object-cover object-center" />
               </motion.div>
 
               <div>
@@ -119,7 +113,7 @@ export function ExpandableCard({ content }: Props) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-16 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-8 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
                     {content.text}
                   </motion.div>
@@ -135,14 +129,12 @@ export function ExpandableCard({ content }: Props) {
         onClick={() => setActive(content)}
         className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
       >
-        <div className="flex gap-4 flex-col  w-full">
-          <motion.div layoutId={`image-${content.title}-${id}`}>
+        <div className="flex gap-4 flex-col w-full">
+          <motion.div layoutId={`image-${content.title}-${id}`} className="w-[70%] aspect-3/2 mx-auto">
             <img
-              width={100}
-              height={100}
               src={content.image}
               alt={content.imageAlt}
-              className="h-60 w-full rounded-lg object-cover object-center"
+              className="w-full h-full rounded-lg object-cover object-center"
             />
           </motion.div>
           <div className="flex justify-center items-center flex-col">
