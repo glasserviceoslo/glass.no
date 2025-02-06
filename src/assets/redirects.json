@@ -109,6 +109,16 @@
           "status": 301
         }
       }
+    },
+    {
+      "from": "https://www.glass.no/hub-smijernsd%C3%B8r/",
+      "to": {
+        "discriminant": "custom",
+        "value": {
+          "redirectTo": "https://www.glass.no/hub-smijernsdor",
+          "status": 301
+        }
+      }
     }
   ]
 }
