@@ -126,6 +126,11 @@ menuItems:
         grandchildren: []
   - item:
       discriminant: custom
+      value: artikler
+    navigationTitle: Artikler
+    children: []
+  - item:
+      discriminant: custom
       value: kontakt
     navigationTitle: Kontakt Oss
     children: []
