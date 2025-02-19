@@ -178,3 +178,8 @@ menuItems:
           value: speilglass
         navigationTitle: Speilglass
         grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: brannglass
+        navigationTitle: Brannglass
+        grandchildren: []
