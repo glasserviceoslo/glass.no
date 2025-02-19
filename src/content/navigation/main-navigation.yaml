@@ -136,6 +136,20 @@ menuItems:
     children: []
   - item:
       discriminant: glasstype
-      value: brannglass
     navigationTitle: Glass
-    children: []
+    children:
+      - item:
+          discriminant: glasstype
+          value: brannglass
+        navigationTitle: Brannglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: energiglass
+        navigationTitle: Energiglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: float-glass
+        navigationTitle: Float glass
+        grandchildren: []
