@@ -134,3 +134,42 @@ menuItems:
       value: kontakt
     navigationTitle: Kontakt Oss
     children: []
+  - item:
+      discriminant: glasstype
+    navigationTitle: Glass
+    children:
+      - item:
+          discriminant: glasstype
+          value: plexiglass
+        navigationTitle: Plexiglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: polykarbonat
+        navigationTitle: Polykarbonat
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: herdet-glass
+        navigationTitle: Herdet glass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: frostet-glass
+        navigationTitle: Frostet glass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: laminert-glass
+        navigationTitle: Laminert glass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: sikkerhetsglass
+        navigationTitle: Sikkerhetsglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: isolerglass
+        navigationTitle: Isolerglass
+        grandchildren: []
