@@ -173,3 +173,8 @@ menuItems:
           value: isolerglass
         navigationTitle: Isolerglass
         grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: speilglass
+        navigationTitle: Speilglass
+        grandchildren: []
