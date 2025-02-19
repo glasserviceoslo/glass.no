@@ -188,3 +188,8 @@ menuItems:
           value: energiglass
         navigationTitle: Energiglass
         grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: stoydempende-glass
+        navigationTitle: Støydempende glass
+        grandchildren: []
