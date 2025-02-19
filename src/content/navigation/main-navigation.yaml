@@ -134,3 +134,7 @@ menuItems:
       value: kontakt
     navigationTitle: Kontakt Oss
     children: []
+  - item:
+      discriminant: glasstype
+    navigationTitle: Glass
+    children: []
