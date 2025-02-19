@@ -183,3 +183,8 @@ menuItems:
           value: brannglass
         navigationTitle: Brannglass
         grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: energiglass
+        navigationTitle: Energiglass
+        grandchildren: []
