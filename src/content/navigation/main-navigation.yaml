@@ -7,6 +7,76 @@ menuItems:
     children: []
   - item:
       discriminant: custom
+      value: Glasstyper
+    navigationTitle: Glasstyper
+    children:
+      - item:
+          discriminant: glasstype
+          value: plexiglass
+        navigationTitle: Plexiglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: polykarbonat
+        navigationTitle: Polykarbonat
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: brannglass
+        navigationTitle: Brannglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: energiglass
+        navigationTitle: Energiglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: float-glass
+        navigationTitle: Floatglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: frostet-glass
+        navigationTitle: Frostetglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: herdet-glass
+        navigationTitle: Herdetglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: isolerglass
+        navigationTitle: Isolerglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: laminert-glass
+        navigationTitle: Laminertglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: sikkerhetsglass
+        navigationTitle: Sikkerhetsglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: soldempende-glass
+        navigationTitle: Soldempende glass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: speilglass
+        navigationTitle: Speilglass
+        grandchildren: []
+      - item:
+          discriminant: glasstype
+          value: stoydempende-glass
+        navigationTitle: Støydempendeglass
+        grandchildren: []
+  - item:
+      discriminant: custom
       value: produkter
     navigationTitle: Produkter
     children:
@@ -127,80 +197,10 @@ menuItems:
   - item:
       discriminant: custom
       value: artikler
-    navigationTitle: Artikler
+    navigationTitle: Blogg
     children: []
   - item:
       discriminant: custom
       value: kontakt
     navigationTitle: Kontakt Oss
     children: []
-  - item:
-      discriminant: custom
-      value: Glasstyper
-    navigationTitle: Glasstyper
-    children:
-      - item:
-          discriminant: glasstype
-          value: plexiglass
-        navigationTitle: Plexiglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: polykarbonat
-        navigationTitle: Polykarbonat
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: brannglass
-        navigationTitle: Brannglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: energiglass
-        navigationTitle: Energiglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: float-glass
-        navigationTitle: Floatglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: frostet-glass
-        navigationTitle: Frostetglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: herdet-glass
-        navigationTitle: Herdetglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: isolerglass
-        navigationTitle: Isolerglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: laminert-glass
-        navigationTitle: Laminertglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: sikkerhetsglass
-        navigationTitle: Sikkerhetsglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: soldempende-glass
-        navigationTitle: Soldempende glass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: speilglass
-        navigationTitle: Speilglass
-        grandchildren: []
-      - item:
-          discriminant: glasstype
-          value: stoydempende-glass
-        navigationTitle: Støydempendeglass
-        grandchildren: []
