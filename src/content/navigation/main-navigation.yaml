@@ -88,11 +88,23 @@ menuItems:
           - item:
               discriminant: page
               value: bytte-vindu
-            navigationTitle: Bytte vindu
+            navigationTitle: Bytte ut hele vinduet
           - item:
               discriminant: page
               value: bytte-glass-i-vindu
             navigationTitle: Bytte glass i vindu
+          - item:
+              discriminant: page
+              value: topphengslet-vindu
+            navigationTitle: Topphengslet vindu
+          - item:
+              discriminant: page
+              value: toppsving-vindu
+            navigationTitle: Toppsving vindu
+          - item:
+              discriminant: page
+              value: sidehengslet-vindu
+            navigationTitle: Sidehengslet vindu
       - item:
           discriminant: page
           value: velux
