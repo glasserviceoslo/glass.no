@@ -105,6 +105,10 @@ menuItems:
               discriminant: page
               value: sidehengslet-vindu
             navigationTitle: Sidehengslet vindu
+          - item:
+              discriminant: page
+              value: fastkarm-vindu
+            navigationTitle: Fastkarm vindu
       - item:
           discriminant: page
           value: velux
