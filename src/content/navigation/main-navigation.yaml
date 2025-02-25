@@ -95,6 +95,10 @@ menuItems:
             navigationTitle: Bytte glass i vindu
           - item:
               discriminant: page
+              value: pvc-vindu
+            navigationTitle: PVC vindu
+          - item:
+              discriminant: page
               value: topphengslet-vindu
             navigationTitle: Topphengslet vindu
           - item:
@@ -109,6 +113,10 @@ menuItems:
               discriminant: page
               value: fastkarm-vindu
             navigationTitle: Fastkarm vindu
+          - item:
+              discriminant: page
+              value: innadslaende-vindu
+            navigationTitle: Innadslående vindu
       - item:
           discriminant: page
           value: velux
