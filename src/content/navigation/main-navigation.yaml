@@ -117,6 +117,18 @@ menuItems:
               discriminant: page
               value: innadslaende-vindu
             navigationTitle: Innadslående vindu
+          - item:
+              discriminant: page
+              value: sidesving-vindu
+            navigationTitle: Sidesving vindu
+          - item:
+              discriminant: page
+              value: brannvindu
+            navigationTitle: Brannvindu
+          - item:
+              discriminant: page
+              value: koblet-vindu
+            navigationTitle: Koblet vindu
       - item:
           discriminant: page
           value: velux
