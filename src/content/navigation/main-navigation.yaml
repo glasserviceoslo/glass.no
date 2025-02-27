@@ -7,6 +7,16 @@ menuItems:
     children:
       - item:
           discriminant: page
+          value: bytte-vindu
+        navigationTitle: Bytte hele vinduet
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: bytte-glass-i-vindu
+        navigationTitle: Bytte glass i vindu
+        grandchildren: []
+      - item:
+          discriminant: page
           value: pvc-vindu
         navigationTitle: PVC vindu
         grandchildren: []
