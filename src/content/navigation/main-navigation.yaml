@@ -1,10 +1,55 @@
 name: Main Navigation
 menuItems:
   - item:
-      discriminant: page
-      value: smijernsdor
-    navigationTitle: Smijernsdør
-    children: []
+      discriminant: custom
+      value: Vindu
+    navigationTitle: Vindu
+    children:
+      - item:
+          discriminant: page
+          value: pvc-vindu
+        navigationTitle: PVC vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: fastkarm-vindu
+        navigationTitle: Fastkarm vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: topphengslet-vindu
+        navigationTitle: Topphengslet vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: sidehengslet-vindu
+        navigationTitle: Sidehengslet vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: toppsving-vindu
+        navigationTitle: Toppsving vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: sidesving-vindu
+        navigationTitle: Sidesving vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: innadslaende-vindu
+        navigationTitle: Innadslående vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: koblet-vindu
+        navigationTitle: Koblet vindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: brannvindu
+        navigationTitle: Brannvindu
+        grandchildren: []
   - item:
       discriminant: custom
       value: Glasstyper
@@ -75,6 +120,71 @@ menuItems:
           value: stoydempende-glass
         navigationTitle: Støydempendeglass
         grandchildren: []
+  - item:
+      discriminant: custom
+      value: Velux
+    navigationTitle: Velux
+    children:
+      - item:
+          discriminant: page
+          value: velux-innvendig-lysstyring
+        navigationTitle: Velux innvendig lysstyring
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-persienner
+        navigationTitle: Velux persienner
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-rullegardin
+        navigationTitle: Velux rullegardin
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-plissegardin
+        navigationTitle: Velux plissegardin
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-utvendig-solskjerming
+        navigationTitle: Velux utvendig solskjerming
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-morkleggende-screen
+        navigationTitle: Velux mørkleggende screen
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-rulleskodder
+        navigationTitle: Velux rulleskodder
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-screen
+        navigationTitle: Velux screen
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-solskjerming
+        navigationTitle: Velux solskjerming
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-takvindu
+        navigationTitle: Velux takvindu
+        grandchildren: []
+      - item:
+          discriminant: page
+          value: velux-varmedempende-screen-til-vinduer-for-flate-tak
+        navigationTitle: Velux varmedempende screen til vinduer for flate tak
+        grandchildren: []
+  - item:
+      discriminant: page
+      value: smijernsdor
+    navigationTitle: Smijernsdør
+    children: []
   - item:
       discriminant: custom
       value: produkter
