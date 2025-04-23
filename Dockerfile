@@ -29,5 +29,4 @@ COPY --from=build /usr/src/app/dist ./dist
 ENV HOST=0.0.0.0
 ENV NODE_ENV=production
 USER bun
-EXPOSE 3000/tcp
 ENTRYPOINT ["bun", "run", "./dist/server/entry.mjs"]
