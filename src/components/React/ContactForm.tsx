@@ -20,13 +20,40 @@ export const ContactForm = () => {
     formState: { errors, isSubmitSuccessful },
   } = form;
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (fData: FieldValues) => {
     setIsSubmitting(true);
-    await fetch(import.meta.env.PUBLIC_EMAIL_ENDPOINT, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    setIsSubmitting(false);
+    const data = new FormData();
+
+    for (const key in fData) {
+      if (key === 'field') {
+        data.append(key, fData[key][1]);
+      } else if (key === 'upload' && Array.isArray(fData[key])) {
+        // Handle files correctly - append each file individually with the same key
+        fData[key].forEach((file: File, index: number) => {
+          data.append(`upload_${index}`, file);
+        });
+
+        // Also send the number of files for easier processing
+        data.append('upload_count', fData[key].length.toString());
+      } else {
+        data.append(key, fData[key]);
+      }
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: data,
+      });
+
+      if (!response.ok) {
+        console.error('Form submission failed:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
