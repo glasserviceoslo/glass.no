@@ -37,5 +37,5 @@ export const GoogleMap = () => {
     initializeMap();
   }, []);
 
-  return <div ref={mapRef} className="relative h-[700px] rounded-lg shadow-lg" />;
+  return <div ref={mapRef} className="relative h-full w-full rounded-lg shadow-lg" />;
 };
