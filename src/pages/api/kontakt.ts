@@ -19,7 +19,7 @@ const reply = (request: Request, status: number, body: Record<string, unknown>) 
 export const POST: APIRoute = async ({ request }) => {
 	const form = await request.formData();
 	const message = Object.fromEntries(FIELDS.map((field) => [field, String(form.get(field) ?? "").trim()]));
-	const missing = FIELDS.filter((field) => !message[field] || (field === "telefon" && message[field] === "+47"));
+	const missing = FIELDS.filter((field) => !message[field] || (field === "telefon" && !/^[+]?[0-9 ]{8,}$/.test(message[field])));
 	const tooLong = FIELDS.filter((field) => message[field].length > (field === "melding" ? MAX.melding : MAX.default));
 	if (missing.length || tooLong.length || !message.epost.includes("@")) {
 		return reply(request, 422, { error: "invalid", missing, tooLong });

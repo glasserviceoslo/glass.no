@@ -8,14 +8,36 @@ const fields = [
 	{ name: "fornavn", label: "Navn", type: "text", autocomplete: "given-name", error: "Skriv navnet ditt." },
 	{ name: "etternavn", label: "Etternavn", type: "text", autocomplete: "family-name", error: "Skriv etternavnet ditt." },
 	{ name: "epost", label: "E-post", type: "email", autocomplete: "email", inputmode: "email", error: "Skriv en e-postadresse med @, som navn@eksempel.no." },
-	{ name: "telefon", label: "Telefon", type: "tel", autocomplete: "tel", inputmode: "tel", value: "+47", error: "Skriv telefonnummeret ditt." },
+	{
+		name: "telefon",
+		label: "Telefon",
+		type: "tel",
+		autocomplete: "tel",
+		inputmode: "tel",
+		value: "+47",
+		pattern: "[+]?[0-9 ]{8,}",
+		error: "Skriv telefonnummeret ditt, minst åtte siffer.",
+	},
 	{ name: "adresse", label: "Adresse", type: "text", autocomplete: "street-address", error: "Skriv adressen der jobben skal gjøres." },
 ];
 const sent =
 	"Takk for din henvendelse! Vi har mottatt meldingen din og setter stor pris på at du tok deg tid til å kontakte oss. Vårt team vil gjennomgå henvendelsen din og komme tilbake til deg så snart som mulig.";
+const failed = "Meldingen ble ikke sendt. Det du skrev er tatt vare på. Prøv igjen, eller ring oss på 91 58 49 40.";
+const result = Astro.url.searchParams.get("skjema");
+const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "";
 ---
 
-<form class="form" method="post" action="/api/kontakt" data-endpoint="/api/kontakt" data-sent={sent} novalidate>
+<form
+	class="form"
+	method="post"
+	action="/api/kontakt"
+	data-endpoint="/api/kontakt"
+	data-sent={sent}
+	data-failed={failed}
+	data-sending="Sender …"
+	data-fix="Rett {n} felt før du sender."
+	novalidate
+>
 	{
 		fields.map((field) => (
 			<div class="field">
@@ -27,6 +49,7 @@ const sent =
 					autocomplete={field.autocomplete}
 					inputmode={field.inputmode as never}
 					value={field.value}
+					pattern={field.pattern}
 					required
 					aria-describedby={`${id}-${field.name}-err`}
 				/>
@@ -42,5 +65,5 @@ const sent =
 		<p class="field__error" id={`${id}-melding-err`} hidden>Skriv hva du trenger hjelp med.</p>
 	</div>
 	<div class="btn-row"><button class="btn btn--primary" type="submit">Send melding</button></div>
-	<p class="form__status" role="status" data-form-status></p>
+	<p class="form__status" role="status" data-form-status>{initialStatus}</p>
 </form>
