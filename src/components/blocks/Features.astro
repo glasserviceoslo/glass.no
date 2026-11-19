@@ -3,7 +3,8 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; 
+	value: {
+		background?: "white" | "light" | "tint" | "dark" | "brand";
 		label?: string;
 		heading: string;
 		intro?: string;
@@ -23,38 +24,50 @@ const facts = (value.facts ?? "")
 const items = value.items ?? [];
 ---
 
-<section class:list={["section", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+<section class:list={["section", "features", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
 	<div class="wrap">
-		<div class="grid grid--top features__head">
-			<div class="span-5 section-head">
-				{value.label && <p class="t-label">{value.label}</p>}
+		<div class="features__grid">
+			<div>
+				{value.label && <p class="features__label">{value.label}</p>}
 				<h2 id="hvorfor-oss-h">{value.heading}</h2>
-				{value.intro && <p>{value.intro}</p>}
+				{value.intro && <p class="features__intro">{value.intro}</p>}
+				{
+					bullets.length > 0 && (
+						<ul class="features__checks">
+							{bullets.map((bullet) => (
+								<li>
+									<svg class="features__check" viewBox="0 0 20 20" aria-hidden="true">
+										<circle cx="10" cy="10" r="10" />
+										<path d="m6 10.2 2.6 2.6L14 7.4" />
+									</svg>
+									<span>{bullet}</span>
+								</li>
+							))}
+						</ul>
+					)
+				}
 			</div>
-			<div class="span-6 start-7 stack-6">
-				{value.image && (
-					<div class="frame frame--photo features__photo">
-						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 1023px) 100vw, 640px" />
-					</div>
-				)}
-				{bullets.length > 0 && (
-					<ul class="features__list">
-						{bullets.map((bullet) => (
-							<li>{bullet}</li>
-						))}
-					</ul>
-				)}
-				{facts.length > 0 && (
-					<dl class="features__facts">
-						{facts.map(([figure, label]) => (
-							<div>
-								<dt class="t-stat">{figure}</dt>
-								<dd class="t-small muted">{label}</dd>
+			{
+				(value.image || facts.length > 0) && (
+					<div class="features__media">
+						{value.image && (
+							<div class="features__photo">
+								<Image image={value.image} alt={value.image.alt ?? ""} sizes="(max-width: 900px) 100vw, 640px" />
 							</div>
-						))}
-					</dl>
-				)}
-			</div>
+						)}
+						{facts.length > 0 && (
+							<dl class="features__figs">
+								{facts.map(([figure, label]) => (
+									<div>
+										<dt>{figure}</dt>
+										<dd>{label}</dd>
+									</div>
+								))}
+							</dl>
+						)}
+					</div>
+				)
+			}
 		</div>
 		{
 			items.length > 0 && (
@@ -73,33 +86,144 @@ const items = value.items ?? [];
 </section>
 
 <style>
-	.features__head {
-		margin-bottom: var(--s-8, 64px);
+	.features {
+		padding-block: clamp(3.5rem, 7vw, 6.5rem);
+	}
+
+	.features__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(2.5rem, 6vw, 6rem);
+		align-items: center;
+	}
+
+	.features h2 {
+		margin: 0;
+		font-size: clamp(2rem, 3.6vw, 3.25rem);
+		font-weight: 400;
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.features__label {
+		margin: 0 0 0.6rem;
+		color: var(--p-muted);
+		font-size: 0.875rem;
+	}
+
+	.features__intro {
+		max-width: 46ch;
+		margin: 1.25rem 0 0;
+		color: var(--p-muted);
+		font-size: clamp(1.05rem, 1.25vw, 1.15rem);
+		line-height: 1.6;
+	}
+
+	.features__checks {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.9rem 1.5rem;
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.features__checks li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 1.05rem;
+		font-weight: 500;
+	}
+
+	.features__checks span::first-letter {
+		text-transform: uppercase;
+	}
+
+	.features__check {
+		flex: none;
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.features__check circle {
+		fill: var(--p-accent);
+	}
+
+	.features__check path {
+		fill: none;
+		stroke: #ffffff;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.features__media {
+		position: relative;
+		padding-bottom: 3.5rem;
 	}
 
 	.features__photo {
+		overflow: hidden;
+		border-radius: 22px;
 		aspect-ratio: 4 / 3;
+		background: var(--p-surface);
 	}
 
-	.features__list {
+	.features__photo :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.features__figs {
+		position: absolute;
+		right: clamp(1rem, 3vw, 2rem);
+		bottom: 0;
+		left: clamp(1rem, 3vw, 2rem);
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--s-3) var(--s-6);
+		gap: 0.75rem;
 		margin: 0;
-		padding: 0;
-		list-style: none;
-		font-size: var(--t-lead);
 	}
 
-	.features__list li {
-		padding-top: var(--s-3);
-		border-top: 1px solid var(--line);
+	.features__figs > div {
+		display: grid;
+		gap: 0.35rem;
+		padding: clamp(1rem, 2vw, 1.4rem) clamp(1.1rem, 2vw, 1.5rem);
+		border-radius: 16px;
+		color: #ffffff;
+		box-shadow: 0 18px 36px -20px rgb(4 0 55 / 0.55);
 	}
 
-	@media (max-width: 639px) {
-		.features__list {
-			grid-template-columns: minmax(0, 1fr);
-		}
+	.features__figs > div:first-child {
+		background: var(--p-accent);
+	}
+
+	.features__figs > div:last-child {
+		background: var(--p-ink);
+	}
+
+	.features__figs dt {
+		font-size: clamp(2rem, 3.6vw, 3rem);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: -0.03em;
+	}
+
+	.features__figs dd {
+		margin: 0;
+		font-size: 0.8rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.features__cards {
+		row-gap: clamp(1.75rem, 3vw, 2.75rem);
+		margin-top: clamp(3rem, 6vw, 5rem);
 	}
 
 	.features__cards > :global(.card) {
@@ -134,29 +258,27 @@ const items = value.items ?? [];
 		line-height: 1.5;
 	}
 
-	.features__facts {
-		display: flex;
-		gap: var(--s-7);
-		margin: 0;
-	}
-
-	.features__facts dd {
-		margin: 0;
-	}
-
-	.features__cards {
-		row-gap: clamp(1.75rem, 3vw, 2.75rem);
-	}
-
 	@media (max-width: 1023px) {
 		.features__cards > :global(.card) {
 			grid-column: span 6;
 		}
 	}
 
+	@media (max-width: 900px) {
+		.features__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
 	@media (max-width: 639px) {
 		.features__cards > :global(.card) {
 			grid-column: 1 / -1;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.features__checks {
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

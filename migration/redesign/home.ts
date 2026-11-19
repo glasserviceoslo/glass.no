@@ -90,6 +90,7 @@ const layout = [
 		intro: "I et marked med mange valg, er det noen grunnleggende verdier som skiller oss ut. Når du velger oss som din partner, får du:",
 		bullets: "Over 130 års erfaring\nKompromissløs kvalitet\nLokal forankring i Oslo\nGratis befaring",
 		facts: "98% | Kundetilfredshet\n135 år | MED erfaring",
+		image: photo("01M7TMJKFHRDAXKD4EHNEVH40M", "Baderom med vindu der glasset er byttet"),
 		items: [
 			{ title: "døgn service", text: "Vi er tilgjengelig 24/7 for akutte behov - bare ring.", icon: photo("01M7TMJG3AWDKNGAKEZ05CR8QR", "") },
 			{ title: "Kunnskap", text: "Erfarne fagfolk med spesialsering innen glass og montering.", icon: photo("01M7TMJG4PAMHDQ0F9PX2M9TAC", "") },
