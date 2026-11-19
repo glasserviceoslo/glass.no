@@ -166,8 +166,8 @@ const groups = value.groups.map((group, index) => ({
 		bottom: 0.3rem;
 		left: 0;
 		border-radius: 999px;
-		background: var(--p-ink);
-		box-shadow: 0 6px 16px -8px rgb(4 0 55 / 0.6);
+		background: var(--p-accent);
+		box-shadow: 0 6px 16px -8px color-mix(in oklab, var(--p-accent) 70%, transparent);
 	}
 
 	.is-ready .services-tabs__thumb {
@@ -196,8 +196,12 @@ const groups = value.groups.map((group, index) => ({
 		color: #ffffff;
 	}
 
+	.services-tabs__switch button:not([aria-selected="true"]):hover {
+		color: var(--p-accent);
+	}
+
 	.services-tabs__switch button:focus-visible {
-		outline: 2px solid var(--p-accent);
+		outline: 2px solid var(--p-ink);
 		outline-offset: 2px;
 	}
 
