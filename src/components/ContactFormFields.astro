@@ -18,7 +18,7 @@ const fields = [
 		pattern: "[+]?[0-9 ]{8,}",
 		error: "Skriv telefonnummeret ditt, minst åtte siffer.",
 	},
-	{ name: "adresse", label: "Adresse", type: "text", autocomplete: "street-address", error: "Skriv adressen der jobben skal gjøres." },
+	{ name: "adresse", label: "Adresse", type: "text", autocomplete: "street-address", error: "Skriv adressen der jobben skal gjøres.", full: true },
 ];
 const sent =
 	"Takk for din henvendelse! Vi har mottatt meldingen din og setter stor pris på at du tok deg tid til å kontakte oss. Vårt team vil gjennomgå henvendelsen din og komme tilbake til deg så snart som mulig.";
@@ -40,7 +40,7 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 >
 	{
 		fields.map((field) => (
-			<div class="field">
+			<div class:list={["field", { "field--full": field.full }]}>
 				<label for={`${id}-${field.name}`}>{field.label}</label>
 				<input
 					id={`${id}-${field.name}`}
@@ -59,7 +59,7 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 			</div>
 		))
 	}
-	<div class="field">
+	<div class="field field--full">
 		<label for={`${id}-melding`}>Melding</label>
 		<textarea id={`${id}-melding`} name="melding" rows="5" required aria-describedby={`${id}-melding-err`}></textarea>
 		<p class="field__error" id={`${id}-melding-err`} hidden>Skriv hva du trenger hjelp med.</p>
