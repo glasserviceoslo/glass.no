@@ -251,3 +251,13 @@
 		text-decoration: none;
 	}
 }
+
+main :is(.hero__kicker, .t-label, .features__facts dd) {
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+main :is(.rows__name, .services__card h3, .features__cards .card h3, .features__list li),
+:is(.nav__actions, main, footer) .btn {
+	text-transform: capitalize;
+}
