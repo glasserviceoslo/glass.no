@@ -368,10 +368,6 @@ main .prose p.is-button a {
 	text-transform: capitalize;
 }
 
-main > .statement.statement--photo {
-	padding-top: 0;
-}
-
 .site-footer {
 	padding-block: clamp(2.5rem, 5vw, 3.5rem) 1.5rem;
 	background: var(--p-surface);
