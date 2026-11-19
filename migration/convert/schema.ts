@@ -61,6 +61,7 @@ export const blockTypes = [
 					],
 				},
 			},
+			{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 		],
 	},
 	{
@@ -87,6 +88,7 @@ export const blockTypes = [
 					],
 				},
 			},
+			{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 		],
 	},
 	{
@@ -119,6 +121,7 @@ export const blockTypes = [
 			{ slug: "text", label: "Statement", type: "text", required: true },
 			{ slug: "strong", label: "Word to stress", type: "string" },
 			{ slug: "image", label: "Photograph", type: "image" },
+			{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 		],
 	},
 	{
@@ -156,6 +159,7 @@ export const blockTypes = [
 			...link("primary", "Button"),
 			{ slug: "image", label: "Photograph", type: "image" },
 			{ slug: "show_form", label: "Show the contact form in place of the photograph", type: "boolean" },
+			{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 		],
 	},
 	{

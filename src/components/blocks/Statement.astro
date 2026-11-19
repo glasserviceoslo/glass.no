@@ -3,7 +3,7 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { label?: string; text: string; strong?: string; image?: ImageValue };
+	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; label?: string; text: string; strong?: string; image?: ImageValue };
 }
 
 const { value } = Astro.props;
@@ -11,7 +11,7 @@ const at = value.strong ? value.text.indexOf(value.strong) : -1;
 const parts = at >= 0 ? [value.text.slice(0, at), value.strong, value.text.slice(at + (value.strong?.length ?? 0))] : [value.text];
 ---
 
-<section class="section statement" id="om-oss" aria-label={value.label ?? "Om oss"}>
+<section class:list={["section", "statement", value.background && `surface--${value.background}`]} id="om-oss" aria-label={value.label ?? "Om oss"}>
 	<div class="wrap">
 		<div class="grid grid--top">
 			<div class:list={[value.image ? "span-6" : "span-8", "stack-4"]}>

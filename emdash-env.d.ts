@@ -44,6 +44,7 @@ export interface PageLayoutServicesV1Block {
   "layout"?: "list" | "cards" | null;
   "intro"?: string | null;
   "items"?: { "title": string; "text"?: string | null; "url"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PageLayoutServicesBlock = PageLayoutServicesV1Block;
@@ -59,6 +60,7 @@ export interface PageLayoutFeaturesV1Block {
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
   "facts"?: string | null;
   "items"?: { "title": string; "text"?: string | null; "icon"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PageLayoutFeaturesBlock = PageLayoutFeaturesV1Block;
@@ -80,6 +82,7 @@ export interface PageLayoutStatementV1Block {
   "text": string;
   "strong"?: string | null;
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PageLayoutStatementBlock = PageLayoutStatementV1Block;
@@ -107,6 +110,7 @@ export interface PageLayoutContactV1Block {
   "primary_url"?: string | null;
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
   "show_form"?: boolean | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PageLayoutContactBlock = PageLayoutContactV1Block;
@@ -251,6 +255,7 @@ export interface PostLayoutServicesV1Block {
   "layout"?: "list" | "cards" | null;
   "intro"?: string | null;
   "items"?: { "title": string; "text"?: string | null; "url"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PostLayoutServicesBlock = PostLayoutServicesV1Block;
@@ -266,6 +271,7 @@ export interface PostLayoutFeaturesV1Block {
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
   "facts"?: string | null;
   "items"?: { "title": string; "text"?: string | null; "icon"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PostLayoutFeaturesBlock = PostLayoutFeaturesV1Block;
@@ -287,6 +293,7 @@ export interface PostLayoutStatementV1Block {
   "text": string;
   "strong"?: string | null;
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PostLayoutStatementBlock = PostLayoutStatementV1Block;
@@ -314,6 +321,7 @@ export interface PostLayoutContactV1Block {
   "primary_url"?: string | null;
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
   "show_form"?: boolean | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
 }
 
 export type PostLayoutContactBlock = PostLayoutContactV1Block;

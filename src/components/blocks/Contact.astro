@@ -5,7 +5,7 @@ import ContactFormFields from "../ContactFormFields.astro";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: {
+	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; 
 		heading: string;
 		intro?: string;
 		address?: string;
@@ -37,7 +37,7 @@ const primaryUrl = safeHref(value.primary_url);
 const tel = value.phone?.replace(/[^+\d]/g, "");
 ---
 
-<section class="section" id="kontakt" style={value.show_form ? "--hm: 2" : undefined} aria-labelledby="kontakt-h">
+<section class:list={["section", value.background && `surface--${value.background}`]} id="kontakt" style={value.show_form ? "--hm: 2" : undefined} aria-labelledby="kontakt-h">
 	<div class="wrap">
 		<div class="grid grid--top fill">
 			<div class="span-5 stack-6">

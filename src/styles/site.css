@@ -188,50 +188,6 @@
 		text-align: left;
 	}
 
-	.surface--white {
-		background: #ffffff;
-	}
-
-	.surface--light {
-		background: var(--p-bg);
-	}
-
-	.surface--tint {
-		background: var(--p-surface);
-	}
-
-	.surface--dark,
-	.surface--image {
-		--line: color-mix(in oklab, var(--p-inv-ink) 16%, transparent);
-		background: var(--p-inv-bg);
-		color: var(--p-inv-ink);
-	}
-
-	.surface--brand {
-		--line: color-mix(in oklab, var(--p-accent-ink) 16%, transparent);
-		background: var(--p-accent);
-		color: var(--p-accent-ink);
-	}
-
-	.surface--dark :is(h1, h2, h3, h4, h5, h6, a),
-	.surface--image :is(h1, h2, h3, h4, h5, h6, a) {
-		color: var(--p-inv-ink);
-	}
-
-	.surface--brand :is(h1, h2, h3, h4, h5, h6, a) {
-		color: var(--p-accent-ink);
-	}
-
-	.surface--brand :is(.btn, .prose p.is-button a) {
-		background: var(--p-accent-ink);
-		color: var(--p-accent);
-	}
-
-	.surface--brand :is(.btn, .prose p.is-button a):hover {
-		background: color-mix(in oklab, var(--p-accent-ink) 85%, #fff);
-		color: var(--p-accent);
-	}
-
 	.block {
 		position: relative;
 		padding-block: var(--section-y);
@@ -259,6 +215,50 @@
 		color: inherit;
 		text-decoration: none;
 	}
+}
+
+.surface--white {
+	background: #ffffff;
+}
+
+.surface--light {
+	background: var(--p-bg);
+}
+
+.surface--tint {
+	background: var(--p-surface);
+}
+
+.surface--dark,
+.surface--image {
+	--line: color-mix(in oklab, var(--p-inv-ink) 16%, transparent);
+	background: var(--p-inv-bg);
+	color: var(--p-inv-ink);
+}
+
+.surface--brand {
+	--line: color-mix(in oklab, var(--p-accent-ink) 16%, transparent);
+	background: var(--p-accent);
+	color: var(--p-accent-ink);
+}
+
+.surface--dark :is(h1, h2, h3, h4, h5, h6, a),
+.surface--image :is(h1, h2, h3, h4, h5, h6, a) {
+	color: var(--p-inv-ink);
+}
+
+.surface--brand :is(h1, h2, h3, h4, h5, h6, a) {
+	color: var(--p-accent-ink);
+}
+
+.surface--brand :is(.btn, .prose p.is-button a) {
+	background: var(--p-accent-ink);
+	color: var(--p-accent);
+}
+
+.surface--brand :is(.btn, .prose p.is-button a):hover {
+	background: color-mix(in oklab, var(--p-accent-ink) 85%, #fff);
+	color: var(--p-accent);
 }
 
 main :is(.hero__kicker, .t-label, .features__facts dd) {

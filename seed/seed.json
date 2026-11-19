@@ -180,6 +180,22 @@
 									}
 								]
 							}
+						},
+						{
+							"slug": "background",
+							"label": "Background",
+							"type": "select",
+							"defaultValue": "white",
+							"validation": {
+								"options": [
+									"white",
+									"light",
+									"tint",
+									"dark",
+									"brand",
+									"image"
+								]
+							}
 						}
 					]
 				}
@@ -248,6 +264,22 @@
 										"label": "Icon",
 										"type": "image"
 									}
+								]
+							}
+						},
+						{
+							"slug": "background",
+							"label": "Background",
+							"type": "select",
+							"defaultValue": "white",
+							"validation": {
+								"options": [
+									"white",
+									"light",
+									"tint",
+									"dark",
+									"brand",
+									"image"
 								]
 							}
 						}
@@ -324,6 +356,22 @@
 							"slug": "image",
 							"label": "Photograph",
 							"type": "image"
+						},
+						{
+							"slug": "background",
+							"label": "Background",
+							"type": "select",
+							"defaultValue": "white",
+							"validation": {
+								"options": [
+									"white",
+									"light",
+									"tint",
+									"dark",
+									"brand",
+									"image"
+								]
+							}
 						}
 					]
 				}
@@ -429,6 +477,22 @@
 							"slug": "show_form",
 							"label": "Show the contact form in place of the photograph",
 							"type": "boolean"
+						},
+						{
+							"slug": "background",
+							"label": "Background",
+							"type": "select",
+							"defaultValue": "white",
+							"validation": {
+								"options": [
+									"white",
+									"light",
+									"tint",
+									"dark",
+									"brand",
+									"image"
+								]
+							}
 						}
 					]
 				}

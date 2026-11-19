@@ -6,7 +6,7 @@ import type { ImageValue } from "./surface";
 type Service = { title: string; text?: string; url?: string; image?: ImageValue };
 
 interface Props {
-	value: { label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
+	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
 	blockKey?: string;
 }
 
@@ -23,7 +23,7 @@ const items = (value.items ?? []).map((item, index) => ({ ...item, url: safeHref
 const cards = value.layout === "cards";
 ---
 
-<section class="section services-group" id={id} aria-labelledby={`${id}-h`}>
+<section class:list={["section", "services-group", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`}>
 	<div class="wrap">
 		{
 			cards ? (

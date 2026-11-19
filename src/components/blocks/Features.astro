@@ -3,7 +3,7 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: {
+	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; 
 		label?: string;
 		heading: string;
 		intro?: string;
@@ -23,7 +23,7 @@ const facts = (value.facts ?? "")
 const items = value.items ?? [];
 ---
 
-<section class="section" id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+<section class:list={["section", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
 	<div class="wrap">
 		<div class="grid grid--top features__head">
 			<div class="span-5 section-head">
@@ -102,11 +102,36 @@ const items = value.items ?? [];
 		}
 	}
 
+	.features__cards > :global(.card) {
+		display: grid;
+		grid-template-columns: 3.5rem minmax(0, 1fr);
+		grid-template-rows: auto 1fr;
+		column-gap: 1.25rem;
+		align-content: start;
+		padding: 0;
+		border: 0;
+		background: none;
+		box-shadow: none;
+	}
+
 	.features__cards :global(.features__icon) {
-		width: 56px;
-		height: 56px;
-		margin-bottom: var(--s-4);
+		grid-row: 1 / 3;
+		width: 3.5rem;
+		height: auto;
 		object-fit: contain;
+	}
+
+	.features__cards :global(.card h3) {
+		margin: 0.15rem 0 0.35rem;
+		font-family: var(--font-text), sans-serif;
+		font-size: 1.125rem;
+		font-weight: 600;
+	}
+
+	.features__cards :global(.card p) {
+		margin: 0;
+		color: var(--flow-muted, var(--p-muted));
+		line-height: 1.5;
 	}
 
 	.features__facts {
@@ -120,7 +145,7 @@ const items = value.items ?? [];
 	}
 
 	.features__cards {
-		row-gap: var(--card-gap, 24px);
+		row-gap: clamp(1.75rem, 3vw, 2.75rem);
 	}
 
 	@media (max-width: 1023px) {
@@ -131,11 +156,7 @@ const items = value.items ?? [];
 
 	@media (max-width: 639px) {
 		.features__cards > :global(.card) {
-			grid-column: span 6;
-		}
-
-		.features__cards :global(.features__icon) {
-			display: none;
+			grid-column: 1 / -1;
 		}
 	}
 </style>

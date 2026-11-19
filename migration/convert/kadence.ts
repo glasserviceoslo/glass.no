@@ -553,6 +553,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 				group = "";
 				return block;
 			}
+			if (block._type === "reviews") return block;
 			const next = surfaceGroup(block);
 			if (next !== group) surface = surface === "light" ? "white" : "light";
 			group = next;
