@@ -107,11 +107,16 @@ const cards = posts.map((post) => {
 
 	.post-card__more {
 		margin-top: auto;
-		color: var(--red);
-		font-weight: 700;
+		font-weight: 500;
+		text-decoration: underline;
+		text-decoration-color: var(--p-action);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.2em;
 	}
 
 	.post-card:hover .post-card__title {
-		color: var(--red);
+		text-decoration: underline;
+		text-decoration-color: var(--p-action);
+		text-underline-offset: 0.15em;
 	}
 </style>

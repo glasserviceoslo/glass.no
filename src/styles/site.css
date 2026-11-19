@@ -1,40 +1,43 @@
 :root {
-	--red: #ed4c4c;
-	--red-dark: #d63c3c;
-	--navy: #203164;
-	--flow-ink: #040037;
-	--blue: #032075;
-	--sky: rgba(124, 196, 253, 0.11);
-	--paper: #f8f9fa;
+	--red: var(--p-action);
+	--red-dark: color-mix(in oklab, var(--p-action) 86%, #000);
+	--navy: var(--p-ink);
+	--flow-ink: var(--p-ink);
+	--blue: var(--p-ink);
+	--sky: var(--p-surface);
+	--paper: var(--p-bg);
 	--white: #ffffff;
-	--flow-line: #e3e6ee;
-	--flow-muted: #4a5578;
+	--flow-line: var(--line);
+	--flow-muted: var(--p-muted);
 
-	--content: 1290px;
-	--flow-gutter: 1.5rem;
-	--section-y: clamp(2.5rem, 5vw, 4.5rem);
-	--radius: 12px;
-	--radius-small: 6px;
-	--shadow: 0 10px 30px rgba(4, 0, 55, 0.08);
+	--content: 1280px;
+	--flow-gutter: var(--gut, 24px);
+	--section-y: clamp(3rem, 6vw, 6rem);
+	--radius: var(--r-lg, 20px);
+	--radius-small: var(--r-sm, 8px);
+	--shadow: 0 12px 32px color-mix(in oklab, var(--p-ink) 8%, transparent);
+	--measure: 62ch;
 
 	color-scheme: light;
 }
 
 .flow {
-	background: var(--paper);
-	color: var(--blue);
+	background: var(--p-bg);
+	color: var(--p-ink);
 	font-family: var(--font-text), sans-serif;
-	font-size: 17px;
-	line-height: 1.6;
+	font-size: var(--t-body, 16px);
+	line-height: 1.65;
 	padding-top: var(--nav, 72px);
 
 	a {
-		color: var(--navy);
-		text-underline-offset: 0.18em;
+		color: var(--p-ink);
+		text-decoration-color: color-mix(in oklab, var(--p-action) 70%, transparent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.2em;
 	}
 
 	a:hover {
-		color: var(--red);
+		text-decoration-color: var(--p-action);
 	}
 
 	h1,
@@ -43,62 +46,51 @@
 	h4,
 	h5,
 	h6 {
-		margin: 0 0 0.6em;
-		color: var(--flow-ink);
+		margin: 0 0 0.5em;
+		color: var(--p-ink);
 		font-family: var(--font-display), sans-serif;
-		font-weight: 400;
-		line-height: 1.2;
+		font-weight: var(--display-weight, 400);
+		letter-spacing: var(--display-tracking, -0.02em);
+		line-height: 1.15;
 		text-wrap: balance;
 	}
 
 	h1 {
-		font-size: clamp(2.5rem, 6vw, 4.5rem);
-		line-height: 1.1;
+		font-size: var(--t-h1);
+		line-height: 1.05;
 	}
 
 	h2 {
-		font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+		font-size: var(--t-h2);
 	}
 
 	h3 {
-		font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+		font-size: var(--t-h3);
 	}
 
 	h4 {
-		font-size: 1.35rem;
+		font-size: var(--t-lead);
 	}
 
 	h5,
 	h6 {
 		font-family: var(--font-text), sans-serif;
-		font-size: 1.1rem;
-		font-weight: 700;
+		font-size: var(--t-label, 13px);
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
 	}
 
 	p,
 	ul,
 	ol {
 		margin: 0 0 1em;
+		text-wrap: pretty;
 	}
 
 	.container {
-		width: 100%;
-		max-width: var(--content);
+		width: min(100% - 2 * var(--gut, 24px), var(--content));
 		margin-inline: auto;
-		padding-inline: var(--flow-gutter);
-	}
-
-	.skip-link {
-		position: absolute;
-		left: -999px;
-	}
-
-	.skip-link:focus {
-		left: 1rem;
-		top: 1rem;
-		z-index: 100;
-		padding: 0.5rem 1rem;
-		background: var(--white);
 	}
 
 	.btn,
@@ -107,14 +99,15 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;
-		padding: 0.85em 1.4em;
+		min-height: var(--btn-h, 44px);
+		padding: 0 1.5rem;
 		border: 0;
-		border-radius: var(--radius-small);
-		background: var(--red);
-		color: var(--white);
+		border-radius: var(--r-btn, var(--radius-small));
+		background: var(--p-action);
+		color: var(--p-action-ink);
 		font-family: var(--font-text), sans-serif;
 		font-size: 1rem;
-		font-weight: 700;
+		font-weight: 500;
 		line-height: 1.2;
 		text-decoration: none;
 		cursor: pointer;
@@ -124,23 +117,23 @@
 	.btn:hover,
 	.prose p.is-button a:hover {
 		background: var(--red-dark);
-		color: var(--white);
+		color: var(--p-action-ink);
 	}
 
 	.btn--secondary,
 	.prose p.is-button--secondary a {
-		background: var(--navy);
+		background: var(--p-ink);
+		color: var(--p-bg);
 	}
 
 	.btn--secondary:hover,
 	.prose p.is-button--secondary a:hover {
-		background: var(--flow-ink);
+		background: color-mix(in oklab, var(--p-ink) 85%, #fff);
+		color: var(--p-bg);
 	}
 
 	.btn--large {
-		padding: 1.1em 1.5em;
-		border-radius: var(--radius);
-		font-size: 1.05rem;
+		min-height: 48px;
 	}
 
 	.prose p.is-button {
@@ -148,8 +141,25 @@
 		margin: 0.5em 0.75em 0.75em 0;
 	}
 
+	.prose > :first-child {
+		margin-top: 0;
+	}
+
 	.prose > :last-child {
 		margin-bottom: 0;
+	}
+
+	.prose > :is(h2, h3, h4) {
+		margin-top: 1.6em;
+	}
+
+	.prose > :is(p, ul, ol, h2, h3, h4, table) {
+		max-width: var(--measure);
+	}
+
+	.has-text-align-center.prose > *,
+	.has-text-align-center {
+		margin-inline: auto;
 	}
 
 	.prose img {
@@ -161,60 +171,65 @@
 	}
 
 	.prose li::marker {
-		color: var(--red);
+		color: var(--p-action);
 	}
 
 	.prose table {
 		width: 100%;
 		border-collapse: collapse;
 		margin-bottom: 1em;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.prose th,
 	.prose td {
 		padding: 0.6em 0.8em;
-		border-bottom: 1px solid var(--flow-line);
+		border-bottom: 1px solid var(--line);
 		text-align: left;
 	}
 
 	.surface--white {
-		background: var(--white);
+		background: #ffffff;
 	}
 
 	.surface--light {
-		background: var(--paper);
+		background: var(--p-bg);
 	}
 
 	.surface--tint {
-		background: var(--sky);
+		background: var(--p-surface);
 	}
 
 	.surface--dark,
-	.surface--brand,
 	.surface--image {
-		color: var(--white);
-	}
-
-	.surface--dark {
-		background: var(--flow-ink);
+		--line: color-mix(in oklab, var(--p-inv-ink) 16%, transparent);
+		background: var(--p-inv-bg);
+		color: var(--p-inv-ink);
 	}
 
 	.surface--brand {
-		background: var(--red);
+		--line: color-mix(in oklab, var(--p-accent-ink) 16%, transparent);
+		background: var(--p-accent);
+		color: var(--p-accent-ink);
 	}
 
 	.surface--dark :is(h1, h2, h3, h4, h5, h6, a),
-	.surface--brand :is(h1, h2, h3, h4, h5, h6, a),
 	.surface--image :is(h1, h2, h3, h4, h5, h6, a) {
-		color: var(--white);
+		color: var(--p-inv-ink);
 	}
 
-	.surface--brand .prose p.is-button a {
-		background: var(--navy);
+	.surface--brand :is(h1, h2, h3, h4, h5, h6, a) {
+		color: var(--p-accent-ink);
 	}
 
-	.surface--brand .prose p.is-button a:hover {
-		background: var(--flow-ink);
+	.surface--brand :is(.btn, .prose p.is-button a) {
+		background: var(--p-accent-ink);
+		color: var(--p-accent);
+	}
+
+	.surface--brand :is(.btn, .prose p.is-button a):hover {
+		background: color-mix(in oklab, var(--p-accent-ink) 85%, #fff);
+		color: var(--p-accent);
 	}
 
 	.block {
@@ -229,13 +244,7 @@
 	}
 
 	.block__heading {
-		margin-bottom: 1.5rem;
-	}
-
-	@media (max-width: 720px) {
-		body {
-			font-size: 16px;
-		}
+		margin-bottom: var(--s-6, 32px);
 	}
 
 	.has-text-align-center {
