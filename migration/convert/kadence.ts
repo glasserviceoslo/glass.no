@@ -490,7 +490,9 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		const titleNodes = (first?.column_1 as any[] | undefined) ?? [];
 		if (first?._type !== "section" || first.column_2 || titleNodes.length !== 1 || titleNodes[0].style !== "h1") return layout;
 		if (second?._type !== "section" || second.column_3) return layout;
-		const columns = (second.column_2 ? [second.column_1, second.column_2] : [second.column_1]) as any[][];
+		const single = (second.column_2 ? undefined : (second.column_1 as any[])) ?? [];
+		const lone = single[0]?._type === "gallery" && single[0].images.length === 1 ? { ...single[0].images[0] } : single[0]?._type === "image" ? single[0] : undefined;
+		const columns = (second.column_2 ? [second.column_1, second.column_2] : lone ? [[lone], single.slice(1)] : [second.column_1]) as any[][];
 		const photoIndex = columns.findIndex((nodes) => nodes.length === 1 && nodes[0]._type === "image");
 		if (columns.length === 2 && photoIndex < 0) return layout;
 		const text = columns.length === 2 ? columns[1 - photoIndex] : columns[0];
