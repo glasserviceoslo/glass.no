@@ -51,6 +51,15 @@ export interface PageLayoutFeaturesV1Block {
 
 export type PageLayoutFeaturesBlock = PageLayoutFeaturesV1Block;
 
+export interface PageLayoutLogosV1Block {
+  _type: "logos";
+  _version: 1;
+  _key: string;
+  "items"?: { "title": string; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "url"?: string | null }[] | null;
+}
+
+export type PageLayoutLogosBlock = PageLayoutLogosV1Block;
+
 export interface PageLayoutStatementV1Block {
   _type: "statement";
   _version: 1;
@@ -84,6 +93,7 @@ export interface PageLayoutContactV1Block {
   "primary_label"?: string | null;
   "primary_url"?: string | null;
   "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "show_form"?: boolean | null;
 }
 
 export type PageLayoutContactBlock = PageLayoutContactV1Block;
@@ -123,7 +133,9 @@ export interface PageLayoutFaqV1Block {
   _type: "faq";
   _version: 1;
   _key: string;
+  "label"?: string | null;
   "heading"?: string | null;
+  "intro"?: string | null;
   "items"?: { "question": string; "answer": string }[] | null;
   "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
   "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
@@ -168,7 +180,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;

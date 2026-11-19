@@ -2,12 +2,13 @@
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { heading?: string; items?: { question: string; answer: string }[] };
+	value: Surface & { label?: string; heading?: string; intro?: string; items?: { question: string; answer: string }[] };
 }
 
 const { value } = Astro.props;
 const items = value.items ?? [];
 const paragraphs = (text: string) => text.split(/\n\s*\n/).filter((paragraph) => paragraph.trim());
+const headingId = `faq-${Math.abs([...(value.heading ?? "faq")].reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) | 0, 7)).toString(36)}`;
 const jsonLd = {
 	"@context": "https://schema.org",
 	"@type": "FAQPage",
@@ -19,63 +20,82 @@ const jsonLd = {
 };
 ---
 
-<section class:list={["block", `surface--${value.background ?? "white"}`]}>
-	<div class="container faq">
-		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
-		{
-			items.map((item) => (
-				<details class="faq__item">
-					<summary class="faq__question">{item.question}</summary>
-					<div class="faq__answer">
-						{paragraphs(item.answer).map((paragraph) => (
-							<p>{paragraph}</p>
-						))}
-					</div>
-				</details>
-			))
-		}
+<section class="section faq-section" style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
+	<div class="wrap">
+		<div class="grid grid--top">
+			<div class="span-5 section-head">
+				{value.label && <p class="t-label">{value.label}</p>}
+				{value.heading && <h2 id={headingId}>{value.heading}</h2>}
+				{value.intro && <p>{value.intro}</p>}
+			</div>
+			<div class="qa span-6 start-7">
+				{
+					items.map((item) => (
+						<details class="qa__item">
+							<summary class="qa__question">
+								<h3>{item.question}</h3>
+							</summary>
+							{paragraphs(item.answer).map((paragraph) => (
+								<p class="qa__answer">{paragraph}</p>
+							))}
+						</details>
+					))
+				}
+			</div>
+		</div>
 	</div>
 	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </section>
 
 <style>
-	.faq {
-		max-width: 900px;
+	.faq-section:has(.qa__item[open]) {
+		height: auto;
+		min-height: calc(var(--h, 1) * 100svh);
 	}
 
-	.faq__item {
-		border-bottom: 1px solid var(--flow-line);
+	.qa__item {
+		border-bottom: 1px solid var(--line);
 	}
 
-	.faq__question {
+	.qa__question {
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
-		padding: 1.1rem 0;
-		font-weight: 700;
-		color: var(--flow-ink);
+		gap: var(--s-5);
+		min-height: 44px;
+		padding: var(--s-4) 0;
 		cursor: pointer;
 		list-style: none;
 	}
 
-	.faq__question::-webkit-details-marker {
+	.qa__question::-webkit-details-marker {
 		display: none;
 	}
 
-	.faq__question::after {
-		content: "+";
-		color: var(--red);
-		font-size: 1.4rem;
-		line-height: 1;
+	.qa__question h3 {
+		margin: 0;
+		font: 500 var(--t-lead) / 1.4 var(--font-text);
+		letter-spacing: 0;
+	}
+
+	.qa__question::after {
+		flex: none;
+		width: 10px;
+		height: 10px;
+		border-right: 2px solid currentColor;
+		border-bottom: 2px solid currentColor;
+		transform: translateY(-3px) rotate(45deg);
 		transition: transform 0.2s ease;
+		content: "";
 	}
 
-	.faq__item[open] .faq__question::after {
-		transform: rotate(45deg);
+	.qa__item[open] .qa__question::after {
+		transform: translateY(2px) rotate(-135deg);
 	}
 
-	.faq__answer {
-		padding-bottom: 1.1rem;
+	.qa__answer {
+		max-width: 64ch;
+		margin: 0 0 var(--s-4);
 		white-space: pre-line;
 	}
 </style>

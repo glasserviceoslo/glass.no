@@ -79,6 +79,27 @@ export const blockTypes = [
 		],
 	},
 	{
+		slug: "logos",
+		label: "Logos",
+		description: "A row of brand logos",
+		fields: [
+			{
+				slug: "items",
+				label: "Logos",
+				type: "repeater",
+				validation: {
+					minItems: 1,
+					maxItems: 12,
+					subFields: [
+						{ slug: "title", label: "Brand", type: "string", required: true },
+						{ slug: "image", label: "Logo", type: "image" },
+						{ slug: "url", label: "Link", type: "string" },
+					],
+				},
+			},
+		],
+	},
+	{
 		slug: "statement",
 		label: "Statement",
 		description: "One large statement that fills in word by word as it scrolls past",
@@ -122,6 +143,7 @@ export const blockTypes = [
 			{ slug: "phone", label: "Phone", type: "string" },
 			...link("primary", "Button"),
 			{ slug: "image", label: "Photograph", type: "image" },
+			{ slug: "show_form", label: "Show the contact form in place of the photograph", type: "boolean" },
 		],
 	},
 	{
@@ -170,7 +192,9 @@ export const blockTypes = [
 		slug: "faq",
 		label: "Questions and answers",
 		fields: [
+			{ slug: "label", label: "Label", type: "string" },
 			{ slug: "heading", label: "Heading", type: "string" },
+			{ slug: "intro", label: "Intro", type: "text" },
 			{
 				slug: "items",
 				label: "Questions",

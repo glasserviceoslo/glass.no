@@ -1,11 +1,13 @@
 ---
+import ContactFormFields from "../ContactFormFields.astro";
 import type { Surface } from "./surface";
 
 interface Props {
 	value: Surface & { heading?: string; intro?: string };
+	blockKey?: string;
 }
 
-const { value } = Astro.props;
+const { value, blockKey } = Astro.props;
 ---
 
 <section class:list={["block", `surface--${value.background ?? "white"}`]}>
@@ -14,21 +16,9 @@ const { value } = Astro.props;
 			{value.heading && <h2>{value.heading}</h2>}
 			{value.intro && <p class="contact__intro">{value.intro}</p>}
 		</div>
-		<form class="contact__form" method="post">
-			<label>
-				<span>Fullt navn</span>
-				<input name="name" autocomplete="name" />
-			</label>
-			<label>
-				<span>E-post</span>
-				<input name="email" type="email" autocomplete="email" required />
-			</label>
-			<label>
-				<span>Melding</span>
-				<textarea name="message" rows="5" required></textarea>
-			</label>
-			<button class="btn btn--large" type="submit">Send melding</button>
-		</form>
+		<div class="contact__form">
+			<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />
+		</div>
 	</div>
 </section>
 

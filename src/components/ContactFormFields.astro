@@ -1,0 +1,46 @@
+---
+interface Props {
+	id: string;
+}
+
+const { id } = Astro.props;
+const fields = [
+	{ name: "fornavn", label: "Navn", type: "text", autocomplete: "given-name", error: "Skriv navnet ditt." },
+	{ name: "etternavn", label: "Etternavn", type: "text", autocomplete: "family-name", error: "Skriv etternavnet ditt." },
+	{ name: "epost", label: "E-post", type: "email", autocomplete: "email", inputmode: "email", error: "Skriv en e-postadresse med @, som navn@eksempel.no." },
+	{ name: "telefon", label: "Telefon", type: "tel", autocomplete: "tel", inputmode: "tel", value: "+47", error: "Skriv telefonnummeret ditt." },
+	{ name: "adresse", label: "Adresse", type: "text", autocomplete: "street-address", error: "Skriv adressen der jobben skal gjøres." },
+];
+const sent =
+	"Takk for din henvendelse! Vi har mottatt meldingen din og setter stor pris på at du tok deg tid til å kontakte oss. Vårt team vil gjennomgå henvendelsen din og komme tilbake til deg så snart som mulig.";
+---
+
+<form class="form" method="post" action="/api/kontakt" data-endpoint="/api/kontakt" data-sent={sent} novalidate>
+	{
+		fields.map((field) => (
+			<div class="field">
+				<label for={`${id}-${field.name}`}>{field.label}</label>
+				<input
+					id={`${id}-${field.name}`}
+					name={field.name}
+					type={field.type}
+					autocomplete={field.autocomplete}
+					inputmode={field.inputmode as never}
+					value={field.value}
+					required
+					aria-describedby={`${id}-${field.name}-err`}
+				/>
+				<p class="field__error" id={`${id}-${field.name}-err`} hidden>
+					{field.error}
+				</p>
+			</div>
+		))
+	}
+	<div class="field">
+		<label for={`${id}-melding`}>Melding</label>
+		<textarea id={`${id}-melding`} name="melding" rows="5" required aria-describedby={`${id}-melding-err`}></textarea>
+		<p class="field__error" id={`${id}-melding-err`} hidden>Skriv hva du trenger hjelp med.</p>
+	</div>
+	<div class="btn-row"><button class="btn btn--primary" type="submit">Send melding</button></div>
+	<p class="form__status" role="status" data-form-status></p>
+</form>

@@ -222,6 +222,46 @@
 			]
 		},
 		{
+			"slug": "logos",
+			"label": "Logos",
+			"description": "A row of brand logos",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "items",
+							"label": "Logos",
+							"type": "repeater",
+							"validation": {
+								"minItems": 1,
+								"maxItems": 12,
+								"subFields": [
+									{
+										"slug": "title",
+										"label": "Brand",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "image",
+										"label": "Logo",
+										"type": "image"
+									},
+									{
+										"slug": "url",
+										"label": "Link",
+										"type": "string"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
 			"slug": "statement",
 			"label": "Statement",
 			"description": "One large statement that fills in word by word as it scrolls past",
@@ -345,6 +385,11 @@
 							"slug": "image",
 							"label": "Photograph",
 							"type": "image"
+						},
+						{
+							"slug": "show_form",
+							"label": "Show the contact form in place of the photograph",
+							"type": "boolean"
 						}
 					]
 				}
@@ -548,9 +593,19 @@
 					"version": 1,
 					"fields": [
 						{
+							"slug": "label",
+							"label": "Label",
+							"type": "string"
+						},
+						{
 							"slug": "heading",
 							"label": "Heading",
 							"type": "string"
+						},
+						{
+							"slug": "intro",
+							"label": "Intro",
+							"type": "text"
 						},
 						{
 							"slug": "items",
@@ -782,6 +837,7 @@
 							"hero",
 							"services",
 							"features",
+							"logos",
 							"statement",
 							"steps",
 							"contact",

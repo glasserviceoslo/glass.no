@@ -1,0 +1,61 @@
+---
+import { Image } from "emdash/ui";
+import { safeHref } from "../../utils/href";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: { items?: { title: string; image?: ImageValue; url?: string }[] };
+}
+
+const { value } = Astro.props;
+const items = (value.items ?? []).filter((item) => item.image).map((item) => ({ ...item, url: safeHref(item.url) }));
+---
+
+{
+	items.length > 0 && (
+		<div class="wrap logos" role="list">
+			{items.map((item) => (
+				<div class="logos__item" role="listitem">
+					{item.url ? (
+						<a href={item.url}>
+							<Image image={item.image!} alt={item.title} sizes="200px" />
+						</a>
+					) : (
+						<Image image={item.image!} alt={item.title} sizes="200px" />
+					)}
+				</div>
+			))}
+		</div>
+	)
+}
+
+<style>
+	.logos {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+		gap: var(--s-6);
+		align-items: center;
+		padding-block: var(--s-7);
+	}
+
+	.logos__item :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		max-height: 72px;
+		object-fit: contain;
+	}
+
+	@media (max-width: 1023px) {
+		.logos {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 639px) {
+		.logos {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--s-5);
+		}
+	}
+</style>

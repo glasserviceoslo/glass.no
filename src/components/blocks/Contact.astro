@@ -1,6 +1,7 @@
 ---
 import { Image } from "emdash/ui";
 import { safeHref } from "../../utils/href";
+import ContactFormFields from "../ContactFormFields.astro";
 import type { ImageValue } from "./surface";
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 		primary_label?: string;
 		primary_url?: string;
 		image?: ImageValue;
+		show_form?: boolean;
 	};
 }
 
@@ -35,7 +37,7 @@ const primaryUrl = safeHref(value.primary_url);
 const tel = value.phone?.replace(/[^+\d]/g, "");
 ---
 
-<section class="section" id="kontakt" aria-labelledby="kontakt-h">
+<section class="section" id="kontakt" style={value.show_form ? "--hm: 2" : undefined} aria-labelledby="kontakt-h">
 	<div class="wrap">
 		<div class="grid grid--top fill">
 			<div class="span-5 stack-6">
@@ -92,10 +94,16 @@ const tel = value.phone?.replace(/[^+\d]/g, "");
 				}
 			</div>
 			{
-				value.image && (
-					<div class="frame frame--photo span-6 start-7 contact__frame">
-						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 640px" />
+				value.show_form ? (
+					<div class="span-6 start-7 contact__form">
+						<ContactFormFields id="kontakt-skjema" />
 					</div>
+				) : (
+					value.image && (
+						<div class="frame frame--photo span-6 start-7 contact__frame">
+							<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 640px" />
+						</div>
+					)
 				)
 			}
 		</div>
@@ -107,6 +115,18 @@ const tel = value.phone?.replace(/[^+\d]/g, "");
 		font-style: normal;
 		font-size: var(--t-lead);
 		line-height: 1.5;
+	}
+
+	.contact__form {
+		padding: var(--s-7);
+		border-radius: var(--r-lg);
+		background: var(--p-surface);
+	}
+
+	@media (max-width: 639px) {
+		.contact__form {
+			padding: var(--s-5);
+		}
 	}
 
 	.contact__frame {

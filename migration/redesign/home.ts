@@ -24,9 +24,22 @@ const layout = [
 		primary_url: "/book-befaring/",
 		secondary_label: "SE KAMPANJEN",
 		secondary_url: "/kampanje/",
-		image: photo("01M7TMJ4DMRMS7NC1VF7RZ5JM5", "Stue med vindu fra gulv til tak og utsikt over et snødekt landskap"),
+		image: photo("01M7TMMKHCQ777HSB1GQSRRXX5", "Black Week: 50 % rabatt på Gilje vinduer og balkongdører"),
 		float_label: "Man - Fre 08:00-17:00",
 		float_title: "Skift til kvalitetsvindu fra GILJE!",
+	},
+	{
+		_type: "logos",
+		items: [
+			{ title: "NorDan", image: photo("01M7TMJEJAC8GM4GWXMSHSSEES", "NorDan") },
+			{ title: "Velux", image: photo("01M7TMJEKMEEGVMNRJZQWY0320", "Velux") },
+			{ title: "Gilje", image: photo("01M7TMJESNQK34SGW479GRX8PH", "Gilje") },
+			{ title: "Lyssand", image: photo("01M7TMJEPDDFRG14441Y9KGT5V", "Lyssand") },
+			{ title: "Diplomat Dører", image: photo("01M7TMJETX70SB12ECK4TMT9G5", "Diplomat Dører") },
+			{ title: "Vemundvik Snekkerfabrikk", image: photo("01M7TMJEW51QQSF0Z5727SJ00S", "Vemundvik Snekkerfabrikk") },
+			{ title: "Fjerdingstad", image: photo("01M7TMJEQNX18VHJYJ34RHZP66", "Fjerdingstad") },
+			{ title: "Nordvest Vinduet", image: photo("01M7TMJEN2D82ATX04KRRR5440", "Nordvest Vinduet") },
+		],
 	},
 	{
 		_type: "services",
@@ -81,13 +94,26 @@ const layout = [
 		],
 	},
 	{
-		_type: "contact",
+		_type: "faq",
+		label: "FAQ",
 		heading: "Ofte stilte spørsmål",
 		intro: "Her har vi samlet svar på noen av de spørsmålene vi oftest får. Finner du ikke svaret du leter etter, er du hjertelig velkommen til å ta kontakt med oss.",
+		items: [
+			{ question: "Hva koster det å bytte et vindu eller få en glassløsning?", answer: "Prisen på et prosjekt varierer basert på flere faktorer, som størrelse, materialvalg (tre, PVC, aluminium), type glass (isolerglass, sikkerhetsglass, etc.) og kompleksiteten ved monteringen. For å gi deg en nøyaktig pris, tilbyr vi alltid et skreddersydd og uforpliktende tilbud. Kontakt oss med dine mål eller en beskrivelse av prosjektet, så hjelper vi deg." },
+			{ question: "Bør jeg bytte hele vinduet eller kun glasset?", answer: "Dette er et veldig godt spørsmål. Hvis vinduskarmen er i god stand – uten råte, sprekker eller funksjonssvikt – er det ofte en smart og kostnadseffektiv løsning å kun bytte selve glasset til et moderne isolerglass. Hvis karmen derimot er slitt og dårlig, anbefaler vi å bytte hele vinduet for å sikre et tett og varig resultat. Vi gir deg alltid en ærlig anbefaling basert på en vurdering av dine vinduer." },
+			{ question: "Hvordan er prosessen fra jeg kontakter dere til jobben er ferdig?", answer: "Prosessen vår er enkel og oversiktlig:\n• Første kontakt: Du tar kontakt med oss via telefon eller e-post, og vi diskuterer ditt behov.\n• Befaring og tilbud: Vi kommer ofte på en gratis og uforpliktende befaring for å ta mål og vurdere jobben. Deretter mottar du et detaljert tilbud fra oss.\n• Bestilling: Når du godkjenner tilbudet, bestiller vi de skreddersydde materialene for ditt prosjekt.\n• Montering: Våre erfarne fagfolk avtaler en tid som passer for deg og utfører jobben effektivt og profesjonelt." },
+			{ question: "Hvor lang tid tar et vanlig prosjekt?", answer: "Tidsbruken avhenger helt av type prosjekt. En enkel reparasjon eller bytte av et glass kan ofte gjøres raskt. Større prosjekter som krever skreddersydde produkter, som nye vinduer eller en innglasset balkong, vil ha en leveringstid fra produsent. Vi vil alltid gi deg en estimert og realistisk tidsramme i tilbudet ditt." },
+			{ question: "Hvilke områder betjener dere, og tar dere små oppdrag?", answer: "Vi holder til sentralt i Pilestredet og betjener i hovedsak hele Oslo-området. Og ja, absolutt! Vi er like glade for å hjelpe deg med å bytte et enkelt knust glass i en dør som vi er for å ta på oss store, komplette vindusutskiftninger for borettslag og næringsbygg. Ingen jobb er for liten for oss." },
+		],
+	},
+	{
+		_type: "contact",
+		heading: "Få svar på dine spørsmål",
 		address: "Pilestredet 41A\nOslo",
 		hours: "Man - Fre | 08:00-17:00",
 		phone: "+47 91 58 49 40",
 		image: photo("01M7TMKYKXCSD018S633CMTB21", "Glass-Service Svendsen og Sønn sin servicebil"),
+		show_form: true,
 	},
 ];
 
