@@ -1,0 +1,345 @@
+---
+import { Image } from "emdash/ui";
+import { safeHref } from "../../utils/href";
+import { slugOf } from "../../utils/slug";
+import type { ImageValue } from "./surface";
+
+type Service = { title: string; text?: string; url?: string; image?: ImageValue };
+type Group = { label?: string; heading: string; items?: Service[] };
+
+interface Props {
+	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; groups: Group[] };
+}
+
+const { value } = Astro.props;
+const [first] = value.groups;
+const id = slugOf(first.heading);
+const groups = value.groups.map((group, index) => ({
+	name: index === 0 ? (group.label ?? group.heading) : group.heading,
+	key: `${id}-${slugOf(index === 0 ? (group.label ?? group.heading) : group.heading)}`,
+	items: (group.items ?? []).map((item) => ({ ...item, url: safeHref(item.url) })),
+}));
+---
+
+<section class:list={["section", "services-tabs", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`} data-services-tabs>
+	<div class="wrap">
+		<div class="services-tabs__inner">
+			<div class="services-tabs__head">
+				<h2 id={`${id}-h`}>{first.heading}</h2>
+				<div class="services-tabs__switch" role="tablist" aria-label={first.heading} hidden>
+					<span class="services-tabs__thumb" aria-hidden="true"></span>
+					{
+						groups.map((group, index) => (
+							<button
+								type="button"
+								role="tab"
+								id={`${group.key}-tab`}
+								aria-controls={`${group.key}-panel`}
+								aria-selected={index === 0 ? "true" : "false"}
+								tabindex={index === 0 ? 0 : -1}
+							>
+								{group.name}
+							</button>
+						))
+					}
+				</div>
+			</div>
+			{
+				groups.map((group, index) => (
+					<div class="services-tabs__panel" role="tabpanel" id={`${group.key}-panel`} aria-labelledby={`${group.key}-tab`} data-index={index}>
+						<h3 class="services-tabs__group">{group.name}</h3>
+						<ul class="services-tabs__grid">
+							{group.items.map((item) => (
+								<li>
+									<a class="services-tabs__card" href={item.url}>
+										{item.image && (
+											<span class="services-tabs__photo">
+												<Image image={item.image} alt={item.image.alt ?? ""} sizes="(max-width: 760px) 100vw, 420px" />
+											</span>
+										)}
+										<span class="services-tabs__title">
+											<span class="services-tabs__name">{item.title}</span>
+											<span class="services-tabs__arrow" aria-hidden="true">
+												→
+											</span>
+										</span>
+										{item.text && <span class="services-tabs__text">{item.text}</span>}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	for (const root of document.querySelectorAll<HTMLElement>("[data-services-tabs]")) {
+		const tablist = root.querySelector<HTMLElement>('[role="tablist"]');
+		const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+		const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+		const thumb = root.querySelector<HTMLElement>(".services-tabs__thumb");
+		if (!tablist || tabs.length < 2 || !thumb) continue;
+
+		const place = (tab: HTMLButtonElement) => {
+			thumb.style.width = `${tab.offsetWidth}px`;
+			thumb.style.transform = `translateX(${tab.offsetLeft}px)`;
+		};
+
+		const select = (index: number, focus = false) => {
+			tabs.forEach((tab, at) => {
+				const on = at === index;
+				tab.setAttribute("aria-selected", String(on));
+				tab.tabIndex = on ? 0 : -1;
+				panels[at].hidden = !on;
+			});
+			place(tabs[index]);
+			if (focus) tabs[index].focus();
+		};
+
+		tablist.hidden = false;
+		root.classList.add("is-tabbed");
+		select(0);
+		requestAnimationFrame(() => root.classList.add("is-ready"));
+
+		tabs.forEach((tab, index) => {
+			tab.addEventListener("click", () => {
+				root.classList.add("has-switched");
+				select(index);
+			});
+			tab.addEventListener("keydown", (event) => {
+				const last = tabs.length - 1;
+				const next = { ArrowRight: index === last ? 0 : index + 1, ArrowLeft: index === 0 ? last : index - 1, Home: 0, End: last }[event.key];
+				if (next === undefined) return;
+				event.preventDefault();
+				root.classList.add("has-switched");
+				select(next, true);
+			});
+		});
+
+		new ResizeObserver(() => place(tabs[tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true")])).observe(tablist);
+	}
+</script>
+
+<style>
+	.services-tabs {
+		padding-block: clamp(3.5rem, 7vw, 6.5rem);
+	}
+
+	.services-tabs__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: end;
+		justify-content: space-between;
+		gap: 1.5rem 3rem;
+		margin-bottom: clamp(2rem, 4vw, 3rem);
+	}
+
+	.services-tabs__head h2 {
+		max-width: 16ch;
+		margin: 0;
+		font-size: clamp(2rem, 3.6vw, 3.25rem);
+		font-weight: 400;
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.services-tabs__switch {
+		position: relative;
+		display: inline-flex;
+		padding: 0.3rem;
+		border-radius: 999px;
+		background: var(--p-bg);
+		box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 10%, transparent);
+	}
+
+	.services-tabs__switch[hidden] {
+		display: none;
+	}
+
+	.services-tabs__thumb {
+		position: absolute;
+		top: 0.3rem;
+		bottom: 0.3rem;
+		left: 0;
+		border-radius: 999px;
+		background: var(--p-ink);
+		box-shadow: 0 6px 16px -8px rgb(4 0 55 / 0.6);
+	}
+
+	.is-ready .services-tabs__thumb {
+		transition:
+			transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+			width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.services-tabs__switch button {
+		position: relative;
+		z-index: 1;
+		min-height: 44px;
+		padding: 0 1.4rem;
+		border: 0;
+		border-radius: 999px;
+		background: none;
+		color: var(--p-ink);
+		font: inherit;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: color 200ms;
+	}
+
+	.services-tabs__switch button[aria-selected="true"] {
+		color: #ffffff;
+	}
+
+	.services-tabs__switch button:focus-visible {
+		outline: 2px solid var(--p-accent);
+		outline-offset: 2px;
+	}
+
+	.services-tabs__panel + .services-tabs__panel {
+		margin-top: clamp(2.5rem, 5vw, 4rem);
+	}
+
+	.is-tabbed .services-tabs__panel + .services-tabs__panel {
+		margin-top: 0;
+	}
+
+	.services-tabs__group {
+		margin: 0 0 1.25rem;
+		font-size: clamp(1.4rem, 2vw, 1.75rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.is-tabbed .services-tabs__group {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.services-tabs__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: clamp(1.25rem, 2.5vw, 2rem);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.services-tabs__card {
+		display: grid;
+		gap: 1rem;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.services-tabs__photo {
+		display: block;
+		overflow: hidden;
+		border-radius: 20px;
+		aspect-ratio: 4 / 3;
+		background: var(--p-surface);
+	}
+
+	.services-tabs__photo :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: scale 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.services-tabs__card:hover .services-tabs__photo :global(img) {
+		scale: 1.04;
+	}
+
+	.services-tabs__title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.services-tabs__name::first-letter {
+		text-transform: uppercase;
+	}
+
+	.services-tabs__arrow {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		background: var(--p-bg);
+		color: var(--p-accent);
+		transition:
+			background 180ms,
+			color 180ms,
+			translate 180ms;
+	}
+
+	.services-tabs__card:hover .services-tabs__arrow {
+		background: var(--p-accent);
+		color: #ffffff;
+		translate: 3px 0;
+	}
+
+	.services-tabs__text {
+		color: var(--p-muted);
+		line-height: 1.55;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.has-switched .services-tabs__panel:not([hidden]) .services-tabs__grid > li {
+			animation: services-tabs-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+		}
+
+		.has-switched .services-tabs__panel:not([hidden]) .services-tabs__grid > li:nth-child(2) {
+			animation-delay: 50ms;
+		}
+
+		.has-switched .services-tabs__panel:not([hidden]) .services-tabs__grid > li:nth-child(3) {
+			animation-delay: 100ms;
+		}
+	}
+
+	@keyframes services-tabs-in {
+		from {
+			opacity: 0;
+			translate: 0 0.75rem;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.services-tabs__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 600px) {
+		.services-tabs__switch {
+			width: 100%;
+		}
+
+		.services-tabs__switch button {
+			flex: 1;
+			padding: 0 0.75rem;
+		}
+
+		.services-tabs__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

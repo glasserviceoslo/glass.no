@@ -53,13 +53,7 @@ const layout = [
 			{ title: "Velux", text: "Forvandle mørke loft og rom under skråtak til lyse og luftige oppholdsrom med kvalitetsvinduer fra Velux.", url: "/velux/", image: photo("01M7TMJV32VSTQHYY2Z222A63T", "Velux takvindu") },
 		],
 	},
-	{
-		_type: "statement",
-		background: "light",
-		text: INTRO_REST,
-		strong: "fra idé til ferdig montert løsning",
-		image: photo("01M7TMJ4DMRMS7NC1VF7RZ5JM5", "Stue med vindu fra gulv til tak og utsikt over et snødekt landskap"),
-	},
+
 	{
 		_type: "services",
 		background: "white",
@@ -83,8 +77,14 @@ const layout = [
 		],
 	},
 	{
-		_type: "features",
+		_type: "statement",
 		background: "light",
+		text: INTRO_REST,
+		strong: "fra idé til ferdig montert løsning",
+		image: photo("01M7TMJ4DMRMS7NC1VF7RZ5JM5", "Stue med vindu fra gulv til tak og utsikt over et snødekt landskap"),
+	},	{
+		_type: "features",
+		background: "white",
 		label: "Hvorfor velge oss",
 		heading: "Hvorfor velge Glass.no?",
 		intro: "I et marked med mange valg, er det noen grunnleggende verdier som skiller oss ut. Når du velger oss som din partner, får du:",
@@ -101,7 +101,7 @@ const layout = [
 	},
 	{
 		_type: "faq",
-		background: "white",
+		background: "light",
 		label: "FAQ",
 		heading: "Ofte stilte spørsmål",
 		intro: "Her har vi samlet svar på noen av de spørsmålene vi oftest får. Finner du ikke svaret du leter etter, er du hjertelig velkommen til å ta kontakt med oss.",
@@ -115,7 +115,7 @@ const layout = [
 	},
 	{
 		_type: "contact",
-		background: "light",
+		background: "white",
 		heading: "Få svar på dine spørsmål",
 		address: "Pilestredet 41A\nOslo",
 		hours: "Man - Fre | 08:00-17:00",

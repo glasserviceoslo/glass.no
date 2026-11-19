@@ -12,6 +12,7 @@ import PageHero from "./blocks/PageHero.astro";
 import Reviews from "./blocks/Reviews.astro";
 import Section from "./blocks/Section.astro";
 import Services from "./blocks/Services.astro";
+import ServicesTabs from "./blocks/ServicesTabs.astro";
 import Statement from "./blocks/Statement.astro";
 import Steps from "./blocks/Steps.astro";
 
@@ -20,11 +21,24 @@ interface Props {
 }
 
 const { value } = Astro.props;
+type LayoutBlock = { _type: string; _key?: string; background?: string; [field: string]: unknown };
+const blocks = ((value ?? []) as LayoutBlock[]).reduce<LayoutBlock[]>((merged, block) => {
+	const last = merged.at(-1);
+	if (block._type === "services" && last?._type === "services_tabs") {
+		(last.groups as LayoutBlock[]).push(block);
+	} else if (block._type === "services" && last?._type === "services") {
+		merged[merged.length - 1] = { _type: "services_tabs", _key: last._key, background: last.background, groups: [last, block] };
+	} else {
+		merged.push(block);
+	}
+	return merged;
+}, []);
 const components = {
 	hero: Hero,
 	page_hero: PageHero,
 	logos: Logos,
 	services: Services,
+	services_tabs: ServicesTabs,
 	features: Features,
 	statement: Statement,
 	steps: Steps,
@@ -38,4 +52,4 @@ const components = {
 };
 ---
 
-<Blocks value={(value ?? []) as never} components={components as never} />
+<Blocks value={blocks as never} components={components as never} />
