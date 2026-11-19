@@ -1,6 +1,7 @@
 ---
 import { PortableText } from "emdash/ui";
 import Gallery from "./Gallery.astro";
+import Icons from "./Icons.astro";
 import TextBlock from "./TextBlock.astro";
 
 interface Props {
@@ -15,7 +16,7 @@ const block = Object.fromEntries(["normal", "h1", "h2", "h3", "h4", "h5", "h6", 
 {
 	value?.length ? (
 		<div class:list={["prose", className]}>
-			<PortableText value={value as never} components={{ block, type: { gallery: Gallery } }} />
+			<PortableText value={value as never} components={{ block, type: { gallery: Gallery, icons: Icons } }} />
 		</div>
 	) : null
 }

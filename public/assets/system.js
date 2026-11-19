@@ -534,10 +534,6 @@ function pictures() {
     if (img.complete && img.getAttribute('src') && !img.naturalWidth) img.decode().catch(() => fail(img));
     else img.addEventListener('error', () => fail(img), { once: true });
   });
-  const eager = () => document.querySelectorAll('img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
-  const idle = window.requestIdleCallback || (f => setTimeout(f, 200));
-  if (document.readyState === 'complete') idle(eager);
-  else window.addEventListener('load', () => idle(eager), { once: true });
 }
 
 /* ------------------------------------------------------------------ guards

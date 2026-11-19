@@ -20,7 +20,7 @@ const jsonLd = {
 };
 ---
 
-<section class="section faq-section" style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
+<section class:list={["section", "faq-section", value.background && `surface--${value.background}`]} style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
 	<div class="wrap">
 		<div class="grid grid--top">
 			<div class="span-5 section-head">

@@ -5,6 +5,18 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface PageLayoutPageHeroV1Block {
+  _type: "page_hero";
+  _version: 1;
+  _key: string;
+  "title": string;
+  "heading"?: string | null;
+  "body"?: PortableTextBlock[] | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PageLayoutPageHeroBlock = PageLayoutPageHeroV1Block;
+
 export interface PageLayoutHeroV1Block {
   _type: "hero";
   _version: 1;
@@ -151,6 +163,7 @@ export interface PageLayoutContactFormV1Block {
   "heading"?: string | null;
   "intro"?: string | null;
   "form"?: "contact" | null;
+  "aside"?: PortableTextBlock[] | null;
   "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
   "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
 }
@@ -181,7 +194,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;

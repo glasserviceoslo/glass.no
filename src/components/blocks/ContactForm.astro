@@ -1,9 +1,10 @@
 ---
 import ContactFormFields from "../ContactFormFields.astro";
+import RichText from "../RichText.astro";
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { heading?: string; intro?: string };
+	value: Surface & { heading?: string; intro?: string; aside?: unknown[] };
 	blockKey?: string;
 }
 
@@ -12,13 +13,28 @@ const { value, blockKey } = Astro.props;
 
 <section class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container contact">
-		<div>
-			{value.heading && <h2>{value.heading}</h2>}
-			{value.intro && <p class="contact__intro">{value.intro}</p>}
-		</div>
-		<div class="contact__form">
-			<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />
-		</div>
+		{
+			value.aside?.length ? (
+				<>
+					<RichText value={value.aside} class="contact__aside" />
+					<div class="contact__form">
+						{value.heading && <h2 class="contact__title">{value.heading}</h2>}
+						{value.intro && <p class="contact__intro">{value.intro}</p>}
+						<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />
+					</div>
+				</>
+			) : (
+				<>
+					<div>
+						{value.heading && <h2>{value.heading}</h2>}
+						{value.intro && <p class="contact__intro">{value.intro}</p>}
+					</div>
+					<div class="contact__form">
+						<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />
+					</div>
+				</>
+			)
+		}
 	</div>
 </section>
 
@@ -61,6 +77,11 @@ const { value, blockKey } = Astro.props;
 	textarea:focus {
 		outline: 2px solid var(--p-ink);
 		outline-offset: 1px;
+	}
+
+	.contact__title {
+		margin: 0;
+		font-size: var(--t-h3, 1.5rem);
 	}
 
 	.contact__form .btn {

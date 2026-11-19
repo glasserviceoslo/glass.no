@@ -1,0 +1,103 @@
+---
+import { Image } from "emdash/ui";
+import RichText from "../RichText.astro";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: { title: string; heading?: string; body?: unknown[]; image?: ImageValue };
+}
+
+const { value } = Astro.props;
+---
+
+<section class:list={["page-hero", "surface--light", { "page-hero--text": !value.image }]} aria-labelledby="page-hero-h">
+	<div class="container page-hero__grid">
+		<div class="page-hero__text">
+			<h1 id="page-hero-h" class="page-hero__title">{value.title}</h1>
+			{value.heading && <h2 class="page-hero__heading">{value.heading}</h2>}
+			<RichText value={value.body} class="page-hero__body" />
+		</div>
+		{
+			value.image && (
+				<div class="page-hero__media">
+					<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 860px) 100vw, 600px" />
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		padding-block: clamp(2.5rem, 6vw, 5.5rem) clamp(1.5rem, 3vw, 2.5rem);
+	}
+
+	.page-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: center;
+	}
+
+	.page-hero__text {
+		display: grid;
+		gap: 1.25rem;
+		justify-items: start;
+	}
+
+	.page-hero__title {
+		margin: 0;
+		font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+		line-height: 1.02;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.page-hero__heading {
+		max-width: 30ch;
+		margin: 0;
+		font-family: var(--font-text), sans-serif;
+		font-size: clamp(1.2rem, 1.6vw, 1.45rem);
+		font-weight: 500;
+		line-height: 1.35;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	.page-hero__text :global(.page-hero__body) {
+		max-width: 56ch;
+	}
+
+	.page-hero__text :global(.page-hero__body p:not(.is-button)) {
+		color: var(--flow-muted);
+	}
+
+	.page-hero__media {
+		overflow: hidden;
+		border-radius: var(--radius);
+		aspect-ratio: 4 / 3.4;
+		background: var(--p-surface);
+	}
+
+	.page-hero__media :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.page-hero--text .page-hero__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	@media (max-width: 860px) {
+		.page-hero__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.page-hero__media {
+			order: -1;
+			aspect-ratio: 4 / 3;
+		}
+	}
+</style>

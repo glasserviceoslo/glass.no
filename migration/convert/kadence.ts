@@ -24,7 +24,6 @@ const ORANGE_BOOKING = new Set([2202, 2489, 3122, 3123]);
 const BLUE_BOOKING = new Set([2493, 2496, 3120, 3121]);
 const DROPPED = new Set([
 	"kadence/spacer",
-	"kadence/icon",
 	"kadence/single-icon",
 	"kadence/tableofcontents",
 	"kadence/googlemaps",
@@ -48,6 +47,18 @@ const PALETTE_BACKGROUND: Record<string, string> = {
 	palette8: "white",
 	palette9: "light",
 };
+
+const BRANDS: Record<string, string> = {
+	"01M7TMJEJAC8GM4GWXMSHSSEES": "NorDan",
+	"01M7TMJEKMEEGVMNRJZQWY0320": "Velux",
+	"01M7TMJESNQK34SGW479GRX8PH": "Gilje",
+	"01M7TMJEPDDFRG14441Y9KGT5V": "Lyssand",
+	"01M7TMJETX70SB12ECK4TMT9G5": "Diplomat Dører",
+	"01M7TMJEW51QQSF0Z5727SJ00S": "Vemundvik Snekkerfabrikk",
+	"01M7TMJEQNX18VHJYJ34RHZP66": "Fjerdingstad",
+	"01M7TMJEN2D82ATX04KRRR5440": "Nordvest Vinduet",
+};
+const PLAIN = new Set(["white", "light"]);
 
 const hiddenOnDesktop = (block: GutenbergBlock) => block.attrs?.vsdesk === true;
 const count = (map: Map<string, number>, key: string) => map.set(key, (map.get(key) ?? 0) + 1);
@@ -163,7 +174,13 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		},
 		"kadence/accordion": (block) => [{ _type: "faqMarker", _key: key(), items: faqItems(block) }],
 		"kadence/rowlayout": (block) => block.innerBlocks.flatMap((column) => transform(column.innerBlocks)),
-		"kadence/column": (block) => transform(block.innerBlocks),
+		"kadence/column": (block) => columnNodes(block),
+		"kadence/icon": (block) => {
+			const items = block.innerBlocks
+				.map((icon) => ({ icon: String(icon.attrs.icon ?? "").replace(/^[a-z]+_/, ""), href: String(icon.attrs.link ?? "") }))
+				.filter((item) => item.icon && item.href);
+			return items.length ? [{ _type: "icons", _key: key(), items: items.map((item) => ({ _key: key(), ...item })) } as unknown as PortableTextBlock] : [];
+		},
 		"kadence/tabs": (block) =>
 			block.innerBlocks.flatMap((tab, index) => [
 				...(Array.isArray(block.attrs.titles) && (block.attrs.titles as any[])[index]?.text
@@ -237,6 +254,12 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		}
 		return nodes;
 	};
+
+	function columnNodes(column: GutenbergBlock): Node[] {
+		const photo = (column.attrs.backgroundImg as { bgImg?: string; bgImgID?: number }[] | undefined)?.[0];
+		const found = photo?.bgImg ? (media.byId(photo.bgImgID) ?? media.byUrl(photo.bgImg)) : undefined;
+		return [...(found ? [imageNode(key(), found, "")] : []), ...transform(column.innerBlocks)];
+	}
 
 	function transform(blocks: GutenbergBlock[]): Node[] {
 		const out: Node[] = [];
@@ -322,7 +345,11 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		const bg = own.background === "white" && inherited ? inherited : own;
 		const columns = row.innerBlocks.filter((column) => !hiddenOnDesktop(column) && (column.blockName === "kadence/column" || column.blockName === "core/column"));
 
-		if (columns.length === 1 && columns[0].innerBlocks.length && columns[0].innerBlocks.every((child) => child.blockName === "kadence/rowlayout" || DROPPED.has(child.blockName ?? ""))) {
+		if (row.attrs.colLayout === "row" && columns.length > 1) {
+			return columns.flatMap((column) => rowToLayout({ ...row, attrs: { ...row.attrs, colLayout: "equal" }, innerBlocks: [column] }, inherited));
+		}
+
+		if (columns.length === 1 && !columns[0].attrs.backgroundImg && columns[0].innerBlocks.length && columns[0].innerBlocks.every((child) => child.blockName === "kadence/rowlayout" || DROPPED.has(child.blockName ?? ""))) {
 			return columns[0].innerBlocks.filter((child) => child.blockName === "kadence/rowlayout").flatMap((child) => rowToLayout(child, bg));
 		}
 
@@ -330,14 +357,21 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		if (formColumn) {
 			const intro = ptOnly(transform(formColumn.innerBlocks.filter((child) => child.blockName !== "kadence/form")));
 			const heading = intro.find(isHeading) ?? intro[0];
-			const others = columns.filter((column) => column !== formColumn);
+			const aside = columns.filter((column) => column !== formColumn).flatMap((column) => ptOnly(columnNodes(column)));
 			return [
-				...(others.length ? sectionOf(row, others, bg) : []),
-				{ _type: "contact_form", _key: key(), heading: heading ? plainText(heading) : "", intro: intro.filter((node) => node !== heading).map(plainText).filter(Boolean).join("\n\n"), form: "contact", ...bg },
+				{
+					_type: "contact_form",
+					_key: key(),
+					heading: heading ? plainText(heading) : "",
+					intro: intro.filter((node) => node !== heading).map(plainText).filter(Boolean).join("\n\n"),
+					form: "contact",
+					...(aside.length ? { aside } : {}),
+					...bg,
+				},
 			];
 		}
 
-		const converted = columns.map((column) => transform(column.innerBlocks));
+		const converted = columns.map(columnNodes);
 		const filled = converted.filter((nodes) => nodes.length);
 		if (!filled.length) return [];
 
@@ -349,7 +383,8 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 				if (node._type === "bookingMarker") extras.push(bookingBlock(node.calLink, bg));
 			}
 		}
-		const faqHeading = extras.length && extras[0]._type === "faq" && filled.length === 1 ? ptOnly(filled[0]).find(isHeading) : undefined;
+		const faqText = extras.length && extras[0]._type === "faq" && filled.length === 1 ? ptOnly(filled[0]) : [];
+		const faqHeading = faqText.find(isHeading) ?? (faqText.length === 1 && plainText(faqText[0]).length < 80 ? faqText[0] : undefined);
 		if (faqHeading) extras[0].heading = plainText(faqHeading);
 		const remaining = converted.map((nodes) => ptOnly(nodes).filter((node) => node !== faqHeading));
 
@@ -369,10 +404,6 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			return [{ _type: "section", _key: key(), layout: "1", align: "left", column_1: nonEmpty.flat(), ...bg }, ...extras];
 		}
 		return [...sectionFrom(row, remaining, bg), ...extras];
-	}
-
-	function sectionOf(row: GutenbergBlock, columns: GutenbergBlock[], bg: Record<string, unknown>) {
-		return sectionFrom(row, columns.map((column) => ptOnly(transform(column.innerBlocks))), bg);
 	}
 
 	function sectionFrom(row: GutenbergBlock, columns: PortableTextBlock[][], bg: Record<string, unknown>): LayoutBlock[] {
@@ -413,7 +444,88 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			}
 		}
 		flushLoose();
-		return layout;
+		const folded = layout.flatMap((block, index) => {
+			const next = layout[index + 1];
+			const title = headingOnly(block);
+			if (title && next?._type === "cards" && !next.heading) {
+				next.heading = title;
+				return [];
+			}
+			return [block];
+		});
+		return withSurfaces(withHero(folded.map(asLogos)));
+	}
+
+	function brandOf(image: any) {
+		const id = mediaOfNode(image)?.storageKey?.replace(/\.[a-z]+$/, "");
+		return id ? BRANDS[id] : undefined;
+	}
+
+	function asLogos(block: LayoutBlock): LayoutBlock {
+		if (block._type !== "section" || block.column_2) return block;
+		const nodes = (block.column_1 as any[] | undefined) ?? [];
+		if (nodes.length !== 1 || nodes[0]._type !== "gallery" || !nodes[0].images.every(brandOf)) return block;
+		return {
+			_type: "logos",
+			_key: block._key,
+			items: nodes[0].images.map((image: any) => {
+				const title = brandOf(image)!;
+				return { _key: key(), title, image: imageField(mediaOfNode(image)!, title) };
+			}),
+		};
+	}
+
+	function withHero(layout: LayoutBlock[]): LayoutBlock[] {
+		const [first, second, ...rest] = layout;
+		const titleNodes = (first?.column_1 as any[] | undefined) ?? [];
+		if (first?._type !== "section" || first.column_2 || titleNodes.length !== 1 || titleNodes[0].style !== "h1") return layout;
+		if (second?._type !== "section" || second.column_3) return layout;
+		const columns = (second.column_2 ? [second.column_1, second.column_2] : [second.column_1]) as any[][];
+		const photoIndex = columns.findIndex((nodes) => nodes.length === 1 && nodes[0]._type === "image");
+		if (columns.length === 2 && photoIndex < 0) return layout;
+		const text = columns.length === 2 ? columns[1 - photoIndex] : columns[0];
+		if (columns.length === 1 && (!isHeading(text[0]) || text.some((node) => node._type !== "block"))) return layout;
+		const [lead, ...body] = isHeading(text[0]) ? text : [undefined, ...text];
+		const photo = photoIndex >= 0 ? columns[photoIndex][0] : undefined;
+		const found = photo ? mediaOfNode(photo) : undefined;
+		return [
+			{
+				_type: "page_hero",
+				_key: first._key,
+				title: plainText(titleNodes[0]),
+				...(lead ? { heading: plainText(lead) } : {}),
+				body,
+				...(found ? { image: imageField(found, photo.alt) } : {}),
+			},
+			...rest,
+		];
+	}
+
+	function surfaceGroup(block: LayoutBlock) {
+		if (block._type === "page_hero" || block._type === "logos") return "intro";
+		if (block._type === "section" && block.layout !== "1" && JSON.stringify(block).includes('"_type":"image"')) return "media";
+		return block._type;
+	}
+
+	function withSurfaces(layout: LayoutBlock[]): LayoutBlock[] {
+		let surface = "white";
+		let group = "";
+		return layout.map((block) => {
+			if (block.background && !PLAIN.has(String(block.background))) {
+				group = "";
+				return block;
+			}
+			const next = surfaceGroup(block);
+			if (next !== group) surface = surface === "light" ? "white" : "light";
+			group = next;
+			return block._type === "logos" || block._type === "page_hero" ? block : { ...block, background: surface };
+		});
+	}
+
+	function headingOnly(block: LayoutBlock) {
+		if (block._type !== "section" || block.layout !== "1" || block.column_2) return undefined;
+		const nodes = (block.column_1 as Node[] | undefined) ?? [];
+		return nodes.length === 1 && isHeading(nodes[0]) ? plainText(nodes[0]) : undefined;
 	}
 
 	function withoutForms(blocks: GutenbergBlock[]): GutenbergBlock[] {

@@ -1,6 +1,7 @@
 ---
 import type { BlockProps } from "astro-portabletext/types";
 import { Block } from "emdash/ui";
+import { slugOf, textOf } from "../utils/slug";
 
 type MarkNode = { _type?: string; markDef?: { _type?: string; variant?: string }; children?: { _type?: string }[] };
 
@@ -15,11 +16,21 @@ const isButton =
 	only.markDef?._type === "link" &&
 	only.children?.length === 1 &&
 	only.children[0]._type === "@text";
+const isLabel = node.style === "h5" || node.style === "h6";
+const anchor = node.style === "h2" ? slugOf(textOf(node as never)) : "";
 ---
 
 {
 	isButton ? (
 		<p class:list={["is-button", { "is-button--secondary": only?.markDef?.variant === "secondary" }]}>
+			<slot />
+		</p>
+	) : anchor ? (
+		<h2 id={anchor} class:list={[(node as { textAlign?: string }).textAlign && `has-text-align-${(node as { textAlign?: string }).textAlign}`]}>
+			<slot />
+		</h2>
+	) : isLabel ? (
+		<p class="t-label prose__label">
 			<slot />
 		</p>
 	) : (

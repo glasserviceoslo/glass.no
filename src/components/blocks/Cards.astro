@@ -108,26 +108,45 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	}
 
 	.cards--icon {
-		text-align: center;
+		--per-row: 3 !important;
+		row-gap: clamp(1.75rem, 3vw, 2.75rem);
+		column-gap: clamp(1.5rem, 4vw, 4rem);
 	}
 
 	.cards--icon .card {
-		align-items: center;
+		display: grid;
+		grid-template-columns: 3.5rem minmax(0, 1fr);
+		column-gap: 1.25rem;
+		align-items: start;
+		padding: 0;
+		border: 0;
+		background: none;
+		box-shadow: none;
 	}
 
 	.cards--icon .card__media {
-		width: 88px;
-		margin-bottom: 1rem;
+		display: block;
+		width: 3.5rem;
+	}
+
+	.cards--icon .card__media :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
 	}
 
 	.cards--icon .card__title {
-		font-size: 1.25rem;
-		margin-bottom: 0.4em;
+		margin: 0.15rem 0 0.35rem;
+		font-family: var(--font-text), sans-serif;
+		font-size: 1.125rem;
+		font-weight: 600;
 	}
 
 	.cards--icon .card__text {
-		font-size: 0.92rem;
+		margin: 0;
 		color: var(--flow-muted);
+		font-size: 1rem;
+		line-height: 1.5;
 	}
 
 	.card__title a {
@@ -143,11 +162,19 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 		.cards {
 			grid-template-columns: repeat(min(var(--per-row), 3), minmax(0, 1fr));
 		}
+
+		.cards--icon {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
 	@media (max-width: 720px) {
 		.cards {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cards--icon {
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.cards--image {

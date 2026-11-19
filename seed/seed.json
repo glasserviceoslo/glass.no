@@ -15,6 +15,40 @@
 	},
 	"blockTypes": [
 		{
+			"slug": "page_hero",
+			"label": "Page hero",
+			"description": "The page title with a subtitle, text, buttons and a photograph",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "title",
+							"label": "Page title",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "heading",
+							"label": "Subtitle",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Text and buttons",
+							"type": "portableText"
+						},
+						{
+							"slug": "image",
+							"label": "Photograph",
+							"type": "image"
+						}
+					]
+				}
+			]
+		},
+		{
 			"slug": "hero",
 			"label": "Hero",
 			"description": "The first screen: heading, one line, two buttons and a photograph",
@@ -264,7 +298,7 @@
 		{
 			"slug": "statement",
 			"label": "Statement",
-			"description": "One large statement that fills in word by word as it scrolls past",
+			"description": "A paragraph of text beside an optional photograph",
 			"currentVersion": 1,
 			"versions": [
 				{
@@ -298,7 +332,7 @@
 		{
 			"slug": "steps",
 			"label": "Steps",
-			"description": "Two to four steps, each with a photograph, held on screen while they open",
+			"description": "Two to four steps, each with a photograph",
 			"currentVersion": 1,
 			"versions": [
 				{
@@ -690,6 +724,11 @@
 							}
 						},
 						{
+							"slug": "aside",
+							"label": "Text beside the form",
+							"type": "portableText"
+						},
+						{
 							"slug": "background",
 							"label": "Background",
 							"type": "select",
@@ -839,6 +878,7 @@
 					"type": "blocks",
 					"validation": {
 						"allowedTypes": [
+							"page_hero",
 							"hero",
 							"services",
 							"features",

@@ -12,6 +12,17 @@ const link = (prefix: string, label: string) => [
 
 export const blockTypes = [
 	{
+		slug: "page_hero",
+		label: "Page hero",
+		description: "The page title with a subtitle, text, buttons and a photograph",
+		fields: [
+			{ slug: "title", label: "Page title", type: "string", required: true },
+			{ slug: "heading", label: "Subtitle", type: "string" },
+			{ slug: "body", label: "Text and buttons", type: "portableText" },
+			{ slug: "image", label: "Photograph", type: "image" },
+		],
+	},
+	{
 		slug: "hero",
 		label: "Hero",
 		description: "The first screen: heading, one line, two buttons and a photograph",
@@ -102,7 +113,7 @@ export const blockTypes = [
 	{
 		slug: "statement",
 		label: "Statement",
-		description: "One large statement that fills in word by word as it scrolls past",
+		description: "A paragraph of text beside an optional photograph",
 		fields: [
 			{ slug: "label", label: "Label", type: "string" },
 			{ slug: "text", label: "Statement", type: "text", required: true },
@@ -113,7 +124,7 @@ export const blockTypes = [
 	{
 		slug: "steps",
 		label: "Steps",
-		description: "Two to four steps, each with a photograph, held on screen while they open",
+		description: "Two to four steps, each with a photograph",
 		fields: [
 			{ slug: "heading", label: "Heading", type: "string", required: true },
 			{
@@ -219,6 +230,7 @@ export const blockTypes = [
 			{ slug: "heading", label: "Heading", type: "string" },
 			{ slug: "intro", label: "Intro", type: "text" },
 			{ slug: "form", label: "Form", type: "select", defaultValue: "contact", validation: { options: ["contact"] } },
+			{ slug: "aside", label: "Text beside the form", type: "portableText" },
 			...backgroundFields,
 		],
 	},

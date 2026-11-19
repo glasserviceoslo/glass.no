@@ -290,3 +290,57 @@ main > :is(section, .section):not(.hero) > .wrap > .fill {
 	flex: none;
 	min-height: auto;
 }
+
+.flow .prose .prose__label {
+	margin-bottom: var(--s-3, 12px);
+	color: inherit;
+	font-family: var(--font-text), sans-serif;
+	font-size: var(--t-label, 13px);
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.prose :is(ul, ol) {
+	padding-left: 1.4em;
+}
+
+.prose ul {
+	list-style: disc;
+}
+
+.prose ol {
+	list-style: decimal;
+}
+
+.prose li + li {
+	margin-top: 0.35em;
+}
+
+.prose li::marker {
+	color: var(--p-accent);
+	font-variant-numeric: tabular-nums;
+}
+
+:is(.surface--brand, .surface--dark, .surface--image) .prose li::marker {
+	color: currentColor;
+}
+
+:root {
+	accent-color: var(--p-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html:has(.guide) {
+		scroll-behavior: smooth;
+	}
+}
+
+.contact__aside p:has(> strong > br) > strong {
+	margin-left: 0.3em;
+	color: var(--p-ink);
+}
+
+.contact__aside p:has(> strong > br) {
+	color: var(--flow-muted);
+}
