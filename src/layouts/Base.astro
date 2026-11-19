@@ -18,10 +18,9 @@ interface Props {
 	robots?: string | null;
 	pageType?: "website" | "article";
 	content?: { collection: string; id: string; slug?: string | null };
-	moments?: string[];
 }
 
-const { title, pageTitle, description, image, canonical, robots, pageType = "website", content, moments = [] } = Astro.props;
+const { title, pageTitle, description, image, canonical, robots, pageType = "website", content } = Astro.props;
 
 const [settings, menu] = await Promise.all([getSiteSettingsWithCacheHint(), getMenuWithCacheHint("primary")]);
 if (Astro.cache?.enabled) {
@@ -82,18 +81,6 @@ const page = createPublicPageContext({
 			}
 		</style>
 		<script is:inline>document.documentElement.classList.add("m-enter");setTimeout(()=>document.documentElement.classList.add("m-enter-done"),700)</script>
-		{
-			moments.length > 0 && (
-				<>
-					<script is:inline>document.documentElement.classList.add("mo-js");setTimeout(()=>document.documentElement.classList.add("mo-safe"),2500)</script>
-					<link rel="modulepreload" href="/assets/moments/moments.js" />
-					<link rel="modulepreload" href="/assets/moments/lib.js" />
-					{moments.map((id) => (
-						<link rel="modulepreload" href={`/assets/moments/${id}/moment.js`} />
-					))}
-				</>
-			)
-		}
 	</head>
 	<body>
 		<EmDashBodyStart page={page} />
