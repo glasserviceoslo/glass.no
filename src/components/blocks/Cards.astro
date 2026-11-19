@@ -55,7 +55,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 				items.map((card) => (
 					<article class="card">
 						{card.image && (
-							<a href={card.url || undefined} class="card__media" tabindex="-1" aria-hidden="true">
+							<a href={card.url || undefined} class:list={["card__media", { "card__media--photo": style === "image" && !/png|svg/.test(card.image.mimeType ?? card.image.src ?? "") }]} tabindex="-1" aria-hidden="true">
 								<Image image={card.image} class="card__image" sizes={style === "icon" ? "96px" : "(max-width: 860px) 100vw, 420px"} />
 							</a>
 						)}
@@ -151,6 +151,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	}
 
 	.cards--image .card {
+		padding: 0;
 		overflow: hidden;
 		border-radius: var(--radius);
 		background: var(--white);
@@ -172,6 +173,10 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 		max-width: none;
 		height: 100%;
 		object-fit: contain;
+	}
+
+	.cards--image .card__media--photo :global(img) {
+		object-fit: cover;
 	}
 
 	.cards--image .card__body {

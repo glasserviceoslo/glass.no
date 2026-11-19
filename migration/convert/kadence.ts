@@ -352,6 +352,27 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		};
 	};
 
+	function cardsFromNestedRow(column: GutenbergBlock, bg: Record<string, unknown>): LayoutBlock | undefined {
+		const children = column.innerBlocks.filter((child) => child.blockName && !hiddenOnDesktop(child) && !DROPPED.has(child.blockName));
+		const rows = children.filter((child) => child.blockName === "kadence/rowlayout");
+		if (rows.length !== 1) return undefined;
+		const others = ptOnly(transform(children.filter((child) => child !== rows[0])));
+		if (others.length > 1 || others.some((node) => !isText(node))) return undefined;
+		const cells = rows[0].innerBlocks.filter((cell) => !hiddenOnDesktop(cell) && cell.blockName === "kadence/column");
+		if (cells.length < 2) return undefined;
+		const cards = cells.map((cell) => asCard(columnNodes(cell)));
+		if (!cards.every((card) => card?.title && card.image && card.url)) return undefined;
+		return {
+			_type: "cards",
+			_key: key(),
+			heading: others[0] ? plainText(others[0]) : "",
+			columns: String(Math.min(cards.length, 4)),
+			style: "image",
+			items: cards,
+			...bg,
+		};
+	}
+
 	function rowToLayout(row: GutenbergBlock, inherited?: Record<string, unknown>): LayoutBlock[] {
 		const own = background(row.attrs);
 		const bg = own.background === "white" && inherited ? inherited : own;
@@ -364,6 +385,9 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		if (columns.length === 1 && !columns[0].attrs.backgroundImg && columns[0].innerBlocks.length && columns[0].innerBlocks.every((child) => child.blockName === "kadence/rowlayout" || DROPPED.has(child.blockName ?? ""))) {
 			return columns[0].innerBlocks.filter((child) => child.blockName === "kadence/rowlayout").flatMap((child) => rowToLayout(child, bg));
 		}
+
+		const nestedCards = columns.length === 1 ? cardsFromNestedRow(columns[0], bg) : undefined;
+		if (nestedCards) return [nestedCards];
 
 		const formColumn = columns.find((column) => JSON.stringify(column).includes('"kadence/form"'));
 		if (formColumn) {
