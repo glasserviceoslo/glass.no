@@ -1,0 +1,88 @@
+---
+import type { Surface } from "./surface";
+
+interface Props {
+	value: Surface & { heading?: string; intro?: string; cal_link?: string };
+	blockKey?: string;
+	index?: number;
+}
+
+const { value, blockKey, index } = Astro.props;
+const Heading = index === 0 ? "h1" : "h2";
+const calLink = (value.cal_link || "glassno/befaring").replace(/^https?:\/\/(app\.)?cal\.com\//, "").replace(/^\/+|\/+$/g, "");
+const namespace = calLink.replace(/[^a-z0-9]/gi, "_");
+const elementId = `cal-${blockKey ?? namespace}`;
+---
+
+<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+	<div class="container booking">
+		{value.heading && <Heading class="booking__heading">{value.heading}</Heading>}
+		{value.intro && <p class="booking__intro">{value.intro}</p>}
+		<div id={elementId} class="booking__calendar"></div>
+		<noscript>
+			<p><a class="btn btn--large" href={`https://cal.com/${calLink}`}>Book befaring på cal.com</a></p>
+		</noscript>
+	</div>
+</section>
+
+<script is:inline define:vars={{ calLink, namespace, elementId }}>
+	(function (C, A, L) {
+		let p = function (a, ar) {
+			a.q.push(ar);
+		};
+		let d = C.document;
+		C.Cal =
+			C.Cal ||
+			function () {
+				let cal = C.Cal;
+				let ar = arguments;
+				if (!cal.loaded) {
+					cal.ns = {};
+					cal.q = cal.q || [];
+					d.head.appendChild(d.createElement("script")).src = A;
+					cal.loaded = true;
+				}
+				if (ar[0] === L) {
+					const api = function () {
+						p(api, arguments);
+					};
+					const ns = ar[1];
+					api.q = api.q || [];
+					if (typeof ns === "string") {
+						cal.ns[ns] = cal.ns[ns] || api;
+						p(cal.ns[ns], ar);
+						p(cal, ["initNamespace", ns]);
+					} else p(cal, ar);
+					return;
+				}
+				p(cal, ar);
+			};
+	})(window, "https://app.cal.com/embed/embed.js", "init");
+
+	Cal("init", namespace, { origin: "https://app.cal.com" });
+	Cal.config = Cal.config || {};
+	Cal.config.forwardQueryParams = true;
+	Cal.ns[namespace]("inline", {
+		elementOrSelector: `#${elementId}`,
+		config: { layout: "month_view", theme: "light", useSlotsViewOnSmallScreen: "true" },
+		calLink,
+	});
+	Cal.ns[namespace]("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
+</script>
+
+<style>
+	.booking__heading,
+	.booking__intro {
+		text-align: center;
+	}
+
+	.booking__intro {
+		max-width: 680px;
+		margin-inline: auto;
+	}
+
+	.booking__calendar {
+		width: 100%;
+		min-height: 640px;
+	}
+</style>

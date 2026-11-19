@@ -52,6 +52,8 @@ for (const collection of ["pages", "posts"]) {
 		const thumbnail = item.thumbnailId ? mediaMap.byId(item.thumbnailId) : undefined;
 		const featured = thumbnail ? { featured_image: imageField(thumbnail) } : {};
 		const data = collection === "pages" ? { layout: pageLayout(blocks), ...featured } : { content: postContent(blocks), ...featured };
+		const [first] = (data as { layout?: Record<string, unknown>[] }).layout ?? [];
+		if (first?._type === "booking" && !first.heading) first.heading = item.title;
 		results.push({ collection, entry, data, seo });
 	}
 }
@@ -94,7 +96,11 @@ if (write) {
 		});
 	}
 	const pages = await api<{ item: { fields: { slug: string }[] } }>("/schema/collections/pages?includeFields=true");
-	if (!pages.item.fields.some((field) => field.slug === "layout")) await api("/schema/collections/pages/fields", { method: "POST", body: layoutField });
+	if (pages.item.fields.some((field) => field.slug === "layout")) {
+		await api("/schema/collections/pages/fields/layout", { method: "PUT", body: { validation: layoutField.validation } });
+	} else {
+		await api("/schema/collections/pages/fields", { method: "POST", body: layoutField });
+	}
 
 	for (const collection of ["pages", "posts"]) {
 		const current = await api<{ item: { supports: string[] } }>(`/schema/collections/${collection}`);

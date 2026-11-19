@@ -80,6 +80,17 @@ export const blockTypes = [
 		],
 	},
 	{
+		slug: "booking",
+		label: "Booking",
+		description: "A Cal.com booking calendar",
+		fields: [
+			{ slug: "heading", label: "Heading", type: "string" },
+			{ slug: "intro", label: "Intro", type: "text" },
+			{ slug: "cal_link", label: "Cal.com link", type: "string", required: true, defaultValue: "glassno/befaring" },
+			...backgroundFields,
+		],
+	},
+	{
 		slug: "reviews",
 		label: "Reviews",
 		fields: [{ slug: "heading", label: "Heading", type: "string" }, ...backgroundFields],

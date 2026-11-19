@@ -61,6 +61,19 @@ export interface PageLayoutContactFormV1Block {
 
 export type PageLayoutContactFormBlock = PageLayoutContactFormV1Block;
 
+export interface PageLayoutBookingV1Block {
+  _type: "booking";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "cal_link": string;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PageLayoutBookingBlock = PageLayoutBookingV1Block;
+
 export interface PageLayoutReviewsV1Block {
   _type: "reviews";
   _version: 1;
@@ -72,7 +85,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;

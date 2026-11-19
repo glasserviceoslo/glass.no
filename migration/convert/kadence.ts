@@ -10,7 +10,11 @@ import { imageField, imageNode, type Media, type MediaMap } from "./media.ts";
 
 export type Report = { dropped: Map<string, number>; unknown: Map<string, number>; shortcodes: Map<string, number> };
 
-type Node = PortableTextBlock | { _type: "reviewsMarker"; _key: string } | { _type: "faqMarker"; _key: string; items: FaqItem[] };
+type Node =
+	| PortableTextBlock
+	| { _type: "reviewsMarker"; _key: string }
+	| { _type: "bookingMarker"; _key: string; calLink: string }
+	| { _type: "faqMarker"; _key: string; items: FaqItem[] };
 type FaqItem = { question: string; answer: string };
 type LayoutBlock = Record<string, unknown> & { _type: string; _key: string };
 
@@ -174,6 +178,11 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		"core/columns": (block) => transform(block.innerBlocks),
 		"core/column": (block) => transform(block.innerBlocks),
 		"core/group": (block) => transform(block.innerBlocks),
+		"core/html": (block) => {
+			const calLink = block.innerHTML.match(/calLink:\s*"([^"]+)"/)?.[1];
+			if (calLink) return [{ _type: "bookingMarker", _key: key(), calLink }];
+			return defaultTransformers["core/html"](block, options, context) as Node[];
+		},
 		"core/block": (block) => {
 			const ref = Number(block.attrs.ref);
 			if (ORANGE_BOOKING.has(ref)) return [booking("primary")];
@@ -260,7 +269,9 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 	const isButton = (node: any) => node._type === "block" && node.children?.length === 1 && node.children[0].marks?.length === 1 && node.markDefs?.length === 1;
 	const isHeading = (node: any) => node._type === "block" && /^h\d$/.test(node.style ?? "");
 	const mediaOfNode = (node: any) => mediaByUrl.get(node.asset?._ref ?? "");
-	const ptOnly = (nodes: Node[]) => nodes.filter((node) => node._type !== "reviewsMarker" && node._type !== "faqMarker") as PortableTextBlock[];
+	const MARKERS = new Set(["reviewsMarker", "bookingMarker", "faqMarker"]);
+	const ptOnly = (nodes: Node[]) => nodes.filter((node) => !MARKERS.has(node._type)) as PortableTextBlock[];
+	const bookingBlock = (calLink: string, background: Record<string, unknown>) => ({ _type: "booking", _key: key(), heading: "", intro: "", cal_link: calLink, ...background });
 
 	const background = (attrs: Record<string, unknown>) => {
 		const bgImage = (attrs.bgImg as string | undefined) || undefined;
@@ -287,7 +298,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 	};
 
 	const asCard = (nodes: Node[]) => {
-		if (nodes.some((node) => node._type === "faqMarker" || node._type === "reviewsMarker" || node._type === "table" || (node as any).listItem)) return undefined;
+		if (nodes.some((node) => MARKERS.has(node._type) || node._type === "table" || (node as any).listItem)) return undefined;
 		const images = nodes.filter((node) => node._type === "image");
 		const texts = nodes.filter((node) => isText(node) && !isButton(node));
 		const buttons = nodes.filter(isButton);
@@ -335,6 +346,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			for (const node of nodes) {
 				if (node._type === "faqMarker") extras.push({ _type: "faq", _key: key(), heading: "", items: node.items.map((item) => ({ _key: key(), ...item })), ...bg });
 				if (node._type === "reviewsMarker") extras.push({ _type: "reviews", _key: key(), heading: "", ...bg });
+				if (node._type === "bookingMarker") extras.push(bookingBlock(node.calLink, bg));
 			}
 		}
 		const faqHeading = extras.length && extras[0]._type === "faq" && filled.length === 1 ? ptOnly(filled[0]).find(isHeading) : undefined;
@@ -388,6 +400,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			const pt = ptOnly(nodes);
 			if (pt.length) layout.push({ _type: "section", _key: key(), layout: "1", align: "left", column_1: pt, background: "white" });
 			for (const node of nodes) if (node._type === "reviewsMarker") layout.push({ _type: "reviews", _key: key(), heading: "", background: "white" });
+			for (const node of nodes) if (node._type === "bookingMarker") layout.push(bookingBlock(node.calLink, { background: "white" }));
 		};
 		for (const block of blocks) {
 			if (hiddenOnDesktop(block)) continue;
@@ -416,7 +429,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 	function postContent(blocks: GutenbergBlock[]): PortableTextBlock[] {
 		return transform(withoutForms(blocks)).flatMap((node) => {
 			if (node._type === "faqMarker") return node.items.flatMap((item) => [textBlock(item.question, "h3"), ...item.answer.split("\n\n").map((text) => textBlock(text))]);
-			if (node._type === "reviewsMarker") return [];
+			if (node._type === "reviewsMarker" || node._type === "bookingMarker") return [];
 			return [node as PortableTextBlock];
 		});
 	}
