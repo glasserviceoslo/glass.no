@@ -51,7 +51,11 @@ for (const collection of ["pages", "posts"]) {
 		const seo = seoTitle || seoDescription ? { title: seoTitle || null, description: seoDescription || null } : undefined;
 		const thumbnail = item.thumbnailId ? mediaMap.byId(item.thumbnailId) : undefined;
 		const featured = thumbnail ? { featured_image: imageField(thumbnail) } : {};
-		const data = collection === "pages" ? { layout: pageLayout(blocks), ...featured } : { content: postContent(blocks), ...featured };
+		const rows = blocks.some((block) => block.blockName === "kadence/rowlayout");
+		const data =
+			collection === "pages"
+				? { layout: pageLayout(blocks), ...featured }
+				: { content: postContent(blocks), ...(rows ? { layout: pageLayout(blocks) } : {}), ...featured };
 		const [first] = (data as { layout?: Record<string, unknown>[] }).layout ?? [];
 		if (first?._type === "booking" && !first.heading) first.heading = item.title;
 		results.push({ collection, entry, data, seo });
@@ -87,10 +91,10 @@ if (write) {
 	const keyless = (layout: any[]) =>
 		layout.map(({ _key, ...block }) => (Array.isArray(block.items) ? { ...block, items: block.items.map(({ _key, ...item }: any) => item) } : block));
 	for (const { collection, entry, data, seo } of results) {
-		const body = collection === "pages" ? { ...data, layout: keyless(data.layout as any[]) } : data;
+		const body = data.layout ? { ...data, layout: keyless(data.layout as any[]) } : data;
 		await api(`/content/${collection}/${entry.id}`, {
 			method: "PUT",
-			body: { data: body, ...(seo ? { seo } : {}), skipRevision: true, ...(collection === "pages" ? { replaceBlocks: true } : {}) },
+			body: { data: body, ...(seo ? { seo } : {}), skipRevision: true, ...(data.layout ? { replaceBlocks: true } : {}) },
 		});
 		if (entry.status === "published") await api(`/content/${collection}/${entry.id}/publish`, { method: "POST", body: {} });
 		done++;

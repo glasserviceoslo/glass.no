@@ -17,7 +17,7 @@ const isButton =
 	only.children?.length === 1 &&
 	only.children[0]._type === "@text";
 const isLabel = node.style === "h5" || node.style === "h6";
-const anchor = node.style === "h2" ? slugOf(textOf(node as never)) : "";
+const anchor = node.style === "h1" || node.style === "h2" ? slugOf(textOf(node as never)) : "";
 ---
 
 {

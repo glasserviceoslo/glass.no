@@ -212,6 +212,197 @@ export interface Page {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface PostLayoutPageHeroV1Block {
+  _type: "page_hero";
+  _version: 1;
+  _key: string;
+  "title": string;
+  "heading"?: string | null;
+  "body"?: PortableTextBlock[] | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutPageHeroBlock = PostLayoutPageHeroV1Block;
+
+export interface PostLayoutHeroV1Block {
+  _type: "hero";
+  _version: 1;
+  _key: string;
+  "kicker"?: string | null;
+  "heading": string;
+  "lead"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "secondary_label"?: string | null;
+  "secondary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "float_label"?: string | null;
+  "float_title"?: string | null;
+}
+
+export type PostLayoutHeroBlock = PostLayoutHeroV1Block;
+
+export interface PostLayoutServicesV1Block {
+  _type: "services";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "layout"?: "list" | "cards" | null;
+  "intro"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "url"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PostLayoutServicesBlock = PostLayoutServicesV1Block;
+
+export interface PostLayoutFeaturesV1Block {
+  _type: "features";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "intro"?: string | null;
+  "bullets"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "facts"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "icon"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PostLayoutFeaturesBlock = PostLayoutFeaturesV1Block;
+
+export interface PostLayoutLogosV1Block {
+  _type: "logos";
+  _version: 1;
+  _key: string;
+  "items"?: { "title": string; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "url"?: string | null }[] | null;
+}
+
+export type PostLayoutLogosBlock = PostLayoutLogosV1Block;
+
+export interface PostLayoutStatementV1Block {
+  _type: "statement";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "text": string;
+  "strong"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutStatementBlock = PostLayoutStatementV1Block;
+
+export interface PostLayoutStepsV1Block {
+  _type: "steps";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "items"?: { "title": string; "text"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PostLayoutStepsBlock = PostLayoutStepsV1Block;
+
+export interface PostLayoutContactV1Block {
+  _type: "contact";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "intro"?: string | null;
+  "address"?: string | null;
+  "hours"?: string | null;
+  "phone"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "show_form"?: boolean | null;
+}
+
+export type PostLayoutContactBlock = PostLayoutContactV1Block;
+
+export interface PostLayoutSectionV1Block {
+  _type: "section";
+  _version: 1;
+  _key: string;
+  "layout"?: "1" | "1-1" | "2-1" | "1-2" | "1-1-1" | "1-1-1-1" | null;
+  "align"?: "left" | "center" | null;
+  "column_1"?: PortableTextBlock[] | null;
+  "column_2"?: PortableTextBlock[] | null;
+  "column_3"?: PortableTextBlock[] | null;
+  "column_4"?: PortableTextBlock[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "anchor_id"?: string | null;
+}
+
+export type PostLayoutSectionBlock = PostLayoutSectionV1Block;
+
+export interface PostLayoutCardsV1Block {
+  _type: "cards";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "columns"?: "2" | "3" | "4" | "5" | "6" | null;
+  "style"?: "image" | "icon" | null;
+  "items"?: { "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "title"?: string | null; "text"?: string | null; "url"?: string | null; "link_label"?: string | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutCardsBlock = PostLayoutCardsV1Block;
+
+export interface PostLayoutFaqV1Block {
+  _type: "faq";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "items"?: { "question": string; "answer": string }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutFaqBlock = PostLayoutFaqV1Block;
+
+export interface PostLayoutContactFormV1Block {
+  _type: "contact_form";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "form"?: "contact" | null;
+  "aside"?: PortableTextBlock[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutContactFormBlock = PostLayoutContactFormV1Block;
+
+export interface PostLayoutBookingV1Block {
+  _type: "booking";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "cal_link": string;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutBookingBlock = PostLayoutBookingV1Block;
+
+export interface PostLayoutReviewsV1Block {
+  _type: "reviews";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutReviewsBlock = PostLayoutReviewsV1Block;
+
+export type PostLayoutBlock = PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
+
 export interface Post {
   id: string;
   slug: string | null;
@@ -220,6 +411,7 @@ export interface Post {
   content?: PortableTextBlock[];
   excerpt?: string;
   featured_image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  layout?: PostLayoutBlock[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

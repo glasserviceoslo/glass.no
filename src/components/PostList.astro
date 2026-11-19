@@ -37,6 +37,11 @@ const cards = posts.map((post) => {
 						)}
 						<span class="post-card__body">
 							<span class="post-card__title">{post.data.title}</span>
+							{post.data.publishedAt && (
+								<time class="post-card__date" datetime={new Date(post.data.publishedAt).toISOString()}>
+									{new Date(post.data.publishedAt).toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" })}
+								</time>
+							)}
 							{excerpt && <span class="post-card__excerpt">{excerpt}</span>}
 							<span class="post-card__more">Les mer</span>
 						</span>
@@ -91,13 +96,26 @@ const cards = posts.map((post) => {
 	}
 
 	.post-card__title {
+		display: block;
 		color: var(--flow-ink);
 		font-family: var(--font-display), serif;
 		font-size: 1.35rem;
 		line-height: 1.25;
 	}
 
+	.post-card__title::first-letter {
+		text-transform: uppercase;
+	}
+
+	.post-card__date {
+		margin-top: -0.25rem;
+		color: var(--flow-muted);
+		font-size: 0.875rem;
+		font-variant-numeric: tabular-nums;
+	}
+
 	.post-card__excerpt {
+		color: var(--flow-muted);
 		display: -webkit-box;
 		overflow: hidden;
 		-webkit-box-orient: vertical;

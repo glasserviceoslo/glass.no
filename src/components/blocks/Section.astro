@@ -23,7 +23,7 @@ const background = value.background ?? "white";
 const contents =
 	layout === "1"
 		? ((value.column_1 ?? []) as { style?: string; children?: { text?: string }[] }[])
-				.filter((node) => node.style === "h2")
+				.filter((node) => node.style === "h1" || node.style === "h2")
 				.map((node) => ({ id: slugOf(textOf(node)), text: textOf(node) }))
 		: [];
 const guide = contents.length >= 4;

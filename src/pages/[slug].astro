@@ -31,7 +31,7 @@ const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
 >
 	<div class="flow">
 	{
-		isPage ? (
+		isPage || (entry.data.layout as unknown[] | undefined)?.length ? (
 			<>
 				<PageLayout value={entry.data.layout} />
 				{slug === "blogg" && <PostList title={entry.data.title} />}

@@ -19,11 +19,13 @@ export async function syncSchema() {
 		});
 	}
 
-	const pages = await api<{ item: { fields: { slug: string }[] } }>("/schema/collections/pages?includeFields=true");
-	if (pages.item.fields.some((field) => field.slug === "layout")) {
-		await api("/schema/collections/pages/fields/layout", { method: "PUT", body: { validation: layoutField.validation } });
-	} else {
-		await api("/schema/collections/pages/fields", { method: "POST", body: layoutField });
+	for (const collection of ["pages", "posts"]) {
+		const schema = await api<{ item: { fields: { slug: string }[] } }>(`/schema/collections/${collection}?includeFields=true`);
+		if (schema.item.fields.some((field) => field.slug === "layout")) {
+			await api(`/schema/collections/${collection}/fields/layout`, { method: "PUT", body: { validation: layoutField.validation } });
+		} else {
+			await api(`/schema/collections/${collection}/fields`, { method: "POST", body: layoutField });
+		}
 	}
 
 	for (const collection of ["pages", "posts"]) {

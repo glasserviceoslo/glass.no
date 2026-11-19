@@ -11,14 +11,13 @@ interface Props {
 
 const { title, image, content, publishedAt } = Astro.props;
 const published = publishedAt ? new Date(publishedAt) : undefined;
-const hasOwnTitle = (content ?? []).some((node) => (node as { style?: string }).style === "h1");
 ---
 
 <article class="post">
 	<header class="block surface--white post__header">
 		<div class="container post__measure">
 			{published && <time datetime={published.toISOString()}>{published.toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" })}</time>}
-			{!hasOwnTitle && <h1>{title}</h1>}
+			<h1>{title}</h1>
 		</div>
 		{image && <Image image={image} class="container post__image" sizes="(max-width: 1290px) 100vw, 1290px" priority />}
 	</header>
@@ -53,6 +52,10 @@ const hasOwnTitle = (content ?? []).some((node) => (node as { style?: string }).
 		border-radius: var(--radius);
 		object-fit: cover;
 		max-height: 560px;
+	}
+
+	.post__header h1::first-letter {
+		text-transform: uppercase;
 	}
 
 	.post__body {

@@ -34,7 +34,7 @@ const seed = {
 			labelSingular: "Post",
 			urlPattern: "/{slug}/",
 			supports: ["drafts", "revisions", "preview", "seo"],
-			fields: [...common, { slug: "content", label: "Content", type: "portableText" }],
+			fields: [...common, { slug: "content", label: "Content", type: "portableText" }, layoutField],
 		},
 	],
 	menus: [],

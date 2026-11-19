@@ -930,6 +930,30 @@
 					"slug": "content",
 					"label": "Content",
 					"type": "portableText"
+				},
+				{
+					"slug": "layout",
+					"label": "Layout",
+					"type": "blocks",
+					"validation": {
+						"allowedTypes": [
+							"page_hero",
+							"hero",
+							"services",
+							"features",
+							"logos",
+							"statement",
+							"steps",
+							"contact",
+							"section",
+							"cards",
+							"faq",
+							"contact_form",
+							"booking",
+							"reviews"
+						],
+						"maxItems": 80
+					}
 				}
 			]
 		}
