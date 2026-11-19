@@ -23,44 +23,38 @@ const facts = (value.facts ?? "")
 const items = value.items ?? [];
 ---
 
-<section class="section g2 g2m" id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+<section class="section" id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
 	<div class="wrap">
-		<div class="grid grid--top fill">
-			<div class="span-5 stack-5">
-				<div class="section-head">
-					{value.label && <p class="t-label">{value.label}</p>}
-					<h2 id="hvorfor-oss-h">{value.heading}</h2>
-					{value.intro && <p>{value.intro}</p>}
-				</div>
-				{
-					bullets.length > 0 && (
-						<ul class="features__list">
-							{bullets.map((bullet) => (
-								<li>{bullet}</li>
-							))}
-						</ul>
-					)
-				}
-				{
-					facts.length > 0 && (
-						<dl class="features__facts">
-							{facts.map(([figure, label]) => (
-								<div>
-									<dt class="t-stat">{figure}</dt>
-									<dd class="t-small muted">{label}</dd>
-								</div>
-							))}
-						</dl>
-					)
-				}
+		<div class="grid grid--top features__head">
+			<div class="span-5 section-head">
+				{value.label && <p class="t-label">{value.label}</p>}
+				<h2 id="hvorfor-oss-h">{value.heading}</h2>
+				{value.intro && <p>{value.intro}</p>}
 			</div>
-			{
-				value.image && (
-					<div class="frame frame--photo frame--fill span-6 start-7">
-						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="1400px" />
+			<div class="span-6 start-7 stack-6">
+				{value.image && (
+					<div class="frame frame--photo features__photo">
+						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 1023px) 100vw, 640px" />
 					</div>
-				)
-			}
+				)}
+				{bullets.length > 0 && (
+					<ul class="features__list">
+						{bullets.map((bullet) => (
+							<li>{bullet}</li>
+						))}
+					</ul>
+				)}
+				{facts.length > 0 && (
+					<dl class="features__facts">
+						{facts.map(([figure, label]) => (
+							<div>
+								<dt class="t-stat">{figure}</dt>
+								<dd class="t-small muted">{label}</dd>
+							</div>
+						))}
+					</dl>
+				)}
+			</div>
 		</div>
 		{
 			items.length > 0 && (
@@ -79,14 +73,33 @@ const items = value.items ?? [];
 </section>
 
 <style>
+	.features__head {
+		margin-bottom: var(--s-8, 64px);
+	}
+
+	.features__photo {
+		aspect-ratio: 4 / 3;
+	}
+
 	.features__list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--s-3) var(--s-6);
 		margin: 0;
 		padding: 0;
 		list-style: none;
+		font-size: var(--t-lead);
 	}
 
-	.features__list li + li {
-		margin-top: var(--s-2);
+	.features__list li {
+		padding-top: var(--s-3);
+		border-top: 1px solid var(--line);
+	}
+
+	@media (max-width: 639px) {
+		.features__list {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 
 	.features__cards :global(.features__icon) {

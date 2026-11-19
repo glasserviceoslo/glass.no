@@ -285,6 +285,11 @@
 							"slug": "strong",
 							"label": "Word to stress",
 							"type": "string"
+						},
+						{
+							"slug": "image",
+							"label": "Photograph",
+							"type": "image"
 						}
 					]
 				}

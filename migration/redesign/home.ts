@@ -45,7 +45,7 @@ const layout = [
 		_type: "services",
 		label: "Vinduer",
 		heading: "Våre mest Populære Tjenester",
-		layout: "list",
+		layout: "cards",
 		items: [
 			{ title: "Bytte vindu", text: "En komplett oppgradering for økt komfort, lavere energikostnader og et nytt, vakkert utseende på din bolig.", url: "/bytte-vindu/", image: photo("01M7TMJN7ZQCAETGQ0XHHT990P", "Bytte vindu") },
 			{ title: "bytte glass i vindu", text: "En smart og kostnadseffektiv måte å reparere eller oppgradere dine eksisterende vinduer for bedre isolasjon.", url: "/bytte-glass-i-vindu/", image: photo("01M7TMJNBYX7W36ZEX25DAQZXZ", "Bytte glass i vindu") },
@@ -56,6 +56,7 @@ const layout = [
 		_type: "statement",
 		text: INTRO_REST,
 		strong: "fra idé til ferdig montert løsning",
+		image: photo("01M7TMJ4DMRMS7NC1VF7RZ5JM5", "Stue med vindu fra gulv til tak og utsikt over et snødekt landskap"),
 	},
 	{
 		_type: "services",
@@ -70,7 +71,7 @@ const layout = [
 	{
 		_type: "services",
 		heading: "Glasstyper",
-		layout: "list",
+		layout: "cards",
 		items: [
 			{ title: "Plexiglass", text: "Et lett, slitesterkt og værbestandig alternativ til glass, perfekt for båtvinduer, skjerming og kreative prosjekter.", url: "/plexiglass/", image: photo("01M7TMKGRCD0P76TRKDRJ0JAEV", "Plexiglass") },
 			{ title: "Sikkerhetsglass", text: "Beskytt mennesker og verdier med herdet eller laminert glass. Den trygge løsningen for rekkverk, dører og utsatte flater.", url: "/sikkerhetsglass/", image: photo("01M7TMKGVDG1GXN52Y917VFW1K", "Sikkerhetsglass") },

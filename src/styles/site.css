@@ -270,3 +270,23 @@ main :is(.rows__name, .services__card h3, .features__cards .card h3, .features__
 :is(.nav__actions, main, footer) .btn {
 	text-transform: capitalize;
 }
+
+main > :is(section, .section):not(.hero) {
+	height: auto;
+	min-height: 0;
+	padding-top: var(--section-y);
+	padding-bottom: calc(var(--section-y) + var(--bar, 0px));
+}
+
+main > :is(section, .section):not(.hero) > .wrap {
+	height: auto;
+}
+
+main > .services-group + .services-group {
+	padding-top: 0;
+}
+
+main > :is(section, .section):not(.hero) > .wrap > .fill {
+	flex: none;
+	min-height: auto;
+}

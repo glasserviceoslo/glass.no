@@ -107,6 +107,7 @@ export const blockTypes = [
 			{ slug: "label", label: "Label", type: "string" },
 			{ slug: "text", label: "Statement", type: "text", required: true },
 			{ slug: "strong", label: "Word to stress", type: "string" },
+			{ slug: "image", label: "Photograph", type: "image" },
 		],
 	},
 	{

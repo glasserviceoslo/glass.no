@@ -1,19 +1,52 @@
 ---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
 interface Props {
-	value: { label?: string; text: string; strong?: string };
+	value: { label?: string; text: string; strong?: string; image?: ImageValue };
 }
 
 const { value } = Astro.props;
-const [before, after] = value.strong && value.text.includes(value.strong) ? [value.text.slice(0, value.text.indexOf(value.strong)), value.text.slice(value.text.indexOf(value.strong) + value.strong.length)] : [value.text, undefined];
+const at = value.strong ? value.text.indexOf(value.strong) : -1;
+const parts = at >= 0 ? [value.text.slice(0, at), value.strong, value.text.slice(at + (value.strong?.length ?? 0))] : [value.text];
 ---
 
-<section class="section statement" id="om-oss" data-moment="word-highlight" aria-label={value.label ?? "Om oss"}>
+<section class="section statement" id="om-oss" aria-label={value.label ?? "Om oss"}>
 	<div class="wrap">
-		{value.label && <p class="t-label">{value.label}</p>}
-		<p class="mo-wh__text">
-			{before}
-			{after !== undefined && <strong>{value.strong}</strong>}
-			{after}
-		</p>
+		<div class="grid grid--top">
+			<div class:list={[value.image ? "span-6" : "span-8", "stack-4"]}>
+				{value.label && <p class="t-label">{value.label}</p>}
+				<p class="statement__text">
+					{parts[0]}
+					{parts.length > 1 && <strong>{parts[1]}</strong>}
+					{parts[2]}
+				</p>
+			</div>
+			{
+				value.image && (
+					<div class="frame frame--photo span-5 start-8 statement__photo">
+						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 1023px) 100vw, 540px" />
+					</div>
+				)
+			}
+		</div>
 	</div>
 </section>
+
+<style>
+	.statement__text {
+		max-width: 52ch;
+		margin: 0;
+		font-size: var(--t-lead);
+		line-height: 1.6;
+		text-wrap: pretty;
+	}
+
+	.statement__text strong {
+		font-weight: 500;
+	}
+
+	.statement__photo {
+		aspect-ratio: 4 / 5;
+	}
+</style>

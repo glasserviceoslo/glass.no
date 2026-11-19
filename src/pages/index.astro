@@ -18,7 +18,6 @@ const seo = getSeoMeta(page, { siteUrl: Astro.url.origin, path: "/" });
 	canonical={seo.canonical}
 	robots={seo.robots}
 	content={{ collection: "pages", id: page.data.id, slug: page.id }}
-	moments={["word-highlight", "pinned-chapters"]}
 >
 	<PageLayout value={page.data.layout} />
 </Base>
