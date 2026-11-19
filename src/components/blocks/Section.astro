@@ -117,6 +117,10 @@ const guide = contents.length >= 4;
 		max-width: none;
 	}
 
+	.section__grid--1 :global(.prose:has(> .gallery:only-child)) {
+		max-width: none;
+	}
+
 	.section__grid :global(.section__column img) {
 		width: 100%;
 		object-fit: cover;

@@ -359,3 +359,11 @@ main > :is(section, .section):not(.hero) > .wrap > .fill {
 	padding-block: 0.6rem;
 	margin-block: -0.6rem;
 }
+
+.prose > p:first-child + :is(h2, h3) {
+	margin-top: 0.3em;
+}
+
+main .prose p.is-button a {
+	text-transform: capitalize;
+}

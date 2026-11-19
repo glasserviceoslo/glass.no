@@ -60,7 +60,8 @@ const BRANDS: Record<string, string> = {
 };
 const PLAIN = new Set(["white", "light"]);
 
-const hiddenOnDesktop = (block: GutenbergBlock) => block.attrs?.vsdesk === true;
+const hiddenOnDesktop = (block: GutenbergBlock) =>
+	block.attrs?.vsdesk === true || (block.attrs?.metadata as { blockVisibility?: boolean } | undefined)?.blockVisibility === false;
 const count = (map: Map<string, number>, key: string) => map.set(key, (map.get(key) ?? 0) + 1);
 const decode = (text: string) =>
 	text
@@ -139,7 +140,8 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			const text = decode(String(block.attrs.text ?? "")).trim();
 			if (!text) return [];
 			const link = block.attrs.link as string | undefined;
-			return link ? [buttonBlock(text, link, variantOf(block.attrs), block.attrs.target === "_blank")] : [textBlock(text)];
+			if (link) return [buttonBlock(text, link, variantOf(block.attrs), block.attrs.target === "_blank")];
+			return /^book\s*befaring$/i.test(text) ? [buttonBlock(text, BOOKING_HREF, variantOf(block.attrs))] : [textBlock(text)];
 		},
 		"kadence/advancedbtn": (block) => {
 			const children = transform(block.innerBlocks);
@@ -401,7 +403,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		if (filled.length >= 2) {
 			const cards = remaining.filter((nodes) => nodes.length).map(asCard);
 			const sameShape = cards.every((card) => card?.title) && (cards.every((card) => card?.image) || cards.every((card) => !card?.image));
-			if (cards.length >= 2 && sameShape) {
+			if ((cards.length >= 3 || cards.every((card) => card?.image)) && sameShape) {
 				const widths = cards.map((card) => Number(card?.image?.width ?? 0));
 				const style = widths.every((width) => width > 0 && width <= 320) ? "icon" : "image";
 				return [{ _type: "cards", _key: key(), columns: String(Math.min(Math.max(cards.length, 2), 6)), style, items: cards, ...bg }, ...extras];
