@@ -1,7 +1,7 @@
 ---
 import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
-import { EmDashBodyEnd, EmDashBodyStart, EmDashHead, Image } from "emdash/ui";
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import Arrow from "../components/Arrow.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
@@ -31,8 +31,6 @@ if (Astro.cache?.enabled) {
 const { siteTitle, siteTagline, siteLogo, titleSeparator } = resolveSiteIdentity(settings.data);
 const fullTitle = title ? (title.toLowerCase().includes(siteTitle.toLowerCase()) ? title : `${title} ${titleSeparator} ${siteTitle}`) : siteTitle;
 const items = menu.data?.items ?? [];
-const services = items.find((item) => item.children.length)?.children ?? [];
-const closeImage = "/_emdash/api/media/file/01M7TMJ112XDVBKFNDHS3PH9QS.jpg";
 
 const page = createPublicPageContext({
 	Astro,
@@ -88,54 +86,36 @@ const page = createPublicPageContext({
 		<main id="top">
 			<slot />
 		</main>
-		<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+		<footer class="site-footer" id="contact">
 			<div class="wrap">
-				<div class="closing__cta close--photo">
-					<div class="section-head--split">
-						<div>
-							<h2 id="close-h">Book Befaring</h2>
-							<p class="t-lead">Vi kommer på befaring - helt uforpliktende.</p>
-						</div>
+				<div class="site-footer__main">
+					<a class="site-footer__logo" href="/" aria-label={`${siteTitle}, forsiden`}>
+						{siteLogo ? <img src={siteLogo.url} alt="" width={siteLogo.width} height={siteLogo.height} /> : siteTitle}
+					</a>
+					<ul class="site-footer__contact">
+						<li><a href="tel:+4791584940">+47 91 58 49 40</a></li>
+						<li><a href="https://www.google.com/maps/search/?api=1&amp;query=Pilestredet%2041A%2C%20Oslo" target="_blank" rel="noopener">Pilestredet 41A</a></li>
+						<li>Man - Fre 08:00-17:00</li>
+					</ul>
+					<div class="site-footer__actions">
+						<ul class="site-footer__social">
+							<li>
+								<a href="https://www.facebook.com/glass1889" target="_blank" rel="noopener" aria-label="Facebook">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z" fill="currentColor" /></svg>
+								</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/glass_siden_1889" target="_blank" rel="noopener" aria-label="Instagram">
+									<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" /></svg>
+								</a>
+							</li>
+						</ul>
 						<a class="btn btn--primary" href={BOOKING_PATH}>Book Befaring<Arrow /></a>
 					</div>
-					<div class="close__media">
-						<Image image={closeImage} alt="Hus med store vindusflater og glassrekkverk rundt terrassen" width={2560} height={1720} sizes="(max-width: 639px) 800px, 1280px" />
-					</div>
 				</div>
-				<div class="closing__links">
-					<div class="grid">
-						<div class="span-4 stack-4">
-							<a class="nav__logo" href="/">Glass-Service Svendsen og Sønn</a>
-							<p class="footer__lede">{siteTagline}</p>
-						</div>
-						<div class="span-2 footer__col">
-							<h3>Produkter</h3>
-							<ul>
-								{services.slice(0, 6).map((service) => (
-									<li><a href={service.url}>{service.label}</a></li>
-								))}
-							</ul>
-						</div>
-						<div class="span-2 footer__col">
-							<h3>Om oss</h3>
-							<ul>
-								<li><a href="/about/">Om oss</a></li>
-								<li><a href="/prosjekter/">Siste prosjekter</a></li>
-								<li><a href="/blogg/">Blogg</a></li>
-							</ul>
-						</div>
-						<div class="span-4 footer__col">
-							<h3>Kontakt oss</h3>
-							<ul>
-								<li><a href="tel:+4791584940">+47 91 58 49 40</a></li>
-								<li><a href="https://www.google.com/maps/search/?api=1&amp;query=Pilestredet%2041A%2C%20Oslo">Pilestredet 41A</a></li>
-								<li>Man - Fre 08:00-17:00</li>
-							</ul>
-						</div>
-					</div>
-					<div class="footer__legal">
-						<span>&copy; {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS &nbsp; <a href="/privacy-policy/">Personvern</a></span>
-					</div>
+				<div class="site-footer__legal">
+					<span>&copy; {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS</span>
+					<a href="/privacy-policy/">Personvern</a>
 				</div>
 			</div>
 		</footer>
