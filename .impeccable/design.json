@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T12:00:00Z",
+  "title": "Design System: glass.no",
+  "extensions": {
+    "colorMeta": {
+      "brand-red": { "role": "primary", "displayName": "Glass-Service Red", "canonical": "oklch(64.3% 0.198 24.6)", "tonalRamp": ["#280000", "#520000", "#810011", "#b21c26", "#da4847", "#f77a73", "#ffa8a0", "#ffd6ce"] },
+      "brand-red-deep": { "role": "primary", "displayName": "Deep Red", "canonical": "color-mix(in oklab, #ed4c4c 86%, #000)" },
+      "on-red": { "role": "primary", "displayName": "On-Red White", "canonical": "#ffffff" },
+      "harbour-navy": { "role": "secondary", "displayName": "Harbour Navy", "canonical": "oklch(15.7% 0.102 270.4)", "tonalRamp": ["#050820", "#192244", "#323f6c", "#4d5d97", "#6d7fbc", "#92a3d8", "#b9c8f5", "#e1eeff"] },
+      "slate-muted": { "role": "neutral", "displayName": "Slate", "canonical": "oklch(49.8% 0.061 270.2)", "tonalRamp": ["#070a18", "#1e2438", "#38415c", "#556082", "#7581a5", "#99a4c4", "#bfc9e3", "#e6eeff"] },
+      "window-paper": { "role": "neutral", "displayName": "Window Paper", "canonical": "oklch(98.2% 0.002 247.8)", "tonalRamp": ["#0b0b0b", "#252525", "#414243", "#606162", "#818283", "#a4a5a6", "#c8c9ca", "#eeeeef"] },
+      "frost-mist": { "role": "neutral", "displayName": "Frost Mist", "canonical": "oklch(94.0% 0.007 268.5)", "tonalRamp": ["#0a0b0d", "#242527", "#414245", "#606165", "#818286", "#a3a5a9", "#c8c9cc", "#edeef1"] },
+      "pure-white": { "role": "neutral", "displayName": "Pure White", "canonical": "#ffffff" },
+      "night-surface": { "role": "neutral", "displayName": "Night Surface", "canonical": "oklch(21.5% 0.095 270.6)", "tonalRamp": ["#05091e", "#1a2342", "#333f69", "#4e5e93", "#6e7fb8", "#93a3d4", "#bac8f1", "#e2eeff"] },
+      "inverse-ink": { "role": "neutral", "displayName": "Inverse Ink", "canonical": "#f8f9fa" },
+      "inverse-muted": { "role": "neutral", "displayName": "Inverse Muted", "canonical": "oklch(66.8% 0.040 270.2)", "tonalRamp": ["#080b14", "#202532", "#3b4153", "#596177", "#7a8299", "#9da5b9", "#c3c9da", "#e9eefc"] },
+      "error-red": { "role": "neutral", "displayName": "Error Red", "canonical": "color-mix(in oklab, #d92d20 72%, #040037)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Home hero headline; product page heroes use clamp(2.5rem, 5.2vw, 4.25rem) at -0.03em." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings." },
+      "headline-guide": { "displayName": "Headline Guide", "purpose": "h2 inside the long SEO guide; guide h3 is 1.25rem/600." },
+      "subtitle": { "displayName": "Subtitle", "purpose": "Page hero secondary heading, max 30ch." },
+      "title": { "displayName": "Title", "purpose": "Card titles, FAQ questions, form titles; 18px below 1024px." },
+      "body": { "displayName": "Body", "purpose": "Running text at a 62ch measure in prose." },
+      "label": { "displayName": "Label", "purpose": "Menu group names, guide contents summary, fact captions; uppercase via CSS. Not for eyebrows above headings." }
+    },
+    "shadows": [
+      { "name": "soft-lift", "value": "0 12px 32px color-mix(in oklab, #040037 8%, transparent)", "purpose": "Image cards, contact form panel, post list cards." },
+      { "name": "facts-rest", "value": "0 1px 2px rgb(4 0 55 / .06), 0 8px 24px -12px rgb(4 0 55 / .12)", "purpose": "The facts strip." },
+      { "name": "kit-card-hover", "value": "0 1px 2px rgb(0 0 0 / .06), 0 14px 32px -18px oklch(from var(--card, #fff) 0 0 0 / calc(0.75 - l * 0.55))", "purpose": "Kit cards and open-card panels on hover, with a 2px rise." },
+      { "name": "focus-ring", "value": "outline: 2px solid #040037; outline-offset: 2px", "purpose": "Keyboard focus on every interactive element." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.2, .8, .2, 1)", "purpose": "The one UI ease-out for hovers and state changes." },
+      { "name": "ease-enter", "value": "cubic-bezier(.22, 1, .36, 1)", "purpose": "The hero words entrance." },
+      { "name": "dur", "value": "180ms", "purpose": "Default state transition; hover in 150ms, out 120ms, press 90ms." },
+      { "name": "lift", "value": "translateY(-2px)", "purpose": "Card and social icon hover; buttons lift 1px, press drops 1px and scales .985." },
+      { "name": "marquee", "value": "40s linear infinite", "purpose": "Partner logo track; pauses on hover/focus, static under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "phone-max", "value": "639px" },
+      { "name": "tablet", "value": "640px" },
+      { "name": "stack", "value": "860px" },
+      { "name": "desktop", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The booking and submit action: white on brand red.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Book befaring<svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M1 6h8\"/><path d=\"M4.5 2.5 8 6l-3.5 3.5\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 24px; border-radius: 8px; background: #ed4c4c; color: #fff; font: 500 16px/1 'Hanken Grotesk', system-ui, sans-serif; text-transform: capitalize; text-decoration: none; transition: background-color 180ms cubic-bezier(.2,.8,.2,1), transform 150ms cubic-bezier(.2,.8,.2,1); } .ds-btn-primary svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; } .ds-btn-primary:hover { background: color-mix(in oklab, #ed4c4c 86%, #000); transform: translateY(-1px); } .ds-btn-primary:active { transform: translateY(1px) scale(.985); } .ds-btn-primary:focus-visible { outline: 2px solid #040037; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Tonal secondary action beside a primary.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Se kampanjen</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; height: 44px; padding: 0 24px; border-radius: 8px; background: color-mix(in oklab, #040037 8%, #f8f9fa); color: #040037; font: 500 16px/1 'Hanken Grotesk', system-ui, sans-serif; text-decoration: none; transition: background-color 180ms cubic-bezier(.2,.8,.2,1); } .ds-btn-secondary:hover { background: color-mix(in oklab, #040037 14%, #f8f9fa); } .ds-btn-secondary:focus-visible { outline: 2px solid #040037; outline-offset: 2px; }"
+    },
+    {
+      "name": "Button On Brand Band",
+      "kind": "button",
+      "refersTo": "button-on-brand",
+      "description": "On the red brand surface the button inverts to navy.",
+      "html": "<div class=\"ds-brand-band\"><h2>Bestill gratis befaring</h2><a class=\"ds-btn-on-brand\" href=\"#\">Book befaring</a></div>",
+      "css": ".ds-brand-band { padding: 48px 32px; background: #ed4c4c; color: #fff; font-family: 'Hanken Grotesk', system-ui, sans-serif; } .ds-brand-band h2 { margin: 0 0 24px; font-size: 40px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; } .ds-btn-on-brand { display: inline-flex; align-items: center; height: 44px; padding: 0 24px; border-radius: 8px; background: #040037; color: #fff; font: 500 16px/1 'Hanken Grotesk', system-ui, sans-serif; text-decoration: none; transition: background-color 180ms ease; } .ds-btn-on-brand:hover { background: color-mix(in oklab, #040037 80%, #fff); } .ds-btn-on-brand:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Image Card",
+      "kind": "card",
+      "refersTo": "card-image",
+      "description": "Product or service card: white, 20px, soft lift, 4:3 media.",
+      "html": "<article class=\"ds-card-image\"><div class=\"ds-card-image__media\"></div><div class=\"ds-card-image__body\"><h3>Sidesving vindu</h3><p>Lett å vaske og trygt å lufte.</p><a class=\"ds-card-image__link\" href=\"#\">Les mer</a></div></article>",
+      "css": ".ds-card-image { display: flex; flex-direction: column; max-width: 340px; overflow: hidden; border-radius: 20px; background: #fff; color: #040037; box-shadow: 0 12px 32px color-mix(in oklab, #040037 8%, transparent); font-family: 'Hanken Grotesk', system-ui, sans-serif; transition: transform 120ms cubic-bezier(.2,.8,.2,1); } .ds-card-image:hover { transform: translateY(-2px); } .ds-card-image__media { aspect-ratio: 4 / 3; background: #f8f9fa; } .ds-card-image__body { display: flex; flex-direction: column; align-items: flex-start; padding: 20px 24px 24px; } .ds-card-image h3 { margin: 0 0 8px; font-size: 1.15rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; } .ds-card-image p { margin: 0 0 16px; color: #556186; line-height: 1.65; } .ds-card-image__link { padding: 0.6em 1.1em; border-radius: 8px; background: #ed4c4c; color: #fff; font-size: 0.9rem; font-weight: 500; text-decoration: none; } .ds-card-image__link:hover { background: color-mix(in oklab, #ed4c4c 86%, #000); } .ds-card-image__link:focus-visible { outline: 2px solid #040037; outline-offset: 2px; }"
+    },
+    {
+      "name": "Icon Item",
+      "kind": "custom",
+      "description": "Boxless feature item: 3.5rem icon beside title and slate text.",
+      "html": "<div class=\"ds-icon-item\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"1.5\"/><path d=\"M12 3v18M4 12h16\"/></svg><div><h3>Egne montører</h3><p>Vi måler, leverer og monterer selv.</p></div></div>",
+      "css": ".ds-icon-item { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); column-gap: 1.25rem; max-width: 380px; color: #040037; font-family: 'Hanken Grotesk', system-ui, sans-serif; } .ds-icon-item svg { width: 3.5rem; height: 3.5rem; fill: none; stroke: #ed4c4c; stroke-width: 1.5; } .ds-icon-item h3 { margin: 0.15rem 0 0.35rem; font-size: 1.125rem; font-weight: 600; } .ds-icon-item p { margin: 0; color: #556186; line-height: 1.5; }"
+    },
+    {
+      "name": "Contact Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Contact form field on the white form panel.",
+      "html": "<label class=\"ds-field\">Navn<input type=\"text\" placeholder=\"Ola Nordmann\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.35rem; max-width: 360px; color: #040037; font: 600 16px/1.4 'Hanken Grotesk', system-ui, sans-serif; } .ds-field input { padding: 0.8rem 0.9rem; border: 1px solid color-mix(in oklab, #040037 11%, transparent); border-radius: 8px; background: #f8f9fa; color: #040037; font: 400 16px/1.4 'Hanken Grotesk', system-ui, sans-serif; } .ds-field input:focus { outline: 2px solid #040037; outline-offset: 1px; } .ds-field input[aria-invalid='true'] { border: 2px solid color-mix(in oklab, #d92d20 72%, #040037); }"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Fixed paper bar, links with a draw-in underline, booking button right.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav__logo\">glass.no</span><nav><a class=\"ds-nav__link\" href=\"#\">Vinduer</a><a class=\"ds-nav__link\" href=\"#\">Dører</a><a class=\"ds-nav__link\" href=\"#\">Om oss</a></nav><a class=\"ds-nav__cta\" href=\"#\">Gratis befaring</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; height: 72px; padding: 0 24px; background: #f8f9fa; color: #040037; border-bottom: 1px solid color-mix(in oklab, #040037 11%, transparent); font-family: 'Hanken Grotesk', system-ui, sans-serif; } .ds-nav__logo { font-weight: 500; font-size: 22px; letter-spacing: -0.02em; } .ds-nav nav { display: flex; gap: 4px; flex: 1; } .ds-nav__link { position: relative; display: inline-flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 8px; color: #040037; font-size: 15px; font-weight: 500; text-decoration: none; } .ds-nav__link::before { content: ''; position: absolute; left: 12px; right: 12px; bottom: -2px; height: 2px; border-radius: 2px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 180ms cubic-bezier(.2,.8,.2,1); } .ds-nav__link:hover::before, .ds-nav__link:focus-visible::before { transform: scaleX(1); transform-origin: left; } .ds-nav__link:focus-visible { outline: 2px solid #040037; outline-offset: 2px; } .ds-nav__cta { display: inline-flex; align-items: center; height: 44px; padding: 0 24px; border-radius: 8px; background: #ed4c4c; color: #fff; font-size: 15px; font-weight: 500; text-decoration: none; } .ds-nav__cta:hover { background: color-mix(in oklab, #ed4c4c 86%, #000); }"
+    },
+    {
+      "name": "Facts Strip",
+      "kind": "custom",
+      "refersTo": "facts-strip",
+      "description": "Honest facts in a white panel: slate captions over navy tabular values.",
+      "html": "<dl class=\"ds-facts\"><div><dt>I faget siden</dt><dd>1889</dd></div><div><dt>Telefon</dt><dd><a href=\"#\">+47 91 58 49 40</a></dd></div><div><dt>Åpent</dt><dd>08:00–17:00</dd></div></dl>",
+      "css": ".ds-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1rem 2rem; margin: 0; padding: 1.1rem 1.4rem; border-radius: 8px; background: #fff; box-shadow: 0 1px 2px rgb(4 0 55 / .06), 0 8px 24px -12px rgb(4 0 55 / .12); font-family: 'Hanken Grotesk', system-ui, sans-serif; } .ds-facts dt { color: #556186; font-size: 0.875rem; } .ds-facts dd { margin: 0.15rem 0 0; color: #040037; font-size: 1.25rem; font-weight: 500; font-variant-numeric: tabular-nums; } .ds-facts a { color: inherit; text-decoration: none; } .ds-facts a:hover { text-decoration: underline; text-underline-offset: 0.2em; } .ds-facts a:focus-visible { outline: 2px solid #040037; outline-offset: 2px; }"
+    },
+    {
+      "name": "Contact Strip Item",
+      "kind": "custom",
+      "refersTo": "icon-disc",
+      "description": "Red icon disc with a term and a slate value.",
+      "html": "<dl class=\"ds-contact\"><div class=\"ds-contact__item\"><span class=\"ds-contact__icon\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2\"/></svg></span><dt>Ring oss</dt><dd><a href=\"#\">+47 91 58 49 40</a></dd></div></dl>",
+      "css": ".ds-contact { margin: 0; font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #040037; } .ds-contact__item { display: grid; grid-template-columns: 3rem minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 1rem; align-items: center; } .ds-contact__icon { grid-row: 1 / 3; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: #ed4c4c; color: #fff; } .ds-contact__icon svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .ds-contact dt { align-self: end; font-weight: 600; } .ds-contact dd { align-self: start; margin: 0; color: #556186; } .ds-contact dd a { color: inherit; text-decoration: none; } .ds-contact dd a:hover { color: #040037; text-decoration: underline; text-underline-offset: 0.2em; } .ds-contact dd a:focus-visible { outline: 2px solid #040037; outline-offset: 2px; }"
+    },
+    {
+      "name": "FAQ Item",
+      "kind": "custom",
+      "description": "Native disclosure row with a CSS chevron.",
+      "html": "<details class=\"ds-qa\"><summary><h3>Hva koster en befaring?</h3></summary><p>Befaringen er gratis og uforpliktende.</p></details>",
+      "css": ".ds-qa { max-width: 640px; border-bottom: 1px solid color-mix(in oklab, #040037 11%, transparent); color: #040037; font-family: 'Hanken Grotesk', system-ui, sans-serif; } .ds-qa summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 44px; padding: 16px 0; cursor: pointer; list-style: none; } .ds-qa summary::-webkit-details-marker { display: none; } .ds-qa summary:focus-visible { outline: 2px solid #040037; outline-offset: 2px; } .ds-qa h3 { margin: 0; font: 500 20px/1.4 'Hanken Grotesk', system-ui, sans-serif; } .ds-qa summary::after { content: ''; flex: none; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform .2s ease; } .ds-qa[open] summary::after { transform: translateY(2px) rotate(-135deg); } .ds-qa p { max-width: 64ch; margin: 0 0 16px; line-height: 1.65; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Trusted Local Glazier",
+    "overview": "The site should feel like a tidy workshop run by people who have done this since 1889: calm, clear and well made. Light, cool grounds carry real photographs of real installs and product cutouts, set in firm rounded frames. Navy does the talking, and brand red marks the next step: the booking button, list markers, icon discs, the one red booking band per page. Nothing decorates for its own sake. Trust comes from honest facts set plainly (years in the trade, phone, opening hours, partner logos) and from booking always being at hand.\n\nDensity is relaxed but not sparse. Sections breathe with a fluid vertical rhythm, text holds a readable measure, and every page is a stack of editable EmDash blocks, each choosing one of six surfaces. The pages depend on the client's own words, which stay exactly as written. The design shapes them through type, casing via CSS, and layout, and never rewrites them.\n\nComponents are solid and confident: clear filled buttons, firm cards with soft shadows, nothing fussy. Motion is small and practical: a 1-2px hover lift, a single hero entrance, a slow partner-logo marquee that stops for reduced motion.",
+    "keyCharacteristics": [
+      "One typeface, Hanken Grotesk, with light-weight (400) tightly tracked display headings and medium-weight (500) titles.",
+      "Navy ink on cool paper; brand red reserved for actions and small brand marks.",
+      "Real install photography in 20px-radius frames; product cutouts shown whole (contain), photos cropped (cover).",
+      "Soft, navy-tinted ambient shadows; no hard edges, no offsets.",
+      "Every layout is an editable block with a chosen surface."
+    ],
+    "rules": [
+      { "name": "The Red Means Book Rule", "body": "Red marks the action and a few small brand marks (list markers, icon discs, underlines). Don't use it for headings, body text or large decorative fills. The brand band is the single exception, and on that band the button turns navy so the action still stands out.", "section": "colors" },
+      { "name": "The Navy-Not-Black Rule", "body": "Ink, hairlines, shadows and image shades all derive from Harbour Navy. Do not introduce pure black or neutral greys.", "section": "colors" },
+      { "name": "The Words As Written Rule", "body": "Client copy is SEO text and stays word for word. Casing comes only from CSS: buttons, card titles and feature items are capitalized, image-card titles and labels are uppercased. Never retype a string to change its case.", "section": "typography" },
+      { "name": "The Light Display Rule", "body": "Headings at headline size and above use weight 400 with negative tracking. Weight comes in only at title size and below.", "section": "typography" },
+      { "name": "The Resting Panel Rule", "body": "Shadows are wide, low-opacity and navy-tinted. Never hard, offset or coloured red.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do build every new layout as an editable EmDash block with a surface choice (white, light, tint, dark, brand, image), never as a one-off page.",
+      "Do use white text on Glass-Service Red for buttons. It is a brand commitment. That pairing measures 3.7:1, AA only at large or bold sizes (18.66px bold and up), against the WCAG 2.1 AA target in PRODUCT.md, so keep red-ground text large and short.",
+      "Do keep a booking action within a screen of any point on the page: the nav button, the red booking band, the closing call to action.",
+      "Do change casing only with CSS text-transform; keep the client's words exactly as written.",
+      "Do use real install photography and product cutouts from the media library, framed at 20px, covered for photos and contained for cutouts.",
+      "Do honour reduced motion: colour changes and press feedback stay, lifts, marquee and entrance stop."
+    ],
+    "donts": [
+      "Don't set body-size text in white on red outside buttons. At 15-16px/500 even the buttons sit below the large-text threshold, a recorded gap against AA.",
+      "Don't rewrite, retype or re-case client copy to fit a design.",
+      "Don't use red for headings, paragraphs or large fills beyond the one brand band.",
+      "Don't introduce pure black, neutral grey, hard offset shadows or a second typeface.",
+      "Don't add small uppercase kickers or eyebrow labels above headings. Labels head menus, contents and facts only.",
+      "Don't invent reviews, customer names or figures; trust comes from the facts the company can prove."
+    ]
+  }
+}
