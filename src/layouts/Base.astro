@@ -1,0 +1,100 @@
+---
+import { Font } from "astro:assets";
+import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
+import { createPublicPageContext } from "emdash/page";
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import Header from "../components/Header.astro";
+import { resolveSiteIdentity } from "../utils/site";
+import "../styles/site.css";
+
+interface Props {
+	title?: string;
+	pageTitle?: string | null;
+	description?: string | null;
+	image?: string | null;
+	canonical?: string | null;
+	robots?: string | null;
+	pageType?: "website" | "article";
+	content?: { collection: string; id: string; slug?: string | null };
+}
+
+const { title, pageTitle, description, image, canonical, robots, pageType = "website", content } = Astro.props;
+
+const [settings, menu] = await Promise.all([getSiteSettingsWithCacheHint(), getMenuWithCacheHint("primary")]);
+if (Astro.cache?.enabled) {
+	Astro.cache.set(settings.cacheHint);
+	Astro.cache.set(menu.cacheHint);
+}
+
+const { siteTitle, siteTagline, siteLogo, titleSeparator } = resolveSiteIdentity(settings.data);
+const fullTitle = title ? (title.toLowerCase().includes(siteTitle.toLowerCase()) ? title : `${title} ${titleSeparator} ${siteTitle}`) : siteTitle;
+
+const page = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType,
+	title: fullTitle,
+	pageTitle: pageTitle ?? title ?? siteTitle,
+	description: description || siteTagline || undefined,
+	canonical: canonical ?? `${Astro.url.origin}${Astro.url.pathname}`,
+	image,
+	content,
+	seo: { ogImage: image, robots },
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="nb">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		<EmDashHead page={page} />
+		<Font cssVariable="--font-body" preload />
+		<Font cssVariable="--font-display" preload />
+	</head>
+	<body>
+		<EmDashBodyStart page={page} />
+		<a href="#main" class="skip-link">Hopp til innhold</a>
+		<Header items={menu.data?.items ?? []} logo={siteLogo} siteTitle={siteTitle} />
+		<main id="main">
+			<slot />
+		</main>
+		<footer class="site-footer">
+			<div class="container site-footer__bar">
+				<span>© {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS</span>
+				<nav aria-label="Bunnmeny">
+					<a href="/privacy-policy/">Personvern</a>
+					<a href="/kontakt-oss/">Kontakt oss</a>
+				</nav>
+			</div>
+		</footer>
+		<EmDashBodyEnd page={page} />
+	</body>
+</html>
+
+<style>
+	.site-footer {
+		background: var(--ink);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 0.95rem;
+	}
+
+	.site-footer__bar {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 2rem;
+	}
+
+	.site-footer nav {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.site-footer a {
+		color: inherit;
+	}
+</style>

@@ -1,0 +1,65 @@
+---
+import { Image } from "emdash/ui";
+import RichText from "./RichText.astro";
+
+interface Props {
+	title: string;
+	image?: never;
+	content?: unknown[];
+	publishedAt?: Date | string | null;
+}
+
+const { title, image, content, publishedAt } = Astro.props;
+const published = publishedAt ? new Date(publishedAt) : undefined;
+const hasOwnTitle = (content ?? []).some((node) => (node as { style?: string }).style === "h1");
+---
+
+<article class="post">
+	<header class="block surface--white post__header">
+		<div class="container post__measure">
+			{published && <time datetime={published.toISOString()}>{published.toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" })}</time>}
+			{!hasOwnTitle && <h1>{title}</h1>}
+		</div>
+		{image && <Image image={image} class="container post__image" sizes="(max-width: 1290px) 100vw, 1290px" priority />}
+	</header>
+	<div class="block surface--white post__body">
+		<div class="container post__measure">
+			<RichText value={content} />
+		</div>
+	</div>
+	<section class="block surface--brand post__cta">
+		<div class="container post__measure">
+			<h2>Trenger du hjelp med glass, vindu eller dør?</h2>
+			<p>Vi kommer på gratis befaring og gir deg et uforpliktende tilbud.</p>
+			<a href="/book-befaring/" class="btn btn--secondary btn--large">Book befaring</a>
+		</div>
+	</section>
+</article>
+
+<style>
+	.post__measure {
+		max-width: 820px;
+	}
+
+	.post__header time {
+		display: block;
+		margin-bottom: 0.75rem;
+		color: var(--muted);
+		font-size: 0.95rem;
+	}
+
+	.post__header :global(.post__image) {
+		margin-top: 2rem;
+		border-radius: var(--radius);
+		object-fit: cover;
+		max-height: 560px;
+	}
+
+	.post__body {
+		padding-top: 0;
+	}
+
+	.post__body :global(h2) {
+		margin-top: 1.6em;
+	}
+</style>

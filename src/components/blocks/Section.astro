@@ -1,0 +1,100 @@
+---
+import { Image } from "emdash/ui";
+import RichText from "../RichText.astro";
+import type { Surface } from "./surface";
+
+interface Props {
+	value: Surface & {
+		layout?: string;
+		align?: string;
+		column_1?: unknown[];
+		column_2?: unknown[];
+		column_3?: unknown[];
+		column_4?: unknown[];
+		anchor_id?: string;
+	};
+}
+
+const { value } = Astro.props;
+const columns = [value.column_1, value.column_2, value.column_3, value.column_4].filter((column) => column?.length);
+const layout = value.layout ?? "1";
+const background = value.background ?? "white";
+---
+
+{
+	columns.length > 0 && (
+		<section id={value.anchor_id || undefined} class:list={["block", "section", `surface--${background}`]}>
+			{background === "image" && value.background_image && (
+				<>
+					<Image image={value.background_image} class="section__backdrop" sizes="100vw" />
+					<div class="section__shade" />
+				</>
+			)}
+			<div
+				class:list={["container", "section__grid", `section__grid--${layout}`, { "section__grid--center": value.align === "center" }]}
+				style={`--columns: ${columns.length}`}
+			>
+				{columns.map((column) => (
+					<RichText value={column} class="section__column" />
+				))}
+			</div>
+		</section>
+	)
+}
+
+<style>
+	.block > :global(.section__backdrop) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.section__shade {
+		position: absolute;
+		inset: 0;
+		background: rgba(4, 0, 55, 0.55);
+	}
+
+	.section__grid {
+		position: relative;
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 3.5rem);
+		align-items: center;
+		grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+	}
+
+	.section__grid--2-1 {
+		grid-template-columns: 2fr 1fr;
+	}
+
+	.section__grid--1-2 {
+		grid-template-columns: 1fr 2fr;
+	}
+
+	.section__grid--center {
+		text-align: center;
+	}
+
+	.section__grid--center :global(img) {
+		margin-inline: auto;
+	}
+
+	.section__grid--1 :global(.prose) {
+		max-width: 100%;
+	}
+
+	.section__grid :global(.section__column img) {
+		width: 100%;
+		object-fit: cover;
+	}
+
+	@media (max-width: 860px) {
+		.section__grid,
+		.section__grid--2-1,
+		.section__grid--1-2 {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

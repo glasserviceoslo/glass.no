@@ -1,0 +1,85 @@
+---
+import type { Surface } from "./surface";
+
+interface Props {
+	value: Surface & { heading?: string; intro?: string };
+}
+
+const { value } = Astro.props;
+---
+
+<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+	<div class="container contact">
+		<div>
+			{value.heading && <h2>{value.heading}</h2>}
+			{value.intro && <p class="contact__intro">{value.intro}</p>}
+		</div>
+		<form class="contact__form" method="post">
+			<label>
+				<span>Fullt navn</span>
+				<input name="name" autocomplete="name" />
+			</label>
+			<label>
+				<span>E-post</span>
+				<input name="email" type="email" autocomplete="email" required />
+			</label>
+			<label>
+				<span>Melding</span>
+				<textarea name="message" rows="5" required></textarea>
+			</label>
+			<button class="btn btn--large" type="submit">Send melding</button>
+		</form>
+	</div>
+</section>
+
+<style>
+	.contact {
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 3.5rem);
+		grid-template-columns: 1fr 1.2fr;
+		align-items: start;
+	}
+
+	.contact__form {
+		display: grid;
+		gap: 1rem;
+		padding: clamp(1.25rem, 3vw, 2rem);
+		border-radius: var(--radius);
+		background: var(--white);
+		box-shadow: var(--shadow);
+		color: var(--ink);
+	}
+
+	label {
+		display: grid;
+		gap: 0.35rem;
+		font-weight: 600;
+	}
+
+	input,
+	textarea {
+		width: 100%;
+		padding: 0.8rem 0.9rem;
+		border: 1px solid var(--line);
+		border-radius: var(--radius-small);
+		background: var(--paper);
+		color: var(--ink);
+		font: inherit;
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: 2px solid var(--navy);
+		outline-offset: 1px;
+	}
+
+	.contact__form .btn {
+		justify-self: start;
+	}
+
+	@media (max-width: 860px) {
+		.contact {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

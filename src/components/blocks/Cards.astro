@@ -1,0 +1,156 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue, Surface } from "./surface";
+
+type Card = { image?: ImageValue; title?: string; text?: string; url?: string; link_label?: string };
+
+interface Props {
+	value: Surface & { heading?: string; columns?: string; style?: "image" | "icon"; items?: Card[] };
+}
+
+const { value } = Astro.props;
+const items = value.items ?? [];
+const style = value.style ?? "image";
+const perRow = Number(value.columns ?? 3);
+const columns = style === "icon" ? perRow : Math.min(perRow, 3);
+const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((paragraph) => paragraph.trim());
+---
+
+<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+	<div class="container">
+		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
+		<div class:list={["cards", `cards--${style}`]} style={`--per-row: ${columns}`}>
+			{
+				items.map((card) => (
+					<article class="card">
+						{card.image && (
+							<a href={card.url || undefined} class="card__media" tabindex="-1" aria-hidden="true">
+								<Image image={card.image} class="card__image" sizes={style === "icon" ? "96px" : "(max-width: 860px) 100vw, 420px"} />
+							</a>
+						)}
+						<div class="card__body">
+							{card.title && (
+								<h3 class="card__title">{card.url && !card.link_label ? <a href={card.url}>{card.title}</a> : card.title}</h3>
+							)}
+							{paragraphs(card.text).map((paragraph) => (
+								<p class="card__text">{paragraph}</p>
+							))}
+							{card.url && card.link_label && (
+								<a href={card.url} class="btn card__link">
+									{card.link_label}
+								</a>
+							)}
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.cards {
+		display: grid;
+		gap: clamp(1rem, 2.5vw, 2rem);
+		grid-template-columns: repeat(var(--per-row), minmax(0, 1fr));
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cards--image .card {
+		overflow: hidden;
+		border-radius: var(--radius);
+		background: var(--white);
+		box-shadow: var(--shadow);
+	}
+
+	.cards--image .card__media {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		aspect-ratio: 4 / 3;
+		background: var(--paper);
+	}
+
+	.cards--image .card__media :global(img) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		max-width: none;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.cards--image .card__body {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 1.25rem 1.5rem 1.5rem;
+	}
+
+	.cards--image .card__title {
+		font-family: var(--font-body), sans-serif;
+		font-size: 1.15rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
+
+	.cards--image .card__link {
+		margin-top: auto;
+		padding: 0.6em 1.1em;
+		font-size: 0.9rem;
+	}
+
+	.cards--icon {
+		text-align: center;
+	}
+
+	.cards--icon .card {
+		align-items: center;
+	}
+
+	.cards--icon .card__media {
+		width: 88px;
+		margin-bottom: 1rem;
+	}
+
+	.cards--icon .card__title {
+		font-size: 1.25rem;
+		margin-bottom: 0.4em;
+	}
+
+	.cards--icon .card__text {
+		font-size: 0.92rem;
+		color: var(--muted);
+	}
+
+	.card__title a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.card__text {
+		margin-bottom: 1em;
+	}
+
+	@media (max-width: 1024px) {
+		.cards {
+			grid-template-columns: repeat(min(var(--per-row), 3), minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.cards {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cards--image {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

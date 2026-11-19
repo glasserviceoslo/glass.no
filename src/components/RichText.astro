@@ -1,0 +1,21 @@
+---
+import { PortableText } from "emdash/ui";
+import Gallery from "./Gallery.astro";
+import TextBlock from "./TextBlock.astro";
+
+interface Props {
+	value: unknown[] | undefined;
+	class?: string;
+}
+
+const { value, class: className } = Astro.props;
+const block = Object.fromEntries(["normal", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote"].map((style) => [style, TextBlock]));
+---
+
+{
+	value?.length ? (
+		<div class:list={["prose", className]}>
+			<PortableText value={value as never} components={{ block, type: { gallery: Gallery } }} />
+		</div>
+	) : null
+}

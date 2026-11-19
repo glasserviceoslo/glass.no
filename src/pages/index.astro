@@ -1,0 +1,23 @@
+---
+import { getEmDashEntry, getSeoMeta } from "emdash";
+import PageLayout from "../components/PageLayout.astro";
+import Base from "../layouts/Base.astro";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "hjem");
+if (!page) return Astro.rewrite("/404/");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const seo = getSeoMeta(page, { siteUrl: Astro.url.origin, path: "/" });
+---
+
+<Base
+	title={seo.title}
+	pageTitle={page.data.title}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	content={{ collection: "pages", id: page.data.id, slug: page.id }}
+>
+	<PageLayout value={page.data.layout} />
+</Base>

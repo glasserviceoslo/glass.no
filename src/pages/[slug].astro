@@ -1,0 +1,42 @@
+---
+import { decodeSlug, getEmDashEntry, getSeoMeta } from "emdash";
+import PageLayout from "../components/PageLayout.astro";
+import PostList from "../components/PostList.astro";
+import PostView from "../components/PostView.astro";
+import Base from "../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404/");
+if (slug === "hjem") return Astro.redirect("/", 301);
+
+const [pageResult, postResult] = await Promise.all([getEmDashEntry("pages", slug), getEmDashEntry("posts", slug)]);
+const entry = pageResult.entry ?? postResult.entry;
+if (!entry) return Astro.rewrite("/404/");
+
+const isPage = Boolean(pageResult.entry);
+if (Astro.cache?.enabled) Astro.cache.set(isPage ? pageResult.cacheHint : postResult.cacheHint);
+
+const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
+---
+
+<Base
+	title={seo.title}
+	pageTitle={entry.data.title}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	pageType={isPage ? "website" : "article"}
+	content={{ collection: isPage ? "pages" : "posts", id: entry.data.id, slug: entry.id }}
+>
+	{
+		isPage ? (
+			<>
+				<PageLayout value={entry.data.layout} />
+				{slug === "blogg" && <PostList title={entry.data.title} />}
+			</>
+		) : (
+			<PostView title={entry.data.title} image={entry.data.featured_image} content={entry.data.content} publishedAt={entry.data.publishedAt} />
+		)
+	}
+</Base>

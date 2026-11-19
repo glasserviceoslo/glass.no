@@ -1,0 +1,117 @@
+---
+import { getEmDashCollection } from "emdash";
+import { Image } from "emdash/ui";
+
+interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props;
+
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", { status: "published", orderBy: { published_at: "desc" }, limit: 60 });
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+type Node = { _type?: string; style?: string; listItem?: string; asset?: { url?: string }; children?: { text?: string }[] };
+const cards = posts.map((post) => {
+	const content = (post.data.content ?? []) as Node[];
+	const firstImage = content.find((node) => node._type === "image" && node.asset?.url)?.asset?.url;
+	const firstParagraph = content
+		.filter((node) => node._type === "block" && (node.style ?? "normal") === "normal" && !node.listItem)
+		.map((node) => (node.children ?? []).map((child) => child.text ?? "").join("").trim())
+		.find((text) => text.length > 60);
+	return { post, image: post.data.featured_image ?? firstImage, excerpt: post.data.excerpt || firstParagraph };
+});
+---
+
+<section class="block surface--light">
+	<div class="container">
+		{title && <h1 class="block__heading">{title}</h1>}
+		<div class="posts">
+			{
+				cards.map(({ post, image, excerpt }) => (
+					<a href={`/${post.id}/`} class="post-card">
+						{image && (
+							<span class="post-card__media">
+								<Image image={image} sizes="(max-width: 720px) 100vw, 400px" />
+							</span>
+						)}
+						<span class="post-card__body">
+							<span class="post-card__title">{post.data.title}</span>
+							{excerpt && <span class="post-card__excerpt">{excerpt}</span>}
+							<span class="post-card__more">Les mer</span>
+						</span>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.posts {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+		gap: 2rem;
+	}
+
+	.post-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: var(--radius);
+		background: var(--white);
+		box-shadow: var(--shadow);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.post-card__media {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		aspect-ratio: 16 / 10;
+		background: var(--paper);
+	}
+
+	.post-card__media :global(img) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		max-width: none;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.post-card__body {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1.25rem 1.5rem 1.5rem;
+	}
+
+	.post-card__title {
+		color: var(--ink);
+		font-family: var(--font-display), serif;
+		font-size: 1.35rem;
+		line-height: 1.25;
+	}
+
+	.post-card__excerpt {
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		font-size: 0.95rem;
+	}
+
+	.post-card__more {
+		margin-top: auto;
+		color: var(--red);
+		font-weight: 700;
+	}
+
+	.post-card:hover .post-card__title {
+		color: var(--red);
+	}
+</style>

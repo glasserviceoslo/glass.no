@@ -1,0 +1,30 @@
+---
+import type { BlockProps } from "astro-portabletext/types";
+import { Block } from "emdash/ui";
+
+type MarkNode = { _type?: string; markDef?: { _type?: string; variant?: string }; children?: { _type?: string }[] };
+
+const props = Astro.props as BlockProps;
+const { node } = props;
+const children = (node.children ?? []) as MarkNode[];
+const [only] = children;
+const isButton =
+	(node.style ?? "normal") === "normal" &&
+	children.length === 1 &&
+	only?._type === "@span" &&
+	only.markDef?._type === "link" &&
+	only.children?.length === 1 &&
+	only.children[0]._type === "@text";
+---
+
+{
+	isButton ? (
+		<p class:list={["is-button", { "is-button--secondary": only?.markDef?.variant === "secondary" }]}>
+			<slot />
+		</p>
+	) : (
+		<Block {...props}>
+			<slot />
+		</Block>
+	)
+}

@@ -1,0 +1,81 @@
+---
+import type { Surface } from "./surface";
+
+interface Props {
+	value: Surface & { heading?: string; items?: { question: string; answer: string }[] };
+}
+
+const { value } = Astro.props;
+const items = value.items ?? [];
+const paragraphs = (text: string) => text.split(/\n\s*\n/).filter((paragraph) => paragraph.trim());
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: items.map((item) => ({
+		"@type": "Question",
+		name: item.question,
+		acceptedAnswer: { "@type": "Answer", text: item.answer },
+	})),
+};
+---
+
+<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+	<div class="container faq">
+		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
+		{
+			items.map((item) => (
+				<details class="faq__item">
+					<summary class="faq__question">{item.question}</summary>
+					<div class="faq__answer">
+						{paragraphs(item.answer).map((paragraph) => (
+							<p>{paragraph}</p>
+						))}
+					</div>
+				</details>
+			))
+		}
+	</div>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</section>
+
+<style>
+	.faq {
+		max-width: 900px;
+	}
+
+	.faq__item {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.faq__question {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1.1rem 0;
+		font-weight: 700;
+		color: var(--ink);
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.faq__question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq__question::after {
+		content: "+";
+		color: var(--red);
+		font-size: 1.4rem;
+		line-height: 1;
+		transition: transform 0.2s ease;
+	}
+
+	.faq__item[open] .faq__question::after {
+		transform: rotate(45deg);
+	}
+
+	.faq__answer {
+		padding-bottom: 1.1rem;
+		white-space: pre-line;
+	}
+</style>

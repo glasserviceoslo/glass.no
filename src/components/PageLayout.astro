@@ -1,0 +1,21 @@
+---
+import { Blocks } from "emdash/ui";
+import Cards from "./blocks/Cards.astro";
+import ContactForm from "./blocks/ContactForm.astro";
+import Faq from "./blocks/Faq.astro";
+import Section from "./blocks/Section.astro";
+
+interface Props {
+	value: unknown[] | undefined;
+}
+
+const { value } = Astro.props;
+const components = {
+	section: Section,
+	cards: Cards,
+	faq: Faq,
+	contact_form: ContactForm,
+};
+---
+
+<Blocks value={(value ?? []) as never} components={components as never} />

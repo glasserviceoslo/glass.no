@@ -1,0 +1,56 @@
+---
+import { Image } from "emdash/ui";
+
+type GalleryImage = { _key: string; asset?: { url?: string; _ref?: string }; alt?: string; width?: number; height?: number };
+
+interface Props {
+	node: { images?: GalleryImage[]; columns?: number };
+}
+
+const { node } = Astro.props;
+const columns = Math.min(Math.max(node.columns ?? 3, 1), 6);
+const images = (node.images ?? []).filter((image) => image.asset?.url ?? image.asset?._ref);
+---
+
+<div class="gallery" style={`--gallery-columns: ${columns}`}>
+	{
+		images.map((image) => (
+			<figure class="gallery__item">
+				<Image
+					image={(image.asset?.url ?? image.asset?._ref) as string}
+					alt={image.alt ?? ""}
+					width={image.width}
+					height={image.height}
+					sizes={`(max-width: 720px) 50vw, ${Math.round(1290 / columns)}px`}
+				/>
+			</figure>
+		))
+	}
+</div>
+
+<style>
+	.gallery {
+		display: grid;
+		grid-template-columns: repeat(var(--gallery-columns), minmax(0, 1fr));
+		gap: 1.25rem;
+		align-items: center;
+		margin: 1.5rem 0;
+	}
+
+	.gallery__item {
+		margin: 0;
+	}
+
+	.gallery__item :global(img) {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		border-radius: var(--radius-small);
+	}
+
+	@media (max-width: 720px) {
+		.gallery {
+			grid-template-columns: repeat(min(var(--gallery-columns), 2), minmax(0, 1fr));
+		}
+	}
+</style>
