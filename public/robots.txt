@@ -1,3 +1,0 @@
-User-agent: *
-Disallow: /keystatic/*
-Sitemap: https://www.glass.no/sitemap-index.xml
