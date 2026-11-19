@@ -1,5 +1,6 @@
 ---
 import { Image } from "emdash/ui";
+import { safeHref } from "../../utils/href";
 import type { ImageValue, Surface } from "./surface";
 
 type Card = { image?: ImageValue; title?: string; text?: string; url?: string; link_label?: string };
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const { value } = Astro.props;
-const items = value.items ?? [];
+const items = (value.items ?? []).map((card) => ({ ...card, url: safeHref(card.url) }));
 const style = value.style ?? "image";
 const perRow = Number(value.columns ?? 3);
 const columns = style === "icon" ? perRow : Math.min(perRow, 3);

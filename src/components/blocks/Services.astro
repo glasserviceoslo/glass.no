@@ -1,5 +1,6 @@
 ---
 import { Image } from "emdash/ui";
+import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 type Service = { title: string; text?: string; url?: string; image?: ImageValue };
@@ -18,7 +19,7 @@ const id = value.heading
 	.replace(/æ/g, "ae")
 	.replace(/[^a-z0-9]+/g, "-")
 	.replace(/^-|-$/g, "");
-const items = (value.items ?? []).map((item, index) => ({ ...item, key: `${blockKey ?? id}-${index}` }));
+const items = (value.items ?? []).map((item, index) => ({ ...item, url: safeHref(item.url), key: `${blockKey ?? id}-${index}` }));
 const cards = value.layout === "cards";
 ---
 

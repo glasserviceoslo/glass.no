@@ -1,6 +1,7 @@
 ---
 import { Image } from "emdash/ui";
 import Arrow from "../Arrow.astro";
+import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 interface Props {
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const { value } = Astro.props;
+const primaryUrl = safeHref(value.primary_url);
+const secondaryUrl = safeHref(value.secondary_url);
 ---
 
 <section class="hero hero--split" data-enter aria-labelledby="hero-h">
@@ -29,14 +32,14 @@ const { value } = Astro.props;
 				<h1 id="hero-h">{value.heading}</h1>
 				{value.lead && <p class="hero__lead">{value.lead}</p>}
 				<div class="btn-row">
-					{value.primary_label && value.primary_url && (
-						<a class="btn btn--primary" href={value.primary_url}>
+					{value.primary_label && primaryUrl && (
+						<a class="btn btn--primary" href={primaryUrl}>
 							{value.primary_label}
 							<Arrow />
 						</a>
 					)}
-					{value.secondary_label && value.secondary_url && (
-						<a class="btn btn--secondary" href={value.secondary_url}>
+					{value.secondary_label && secondaryUrl && (
+						<a class="btn btn--secondary" href={secondaryUrl}>
 							{value.secondary_label}
 						</a>
 					)}

@@ -1,5 +1,6 @@
 ---
 import { Image } from "emdash/ui";
+import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 interface Props {
@@ -30,6 +31,7 @@ const dayCode = (days: string) =>
 		.filter(Boolean)
 		.join("-");
 const mapUrl = `https://www.openstreetmap.org/search?query=${encodeURIComponent(addressLines.join(" "))}`;
+const primaryUrl = safeHref(value.primary_url);
 const tel = value.phone?.replace(/[^+\d]/g, "");
 ---
 
@@ -80,9 +82,9 @@ const tel = value.phone?.replace(/[^+\d]/g, "");
 					)
 				}
 				{
-					value.primary_label && value.primary_url && (
+					value.primary_label && primaryUrl && (
 						<div class="btn-row">
-							<a class="btn btn--secondary" href={value.primary_url}>
+							<a class="btn btn--secondary" href={primaryUrl}>
 								{value.primary_label}
 							</a>
 						</div>
