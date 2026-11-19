@@ -22,73 +22,68 @@ interface Props {
 const { value } = Astro.props;
 const primaryUrl = safeHref(value.primary_url);
 const secondaryUrl = safeHref(value.secondary_url);
-const hasFacts = Boolean(value.kicker || value.float_label || value.float_title);
 ---
 
 <section class="hero home-hero" data-enter aria-labelledby="hero-h">
 	<div class="wrap">
 		<div class="home-hero__grid">
-		<div class="home-hero__text">
-			<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
-			{value.lead && <p class="home-hero__lead">{value.lead}</p>}
-			<div class="btn-row">
-				{value.primary_label && primaryUrl && (
-					<a class="btn btn--primary" href={primaryUrl}>
-						{value.primary_label}
-						<Arrow />
-					</a>
-				)}
-				{value.secondary_label && secondaryUrl && (
-					<a class="btn btn--secondary" href={secondaryUrl}>
-						{value.secondary_label}
-					</a>
+			<div class="home-hero__text">
+				<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
+				{value.lead && <p class="home-hero__lead">{value.lead}</p>}
+				<div class="btn-row">
+					{value.primary_label && primaryUrl && (
+						<a class="btn btn--primary" href={primaryUrl}>
+							{value.primary_label}
+							<Arrow />
+						</a>
+					)}
+					{value.secondary_label && secondaryUrl && (
+						<a class="btn btn--secondary" href={secondaryUrl}>
+							{value.secondary_label}
+						</a>
+					)}
+				</div>
+				{(value.kicker || value.float_label) && (
+					<dl class="home-hero__facts">
+						{value.kicker && (
+							<div>
+								<dt>Glass.no</dt>
+								<dd>{value.kicker}</dd>
+							</div>
+						)}
+						{value.float_label && (
+							<div>
+								<dt>Åpent</dt>
+								<dd>{value.float_label}</dd>
+							</div>
+						)}
+					</dl>
 				)}
 			</div>
-		</div>
-		{
-			value.image && (
-				<div class="home-hero__frame" data-enter-media>
-					<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 900px) 100vw, 620px" />
-				</div>
-			)
-		}
+			{
+				value.image && (
+					<figure class="home-hero__figure" data-enter-media>
+						<div class="home-hero__frame">
+							<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 900px) 100vw, 620px" />
+						</div>
+						{value.float_title && (
+							<figcaption class="home-hero__caption">
+								{secondaryUrl ? <a href={secondaryUrl}>{value.float_title}</a> : value.float_title}
+								<span aria-hidden="true">→</span>
+							</figcaption>
+						)}
+					</figure>
+				)
+			}
 		</div>
 	</div>
-	{
-		hasFacts && (
-			<div class="home-hero__rail">
-				<div class="wrap">
-				<dl class="home-hero__facts">
-					{value.kicker && (
-						<div>
-							<dt>Glass.no</dt>
-							<dd>{value.kicker}</dd>
-						</div>
-					)}
-					{value.float_label && (
-						<div>
-							<dt>Åpent</dt>
-							<dd>{value.float_label}</dd>
-						</div>
-					)}
-					{value.float_title && (
-						<div>
-							<dt>Kampanje</dt>
-							<dd>{secondaryUrl ? <a href={secondaryUrl}>{value.float_title}</a> : value.float_title}</dd>
-						</div>
-					)}
-				</dl>
-				</div>
-			</div>
-		)
-	}
 </section>
 
 <style>
 	.home-hero {
 		height: auto;
 		min-height: 0;
-		padding: calc(var(--nav, 72px) + clamp(2rem, 4vw, 3.5rem)) 0 0;
+		padding: calc(var(--nav, 72px) + clamp(2rem, 4vw, 3.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
 		background: #ffffff;
 		color: var(--p-ink);
 	}
@@ -97,8 +92,7 @@ const hasFacts = Boolean(value.kicker || value.float_label || value.float_title)
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		gap: clamp(2rem, 5vw, 5rem);
-		align-items: center;
-		padding-bottom: clamp(2.5rem, 5vw, 4rem);
+		align-items: end;
 	}
 
 	.home-hero__text {
@@ -130,6 +124,32 @@ const hasFacts = Boolean(value.kicker || value.float_label || value.float_title)
 		gap: 0.75rem;
 	}
 
+	.home-hero__facts {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, auto));
+		justify-content: start;
+		gap: 0 2.5rem;
+		margin: 0.5rem 0 0;
+		padding-top: 1.25rem;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
+		justify-self: stretch;
+	}
+
+	.home-hero__facts dt {
+		color: var(--p-muted);
+		font-size: 0.875rem;
+	}
+
+	.home-hero__facts dd {
+		margin: 0.15rem 0 0;
+		font-size: 1.15rem;
+		font-weight: 500;
+	}
+
+	.home-hero__figure {
+		margin: 0;
+	}
+
 	.home-hero__frame {
 		overflow: hidden;
 		border-radius: var(--radius, 20px);
@@ -145,67 +165,38 @@ const hasFacts = Boolean(value.kicker || value.float_label || value.float_title)
 		object-position: 50% 30%;
 	}
 
-	.home-hero__rail {
-		background: var(--p-bg);
-		border-top: 1px solid color-mix(in oklab, var(--p-ink) 11%, transparent);
+	.home-hero__caption {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 0.9rem;
+		padding-top: 0.9rem;
+		border-top: 2px solid var(--p-accent);
 	}
 
-	.home-hero__facts {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		margin-block: 0;
-	}
-
-	.home-hero__facts > div {
-		padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 2vw, 1.5rem);
-	}
-
-	.home-hero__facts > div + div {
-		border-left: 1px solid color-mix(in oklab, currentColor 14%, transparent);
-	}
-
-	.home-hero__facts > div:first-child {
-		padding-left: 0;
-	}
-
-	.home-hero__facts dt {
-		margin-bottom: 0.25rem;
-		color: var(--p-muted);
-		font-size: 0.875rem;
-	}
-
-	.home-hero__facts dd {
-		margin: 0;
-		font-size: clamp(1.15rem, 1.6vw, 1.45rem);
-		font-weight: 500;
-		line-height: 1.3;
-		letter-spacing: -0.01em;
-	}
-
-	.home-hero__facts a {
+	.home-hero__caption a {
 		color: var(--p-ink);
+		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+		font-weight: 600;
 		text-decoration: none;
 	}
 
-	.home-hero__facts a:hover {
+	.home-hero__caption a:hover {
 		text-decoration: underline;
 		text-decoration-color: var(--p-accent);
 		text-underline-offset: 0.2em;
 	}
 
+	.home-hero__caption span {
+		flex: none;
+		color: var(--p-accent);
+		font-weight: 600;
+	}
+
 	@media (max-width: 900px) {
-		.home-hero__grid,
-		.home-hero__facts {
+		.home-hero__grid {
 			grid-template-columns: minmax(0, 1fr);
-		}
-
-		.home-hero__facts > div {
-			padding-left: 0;
-		}
-
-		.home-hero__facts > div + div {
-			border-left: 0;
-			border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent);
 		}
 	}
 </style>
