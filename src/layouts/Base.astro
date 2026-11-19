@@ -1,10 +1,11 @@
 ---
-import { Font } from "astro:assets";
 import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
-import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead, Image } from "emdash/ui";
+import Arrow from "../components/Arrow.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
+import { BOOKING_PATH } from "../utils/booking";
 import { resolveSiteIdentity } from "../utils/site";
 import "../styles/site.css";
 
@@ -17,9 +18,10 @@ interface Props {
 	robots?: string | null;
 	pageType?: "website" | "article";
 	content?: { collection: string; id: string; slug?: string | null };
+	moments?: string[];
 }
 
-const { title, pageTitle, description, image, canonical, robots, pageType = "website", content } = Astro.props;
+const { title, pageTitle, description, image, canonical, robots, pageType = "website", content, moments = [] } = Astro.props;
 
 const [settings, menu] = await Promise.all([getSiteSettingsWithCacheHint(), getMenuWithCacheHint("primary")]);
 if (Astro.cache?.enabled) {
@@ -29,6 +31,9 @@ if (Astro.cache?.enabled) {
 
 const { siteTitle, siteTagline, siteLogo, titleSeparator } = resolveSiteIdentity(settings.data);
 const fullTitle = title ? (title.toLowerCase().includes(siteTitle.toLowerCase()) ? title : `${title} ${titleSeparator} ${siteTitle}`) : siteTitle;
+const items = menu.data?.items ?? [];
+const services = items.find((item) => item.children.length)?.children ?? [];
+const closeImage = "/_emdash/api/media/file/01M7TMJ112XDVBKFNDHS3PH9QS.jpg";
 
 const page = createPublicPageContext({
 	Astro,
@@ -46,57 +51,114 @@ const page = createPublicPageContext({
 ---
 
 <!doctype html>
-<html lang="nb">
+<html lang="nb" data-type="service" data-radius="soft" data-buttons="tonal" data-motion>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<title>{fullTitle}</title>
 		<EmDashHead page={page} />
-		<Font cssVariable="--font-body" preload />
-		<Font cssVariable="--font-display" preload />
+		<meta name="site-kind" content="other" />
+		<meta name="page-type" content="service" />
+		<meta name="theme-color" content="#f8f9fa" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/system.css" />
+		<link rel="stylesheet" href="/assets/ui/cards.css" />
+		<link rel="stylesheet" href="/assets/motion/motion.css" />
+		<link rel="stylesheet" href="/assets/layout/layout.css" />
+		<link rel="stylesheet" href="/assets/icons/icon.css" />
+		<style is:inline>
+			:root {
+				--p-bg: #f8f9fa; --p-surface: #e9ebf0; --p-ink: #040037; --p-muted: #556186;
+				--p-accent: #ed4c4c; --p-accent-ink: #040037; --p-action: #ed4c4c; --p-action-ink: #040037;
+				--p-inv-bg: #040037; --p-inv-surface: #0b1144; --p-inv-ink: #f8f9fa; --p-inv-muted: #8b94ae;
+				--p-inv-accent: #ed4c4c; --p-inv-accent-ink: #040037; --p-inv-action: #ed4c4c; --p-inv-action-ink: #040037;
+				--font-display: "Hanken Grotesk", system-ui, sans-serif;
+				--font-text: "Hanken Grotesk", system-ui, sans-serif;
+				--display-weight: 400;
+				--display-tracking: -0.03em;
+				--display-tracking-xl: -0.038em;
+			}
+		</style>
+		<script is:inline>document.documentElement.classList.add("m-enter");setTimeout(()=>document.documentElement.classList.add("m-enter-done"),700)</script>
+		{
+			moments.length > 0 && (
+				<>
+					<script is:inline>document.documentElement.classList.add("mo-js");setTimeout(()=>document.documentElement.classList.add("mo-safe"),2500)</script>
+					<link rel="modulepreload" href="/assets/moments/moments.js" />
+					<link rel="modulepreload" href="/assets/moments/lib.js" />
+					{moments.map((id) => (
+						<link rel="modulepreload" href={`/assets/moments/${id}/moment.js`} />
+					))}
+				</>
+			)
+		}
 	</head>
 	<body>
 		<EmDashBodyStart page={page} />
-		<a href="#main" class="skip-link">Hopp til innhold</a>
-		<Header items={menu.data?.items ?? []} logo={siteLogo} siteTitle={siteTitle} />
-		<main id="main">
+		<Header items={items} logo={siteLogo} siteTitle={siteTitle} />
+		<main id="top">
 			<slot />
 		</main>
-		<footer class="site-footer">
-			<div class="container site-footer__bar">
-				<span>© {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS</span>
-				<nav aria-label="Bunnmeny">
-					<a href="/privacy-policy/">Personvern</a>
-					<a href="/kontakt-oss/">Kontakt oss</a>
-				</nav>
+		<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+			<div class="wrap">
+				<div class="closing__cta close--photo">
+					<div class="section-head--split">
+						<div>
+							<h2 id="close-h">Book Befaring</h2>
+							<p class="t-lead">Vi kommer på befaring - helt uforpliktende.</p>
+						</div>
+						<a class="btn btn--primary" href={BOOKING_PATH}>Book Befaring<Arrow /></a>
+					</div>
+					<div class="close__media">
+						<Image image={closeImage} alt="Hus med store vindusflater og glassrekkverk rundt terrassen" width={2560} height={1720} sizes="(max-width: 639px) 800px, 1280px" />
+					</div>
+				</div>
+				<div class="closing__links">
+					<div class="grid">
+						<div class="span-4 stack-4">
+							<a class="nav__logo" href="/">Glass-Service Svendsen og Sønn</a>
+							<p class="footer__lede">{siteTagline}</p>
+						</div>
+						<div class="span-2 footer__col">
+							<h3>Produkter</h3>
+							<ul>
+								{services.slice(0, 6).map((service) => (
+									<li><a href={service.url}>{service.label}</a></li>
+								))}
+							</ul>
+						</div>
+						<div class="span-2 footer__col">
+							<h3>Om oss</h3>
+							<ul>
+								<li><a href="/about/">Om oss</a></li>
+								<li><a href="/prosjekter/">Siste prosjekter</a></li>
+								<li><a href="/blogg/">Blogg</a></li>
+							</ul>
+						</div>
+						<div class="span-4 footer__col">
+							<h3>Kontakt oss</h3>
+							<ul>
+								<li><a href="tel:+4791584940">+47 91 58 49 40</a></li>
+								<li><a href="https://www.openstreetmap.org/search?query=Pilestredet%2041A%20Oslo">Pilestredet 41A</a></li>
+								<li>Man - Fre 08:00-17:00</li>
+							</ul>
+						</div>
+					</div>
+					<div class="footer__legal">
+						<span>&copy; {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS &nbsp; <a href="/privacy-policy/">Personvern</a></span>
+					</div>
+				</div>
 			</div>
 		</footer>
+		<nav class="actionbar" aria-label="Snarveier">
+			<a class="btn btn--primary" href={BOOKING_PATH}>Gratis Befaring</a>
+		</nav>
 		<BookingPopup />
 		<EmDashBodyEnd page={page} />
+		<script is:inline type="module" src="/assets/system.js"></script>
+		<script is:inline type="module" src="/assets/motion/motion.js"></script>
+		<script is:inline type="module" src="/assets/layout/layout.js"></script>
 	</body>
 </html>
-
-<style>
-	.site-footer {
-		background: var(--ink);
-		color: rgba(255, 255, 255, 0.8);
-		font-size: 0.95rem;
-	}
-
-	.site-footer__bar {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		gap: 1rem;
-		padding-block: 2rem;
-	}
-
-	.site-footer nav {
-		display: flex;
-		gap: 1.5rem;
-	}
-
-	.site-footer a {
-		color: inherit;
-	}
-</style>

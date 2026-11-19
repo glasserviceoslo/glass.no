@@ -1,7 +1,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { d1, r2 } from "@emdash-cms/cloudflare";
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
 export default defineConfig({
@@ -19,22 +19,6 @@ export default defineConfig({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
 		}),
-	],
-	fonts: [
-		{
-			provider: fontProviders.google(),
-			name: "Raleway",
-			cssVariable: "--font-body",
-			weights: [400, 600, 700],
-			fallbacks: ["sans-serif"],
-		},
-		{
-			provider: fontProviders.google(),
-			name: "Playfair Display",
-			cssVariable: "--font-display",
-			weights: [400],
-			fallbacks: ["serif"],
-		},
 	],
 	devToolbar: { enabled: false },
 });

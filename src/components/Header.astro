@@ -1,5 +1,6 @@
 ---
 import type { MenuItem } from "emdash";
+import { BOOKING_PATH } from "../utils/booking";
 
 interface Props {
 	items: MenuItem[];
@@ -9,295 +10,73 @@ interface Props {
 
 const { items, logo, siteTitle } = Astro.props;
 const current = Astro.url.pathname;
-const isCurrent = (item: MenuItem) => item.url === current;
+const groupsOf = (item: MenuItem) => [
+	...item.children.filter((child) => child.children.length),
+	...(item.children.some((child) => !child.children.length) ? [{ id: `${item.id}-more`, label: "Mer", url: "", children: item.children.filter((child) => !child.children.length) } as MenuItem] : []),
+];
 ---
 
-<header class="site-header">
-	<div class="container site-header__bar">
-		<a href="/" class="site-header__logo" aria-label={siteTitle}>
-			{logo ? <img src={logo.url} alt={logo.alt || siteTitle} width={logo.width} height={logo.height} /> : siteTitle}
+<header class="nav nav--centre">
+	<div class="wrap nav__bar">
+		<a class="skip-link" href="#top">Hopp til innhold</a>
+		<a class="nav__logo" href="/" aria-label={`${siteTitle}, forsiden`}>
+			{logo ? <img class="nav__logo-img" src={logo.url} alt="" width={logo.width} height={logo.height} /> : siteTitle}
 		</a>
-
-		<nav class="nav" aria-label="Hovedmeny">
-			<ul class="nav__list">
-				{
-					items.map((item) =>
-						item.children.length ? (
-							<li class="nav__item nav__item--parent">
-								<button class="nav__link" type="button" aria-haspopup="true">
-									{item.label}
-								</button>
-								<div class="mega">
-									<div class="mega__grid">
-										{item.children.map((group) => (
-											<div class="mega__group">
-												<a href={group.url} class="mega__title" aria-current={isCurrent(group) ? "page" : undefined}>
+		<nav class="nav__links" aria-label="Hovedmeny">
+			{
+				items.map((item) =>
+					item.children.length ? (
+						<div class="nav__item">
+							<a class="nav__link" href={item.url || item.children[0]?.url}>
+								{item.label}
+								<svg class="chev" viewBox="0 0 12 12" aria-hidden="true">
+									<path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+							</a>
+							<div class="nav__menu">
+								<div class="wrap grid">
+									{groupsOf(item).map((group) => (
+										<div class="menu-col span-3">
+											{group.url ? (
+												<a class="t-label" href={group.url}>
 													{group.label}
 												</a>
-												{group.children.length > 0 && (
-													<ul>
-														{group.children.map((child) => (
-															<li>
-																<a href={child.url} aria-current={isCurrent(child) ? "page" : undefined}>
-																	{child.label}
-																</a>
-															</li>
-														))}
-													</ul>
-												)}
-											</div>
-										))}
-									</div>
-								</div>
-							</li>
-						) : (
-							<li class="nav__item">
-								<a href={item.url} class="nav__link" aria-current={isCurrent(item) ? "page" : undefined}>
-									{item.label}
-								</a>
-							</li>
-						),
-					)
-				}
-			</ul>
-		</nav>
-
-		<a href="/book-befaring/" class="btn btn--large site-header__cta">Gratis befaring</a>
-
-		<details class="mobile-nav">
-			<summary class="mobile-nav__toggle" aria-label="Meny">
-				<span></span>
-			</summary>
-			<div class="mobile-nav__panel">
-				<ul>
-					{
-						items.map((item) => (
-							<li>
-								{item.children.length ? (
-									<details>
-										<summary>{item.label}</summary>
-										<ul>
-											{item.children.flatMap((group) => [group, ...group.children]).map((child) => (
-												<li>
-													<a href={child.url}>{child.label}</a>
-												</li>
+											) : (
+												<p class="t-label">{group.label}</p>
+											)}
+											{group.children.map((child) => (
+												<a href={child.url} aria-current={child.url === current ? "page" : undefined}>
+													{child.label}
+												</a>
 											))}
-										</ul>
-									</details>
-								) : (
-									<a href={item.url}>{item.label}</a>
-								)}
-							</li>
-						))
-					}
-				</ul>
-				<a href="/book-befaring/" class="btn btn--large">Gratis befaring</a>
-			</div>
-		</details>
+										</div>
+									))}
+								</div>
+							</div>
+						</div>
+					) : (
+						<div class="nav__item">
+							<a class="nav__link" href={item.url} aria-current={item.url === current ? "page" : undefined}>
+								{item.label}
+							</a>
+						</div>
+					),
+				)
+			}
+		</nav>
+		<div class="nav__actions">
+			<a class="btn btn--primary" href={BOOKING_PATH}>Gratis Befaring</a>
+		</div>
+		<button class="nav__toggle" type="button" aria-expanded="false" aria-label="Meny">
+			<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+		</button>
 	</div>
 </header>
 
 <style>
-	.site-header {
-		position: sticky;
-		top: 0;
-		z-index: 50;
-		background: var(--white);
-		box-shadow: 0 1px 0 var(--line);
-	}
-
-	.site-header__bar {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-		min-height: 84px;
-	}
-
-	.site-header__logo {
-		flex: none;
-		font-weight: 700;
-		color: var(--ink);
-		text-decoration: none;
-	}
-
-	.site-header__logo img {
+	.nav__logo-img {
+		display: block;
 		width: auto;
-		height: 44px;
-	}
-
-	.nav {
-		margin-left: auto;
-	}
-
-	.nav__list {
-		display: flex;
-		align-items: center;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.nav__link {
-		display: block;
-		padding: 0.6rem 0.9rem;
-		border: 0;
-		background: none;
-		color: var(--navy);
-		font: inherit;
-		font-size: 1.02rem;
-		font-weight: 600;
-		text-decoration: none;
-		cursor: pointer;
-	}
-
-	.nav__link:hover,
-	.nav__link[aria-current="page"] {
-		color: var(--red);
-	}
-
-	.nav__item--parent > .nav__link::after {
-		content: "";
-		display: inline-block;
-		width: 0.4em;
-		height: 0.4em;
-		margin-left: 0.45em;
-		border-right: 2px solid currentColor;
-		border-bottom: 2px solid currentColor;
-		transform: translateY(-0.2em) rotate(45deg);
-	}
-
-	.mega {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 100%;
-		visibility: hidden;
-		opacity: 0;
-		transition: opacity 0.2s ease, visibility 0.2s ease;
-	}
-
-	.nav__item--parent:hover .mega,
-	.nav__item--parent:focus-within .mega {
-		visibility: visible;
-		opacity: 1;
-	}
-
-	.mega__grid {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 1.5rem 2rem;
-		max-width: var(--content);
-		margin: 0 auto;
-		padding: 2rem var(--gutter);
-		border-top: 1px solid var(--line);
-		background: var(--white);
-		box-shadow: var(--shadow);
-	}
-
-	.mega__title {
-		display: block;
-		margin-bottom: 0.35rem;
-		color: var(--ink);
-		font-family: var(--font-display), serif;
-		font-size: 1.2rem;
-		text-decoration: none;
-	}
-
-	.mega ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.mega li a {
-		display: block;
-		padding: 0.2rem 0;
-		color: var(--muted);
-		font-size: 0.95rem;
-		text-decoration: none;
-	}
-
-	.mega a:hover,
-	.mega a[aria-current="page"] {
-		color: var(--red);
-	}
-
-	.mobile-nav {
-		display: none;
-	}
-
-	@media (max-width: 1100px) {
-		.nav,
-		.site-header__cta {
-			display: none;
-		}
-
-		.mobile-nav {
-			display: block;
-			margin-left: auto;
-		}
-
-		.mobile-nav__toggle {
-			display: grid;
-			place-items: center;
-			width: 44px;
-			height: 44px;
-			cursor: pointer;
-			list-style: none;
-		}
-
-		.mobile-nav__toggle::-webkit-details-marker {
-			display: none;
-		}
-
-		.mobile-nav__toggle span,
-		.mobile-nav__toggle span::before,
-		.mobile-nav__toggle span::after {
-			display: block;
-			width: 24px;
-			height: 2px;
-			background: var(--ink);
-			content: "";
-		}
-
-		.mobile-nav__toggle span::before {
-			transform: translateY(-7px);
-		}
-
-		.mobile-nav__toggle span::after {
-			transform: translateY(5px);
-		}
-
-		.mobile-nav__panel {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 100%;
-			max-height: calc(100vh - 84px);
-			overflow-y: auto;
-			padding: 1rem var(--gutter) 1.5rem;
-			background: var(--white);
-			box-shadow: var(--shadow);
-		}
-
-		.mobile-nav__panel ul {
-			margin: 0 0 1rem;
-			padding: 0;
-			list-style: none;
-		}
-
-		.mobile-nav__panel ul ul {
-			padding-left: 1rem;
-		}
-
-		.mobile-nav__panel ul a,
-		.mobile-nav__panel summary {
-			display: block;
-			padding: 0.6rem 0;
-			color: var(--navy);
-			font-weight: 600;
-			text-decoration: none;
-			cursor: pointer;
-		}
+		height: 32px;
 	}
 </style>

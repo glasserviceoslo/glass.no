@@ -40,3 +40,5 @@ npm-debug.log*
 
 # Old Google service account from the Keystatic site
 credentials.json
+.taste-skill/*
+!.taste-skill/plan.md

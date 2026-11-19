@@ -29,6 +29,7 @@ const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
 	pageType={isPage ? "website" : "article"}
 	content={{ collection: isPage ? "pages" : "posts", id: entry.data.id, slug: entry.id }}
 >
+	<div class="flow">
 	{
 		isPage ? (
 			<>
@@ -39,4 +40,5 @@ const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
 			<PostView title={entry.data.title} image={entry.data.featured_image} content={entry.data.content} publishedAt={entry.data.publishedAt} />
 		)
 	}
+	</div>
 </Base>
