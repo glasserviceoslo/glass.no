@@ -11,42 +11,90 @@ const at = value.strong ? value.text.indexOf(value.strong) : -1;
 const parts = at >= 0 ? [value.text.slice(0, at), value.strong, value.text.slice(at + (value.strong?.length ?? 0))] : [value.text];
 ---
 
-<section class:list={["section", "statement", value.background && `surface--${value.background}`]} id="om-oss" aria-label={value.label ?? "Om oss"}>
-	<div class="wrap">
-		<div class="grid grid--top">
-			<div class:list={[value.image ? "span-6" : "span-8", "stack-4"]}>
-				{value.label && <p class="t-label">{value.label}</p>}
-				<p class="statement__text">
-					{parts[0]}
-					{parts.length > 1 && <strong>{parts[1]}</strong>}
-					{parts[2]}
-				</p>
+<section class:list={["section", "statement", { "statement--photo": value.image }, value.background && `surface--${value.background}`]} id="om-oss" aria-label={value.label ?? "Om oss"}>
+	{
+		value.image && (
+			<div class="statement__band">
+				<Image image={value.image} alt={value.image.alt ?? ""} sizes="100vw" />
 			</div>
-			{
-				value.image && (
-					<div class="frame frame--photo span-5 start-8 statement__photo">
-						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 1023px) 100vw, 540px" />
-					</div>
-				)
-			}
+		)
+	}
+	<div class="wrap">
+		<div class="statement__card">
+			{value.label && <p class="statement__label">{value.label}</p>}
+			<p class="statement__text">
+				{parts[0]}
+				{parts.length > 1 && <strong>{parts[1]}</strong>}
+				{parts[2]}
+			</p>
 		</div>
 	</div>
 </section>
 
 <style>
+	.statement {
+		padding-block: clamp(3.5rem, 7vw, 6.5rem);
+	}
+
+	.statement--photo {
+		padding-top: 0;
+	}
+
+	.statement__band {
+		overflow: hidden;
+		height: clamp(22rem, 42vw, 36rem);
+		background: var(--p-surface);
+	}
+
+	.statement__band :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 55%;
+	}
+
+	.statement__card {
+		position: relative;
+		max-width: 46rem;
+		padding: clamp(1.75rem, 4vw, 3rem);
+		border-radius: 24px;
+		background: #ffffff;
+		box-shadow: 0 30px 60px -36px rgb(4 0 55 / 0.5);
+	}
+
+	.statement--photo .statement__card {
+		margin-top: clamp(-10rem, -12vw, -6rem);
+	}
+
+	.statement__card::before {
+		content: "";
+		display: block;
+		width: 3rem;
+		height: 3px;
+		margin-bottom: 1.25rem;
+		border-radius: 2px;
+		background: var(--p-accent);
+	}
+
+	.statement__label {
+		margin: 0 0 0.75rem;
+		color: var(--p-muted);
+		font-size: 0.875rem;
+	}
+
 	.statement__text {
-		max-width: 52ch;
 		margin: 0;
-		font-size: var(--t-lead);
-		line-height: 1.6;
+		font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+		line-height: 1.55;
 		text-wrap: pretty;
 	}
 
 	.statement__text strong {
 		font-weight: 500;
-	}
-
-	.statement__photo {
-		aspect-ratio: 4 / 5;
+		text-decoration: underline;
+		text-decoration-color: var(--p-accent);
+		text-decoration-thickness: 0.12em;
+		text-underline-offset: 0.18em;
 	}
 </style>

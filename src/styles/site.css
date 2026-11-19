@@ -367,3 +367,7 @@ main > :is(section, .section):not(.hero) > .wrap > .fill {
 main .prose p.is-button a {
 	text-transform: capitalize;
 }
+
+main > .statement.statement--photo {
+	padding-top: 0;
+}
