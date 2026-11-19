@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
 import { resolveSiteIdentity } from "../utils/site";
 import "../styles/site.css";
@@ -70,6 +71,7 @@ const page = createPublicPageContext({
 				</nav>
 			</div>
 		</footer>
+		<BookingPopup />
 		<EmDashBodyEnd page={page} />
 	</body>
 </html>

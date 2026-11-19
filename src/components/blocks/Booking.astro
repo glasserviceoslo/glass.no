@@ -1,4 +1,5 @@
 ---
+import { CAL_CONFIG, CAL_LINK, CAL_ORIGIN } from "../../utils/booking";
 import type { Surface } from "./surface";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 const { value, blockKey, index } = Astro.props;
 const Heading = index === 0 ? "h1" : "h2";
-const calLink = (value.cal_link || "glassno/befaring").replace(/^https?:\/\/(app\.)?cal\.com\//, "").replace(/^\/+|\/+$/g, "");
+const calLink = (value.cal_link || CAL_LINK).replace(/^https?:\/\/(app\.)?cal\.com\//, "").replace(/^\/+|\/+$/g, "");
 const namespace = calLink.replace(/[^a-z0-9]/gi, "_");
 const elementId = `cal-${blockKey ?? namespace}`;
 ---
@@ -25,7 +26,7 @@ const elementId = `cal-${blockKey ?? namespace}`;
 	</div>
 </section>
 
-<script is:inline define:vars={{ calLink, namespace, elementId }}>
+<script is:inline define:vars={{ calLink, namespace, elementId, calOrigin: CAL_ORIGIN, calConfig: CAL_CONFIG }}>
 	(function (C, A, L) {
 		let p = function (a, ar) {
 			a.q.push(ar);
@@ -57,14 +58,14 @@ const elementId = `cal-${blockKey ?? namespace}`;
 				}
 				p(cal, ar);
 			};
-	})(window, "https://app.cal.com/embed/embed.js", "init");
+	})(window, `${calOrigin}/embed/embed.js`, "init");
 
-	Cal("init", namespace, { origin: "https://app.cal.com" });
+	Cal("init", namespace, { origin: calOrigin });
 	Cal.config = Cal.config || {};
 	Cal.config.forwardQueryParams = true;
 	Cal.ns[namespace]("inline", {
 		elementOrSelector: `#${elementId}`,
-		config: { layout: "month_view", theme: "light", useSlotsViewOnSmallScreen: "true" },
+		config: calConfig,
 		calLink,
 	});
 	Cal.ns[namespace]("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
