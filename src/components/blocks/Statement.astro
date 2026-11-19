@@ -77,8 +77,43 @@ const parts = at >= 0 ? [value.text.slice(0, at), value.strong, value.text.slice
 	}
 
 	.statement__text strong {
+		padding-bottom: 0.08em;
+		background: linear-gradient(var(--p-accent), var(--p-accent)) left bottom / 100% 0.12em no-repeat;
 		color: var(--p-ink);
 		font-weight: 600;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: view()) {
+			.statement__photo :global(img) {
+				scale: 1.12;
+				animation: statement-drift linear both;
+				animation-timeline: view();
+				animation-range: cover 0% cover 100%;
+			}
+
+			.statement__text strong {
+				animation: statement-draw linear both;
+				animation-timeline: view();
+				animation-range: entry 70% cover 50%;
+			}
+		}
+	}
+
+	@keyframes statement-drift {
+		from {
+			translate: 0 -6%;
+		}
+
+		to {
+			translate: 0 6%;
+		}
+	}
+
+	@keyframes statement-draw {
+		from {
+			background-size: 0% 0.12em;
+		}
 	}
 
 	@media (max-width: 900px) {
