@@ -1,0 +1,62 @@
+---
+import { Image } from "emdash/ui";
+import Arrow from "../Arrow.astro";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: {
+		kicker?: string;
+		heading: string;
+		lead?: string;
+		primary_label?: string;
+		primary_url?: string;
+		secondary_label?: string;
+		secondary_url?: string;
+		image?: ImageValue;
+		float_label?: string;
+		float_title?: string;
+	};
+}
+
+const { value } = Astro.props;
+---
+
+<section class="hero hero--split" data-enter aria-labelledby="hero-h">
+	<div class="wrap">
+		<div class="hero-text grid hero__grid">
+			<div class="hero__text span-5">
+				{value.kicker && <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>{value.kicker}</p>}
+				<h1 id="hero-h">{value.heading}</h1>
+				{value.lead && <p class="hero__lead">{value.lead}</p>}
+				<div class="btn-row">
+					{value.primary_label && value.primary_url && (
+						<a class="btn btn--primary" href={value.primary_url}>
+							{value.primary_label}
+							<Arrow />
+						</a>
+					)}
+					{value.secondary_label && value.secondary_url && (
+						<a class="btn btn--secondary" href={value.secondary_url}>
+							{value.secondary_label}
+						</a>
+					)}
+				</div>
+			</div>
+			{value.image && (
+				<div class="hero__media span-6 start-7">
+					<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 1023px) 100vw, 640px" />
+					{value.float_title && (
+						<div class="ly-float">
+							{value.float_label && (
+								<div class="ly-float__row">
+									<span>{value.float_label}</span>
+								</div>
+							)}
+							<div class="ly-float__title">{value.float_title}</div>
+						</div>
+					)}
+				</div>
+			)}
+		</div>
+	</div>
+</section>

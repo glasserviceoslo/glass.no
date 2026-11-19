@@ -1,0 +1,124 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
+type Service = { title: string; text?: string; url?: string; image?: ImageValue };
+
+interface Props {
+	value: { label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
+	blockKey?: string;
+}
+
+const { value, blockKey } = Astro.props;
+const id = value.heading
+	.toLowerCase()
+	.normalize("NFKD")
+	.replace(/[̀-ͯ]/g, "")
+	.replace(/ø/g, "o")
+	.replace(/æ/g, "ae")
+	.replace(/[^a-z0-9]+/g, "-")
+	.replace(/^-|-$/g, "");
+const items = (value.items ?? []).map((item, index) => ({ ...item, key: `${blockKey ?? id}-${index}` }));
+const cards = value.layout === "cards";
+---
+
+<section class="section" id={id} style={`--h: ${!cards && items.length > 4 ? 2 : 1}; --hm: 2`} aria-labelledby={`${id}-h`}>
+	<div class="wrap">
+		{
+			cards ? (
+				<>
+					<div class="section-head">
+						{value.label && <p class="t-label">{value.label}</p>}
+						<h2 id={`${id}-h`}>{value.heading}</h2>
+					</div>
+					<div class="grid">
+						{items.map((item) => (
+							<a class="card card--open span-4 services__card" href={item.url}>
+								{item.image && (
+									<div class="panel">
+										<Image image={item.image} alt={item.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 420px" />
+									</div>
+								)}
+								<h3>{item.title}</h3>
+								{item.text && <p>{item.text}</p>}
+							</a>
+						))}
+					</div>
+				</>
+			) : (
+				<div class="grid grid--top fill" data-peek>
+					<div class="span-5 stack-5">
+						<div class="section-head">
+							{value.label && <p class="t-label">{value.label}</p>}
+							<h2 id={`${id}-h`}>{value.heading}</h2>
+						</div>
+						<ul class="rows">
+							{items.map((item) => (
+								<li data-peek-to={item.key} tabindex="0">
+									{item.url ? (
+										<a class="rows__name" href={item.url}>
+											{item.title}
+										</a>
+									) : (
+										<span class="rows__name">{item.title}</span>
+									)}
+									{item.text && <p>{item.text}</p>}
+								</li>
+							))}
+						</ul>
+					</div>
+					<div class="frame frame--photo frame--fill span-6 start-7">
+						{items.map((item, index) =>
+							item.image ? (
+								<Image
+									image={item.image}
+									alt={item.image.alt ?? ""}
+									class="frame__img"
+									data-peek-for={item.key}
+									hidden={index > 0}
+									loading="eager"
+									sizes="1400px"
+								/>
+							) : null,
+						)}
+					</div>
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.rows :global(a.rows__name) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+	}
+
+	.services__card {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.services__card .panel {
+		--p-h: 300px;
+	}
+
+	@media (min-width: 640px) and (max-width: 1279px) {
+		.section:has(.services__card) {
+			--h: 2;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.services__card .panel {
+			--p-h: 220px;
+		}
+
+		.frame--fill {
+			flex: none;
+			height: auto;
+			aspect-ratio: 4 / 3;
+		}
+	}
+</style>

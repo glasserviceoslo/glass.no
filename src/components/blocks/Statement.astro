@@ -1,0 +1,19 @@
+---
+interface Props {
+	value: { label?: string; text: string; strong?: string };
+}
+
+const { value } = Astro.props;
+const [before, after] = value.strong && value.text.includes(value.strong) ? [value.text.slice(0, value.text.indexOf(value.strong)), value.text.slice(value.text.indexOf(value.strong) + value.strong.length)] : [value.text, undefined];
+---
+
+<section class="section statement" id="om-oss" data-moment="word-highlight" aria-label={value.label ?? "Om oss"}>
+	<div class="wrap">
+		{value.label && <p class="t-label">{value.label}</p>}
+		<p class="mo-wh__text">
+			{before}
+			{after !== undefined && <strong>{value.strong}</strong>}
+			{after}
+		</p>
+	</div>
+</section>

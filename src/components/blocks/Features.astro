@@ -1,0 +1,128 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: {
+		label?: string;
+		heading: string;
+		intro?: string;
+		bullets?: string;
+		image?: ImageValue;
+		facts?: string;
+		items?: { title: string; text?: string; icon?: ImageValue }[];
+	};
+}
+
+const { value } = Astro.props;
+const bullets = (value.bullets ?? "").split("\n").map((line) => line.trim()).filter(Boolean);
+const facts = (value.facts ?? "")
+	.split("\n")
+	.map((line) => line.split("|").map((part) => part.trim()))
+	.filter(([figure, label]) => figure && label);
+const items = value.items ?? [];
+---
+
+<section class="section g2 g2m" id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+	<div class="wrap">
+		<div class="grid grid--top fill">
+			<div class="span-5 stack-5">
+				<div class="section-head">
+					{value.label && <p class="t-label">{value.label}</p>}
+					<h2 id="hvorfor-oss-h">{value.heading}</h2>
+					{value.intro && <p>{value.intro}</p>}
+				</div>
+				{
+					bullets.length > 0 && (
+						<ul class="features__list">
+							{bullets.map((bullet) => (
+								<li>{bullet}</li>
+							))}
+						</ul>
+					)
+				}
+				{
+					facts.length > 0 && (
+						<dl class="features__facts">
+							{facts.map(([figure, label]) => (
+								<div>
+									<dt class="t-stat">{figure}</dt>
+									<dd class="t-small muted">{label}</dd>
+								</div>
+							))}
+						</dl>
+					)
+				}
+			</div>
+			{
+				value.image && (
+					<div class="frame frame--photo frame--fill span-6 start-7">
+						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="1400px" />
+					</div>
+				)
+			}
+		</div>
+		{
+			items.length > 0 && (
+				<div class="grid features__cards">
+					{items.map((item) => (
+						<article class="card span-4">
+							{item.icon && <Image image={item.icon} alt="" class="features__icon" width={56} height={56} />}
+							<h3>{item.title}</h3>
+							{item.text && <p>{item.text}</p>}
+						</article>
+					))}
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.features__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.features__list li + li {
+		margin-top: var(--s-2);
+	}
+
+	.features__cards :global(.features__icon) {
+		width: 56px;
+		height: 56px;
+		margin-bottom: var(--s-4);
+		object-fit: contain;
+	}
+
+	.features__facts {
+		display: flex;
+		gap: var(--s-7);
+		margin: 0;
+	}
+
+	.features__facts dd {
+		margin: 0;
+	}
+
+	.features__cards {
+		row-gap: var(--card-gap, 24px);
+	}
+
+	@media (max-width: 1023px) {
+		.features__cards > :global(.card) {
+			grid-column: span 6;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.features__cards > :global(.card) {
+			grid-column: span 6;
+		}
+
+		.features__cards :global(.features__icon) {
+			display: none;
+		}
+	}
+</style>

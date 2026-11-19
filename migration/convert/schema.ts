@@ -5,7 +5,125 @@ const backgroundFields = [
 	{ slug: "background_image", label: "Background image", type: "image" },
 ];
 
+const link = (prefix: string, label: string) => [
+	{ slug: `${prefix}_label`, label: `${label} text`, type: "string" },
+	{ slug: `${prefix}_url`, label: `${label} link`, type: "string" },
+];
+
 export const blockTypes = [
+	{
+		slug: "hero",
+		label: "Hero",
+		description: "The first screen: heading, one line, two buttons and a photograph",
+		fields: [
+			{ slug: "kicker", label: "Line above the heading", type: "string" },
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{ slug: "lead", label: "Lead", type: "text" },
+			...link("primary", "Main button"),
+			...link("secondary", "Second button"),
+			{ slug: "image", label: "Photograph", type: "image" },
+			{ slug: "float_label", label: "Card label", type: "string" },
+			{ slug: "float_title", label: "Card text", type: "string" },
+		],
+	},
+	{
+		slug: "services",
+		label: "Services",
+		description: "Services as a list beside a photograph that changes with the row, or as photo cards",
+		fields: [
+			{ slug: "label", label: "Label", type: "string" },
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{ slug: "layout", label: "Layout", type: "select", defaultValue: "list", validation: { options: ["list", "cards"] } },
+			{ slug: "intro", label: "Intro", type: "text" },
+			{
+				slug: "items",
+				label: "Services",
+				type: "repeater",
+				validation: {
+					minItems: 2,
+					maxItems: 6,
+					subFields: [
+						{ slug: "title", label: "Name", type: "string", required: true },
+						{ slug: "text", label: "One line", type: "text" },
+						{ slug: "url", label: "Link", type: "string" },
+						{ slug: "image", label: "Photograph", type: "image" },
+					],
+				},
+			},
+		],
+	},
+	{
+		slug: "features",
+		label: "Features",
+		description: "Why choose us: text and a list beside a photograph, then short cards and figures",
+		fields: [
+			{ slug: "label", label: "Label", type: "string" },
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{ slug: "intro", label: "Intro", type: "text" },
+			{ slug: "bullets", label: "List (one item per line)", type: "text" },
+			{ slug: "image", label: "Photograph", type: "image" },
+			{ slug: "facts", label: "Figures (one per line, figure | label)", type: "text" },
+			{
+				slug: "items",
+				label: "Cards",
+				type: "repeater",
+				validation: {
+					maxItems: 6,
+					subFields: [
+						{ slug: "title", label: "Title", type: "string", required: true },
+						{ slug: "text", label: "Text", type: "text" },
+						{ slug: "icon", label: "Icon", type: "image" },
+					],
+				},
+			},
+		],
+	},
+	{
+		slug: "statement",
+		label: "Statement",
+		description: "One large statement that fills in word by word as it scrolls past",
+		fields: [
+			{ slug: "label", label: "Label", type: "string" },
+			{ slug: "text", label: "Statement", type: "text", required: true },
+			{ slug: "strong", label: "Word to stress", type: "string" },
+		],
+	},
+	{
+		slug: "steps",
+		label: "Steps",
+		description: "Two to four steps, each with a photograph, held on screen while they open",
+		fields: [
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{
+				slug: "items",
+				label: "Steps",
+				type: "repeater",
+				validation: {
+					minItems: 2,
+					maxItems: 4,
+					subFields: [
+						{ slug: "title", label: "Title", type: "string", required: true },
+						{ slug: "text", label: "Two lines", type: "text" },
+						{ slug: "image", label: "Photograph", type: "image" },
+					],
+				},
+			},
+		],
+	},
+	{
+		slug: "contact",
+		label: "Contact",
+		description: "Address, hours, phone and the booking button beside a photograph",
+		fields: [
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{ slug: "intro", label: "Intro", type: "text" },
+			{ slug: "address", label: "Address", type: "text" },
+			{ slug: "hours", label: "Opening hours (one line per row, days | time)", type: "text" },
+			{ slug: "phone", label: "Phone", type: "string" },
+			...link("primary", "Button"),
+			{ slug: "image", label: "Photograph", type: "image" },
+		],
+	},
 	{
 		slug: "section",
 		label: "Section",

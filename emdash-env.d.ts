@@ -5,6 +5,89 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface PageLayoutHeroV1Block {
+  _type: "hero";
+  _version: 1;
+  _key: string;
+  "kicker"?: string | null;
+  "heading": string;
+  "lead"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "secondary_label"?: string | null;
+  "secondary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "float_label"?: string | null;
+  "float_title"?: string | null;
+}
+
+export type PageLayoutHeroBlock = PageLayoutHeroV1Block;
+
+export interface PageLayoutServicesV1Block {
+  _type: "services";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "layout"?: "list" | "cards" | null;
+  "intro"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "url"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PageLayoutServicesBlock = PageLayoutServicesV1Block;
+
+export interface PageLayoutFeaturesV1Block {
+  _type: "features";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "intro"?: string | null;
+  "bullets"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "facts"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "icon"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PageLayoutFeaturesBlock = PageLayoutFeaturesV1Block;
+
+export interface PageLayoutStatementV1Block {
+  _type: "statement";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "text": string;
+  "strong"?: string | null;
+}
+
+export type PageLayoutStatementBlock = PageLayoutStatementV1Block;
+
+export interface PageLayoutStepsV1Block {
+  _type: "steps";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "items"?: { "title": string; "text"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type PageLayoutStepsBlock = PageLayoutStepsV1Block;
+
+export interface PageLayoutContactV1Block {
+  _type: "contact";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "intro"?: string | null;
+  "address"?: string | null;
+  "hours"?: string | null;
+  "phone"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PageLayoutContactBlock = PageLayoutContactV1Block;
+
 export interface PageLayoutSectionV1Block {
   _type: "section";
   _version: 1;
@@ -85,7 +168,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;

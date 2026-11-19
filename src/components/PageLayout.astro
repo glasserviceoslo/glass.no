@@ -2,9 +2,15 @@
 import { Blocks } from "emdash/ui";
 import Booking from "./blocks/Booking.astro";
 import Cards from "./blocks/Cards.astro";
+import Contact from "./blocks/Contact.astro";
 import ContactForm from "./blocks/ContactForm.astro";
 import Faq from "./blocks/Faq.astro";
+import Features from "./blocks/Features.astro";
+import Hero from "./blocks/Hero.astro";
 import Section from "./blocks/Section.astro";
+import Services from "./blocks/Services.astro";
+import Statement from "./blocks/Statement.astro";
+import Steps from "./blocks/Steps.astro";
 
 interface Props {
 	value: unknown[] | undefined;
@@ -12,6 +18,12 @@ interface Props {
 
 const { value } = Astro.props;
 const components = {
+	hero: Hero,
+	services: Services,
+	features: Features,
+	statement: Statement,
+	steps: Steps,
+	contact: Contact,
 	section: Section,
 	cards: Cards,
 	faq: Faq,

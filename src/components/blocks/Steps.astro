@@ -1,0 +1,45 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
+type Step = { title: string; text?: string; image?: ImageValue };
+
+interface Props {
+	value: { heading: string; items?: Step[] };
+}
+
+const { value } = Astro.props;
+const items = (value.items ?? []).slice(0, 4);
+---
+
+<section class="section" id="slik-jobber-vi" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="slik-jobber-vi-h">
+	<div class="wrap mo-pc__grid">
+		<div class="mo-pc__text">
+			<h2 id="slik-jobber-vi-h">{value.heading}</h2>
+			<ol class="mo-pc__steps">
+				{
+					items.map((item) => (
+						<li class="mo-pc__step">
+							<h3>{item.title}</h3>
+							{item.text && <p>{item.text}</p>}
+							{item.image && (
+								<figure class="mo-pc__visual">
+									<Image image={item.image} alt={item.image.alt ?? ""} sizes="(max-width: 1023px) 100vw, 640px" />
+								</figure>
+							)}
+						</li>
+					))
+				}
+			</ol>
+		</div>
+		<div class="mo-pc__visuals frame"></div>
+	</div>
+</section>
+
+<style>
+	@media (max-width: 639px) {
+		#slik-jobber-vi {
+			min-height: calc(2 * 100lvh);
+		}
+	}
+</style>

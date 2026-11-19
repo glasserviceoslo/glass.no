@@ -1,0 +1,120 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: {
+		heading: string;
+		intro?: string;
+		address?: string;
+		hours?: string;
+		phone?: string;
+		primary_label?: string;
+		primary_url?: string;
+		image?: ImageValue;
+	};
+}
+
+const { value } = Astro.props;
+const addressLines = (value.address ?? "").split("\n").map((line) => line.trim()).filter(Boolean);
+const hours = (value.hours ?? "")
+	.split("\n")
+	.map((line) => line.split("|").map((part) => part.trim()))
+	.filter(([days, time]) => days && time);
+const DAYS: Record<string, string> = { man: "mon", tir: "tue", ons: "wed", tor: "thu", fre: "fri", "l\u00f8r": "sat", "s\u00f8n": "sun" };
+const dayCode = (days: string) =>
+	days
+		.toLowerCase()
+		.split(/\s*[–-]\s*/)
+		.map((day) => DAYS[day.slice(0, 3)])
+		.filter(Boolean)
+		.join("-");
+const mapUrl = `https://www.openstreetmap.org/search?query=${encodeURIComponent(addressLines.join(" "))}`;
+const tel = value.phone?.replace(/[^+\d]/g, "");
+---
+
+<section class="section" id="kontakt" aria-labelledby="kontakt-h">
+	<div class="wrap">
+		<div class="grid grid--top fill">
+			<div class="span-5 stack-6">
+				<div class="section-head">
+					<h2 id="kontakt-h">{value.heading}</h2>
+					{value.intro && <p>{value.intro}</p>}
+				</div>
+				{
+					addressLines.length > 0 && (
+						<div class="stack-4">
+							<address class="contact__address">
+								{addressLines.map((line, index) => (
+									<>
+										{index > 0 && <br />}
+										{line}
+									</>
+								))}
+							</address>
+							<a class="link" href={mapUrl}>
+								Finn veien
+							</a>
+						</div>
+					)
+				}
+				{
+					hours.length > 0 && (
+						<dl class="hours" data-tz="Europe/Oslo">
+							{hours.map(([days, time]) => (
+								<>
+									<dt data-days={dayCode(days) || undefined}>{days}</dt>
+									<dd>{time}</dd>
+								</>
+							))}
+						</dl>
+					)
+				}
+				{
+					value.phone && tel && (
+						<p>
+							<a class="link contact__phone" href={`tel:${tel}`}>
+								{value.phone}
+							</a>
+						</p>
+					)
+				}
+				{
+					value.primary_label && value.primary_url && (
+						<div class="btn-row">
+							<a class="btn btn--secondary" href={value.primary_url}>
+								{value.primary_label}
+							</a>
+						</div>
+					)
+				}
+			</div>
+			{
+				value.image && (
+					<div class="frame frame--photo span-6 start-7 contact__frame">
+						<Image image={value.image} alt={value.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 640px" />
+					</div>
+				)
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact__address {
+		font-style: normal;
+		font-size: var(--t-lead);
+		line-height: 1.5;
+	}
+
+	.contact__frame {
+		aspect-ratio: 4 / 3;
+	}
+
+	.contact__phone {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		font-size: var(--t-lead);
+	}
+</style>
