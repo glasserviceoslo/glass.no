@@ -7,10 +7,9 @@ type Service = { title: string; text?: string; url?: string; image?: ImageValue 
 
 interface Props {
 	value: { background?: "white" | "light" | "tint" | "dark" | "brand"; label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
-	blockKey?: string;
 }
 
-const { value, blockKey } = Astro.props;
+const { value } = Astro.props;
 const id = value.heading
 	.toLowerCase()
 	.normalize("NFKD")
@@ -19,109 +18,175 @@ const id = value.heading
 	.replace(/æ/g, "ae")
 	.replace(/[^a-z0-9]+/g, "-")
 	.replace(/^-|-$/g, "");
-const items = (value.items ?? []).map((item, index) => ({ ...item, url: safeHref(item.url), key: `${blockKey ?? id}-${index}` }));
-const cards = value.layout === "cards";
+const items = (value.items ?? []).map((item) => ({ ...item, url: safeHref(item.url) }));
 ---
 
-<section class:list={["section", "services-group", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`}>
+<section class:list={["section", "services-group", "services", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`}>
 	<div class="wrap">
-		{
-			cards ? (
-				<>
-					<div class="section-head">
-						{value.label && <p class="t-label">{value.label}</p>}
-						<h2 id={`${id}-h`}>{value.heading}</h2>
-					</div>
-					<div class="grid">
-						{items.map((item) => (
-							<a class="card card--open span-4 services__card" href={item.url}>
-								{item.image && (
-									<div class="panel">
-										<Image image={item.image} alt={item.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 420px" />
-									</div>
-								)}
-								<h3>{item.title}</h3>
-								{item.text && <p>{item.text}</p>}
-							</a>
-						))}
-					</div>
-				</>
-			) : (
-				<div class="grid grid--top fill" data-peek>
-					<div class="span-5 stack-5">
-						<div class="section-head">
-							{value.label && <p class="t-label">{value.label}</p>}
-							<h2 id={`${id}-h`}>{value.heading}</h2>
-						</div>
-						<ul class="rows">
-							{items.map((item) => (
-								<li data-peek-to={item.key} tabindex="0">
-									{item.url ? (
-										<a class="rows__name" href={item.url}>
-											{item.title}
-										</a>
-									) : (
-										<span class="rows__name">{item.title}</span>
-									)}
-									{item.text && <p>{item.text}</p>}
-								</li>
-							))}
-						</ul>
-					</div>
-					<div class="frame frame--photo frame--fill span-6 start-7">
-						{items.map((item, index) =>
-							item.image ? (
-								<Image
-									image={item.image}
-									alt={item.image.alt ?? ""}
-									class="frame__img"
-									data-peek-for={item.key}
-									hidden={index > 0}
-									loading="eager"
-									sizes="1400px"
-								/>
-							) : null,
-						)}
-					</div>
-				</div>
-			)
-		}
+		<div class="services__grid">
+		<div class="services__head">
+			{value.label && <p class="services__label">{value.label}</p>}
+			<h2 id={`${id}-h`}>{value.heading}</h2>
+		</div>
+		<ul class="services__list">
+			{
+				items.map((item) => (
+					<li>
+						<a class="services__row" href={item.url}>
+							{item.image && (
+								<span class="services__photo">
+									<Image image={item.image} alt={item.image.alt ?? ""} sizes="(max-width: 560px) 100vw, 360px" />
+								</span>
+							)}
+							<span>
+								<span class="services__title">
+									<span class="services__name">{item.title}</span>
+									<span class="services__arrow" aria-hidden="true">
+										→
+									</span>
+								</span>
+								{item.text && <span class="services__text">{item.text}</span>}
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		</div>
 	</div>
 </section>
 
 <style>
-	.rows :global(a.rows__name) {
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
+	.services {
+		padding-block: clamp(3rem, 6vw, 6rem);
 	}
 
-	.services__card {
+	.services__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: start;
+	}
+
+	.services__head {
+		position: sticky;
+		top: calc(var(--nav, 72px) + 1.5rem);
+	}
+
+	.services__head h2 {
+		margin: 0;
+		font-size: clamp(1.9rem, 3vw, 3rem);
+		font-weight: 400;
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.services__head h2::first-letter,
+	.services__name::first-letter {
+		text-transform: uppercase;
+	}
+
+	.services__label {
+		margin: 0 0 0.75rem;
+		color: var(--p-muted);
+		font-size: 0.875rem;
+	}
+
+	.services__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
+	}
+
+	.services__list li {
+		border-bottom: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
+	}
+
+	.services__row {
+		display: grid;
+		grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+		gap: clamp(1.25rem, 3vw, 2.5rem);
+		align-items: center;
+		padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
 		color: inherit;
 		text-decoration: none;
 	}
 
-	.services__card .panel {
-		height: auto;
-		aspect-ratio: 4 / 3;
+	.services__photo {
+		display: block;
 		overflow: hidden;
+		border-radius: 14px;
+		aspect-ratio: 4 / 3;
+		background: var(--p-surface);
 	}
 
-	.services__card .panel :global(img) {
+	.services__photo :global(img) {
+		display: block;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		transition: scale 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	}
 
-	.frame--fill {
-		height: auto;
-		min-height: 0;
-		aspect-ratio: 4 / 5;
+	.services__row:hover .services__photo :global(img) {
+		scale: 1.03;
 	}
 
-	@media (max-width: 639px) {
-		.frame--fill {
-			aspect-ratio: 4 / 3;
+	.services__title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 0 0 0.5rem;
+		font-size: clamp(1.3rem, 2vw, 1.75rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.services__arrow {
+		flex: none;
+		display: grid;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		background: var(--p-bg);
+		color: var(--p-accent);
+		transition:
+			background 180ms,
+			color 180ms,
+			translate 180ms;
+	}
+
+	.services__row:hover .services__arrow {
+		background: var(--p-accent);
+		color: #ffffff;
+		translate: 3px 0;
+	}
+
+	.services__text {
+		display: block;
+		max-width: 46ch;
+		margin: 0;
+		color: var(--p-muted);
+		line-height: 1.55;
+	}
+
+	@media (max-width: 900px) {
+		.services__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.services__head {
+			position: static;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.services__row {
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>
