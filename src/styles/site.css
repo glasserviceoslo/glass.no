@@ -344,3 +344,18 @@ main > :is(section, .section):not(.hero) > .wrap > .fill {
 .contact__aside p:has(> strong > br) {
 	color: var(--flow-muted);
 }
+
+.prose .prose__label + :is(h2, h3) {
+	margin-top: 0;
+}
+
+.prose ul.icons {
+	padding-left: 0;
+	list-style: none;
+}
+
+:is(.contact-strip dd, .facts dd) a {
+	display: inline-block;
+	padding-block: 0.6rem;
+	margin-block: -0.6rem;
+}

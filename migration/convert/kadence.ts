@@ -165,15 +165,25 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 			const text = stripTags(block.innerHTML.match(/<p[^>]*class="[^"]*kt-blocks-info-box-text[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? String(block.attrs.contentText ?? ""));
 			const link = (block.attrs.link as string | undefined) ?? block.innerHTML.match(/<a[^>]+href="([^"]+)"/)?.[1];
 			const src = block.innerHTML.match(/<img[^>]+src="([^"]+)"/)?.[1];
+			const more = block.innerHTML.match(/<a[^>]*kt-blocks-info-box-learnmore[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/);
 			return [
 				...(src ? imageFromUrl(src) : []),
 				...(title ? [textBlock(title, "h3")] : []),
 				...(text ? [textBlock(text)] : []),
 				...(link && block.attrs.learnMore ? [buttonBlock(String(block.attrs.learnMore), link, "primary")] : []),
+				...(!block.attrs.learnMore && more ? [buttonBlock(stripTags(more[2]), more[1], "primary")] : []),
 			];
 		},
 		"kadence/accordion": (block) => [{ _type: "faqMarker", _key: key(), items: faqItems(block) }],
-		"kadence/rowlayout": (block) => block.innerBlocks.flatMap((column) => transform(column.innerBlocks)),
+		"kadence/rowlayout": (block) => {
+			const columns = block.innerBlocks.filter((column) => !hiddenOnDesktop(column)).map((column) => transform(column.innerBlocks));
+			const pairs = columns.map((nodes) => nodes.filter((node) => node._type === "block" && plainText(node)));
+			const isFacts = columns.length >= 2 && pairs.every((nodes, index) => nodes.length === 2 && nodes.length === columns[index].length && nodes.every((node) => plainText(node).length <= 40));
+			if (isFacts) {
+				return [{ _type: "facts", _key: key(), items: pairs.map(([label, value]) => ({ _key: key(), label: plainText(label), value: plainText(value) })) } as unknown as PortableTextBlock];
+			}
+			return columns.flat();
+		},
 		"kadence/column": (block) => columnNodes(block),
 		"kadence/icon": (block) => {
 			const items = block.innerBlocks
@@ -485,7 +495,7 @@ export function createConverter(media: MediaMap, mediaByUrl: Map<string, Media>,
 		if (columns.length === 2 && photoIndex < 0) return layout;
 		const text = columns.length === 2 ? columns[1 - photoIndex] : columns[0];
 		if (columns.length === 1 && (!isHeading(text[0]) || text.some((node) => node._type !== "block"))) return layout;
-		const [lead, ...body] = isHeading(text[0]) ? text : [undefined, ...text];
+		const [lead, ...body] = /^h[2-4]$/.test(text[0]?.style ?? "") ? text : [undefined, ...text];
 		const photo = photoIndex >= 0 ? columns[photoIndex][0] : undefined;
 		const found = photo ? mediaOfNode(photo) : undefined;
 		return [

@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { value } = Astro.props;
+const cutout = /png|svg/.test(value.image?.mimeType ?? value.image?.src ?? "");
 ---
 
 <section class:list={["page-hero", "surface--light", { "page-hero--text": !value.image }]} aria-labelledby="page-hero-h">
@@ -19,7 +20,7 @@ const { value } = Astro.props;
 		</div>
 		{
 			value.image && (
-				<div class="page-hero__media">
+				<div class:list={["page-hero__media", { "page-hero__media--photo": !cutout }]}>
 					<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 860px) 100vw, 600px" />
 				</div>
 			)
@@ -84,6 +85,18 @@ const { value } = Astro.props;
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
+	}
+
+	.page-hero__media--photo :global(img) {
+		object-fit: cover;
+	}
+
+	.page-hero__text :global(.page-hero__body h2) {
+		margin: 0.25rem 0 0.75rem;
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		text-wrap: balance;
 	}
 
 	.page-hero--text .page-hero__grid {
