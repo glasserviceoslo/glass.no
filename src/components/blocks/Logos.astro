@@ -9,58 +9,93 @@ interface Props {
 
 const { value } = Astro.props;
 const items = (value.items ?? []).filter((item) => item.image).map((item) => ({ ...item, url: safeHref(item.url) }));
+const copies = [false, true];
 ---
 
 {
 	items.length > 0 && (
-		<div class="wrap logos" role="list">
-			{items.map((item) => (
-				<div class="logos__item" role="listitem">
-					{item.url ? (
-						<a href={item.url}>
-							<Image image={item.image!} alt={item.title} sizes="200px" />
-						</a>
-					) : (
-						<Image image={item.image!} alt={item.title} sizes="200px" />
-					)}
-				</div>
-			))}
+		<div class="wrap logos">
+			<div class="logos__track">
+				{copies.map((hidden) => (
+					<ul class="logos__list" aria-hidden={hidden ? "true" : undefined}>
+						{items.map((item) => (
+							<li class="logos__item">
+								{item.url && !hidden ? (
+									<a href={item.url}>
+										<Image image={item.image!} alt={item.title} sizes="200px" />
+									</a>
+								) : (
+									<Image image={item.image!} alt={hidden ? "" : item.title} sizes="200px" />
+								)}
+							</li>
+						))}
+					</ul>
+				))}
+			</div>
 		</div>
 	)
 }
 
 <style>
 	.logos {
-		display: grid;
-		grid-template-columns: repeat(8, minmax(0, 1fr));
-		gap: var(--s-6);
+		overflow: hidden;
+		padding-block: var(--s-6, 32px);
+		mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+	}
+
+	.logos__track {
+		display: flex;
+		width: max-content;
+		animation: logos-scroll 40s linear infinite;
+	}
+
+	.logos:hover .logos__track,
+	.logos:focus-within .logos__track {
+		animation-play-state: paused;
+	}
+
+	.logos__list {
+		display: flex;
+		flex: none;
 		align-items: center;
-		padding-block: var(--s-7);
+		gap: clamp(2.5rem, 5vw, 4.5rem);
+		margin: 0;
+		padding: 0 clamp(1.25rem, 2.5vw, 2.25rem);
+		list-style: none;
 	}
 
 	.logos__item :global(img) {
 		display: block;
-		width: 100%;
-		height: auto;
-		max-height: 72px;
+		width: auto;
+		height: clamp(36px, 4vw, 52px);
+		max-width: 180px;
 		object-fit: contain;
 	}
 
-	@media (max-width: 1023px) {
-		.logos {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
+	@keyframes logos-scroll {
+		to {
+			transform: translateX(-50%);
 		}
 	}
 
-	@media (max-width: 639px) {
+	@media (prefers-reduced-motion: reduce) {
 		.logos {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-			gap: var(--s-4) var(--s-5);
-			padding-block: var(--s-5);
+			mask-image: none;
 		}
 
-		.logos__item :global(img) {
-			max-height: 40px;
+		.logos__track {
+			width: auto;
+			animation: none;
+		}
+
+		.logos__list {
+			flex-wrap: wrap;
+			justify-content: center;
+			row-gap: var(--s-4, 16px);
+		}
+
+		.logos__list[aria-hidden] {
+			display: none;
 		}
 	}
 </style>

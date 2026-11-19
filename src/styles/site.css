@@ -252,13 +252,13 @@
 }
 
 .surface--brand :is(.btn, .prose p.is-button a) {
-	background: var(--p-accent-ink);
-	color: var(--p-accent);
+	background: var(--p-ink);
+	color: #ffffff;
 }
 
 .surface--brand :is(.btn, .prose p.is-button a):hover {
-	background: color-mix(in oklab, var(--p-accent-ink) 85%, #fff);
-	color: var(--p-accent);
+	background: color-mix(in oklab, var(--p-ink) 80%, #fff);
+	color: #ffffff;
 }
 
 main :is(.hero__kicker, .t-label, .features__facts dd) {

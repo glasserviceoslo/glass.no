@@ -29,7 +29,7 @@ const secondaryUrl = safeHref(value.secondary_url);
 		<div class="hero-text grid hero__grid">
 			<div class="hero__text span-5">
 				{value.kicker && <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>{value.kicker}</p>}
-				<h1 id="hero-h">{value.heading}</h1>
+				<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
 				{value.lead && <p class="hero__lead">{value.lead}</p>}
 				<div class="btn-row">
 					{value.primary_label && primaryUrl && (

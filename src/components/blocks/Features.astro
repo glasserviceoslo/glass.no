@@ -60,7 +60,7 @@ const items = value.items ?? [];
 			items.length > 0 && (
 				<div class="grid features__cards">
 					{items.map((item) => (
-						<article class="card span-4">
+						<article class="card span-4 m-nolift">
 							{item.icon && <Image image={item.icon} alt="" class="features__icon" width={56} height={56} />}
 							<h3>{item.title}</h3>
 							{item.text && <p>{item.text}</p>}

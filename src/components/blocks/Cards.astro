@@ -53,7 +53,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 		<div class:list={["cards", `cards--${style}`]} style={`--per-row: ${columns}`}>
 			{
 				items.map((card) => (
-					<article class="card">
+					<article class:list={["card", { "m-nolift": !card.url }]}>
 						{card.image && (
 							<a href={card.url || undefined} class:list={["card__media", { "card__media--photo": style === "image" && !/png|svg/.test(card.image.mimeType ?? card.image.src ?? "") }]} tabindex="-1" aria-hidden="true">
 								<Image image={card.image} class="card__image" sizes={style === "icon" ? "96px" : "(max-width: 860px) 100vw, 420px"} />
