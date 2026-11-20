@@ -5,6 +5,7 @@ import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
 import { resolveSiteIdentity } from "../utils/site";
+import "@fontsource-variable/hanken-grotesk";
 import "../styles/site.css";
 
 interface Props {
@@ -55,9 +56,6 @@ const page = createPublicPageContext({
 		<meta name="site-kind" content="other" />
 		<meta name="page-type" content="service" />
 		<meta name="theme-color" content="#f8f9fa" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="/assets/system.css" />
 		<link rel="stylesheet" href="/assets/ui/cards.css" />
 		<link rel="stylesheet" href="/assets/motion/motion.css" />
@@ -69,8 +67,8 @@ const page = createPublicPageContext({
 				--p-accent: #ed4c4c; --p-accent-ink: #ffffff; --p-action: #ed4c4c; --p-action-ink: #ffffff;
 				--p-inv-bg: #040037; --p-inv-surface: #0b1144; --p-inv-ink: #f8f9fa; --p-inv-muted: #8b94ae;
 				--p-inv-accent: #ed4c4c; --p-inv-accent-ink: #ffffff; --p-inv-action: #ed4c4c; --p-inv-action-ink: #ffffff;
-				--font-display: "Hanken Grotesk", system-ui, sans-serif;
-				--font-text: "Hanken Grotesk", system-ui, sans-serif;
+				--font-display: "Hanken Grotesk Variable", system-ui, sans-serif;
+				--font-text: "Hanken Grotesk Variable", system-ui, sans-serif;
 				--display-weight: 400;
 				--display-tracking: -0.03em;
 				--display-tracking-xl: -0.038em;

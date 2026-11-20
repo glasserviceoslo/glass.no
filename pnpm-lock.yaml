@@ -17,6 +17,9 @@ importers:
       '@emdash-cms/cloudflare':
         specifier: ^1.3.0
         version: 1.4.0(439d439999f4101ede6c8a65d57734cf)
+      '@fontsource-variable/hanken-grotesk':
+        specifier: 5.2.6
+        version: 5.2.6
       astro:
         specifier: ^7.3.2
         version: 7.4.7(@types/node@26.6.6)(esbuild@0.28.2)(yaml@2.9.1)
@@ -822,6 +825,9 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@fontsource-variable/hanken-grotesk@5.2.6':
+    resolution: {integrity: sha512-2vAWXZKvY219bukHYMZQkU0ApDnIDNFO+3gogqVcloRS00pUCJ6hGsUF6TynGMka6HWfNO0qZpUbmAmSOsaAgw==}
 
   '@hono/node-server@2.1.6':
     resolution: {integrity: sha512-p/KH9MnfNcsm3sR6x4lNgm5j+QN4Et8srKredl9DZfXiyZ1UQ3aQ2YVpFLbqktYN5JI+DB+VZFKM2PqE5hLKjQ==}
@@ -4641,6 +4647,8 @@ snapshots:
       tabbable: 6.5.1
 
   '@floating-ui/utils@0.2.12': {}
+
+  '@fontsource-variable/hanken-grotesk@5.2.6': {}
 
   '@hono/node-server@2.1.6(hono@4.13.17)':
     dependencies:
