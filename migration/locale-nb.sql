@@ -1,0 +1,12 @@
+UPDATE "_emdash_bylines" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_fts_pages" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_fts_posts" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_media_usage_sources" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_menu_items" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_menus" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "_emdash_taxonomy_defs" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "content_taxonomies" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "ec_pages" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "ec_posts" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "ec_products" SET locale = 'nb' WHERE locale = 'en';
+UPDATE "taxonomies" SET locale = 'nb' WHERE locale = 'en';

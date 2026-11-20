@@ -9,6 +9,10 @@ export default defineConfig({
 	site: "https://www.glass.no",
 	output: "server",
 	trailingSlash: "ignore",
+	i18n: {
+		defaultLocale: "nb",
+		locales: ["nb"],
+	},
 	adapter: cloudflare(),
 	image: {
 		layout: "constrained",
