@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "deploy": "astro build && alchemy deploy --stage prod",
     "plan": "astro build && alchemy plan --stage prod",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "check-types:fast": "effect-tsgo tsrs --noEmit"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",
@@ -30,11 +31,15 @@
     "@alchemy.run/gcp": "2.0.0-beta.85",
     "@astrojs/check": "^0.9.12",
     "@cloudflare/workers-types": "^5.20260820.1",
+    "@effect/platform-bun": "4.1.2",
     "@effect/platform-node": "4.1.2",
+    "@effect/tsgo": "0.70.0",
     "@emdash-cms/gutenberg-to-portable-text": "1.5.0",
     "@types/node": "^26.6.6",
+    "@typescript/native": "npm:typescript@7.1.0-beta",
     "alchemy": "2.0.0-beta.85",
     "effect": "4.1.2",
+    "tsrs": "7.1.0-beta.tsrs2",
     "typescript": "^6.0.3",
     "varlock": "1.25.0",
     "wrangler": "^4.125.0"
