@@ -438,6 +438,14 @@ main .prose p.is-button a {
 	text-decoration: none;
 }
 
+.site-footer__contact a,
+.site-footer__legal a,
+.site-footer__links button {
+	display: inline-block;
+	padding-block: 0.7rem;
+	margin-block: -0.7rem;
+}
+
 .site-footer__contact a:hover,
 .site-footer__legal a:hover {
 	text-decoration: underline;
