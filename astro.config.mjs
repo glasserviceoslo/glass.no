@@ -25,6 +25,7 @@ export default defineConfig({
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
+		domains: ["www.glass.no", "ny.glass.no", "localhost"],
 	},
 	integrations: [
 		react(),
