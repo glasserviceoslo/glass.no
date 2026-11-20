@@ -490,6 +490,8 @@ const moreActive = more.some((item) => here === trim(item.url));
 		border: 0;
 		background: none;
 		box-shadow: none;
+		opacity: 1;
+		transform: none;
 	}
 
 	.nav__menu::before {
@@ -510,6 +512,11 @@ const moreActive = more.some((item) => here === trim(item.url));
 
 	.products {
 		position: relative;
+		opacity: 0;
+		translate: 0 -6px;
+		transition:
+			opacity 120ms ease-in,
+			translate 120ms ease-in;
 		min-height: 23rem;
 		padding: 0.9rem;
 		border: 1px solid rgb(255 255 255 / 0.7);
@@ -521,6 +528,20 @@ const moreActive = more.some((item) => here === trim(item.url));
 			0 2px 8px -2px rgb(4 0 55 / 0.08);
 		-webkit-backdrop-filter: blur(28px) saturate(190%);
 		backdrop-filter: blur(28px) saturate(190%);
+	}
+
+	@media (min-width: 1024px) {
+		:global(html:not([data-motion="off"]) .nav .nav__menu) {
+			transform: none;
+		}
+
+		.nav__item:is(:hover, :focus-within) .products {
+			opacity: 1;
+			translate: 0 0;
+			transition:
+				opacity 200ms ease-out 150ms,
+				translate 260ms cubic-bezier(0.16, 1, 0.3, 1) 150ms;
+		}
 	}
 
 	.products ul {
@@ -857,6 +878,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		.sheet::backdrop,
 		.search,
 		.search::backdrop,
+		.products,
 		.sheet__view.is-entering {
 			transition: none;
 			animation: none;
@@ -1216,6 +1238,9 @@ const moreActive = more.some((item) => here === trim(item.url));
 		}
 
 		.products {
+			opacity: 1;
+			translate: none;
+			transition: none;
 			min-height: 0;
 			padding: 0;
 			border: 0;
