@@ -88,7 +88,7 @@ export default Alchemy.Stack(
 				IMAGE_CACHE: imageCache,
 				SESSION: sessions,
 				IMAGES: Cloudflare.Images.Images("Images"),
-				EMAIL: Cloudflare.Email.SendEmail("Email", { allowedSenderAddresses: ["skjema@glass.no"] }),
+				EMAIL: Cloudflare.Email.SendEmail("Email", { allowedSenderAddresses: ["skjema@post.glass.no"] }),
 				TURNSTILE_SITE_KEY: turnstile.sitekey,
 				TURNSTILE_SECRET_KEY: turnstile.secret,
 				EMDASH_ENCRYPTION_KEY: encryptionKey,

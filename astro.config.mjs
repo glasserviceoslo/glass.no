@@ -36,7 +36,7 @@ export default defineConfig({
 				{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" },
 				{ id: "analytics", version: "1.0.0", entrypoint: "./src/plugins/analytics.ts" },
 				{ id: "google-reviews", version: "1.0.0", entrypoint: "./src/plugins/google-reviews.ts" },
-				cloudflareEmail({ from: { email: "skjema@glass.no", name: "Glass.no" } }),
+				cloudflareEmail({ from: { email: "skjema@post.glass.no", name: "Glass.no" } }),
 			],
 		}),
 		{

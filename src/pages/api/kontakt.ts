@@ -4,7 +4,7 @@ import { env } from "cloudflare:workers";
 export const prerender = false;
 
 const INBOX = "post@glass.no";
-const SENDER = { email: "skjema@glass.no", name: "Glass.no" };
+const SENDER = { email: "skjema@post.glass.no", name: "Glass.no" };
 
 type EmailBinding = { send(message: { from: typeof SENDER; to: string; replyTo: string; subject: string; text: string }): Promise<unknown> };
 const FIELDS = ["fornavn", "etternavn", "epost", "telefon", "adresse", "melding"] as const;
