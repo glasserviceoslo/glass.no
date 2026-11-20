@@ -161,7 +161,7 @@
 		margin-top: 1.6em;
 	}
 
-	.prose > :is(p, ul, ol, h2, h3, h4, table) {
+	.prose > :is(p, ul, ol, h1, h2, h3, h4, table) {
 		max-width: var(--measure);
 	}
 

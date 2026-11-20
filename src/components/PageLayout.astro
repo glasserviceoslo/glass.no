@@ -44,7 +44,22 @@ const expanded = layout.flatMap((block) =>
 		? (shared.get(block.section ?? "") ?? []).map((inner) => ({ ...inner, ...(block.background ? { background: block.background } : {}) }))
 		: [block],
 );
-const blocks = expanded.map((block) => ({ ...block })).reduce<LayoutBlock[]>((merged, block) => {
+type TextNode = { style?: string; [field: string]: unknown };
+const promoteTitle = (layoutBlocks: LayoutBlock[]) => {
+	if (layoutBlocks.some((block) => block._type === "hero" || block._type === "page_hero")) return layoutBlocks;
+	const at = layoutBlocks.findIndex((block) => block._type === "section");
+	if (at < 0) return layoutBlocks;
+	const section = layoutBlocks[at];
+	for (const column of ["column_1", "column_2", "column_3", "column_4"]) {
+		const nodes = (section[column] ?? []) as TextNode[];
+		const heading = nodes.findIndex((node) => node.style === "h2" || node.style === "h3");
+		if (heading < 0) continue;
+		const promoted = { ...section, [column]: nodes.map((node, index) => (index === heading ? { ...node, style: "h1" } : node)) };
+		return layoutBlocks.map((block, index) => (index === at ? promoted : block));
+	}
+	return layoutBlocks;
+};
+const blocks = promoteTitle(expanded).map((block) => ({ ...block })).reduce<LayoutBlock[]>((merged, block) => {
 	const last = merged.at(-1);
 	if (block._type === "campaign" && last?._type === "hero" && !last.campaign) {
 		last.campaign = block;
