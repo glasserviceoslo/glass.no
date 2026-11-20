@@ -33,6 +33,7 @@ export default Alchemy.Stack(
 		const imageCache = yield* Cloudflare.R2.Bucket("ImageCache", {
 			name: "glass-no-image-cache",
 			jurisdiction: "eu",
+			lifecycleRules: [{ id: "expire-old-versions", deleteObjectsTransition: { condition: { type: "Age", maxAge: 180 * 24 * 60 * 60 } } }],
 		});
 		const sessions = yield* Cloudflare.KV.Namespace("Sessions", { title: "glass-no-sessions" });
 		const turnstile = yield* Cloudflare.Turnstile.Widget("ContactForm", {
