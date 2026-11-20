@@ -1,5 +1,6 @@
 ---
 import RichText from "../RichText.astro";
+import CallBandArt, { type ArtKind } from "./CallBandArt.astro";
 
 interface Props {
 	anchor?: string;
@@ -8,7 +9,21 @@ interface Props {
 }
 
 const { anchor, lead, body } = Astro.props;
-const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1) ?? "");
+const slug = Astro.url.pathname.split("/").filter(Boolean).at(-1) ?? "";
+const kinds: [RegExp, ArtKind][] = [
+	[/velux|takvindu|flate-tak|overlys|solskjerming/, "roof"],
+	[/vindu|kampanje/, "window"],
+	[/dusj/, "shower"],
+	[/smijern/, "steel"],
+	[/rekkverk/, "railing"],
+	[/glassvegg/, "partition"],
+	[/vinterhage/, "glasshouse"],
+	[/baldakin/, "canopy"],
+	[/speil(?!glass)/, "mirror"],
+	[/dor(-|$)/, "door"],
+	[/glass|plexi|polykarbonat/, "pane"],
+];
+const kind = kinds.find(([pattern]) => pattern.test(slug))?.[1] ?? "window";
 ---
 
 <section id={anchor || undefined} class="block section surface--brand call-band">
@@ -18,29 +33,7 @@ const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1
 			<RichText value={body} class="call-band__body" />
 		</div>
 		<div class="call-band__art" aria-hidden="true">
-			{
-				door ? (
-					<svg viewBox="0 0 480 320">
-						<rect class="call-band__line" pathLength="1" x="246" y="8" width="220" height="284" rx="4" />
-						<path class="call-band__line" pathLength="1" d="M258 292V20h94v272M360 292V20h94v272" />
-						<path class="call-band__line" pathLength="1" d="M305 20v272M407 20v272" />
-						<path class="call-band__line" pathLength="1" d="M258 88h94M258 156h94M258 224h94M360 88h94M360 156h94M360 224h94" />
-						<path class="call-band__line" pathLength="1" d="M342 172v26M370 172v26" />
-						<rect class="call-band__line" pathLength="1" x="226" y="292" width="260" height="12" rx="4" />
-						<path class="call-band__line call-band__line--glint" pathLength="1" d="M268 70l26-26M268 52l12-12" />
-					</svg>
-				) : (
-					<svg viewBox="0 0 480 320">
-						<rect class="call-band__line" pathLength="1" x="14" y="10" width="452" height="272" rx="5" />
-						<rect class="call-band__line" pathLength="1" x="30" y="26" width="420" height="240" rx="2" />
-						<path class="call-band__line" pathLength="1" d="M170 26v240M310 26v240" />
-						<path class="call-band__line" pathLength="1" d="M30 104h420" />
-						<path class="call-band__line" pathLength="1" d="M154 166v26M326 166v26" />
-						<rect class="call-band__line" pathLength="1" x="4" y="282" width="472" height="16" rx="4" />
-						<path class="call-band__line call-band__line--glint" pathLength="1" d="M52 244l40-40M52 220l20-20" />
-					</svg>
-				)
-			}
+			<CallBandArt kind={kind} />
 		</div>
 	</div>
 </section>
@@ -105,7 +98,7 @@ const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1
 		aspect-ratio: 3 / 2;
 	}
 
-	.call-band__art svg {
+	.call-band__art :global(svg) {
 		position: absolute;
 		inset: 0;
 		width: 100%;
@@ -113,7 +106,7 @@ const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1
 		overflow: visible;
 	}
 
-	.call-band__line {
+	.call-band__art :global(.call-band__line) {
 		fill: none;
 		stroke: #ffffff;
 		stroke-width: 6;
@@ -123,29 +116,29 @@ const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1
 		stroke-dashoffset: 0;
 	}
 
-	.call-band__line--glint {
+	.call-band__art :global(.call-band__line--glint) {
 		stroke-width: 4;
 		opacity: 0.55;
 	}
 
-	.call-band__art.is-waiting .call-band__line {
+	.call-band__art.is-waiting :global(.call-band__line) {
 		stroke-dashoffset: 1;
 	}
 
-	.call-band__art.is-drawn .call-band__line {
+	.call-band__art.is-drawn :global(.call-band__line) {
 		transition: stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1);
 	}
 
-	.call-band__art.is-drawn .call-band__line:nth-child(2) {
+	.call-band__art.is-drawn :global(.call-band__line:nth-child(2)) {
 		transition-delay: 0.15s;
 	}
 
-	.call-band__art.is-drawn .call-band__line:nth-child(3),
-	.call-band__art.is-drawn .call-band__line:nth-child(4) {
+	.call-band__art.is-drawn :global(.call-band__line:nth-child(3)),
+	.call-band__art.is-drawn :global(.call-band__line:nth-child(4)) {
 		transition-delay: 0.45s;
 	}
 
-	.call-band__art.is-drawn .call-band__line:nth-child(n + 5) {
+	.call-band__art.is-drawn :global(.call-band__line:nth-child(n + 5)) {
 		transition-delay: 0.75s;
 	}
 

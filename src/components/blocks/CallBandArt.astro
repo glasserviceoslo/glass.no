@@ -1,0 +1,118 @@
+---
+export type ArtKind = "window" | "steel" | "door" | "pane" | "shower" | "mirror" | "railing" | "partition" | "glasshouse" | "canopy" | "roof";
+
+interface Props {
+	kind: ArtKind;
+}
+
+const { kind } = Astro.props;
+---
+
+<svg viewBox="0 0 480 320">
+	{
+		kind === "steel" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="246" y="8" width="220" height="284" rx="4" />
+				<path class="call-band__line" pathLength="1" d="M258 292V20h94v272M360 292V20h94v272" />
+				<path class="call-band__line" pathLength="1" d="M305 20v272M407 20v272" />
+				<path class="call-band__line" pathLength="1" d="M258 88h94M258 156h94M258 224h94M360 88h94M360 156h94M360 224h94" />
+				<path class="call-band__line" pathLength="1" d="M342 172v26M370 172v26" />
+				<rect class="call-band__line" pathLength="1" x="226" y="292" width="260" height="12" rx="4" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M268 70l26-26M268 52l12-12" />
+			</>
+		) : kind === "door" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="274" y="8" width="178" height="284" rx="4" />
+				<rect class="call-band__line" pathLength="1" x="194" y="8" width="68" height="284" rx="4" />
+				<rect class="call-band__line" pathLength="1" x="288" y="22" width="150" height="270" rx="2" />
+				<path class="call-band__line" pathLength="1" d="M208 24h40v252h-40zM306 40h94v176h-94z" />
+				<path class="call-band__line" pathLength="1" d="M420 128v84" />
+				<rect class="call-band__line" pathLength="1" x="182" y="292" width="282" height="12" rx="4" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M320 100l30-30M320 76l14-14" />
+			</>
+		) : kind === "pane" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="196" y="64" width="200" height="220" rx="3" />
+				<path class="call-band__line" pathLength="1" d="M204 64v-8h200v220h-8" />
+				<path class="call-band__line" pathLength="1" d="M236 56V40h200v220h-32" />
+				<path class="call-band__line" pathLength="1" d="M276 40V16h190v220h-30" />
+				<path class="call-band__line" pathLength="1" d="M176 300h296" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M222 254l60-60M222 222l28-28" />
+			</>
+		) : kind === "shower" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="300" y="36" width="150" height="256" rx="3" />
+				<path class="call-band__line" pathLength="1" d="M176 292V76a22 22 0 0 1 22-22h20" />
+				<rect class="call-band__line" pathLength="1" x="216" y="48" width="56" height="12" rx="6" />
+				<path class="call-band__line" pathLength="1" d="M300 96h-14M300 232h-14" />
+				<path class="call-band__line" pathLength="1" d="M150 292h326" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M228 80v20M244 80v30M260 80v20" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M318 130l40-40M318 100l18-18" />
+			</>
+		) : kind === "mirror" ? (
+			<>
+				<ellipse class="call-band__line" pathLength="1" cx="370" cy="156" rx="94" ry="140" />
+				<ellipse class="call-band__line" pathLength="1" cx="370" cy="156" rx="80" ry="126" />
+				<circle class="call-band__line" pathLength="1" cx="214" cy="110" r="58" />
+				<circle class="call-band__line" pathLength="1" cx="214" cy="110" r="46" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M320 132l44-44M322 102l20-20M190 104l28-28" />
+			</>
+		) : kind === "railing" ? (
+			<>
+				<path class="call-band__line" pathLength="1" d="M138 100h334" />
+				<path class="call-band__line" pathLength="1" d="M150 112h100v148h-100zM262 112h100v148h-100zM374 112h88v148h-88z" />
+				<path class="call-band__line" pathLength="1" d="M176 260v20M224 260v20M288 260v20M336 260v20M396 260v20M440 260v20" />
+				<path class="call-band__line" pathLength="1" d="M126 292h350" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M166 240l40-40M166 212l20-20" />
+			</>
+		) : kind === "partition" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="146" y="16" width="320" height="276" rx="3" />
+				<path class="call-band__line" pathLength="1" d="M252 16v276M358 16v276" />
+				<path class="call-band__line" pathLength="1" d="M146 124h106M358 124h108" />
+				<path class="call-band__line" pathLength="1" d="M342 136v72" />
+				<path class="call-band__line" pathLength="1" d="M126 292h360" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M164 270l40-40M164 244l18-18" />
+			</>
+		) : kind === "glasshouse" ? (
+			<>
+				<path class="call-band__line" pathLength="1" d="M220 292V130l120-100 120 100v162z" />
+				<path class="call-band__line" pathLength="1" d="M280 292V80M340 292V30M400 292V80" />
+				<path class="call-band__line" pathLength="1" d="M220 190h240" />
+				<path class="call-band__line" pathLength="1" d="M328 232v24M352 232v24" />
+				<rect class="call-band__line" pathLength="1" x="206" y="292" width="268" height="12" rx="4" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M236 272l30-30M236 250l14-14" />
+			</>
+		) : kind === "canopy" ? (
+			<>
+				<rect class="call-band__line" pathLength="1" x="300" y="92" width="124" height="200" rx="3" />
+				<rect class="call-band__line" pathLength="1" x="250" y="58" width="224" height="12" rx="4" />
+				<path class="call-band__line" pathLength="1" d="M270 58l26-44M454 58l-26-44" />
+				<path class="call-band__line" pathLength="1" d="M318 110h88v104h-88z" />
+				<path class="call-band__line" pathLength="1" d="M406 236v26" />
+				<rect class="call-band__line" pathLength="1" x="276" y="292" width="172" height="12" rx="4" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M330 196l30-30M330 172l14-14" />
+			</>
+		) : kind === "roof" ? (
+			<>
+				<path class="call-band__line" pathLength="1" d="M176 170l60-108h180l60 108z" />
+				<path class="call-band__line" pathLength="1" d="M196 170v122h260V170" />
+				<path class="call-band__line" pathLength="1" d="M262 92h52v56h-52zM338 92h52v56h-52z" />
+				<path class="call-band__line" pathLength="1" d="M262 120h52M338 120h52" />
+				<path class="call-band__line" pathLength="1" d="M168 292h316" />
+				<circle class="call-band__line" pathLength="1" cx="112" cy="74" r="26" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M112 32V18M112 116v14M70 74H56M154 74h14M82 44l-10-10M142 104l10 10M142 44l10-10M82 104l-10 10" />
+			</>
+		) : (
+			<>
+				<rect class="call-band__line" pathLength="1" x="14" y="10" width="452" height="272" rx="5" />
+				<rect class="call-band__line" pathLength="1" x="30" y="26" width="420" height="240" rx="2" />
+				<path class="call-band__line" pathLength="1" d="M170 26v240M310 26v240" />
+				<path class="call-band__line" pathLength="1" d="M30 104h420" />
+				<path class="call-band__line" pathLength="1" d="M154 166v26M326 166v26" />
+				<rect class="call-band__line" pathLength="1" x="4" y="282" width="472" height="16" rx="4" />
+				<path class="call-band__line call-band__line--glint" pathLength="1" d="M52 244l40-40M52 220l20-20" />
+			</>
+		)
+	}
+</svg>
