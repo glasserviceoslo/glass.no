@@ -1,0 +1,59 @@
+---
+interface Props {
+	title: string;
+	index: number;
+}
+
+const { title, index } = Astro.props;
+const names = ["befaring", "kartlegging", "tilvirkning", "installasjon", "sluttkontroll"];
+const known = names.find((name) => title.toLowerCase().startsWith(name));
+const name = known ?? names[index % names.length];
+---
+
+<svg class="process-icon" viewBox="0 0 48 48" aria-hidden="true">
+	{
+		name === "befaring" ? (
+			<>
+				<path pathLength="1" d="M6 22 24 8l18 14" />
+				<path pathLength="1" d="M10 19v21h14" />
+				<circle pathLength="1" cx="32" cy="32" r="7" />
+				<path pathLength="1" d="m37 37 5 5" />
+			</>
+		) : name === "kartlegging" ? (
+			<>
+				<rect pathLength="1" x="6" y="16" width="36" height="16" rx="3" />
+				<path pathLength="1" d="M13 16v6M20 16v9M27 16v6M34 16v9" />
+				<path pathLength="1" d="M10 40h28M10 37v6M38 37v6" />
+			</>
+		) : name === "tilvirkning" ? (
+			<>
+				<rect pathLength="1" x="10" y="8" width="28" height="32" rx="2" />
+				<rect pathLength="1" x="16" y="14" width="16" height="20" rx="1" />
+				<path pathLength="1" d="M19 30l9-9M19 24l3-3" />
+			</>
+		) : name === "installasjon" ? (
+			<>
+				<path pathLength="1" d="M30 8a8 8 0 0 0-8 11L8 33a3.5 3.5 0 0 0 5 5l14-14a8 8 0 0 0 11-8l-5 5-5-1-1-5z" />
+				<path pathLength="1" d="M34 30v10M29 35h10" />
+			</>
+		) : (
+			<>
+				<path pathLength="1" d="M24 6 39 12v11c0 9-6.5 15.5-15 19-8.5-3.5-15-10-15-19V12z" />
+				<path pathLength="1" d="m17 24 5 5 9-10" />
+			</>
+		)
+	}
+</svg>
+
+<style>
+	.process-icon {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2.25;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		overflow: visible;
+	}
+</style>

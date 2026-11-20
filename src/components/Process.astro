@@ -1,0 +1,318 @@
+---
+import ProcessIcon from "./ProcessIcon.astro";
+import type { ProcessStep } from "../utils/process";
+
+interface Props {
+	steps: ProcessStep[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="process" data-process style={`--n: ${steps.length}`}>
+	<ol class="process__track">
+		{steps.map((step, index) => (
+			<li>
+				<button class="process__tab" type="button" aria-pressed={index === 0 ? "true" : "false"} aria-label={step.title}>
+					<span class="process__dot">
+						<ProcessIcon title={step.title} index={index} />
+					</span>
+					<span class="process__label">{step.title}</span>
+					<span class="process__timer" />
+				</button>
+			</li>
+		))}
+	</ol>
+	<div class="process__panels">
+		{steps.map((step, index) => (
+			<section class:list={["process__panel", { "is-active": index === 0 }]}>
+				<span class="process__icon">
+					<ProcessIcon title={step.title} index={index} />
+				</span>
+				<div>
+					<h3>{step.title}</h3>
+					<p>{step.text}</p>
+				</div>
+			</section>
+		))}
+	</div>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-process]").forEach((root) => {
+		const tabs = [...root.querySelectorAll<HTMLButtonElement>(".process__tab")];
+		const panels = [...root.querySelectorAll<HTMLElement>(".process__panel")];
+		let current = 0;
+		const show = (next: number) => {
+			current = next;
+			tabs.forEach((tab, index) => {
+				tab.setAttribute("aria-pressed", String(index === next));
+				tab.classList.toggle("is-done", index < next);
+			});
+			panels.forEach((panel, index) => {
+				panel.classList.toggle("is-active", index === next);
+				panel.toggleAttribute("inert", index !== next);
+			});
+		};
+		root.classList.add("is-ready");
+		show(0);
+		tabs.forEach((tab, index) =>
+			tab.addEventListener("click", () => {
+				root.classList.add("is-picked");
+				show(index);
+			}),
+		);
+		root.addEventListener("animationend", (event) => {
+			if ((event.target as Element).closest(".process__timer")) show((current + 1) % tabs.length);
+		});
+		if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			new IntersectionObserver(([entry]) => root.classList.toggle("is-playing", entry.isIntersecting), { threshold: 0.4 }).observe(root);
+		}
+	});
+</script>
+
+<style>
+	.process {
+		margin: 0;
+	}
+
+	.process :global(.process-icon :is(path, rect, circle)) {
+		stroke-dasharray: 1;
+		stroke-dashoffset: 0;
+	}
+
+	.process__track {
+		display: none;
+		position: relative;
+		grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr));
+		margin: 0 0 1.5rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.process.is-ready .process__track {
+		display: grid;
+	}
+
+	.process__track::before {
+		content: "";
+		position: absolute;
+		top: 24px;
+		right: 10%;
+		left: 10%;
+		height: 2px;
+		background: color-mix(in oklab, var(--p-ink) 12%, transparent);
+	}
+
+	.process__track li {
+		position: relative;
+		display: grid;
+		justify-items: center;
+	}
+
+	.process__tab {
+		display: grid;
+		justify-items: center;
+		gap: 0.5rem;
+		width: 100%;
+		padding: 0 0.25rem 0.5rem;
+		border: 0;
+		background: none;
+		color: var(--p-muted);
+		font: inherit;
+		font-size: var(--type-small);
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.process__tab:focus-visible {
+		outline: 2px solid var(--p-ink);
+		outline-offset: 2px;
+		border-radius: 12px;
+	}
+
+	.process__dot {
+		display: grid;
+		place-items: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: #ffffff;
+		color: var(--p-ink);
+		box-shadow: 0 0 0 1px color-mix(in oklab, var(--p-ink) 14%, transparent);
+		transition:
+			background-color 220ms ease,
+			color 220ms ease,
+			box-shadow 220ms ease,
+			scale 220ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.process__dot :global(.process-icon) {
+		width: 22px;
+		height: 22px;
+	}
+
+	.process__tab:hover .process__dot {
+		box-shadow: 0 0 0 1px var(--p-ink);
+	}
+
+	.process__tab.is-done .process__dot {
+		background: color-mix(in oklab, var(--p-action) 12%, #ffffff);
+		color: var(--p-action);
+		box-shadow: 0 0 0 1px color-mix(in oklab, var(--p-action) 30%, transparent);
+	}
+
+	.process__tab[aria-pressed="true"] {
+		color: var(--p-ink);
+	}
+
+	.process__tab[aria-pressed="true"] .process__dot {
+		background: var(--p-action);
+		color: #ffffff;
+		box-shadow: 0 10px 22px -10px rgb(217 54 54 / 0.7);
+		scale: 1.08;
+	}
+
+	.process__timer {
+		display: block;
+		width: 32px;
+		height: 3px;
+		border-radius: 2px;
+		background: color-mix(in oklab, var(--p-ink) 10%, transparent);
+		overflow: hidden;
+		visibility: hidden;
+	}
+
+	.process__timer::after {
+		content: "";
+		display: block;
+		height: 100%;
+		background: var(--p-action);
+		transform: scaleX(0);
+		transform-origin: left;
+	}
+
+	.process.is-playing:not(.is-picked) [aria-pressed="true"] .process__timer {
+		visibility: visible;
+	}
+
+	.process.is-playing:not(.is-picked) [aria-pressed="true"] .process__timer::after {
+		animation: process-timer 3s linear forwards;
+	}
+
+	.process:is(:hover, :focus-within) .process__timer::after {
+		animation-play-state: paused;
+	}
+
+	.process__panels {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.process.is-ready .process__panels {
+		padding: clamp(1.25rem, 3vw, 1.75rem);
+		border-radius: 24px;
+		background: #ffffff;
+		box-shadow:
+			0 1px 0 rgb(4 0 55 / 0.04),
+			0 24px 48px -32px rgb(4 0 55 / 0.4);
+	}
+
+	.process__panel {
+		display: grid;
+		grid-template-columns: 64px minmax(0, 1fr);
+		gap: 1.25rem;
+		align-items: start;
+	}
+
+	.process.is-ready .process__panel {
+		grid-area: 1 / 1;
+		visibility: hidden;
+		opacity: 0;
+		translate: 0 6px;
+		transition:
+			opacity 260ms ease,
+			translate 360ms cubic-bezier(0.16, 1, 0.3, 1),
+			visibility 0s 260ms;
+	}
+
+	.process.is-ready .process__panel.is-active {
+		visibility: visible;
+		opacity: 1;
+		translate: 0 0;
+		transition:
+			opacity 260ms ease 60ms,
+			translate 360ms cubic-bezier(0.16, 1, 0.3, 1) 60ms;
+	}
+
+	.process__icon {
+		display: grid;
+		place-items: center;
+		width: 64px;
+		height: 64px;
+		border-radius: 18px;
+		background: color-mix(in oklab, var(--p-action) 10%, #ffffff);
+		color: var(--p-action);
+	}
+
+	.process__icon :global(.process-icon) {
+		width: 32px;
+		height: 32px;
+	}
+
+	.process__panel.is-active .process__icon :global(.process-icon :is(path, rect, circle)) {
+		animation: process-draw 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+	}
+
+	.process__panel h3 {
+		margin: 0.2rem 0 0.35rem;
+		font-size: var(--type-h3);
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	.process__panel p {
+		margin: 0;
+		max-width: 46ch;
+		color: var(--p-muted);
+		font-size: var(--type-body);
+		line-height: 1.6;
+	}
+
+	@keyframes process-timer {
+		to {
+			transform: scaleX(1);
+		}
+	}
+
+	@keyframes process-draw {
+		from {
+			stroke-dashoffset: 1;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.process__label {
+			display: none;
+		}
+
+		.process__dot {
+			width: 44px;
+			height: 44px;
+		}
+
+		.process__track::before {
+			top: 22px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.process__timer {
+			display: none;
+		}
+
+		.process :global(.process-icon *) {
+			animation: none !important;
+		}
+	}
+</style>

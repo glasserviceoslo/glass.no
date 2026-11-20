@@ -1,7 +1,9 @@
 ---
 import ContactFormFields from "../ContactFormFields.astro";
 import Ask from "../MessageAsk.astro";
+import Process from "../Process.astro";
 import RichText from "../RichText.astro";
+import { splitProcess } from "../../utils/process";
 import type { Surface } from "./surface";
 
 interface Props {
@@ -11,14 +13,32 @@ interface Props {
 
 const { value, blockKey } = Astro.props;
 const inline = Astro.url.pathname.startsWith("/kontakt-oss");
+const { lead, steps, after } = splitProcess(value.aside);
 ---
 
 <section data-block={value._key} data-entry={value._entry} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container contact">
 		{
-			value.aside?.length ? (
+			value.aside?.length && !inline && steps.length ? (
 				<>
-					<RichText value={value.aside} class="contact__aside" />
+					<div class="contact__lead">
+						<RichText value={lead} />
+						<div class="contact__ask">
+							{value.heading && <h3 class="contact__ask-title" data-field="heading">{value.heading}</h3>}
+							{value.intro && <p class="contact__intro" data-field="intro">{value.intro}</p>}
+							<Ask />
+						</div>
+						<RichText value={after} class="contact__social" />
+					</div>
+					<Process steps={steps} />
+				</>
+			) : value.aside?.length ? (
+				<>
+					<div class="contact__aside">
+						<RichText value={lead} />
+						{steps.length > 0 && <Process steps={steps} />}
+						<RichText value={after} />
+					</div>
 					<div class="contact__form">
 						{value.heading && <h2 class="contact__title" data-field="heading">{value.heading}</h2>}
 						{value.intro && <p class="contact__intro" data-field="intro">{value.intro}</p>}
@@ -90,14 +110,61 @@ const inline = Astro.url.pathname.startsWith("/kontakt-oss");
 		justify-self: start;
 	}
 
-	.contact__aside + .contact__form:not(:has(form)) {
+	.contact:has(> .contact__lead) {
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: clamp(2.5rem, 6vw, 7rem);
+	}
+
+	.contact__lead {
 		position: sticky;
-		top: calc(var(--nav-h, 72px) + 1.5rem);
+		top: calc(var(--nav-h, 72px) + 2rem);
+		display: grid;
+		gap: 2rem;
+	}
+
+	.contact__ask {
+		display: grid;
+		gap: 1rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
+	}
+
+	.contact__ask-title {
+		margin: 0;
+		font-size: var(--type-title);
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	.contact:has(> .contact__lead) :global(.process) {
+		padding-top: clamp(0rem, 4vw, 5.5rem);
+	}
+
+	.contact__aside :global(.process) {
+		margin: 2rem 0 2.25rem;
 	}
 
 	@media (max-width: 860px) {
-		.contact {
+		.contact,
+		.contact:has(> .contact__lead) {
 			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.contact__lead {
+			display: contents;
+		}
+
+		.contact__ask {
+			order: 3;
+		}
+
+		.contact :global(.contact__social) {
+			order: 4;
+		}
+
+		.contact:has(> .contact__lead) :global(.process) {
+			order: 2;
+			padding-top: 0;
 		}
 	}
 </style>
