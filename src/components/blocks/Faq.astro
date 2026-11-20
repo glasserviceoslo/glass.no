@@ -2,7 +2,7 @@
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { label?: string; heading?: string; intro?: string; items?: { question: string; answer: string }[] };
+	value: Surface & { _key?: string; label?: string; heading?: string; intro?: string; items?: { question: string; answer: string }[] };
 }
 
 const { value } = Astro.props;
@@ -20,24 +20,26 @@ const jsonLd = {
 };
 ---
 
-<section class:list={["section", "faq-section", value.background && `surface--${value.background}`]} style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
+<section data-block={value._key} class:list={["section", "faq-section", value.background && `surface--${value.background}`]} style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
 	<div class="wrap">
 		<div class="grid grid--top">
 			<div class="span-5 section-head">
-				{value.label && <p class="t-label">{value.label}</p>}
-				{value.heading && <h2 id={headingId}>{value.heading}</h2>}
-				{value.intro && <p>{value.intro}</p>}
+				{value.label && <p class="t-label" data-field="label">{value.label}</p>}
+				{value.heading && <h2 id={headingId} data-field="heading">{value.heading}</h2>}
+				{value.intro && <p data-field="intro">{value.intro}</p>}
 			</div>
 			<div class="qa span-6 start-7">
 				{
-					items.map((item) => (
+					items.map((item, index) => (
 						<details class="qa__item">
 							<summary class="qa__question">
-								<h3>{item.question}</h3>
+								<h3 data-field={`items.${index}.question`}>{item.question}</h3>
 							</summary>
-							{paragraphs(item.answer).map((paragraph) => (
-								<p class="qa__answer">{paragraph}</p>
-							))}
+							<div class="qa__answers" data-field={`items.${index}.answer`} data-multiline>
+								{paragraphs(item.answer).map((paragraph) => (
+									<p class="qa__answer">{paragraph}</p>
+								))}
+							</div>
 						</details>
 					))
 				}

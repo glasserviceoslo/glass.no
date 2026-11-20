@@ -4,30 +4,30 @@ import RichText from "../RichText.astro";
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { heading?: string; intro?: string; aside?: unknown[] };
+	value: Surface & { _key?: string; heading?: string; intro?: string; aside?: unknown[] };
 	blockKey?: string;
 }
 
 const { value, blockKey } = Astro.props;
 ---
 
-<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container contact">
 		{
 			value.aside?.length ? (
 				<>
 					<RichText value={value.aside} class="contact__aside" />
 					<div class="contact__form">
-						{value.heading && <h2 class="contact__title">{value.heading}</h2>}
-						{value.intro && <p class="contact__intro">{value.intro}</p>}
+						{value.heading && <h2 class="contact__title" data-field="heading">{value.heading}</h2>}
+						{value.intro && <p class="contact__intro" data-field="intro">{value.intro}</p>}
 						<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />
 					</div>
 				</>
 			) : (
 				<>
 					<div>
-						{value.heading && <h2>{value.heading}</h2>}
-						{value.intro && <p class="contact__intro">{value.intro}</p>}
+						{value.heading && <h2 data-field="heading">{value.heading}</h2>}
+						{value.intro && <p class="contact__intro" data-field="intro">{value.intro}</p>}
 					</div>
 					<div class="contact__form">
 						<ContactFormFields id={`skjema-${blockKey ?? "kontakt"}`} />

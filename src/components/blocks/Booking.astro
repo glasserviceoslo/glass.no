@@ -3,7 +3,7 @@ import { CAL_CONFIG, CAL_LINK, CAL_ORIGIN } from "../../utils/booking";
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { heading?: string; intro?: string; cal_link?: string };
+	value: Surface & { _key?: string; heading?: string; intro?: string; cal_link?: string };
 	blockKey?: string;
 	index?: number;
 }
@@ -15,10 +15,10 @@ const namespace = calLink.replace(/[^a-z0-9]/gi, "_");
 const elementId = `cal-${blockKey ?? namespace}`;
 ---
 
-<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container booking">
-		{value.heading && <Heading class="booking__heading">{value.heading}</Heading>}
-		{value.intro && <p class="booking__intro">{value.intro}</p>}
+		{value.heading && <Heading class="booking__heading" data-field="heading">{value.heading}</Heading>}
+		{value.intro && <p class="booking__intro" data-field="intro">{value.intro}</p>}
 		<div id={elementId} class="booking__calendar"></div>
 		<noscript>
 			<p><a class="btn btn--large" href={`https://cal.com/${calLink}`}>Book befaring på cal.com</a></p>

@@ -3,7 +3,7 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: {
+	value: { _key?: string;
 		background?: "white" | "light" | "tint" | "dark" | "brand";
 		label?: string;
 		heading: string;
@@ -24,13 +24,13 @@ const facts = (value.facts ?? "")
 const items = value.items ?? [];
 ---
 
-<section class:list={["section", "features", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+<section data-block={value._key} class:list={["section", "features", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
 	<div class="wrap">
 		<div class="features__grid">
 			<div>
-				{value.label && <p class="features__label">{value.label}</p>}
-				<h2 id="hvorfor-oss-h">{value.heading}</h2>
-				{value.intro && <p class="features__intro">{value.intro}</p>}
+				{value.label && <p class="features__label" data-field="label">{value.label}</p>}
+				<h2 id="hvorfor-oss-h" data-field="heading">{value.heading}</h2>
+				{value.intro && <p class="features__intro" data-field="intro">{value.intro}</p>}
 				{
 					bullets.length > 0 && (
 						<ul class="features__checks">
@@ -72,11 +72,11 @@ const items = value.items ?? [];
 		{
 			items.length > 0 && (
 				<div class="grid features__cards">
-					{items.map((item) => (
+					{items.map((item, index) => (
 						<article class="card span-4 m-nolift">
 							{item.icon && <Image image={item.icon} alt="" class="features__icon" width={56} height={56} />}
-							<h3>{item.title}</h3>
-							{item.text && <p>{item.text}</p>}
+							<h3 data-field={`items.${index}.title`}>{item.title}</h3>
+							{item.text && <p data-field={`items.${index}.text`}>{item.text}</p>}
 						</article>
 					))}
 				</div>

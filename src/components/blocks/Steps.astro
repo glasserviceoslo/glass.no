@@ -5,7 +5,7 @@ import type { ImageValue } from "./surface";
 type Step = { title: string; text?: string; image?: ImageValue };
 
 interface Props {
-	value: { heading: string; items?: Step[] };
+	value: { _key?: string; heading: string; items?: Step[] };
 }
 
 const { value } = Astro.props;
@@ -13,22 +13,22 @@ const items = (value.items ?? []).slice(0, 4);
 const span = items.length === 4 ? "span-3" : items.length === 3 ? "span-4" : "span-6";
 ---
 
-<section class="section" id="slik-jobber-vi" aria-labelledby="slik-jobber-vi-h">
+<section data-block={value._key} class="section" id="slik-jobber-vi" aria-labelledby="slik-jobber-vi-h">
 	<div class="wrap">
 		<div class="section-head">
-			<h2 id="slik-jobber-vi-h">{value.heading}</h2>
+			<h2 id="slik-jobber-vi-h" data-field="heading">{value.heading}</h2>
 		</div>
 		<ol class="grid steps">
 			{
-				items.map((item) => (
+				items.map((item, index) => (
 					<li class:list={["card card--open", span]}>
 						{item.image && (
 							<div class="panel steps__photo">
 								<Image image={item.image} alt={item.image.alt ?? ""} class="frame__img" sizes="(max-width: 639px) 700px, 420px" />
 							</div>
 						)}
-						<h3>{item.title}</h3>
-						{item.text && <p>{item.text}</p>}
+						<h3 data-field={`items.${index}.title`}>{item.title}</h3>
+						{item.text && <p data-field={`items.${index}.text`}>{item.text}</p>}
 					</li>
 				))
 			}

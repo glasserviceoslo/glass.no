@@ -1,0 +1,127 @@
+<script>
+	type Entry = { collection: string; id: string };
+	type Layout = { _key?: string; [field: string]: unknown }[];
+
+	const toolbar = document.getElementById("emdash-toolbar");
+
+	const contentUrl = ({ collection, id }: Entry) => `/_emdash/api/content/${encodeURIComponent(collection)}/${encodeURIComponent(id)}`;
+	const announce = (name: string, detail: unknown) => document.dispatchEvent(new CustomEvent(name, { detail }));
+
+	const setPath = (target: Record<string, unknown>, path: string[], value: string): boolean => {
+		const [head, ...rest] = path;
+		const key = Array.isArray(target) ? Number(head) : head;
+		if (!rest.length) {
+			if (typeof (target as Record<string, unknown>)[key as string] !== "string") return false;
+			(target as Record<string, unknown>)[key as string] = value;
+			return true;
+		}
+		const next = (target as Record<string, unknown>)[key as string];
+		return typeof next === "object" && next !== null && setPath(next as Record<string, unknown>, rest, value);
+	};
+
+	const save = async (entry: Entry, blockKey: string, field: string, value: string) => {
+		const headers = { "X-EmDash-Request": "1", "Content-Type": "application/json" };
+		const response = await fetch(contentUrl(entry), { credentials: "same-origin", headers });
+		if (!response.ok) throw new Error(`load ${response.status}`);
+		const body = (await response.json()) as { data?: { item?: { data?: { layout?: Layout } } } };
+		const layout = body.data?.item?.data?.layout ?? [];
+		const block = layout.find((candidate) => candidate._key === blockKey);
+		if (!block || !setPath(block, field.split("."), value)) throw new Error(`no field ${field}`);
+		const saved = await fetch(contentUrl(entry), { method: "PUT", credentials: "same-origin", headers, body: JSON.stringify({ data: { layout } }) });
+		if (!saved.ok) throw new Error(`save ${saved.status}`);
+	};
+
+	const readText = (element: HTMLElement, multiline: boolean) =>
+		multiline
+			? [...element.children].length
+				? [...element.children].map((child) => (child as HTMLElement).innerText.trim()).filter(Boolean).join("\n\n")
+				: element.innerText.trim()
+			: (element.textContent ?? "").replace(/\s+/g, " ").trim();
+
+	const edit = (element: HTMLElement, entry: Entry, blockKey: string) => {
+		if (element.isContentEditable) return;
+		const field = element.dataset.field!;
+		const multiline = element.hasAttribute("data-multiline");
+		const original = readText(element, multiline);
+		const originalHtml = element.innerHTML;
+
+		element.setAttribute("data-emdash-editing", "");
+		element.contentEditable = "plaintext-only";
+		element.focus();
+
+		const finish = (keep: boolean) => {
+			element.removeEventListener("blur", onBlur);
+			element.removeEventListener("keydown", onKeydown);
+			element.contentEditable = "false";
+			element.removeAttribute("data-emdash-editing");
+			const value = readText(element, multiline);
+			if (!keep || !value || value === original) {
+				element.innerHTML = originalHtml;
+				announce("emdash:save", { state: "idle" });
+				return;
+			}
+			announce("emdash:save", { state: "saving" });
+			const done = save(entry, blockKey, field, value)
+				.then(() => {
+					announce("emdash:save", { state: "saved" });
+					announce("emdash:content-changed", entry);
+					return true;
+				})
+				.catch((error) => {
+					console.error("Block edit failed", error);
+					element.innerHTML = originalHtml;
+					announce("emdash:save", { state: "error" });
+					return false;
+				});
+			announce("emdash:save-pending", { done });
+		};
+		const onBlur = () => finish(true);
+		const onKeydown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				event.preventDefault();
+				element.removeEventListener("blur", onBlur);
+				finish(false);
+				element.blur();
+			} else if (event.key === "Enter" && !event.shiftKey && !multiline) {
+				event.preventDefault();
+				element.blur();
+			} else if (!["Shift", "Meta", "Control", "Alt"].includes(event.key)) {
+				announce("emdash:save", { state: "unsaved" });
+			}
+		};
+		element.addEventListener("blur", onBlur);
+		element.addEventListener("keydown", onKeydown);
+	};
+
+	if (toolbar?.getAttribute("data-edit-mode") === "true") {
+		document.documentElement.classList.add("block-editing");
+		document.addEventListener(
+			"click",
+			(event) => {
+				const element = (event.target as HTMLElement).closest<HTMLElement>("[data-field]");
+				const block = element?.closest<HTMLElement>("[data-block]");
+				const main = element?.closest<HTMLElement>("[data-entry]");
+				if (!element || !block?.dataset.block || !main?.dataset.entry) return;
+				event.preventDefault();
+				event.stopPropagation();
+				edit(element, JSON.parse(main.dataset.entry) as Entry, block.dataset.block);
+			},
+			true,
+		);
+	}
+</script>
+
+<style is:global>
+	.block-editing [data-block] [data-field] {
+		border-radius: 4px;
+		cursor: text;
+		transition:
+			box-shadow 0.15s,
+			background-color 0.15s;
+	}
+
+	.block-editing [data-block] [data-field]:hover {
+		background-color: rgb(59 130 246 / 0.05);
+		box-shadow: 0 0 0 2px rgb(59 130 246 / 0.5);
+	}
+</style>

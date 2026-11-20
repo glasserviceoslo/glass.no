@@ -2,6 +2,7 @@
 import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import BlockEditing from "../components/BlockEditing.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import CookieConsent from "../components/CookieConsent.astro";
 import Header from "../components/Header.astro";
@@ -80,7 +81,7 @@ const page = createPublicPageContext({
 	<body>
 		<EmDashBodyStart page={page} />
 		<Header items={items} logo={siteLogo} siteTitle={siteTitle} />
-		<main id="top">
+		<main id="top" data-entry={content ? JSON.stringify({ collection: content.collection, id: content.id }) : undefined}>
 			<slot />
 		</main>
 		<footer class="site-footer" id="contact">
@@ -119,6 +120,7 @@ const page = createPublicPageContext({
 			</div>
 		</footer>
 		<BookingPopup />
+		<BlockEditing />
 		<CookieConsent logo={siteLogo} siteTitle={siteTitle} />
 		<EmDashBodyEnd page={page} />
 		<script is:inline type="module" src="/assets/system.js"></script>

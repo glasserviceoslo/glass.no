@@ -6,7 +6,7 @@ import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: {
+	value: { _key?: string;
 		kicker?: string;
 		heading: string;
 		lead?: string;
@@ -26,12 +26,12 @@ const primaryUrl = safeHref(value.primary_url);
 const secondaryUrl = safeHref(value.secondary_url);
 ---
 
-<section class:list={["hero", "home-hero", { "home-hero--campaign": value.campaign }]} data-enter aria-labelledby="hero-h">
+<section data-block={value._key} class:list={["hero", "home-hero", { "home-hero--campaign": value.campaign }]} data-enter aria-labelledby="hero-h">
 	<div class="wrap">
 		<div class="home-hero__grid">
 			<div class="home-hero__text">
-				<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
-				{value.lead && <p class="home-hero__lead">{value.lead}</p>}
+				<h1 id="hero-h" data-enter-whole data-field="heading">{value.heading}</h1>
+				{value.lead && <p class="home-hero__lead" data-field="lead">{value.lead}</p>}
 				<div class="btn-row">
 					{value.primary_label && primaryUrl && (
 						<a class="btn btn--primary" href={primaryUrl}>
@@ -50,7 +50,7 @@ const secondaryUrl = safeHref(value.secondary_url);
 						{value.kicker && (
 							<div>
 								<dt>Glass.no</dt>
-								<dd>{value.kicker}</dd>
+								<dd data-field="kicker">{value.kicker}</dd>
 							</div>
 						)}
 						{value.float_label && (

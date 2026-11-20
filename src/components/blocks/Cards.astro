@@ -7,7 +7,7 @@ import type { ImageValue, Surface } from "./surface";
 type Card = { image?: ImageValue; title?: string; text?: string; url?: string; link_label?: string };
 
 interface Props {
-	value: Surface & { heading?: string; columns?: string; style?: "image" | "icon"; items?: Card[] };
+	value: Surface & { _key?: string; heading?: string; columns?: string; style?: "image" | "icon"; items?: Card[] };
 }
 
 const { value } = Astro.props;
@@ -21,17 +21,17 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 ---
 
 {isCatalogue ? (
-<section class:list={["block", "catalogue", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} class:list={["block", "catalogue", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
-		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
+		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<ul class="catalogue__list" style={`--per-row: ${Math.min(perRow, 6)}`}>
-			{items.map((card) => (
+			{items.map((card, index) => (
 				<li>
 					<a class="catalogue__item" href={card.url}>
 						<span class="catalogue__media">
 							<Image image={card.image!} alt="" sizes="(max-width: 560px) 50vw, (max-width: 1023px) 33vw, 240px" />
 						</span>
-						<span class="catalogue__title">{card.title}</span>
+						<span class="catalogue__title" data-field={`items.${index}.title`}>{card.title}</span>
 						{card.link_label && (
 							<span class="catalogue__more">
 								{card.link_label}
@@ -45,11 +45,11 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	</div>
 </section>
 ) : isContact ? (
-<section class:list={["block", "contact-strip", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} class:list={["block", "contact-strip", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
-		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
+		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<dl class="contact-strip__list">
-			{items.map((card) => {
+			{items.map((card, index) => {
 				const kind = contactKind(card.text ?? "");
 				const href = contactHref(card.text ?? "");
 				return (
@@ -63,8 +63,8 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 								<svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" /><circle cx="12" cy="10" r="2.4" /></svg>
 							)}
 						</span>
-						<dt>{card.title}</dt>
-						<dd>{href ? <a href={href}>{card.text}</a> : card.text}</dd>
+						<dt data-field={`items.${index}.title`}>{card.title}</dt>
+						<dd>{href ? <a href={href} data-field={`items.${index}.text`}>{card.text}</a> : card.text}</dd>
 					</div>
 				);
 			})}
@@ -72,12 +72,12 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	</div>
 </section>
 ) : (
-<section class:list={["block", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
-		{value.heading && <h2 class="block__heading">{value.heading}</h2>}
+		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<div class:list={["cards", `cards--${style}`]} style={`--per-row: ${columns}`}>
 			{
-				items.map((card) => (
+				items.map((card, index) => (
 					<article class:list={["card", { "m-nolift": !card.url }]}>
 						{card.image && (
 							<a href={card.url || undefined} class:list={["card__media", { "card__media--photo": style === "image" && !/png|svg/.test(card.image.mimeType ?? card.image.src ?? "") }]} tabindex="-1" aria-hidden="true">
@@ -86,7 +86,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 						)}
 						<div class="card__body">
 							{card.title && (
-								<h3 class="card__title">{card.url && !card.link_label ? <a href={card.url}>{card.title}</a> : card.title}</h3>
+								<h3 class="card__title">{card.url && !card.link_label ? <a href={card.url} data-field={`items.${index}.title`}>{card.title}</a> : card.title}</h3>
 							)}
 							{paragraphs(card.text).map((paragraph) => (
 								<p class="card__text">{paragraph}</p>

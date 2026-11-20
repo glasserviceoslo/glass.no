@@ -4,18 +4,18 @@ import RichText from "../RichText.astro";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { title: string; heading?: string; body?: unknown[]; image?: ImageValue };
+	value: { _key?: string; title: string; heading?: string; body?: unknown[]; image?: ImageValue };
 }
 
 const { value } = Astro.props;
 const cutout = /png|svg/.test(value.image?.mimeType ?? value.image?.src ?? "");
 ---
 
-<section class:list={["page-hero", "surface--light", { "page-hero--text": !value.image }]} aria-labelledby="page-hero-h">
+<section data-block={value._key} class:list={["page-hero", "surface--light", { "page-hero--text": !value.image }]} aria-labelledby="page-hero-h">
 	<div class="container page-hero__grid">
 		<div class="page-hero__text">
-			<h1 id="page-hero-h" class="page-hero__title">{value.title}</h1>
-			{value.heading && <h2 class="page-hero__heading">{value.heading}</h2>}
+			<h1 id="page-hero-h" class="page-hero__title" data-field="title">{value.title}</h1>
+			{value.heading && <h2 class="page-hero__heading" data-field="heading">{value.heading}</h2>}
 			<RichText value={value.body} class="page-hero__body" />
 		</div>
 		{
