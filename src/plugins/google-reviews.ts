@@ -9,7 +9,7 @@ const STARS: Record<string, number> = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE:
 type ServiceAccount = { client_email: string; private_key: string; token_uri: string };
 type GoogleReview = {
 	reviewId: string;
-	reviewer?: { displayName?: string; isAnonymous?: boolean };
+	reviewer?: { displayName?: string; isAnonymous?: boolean; profilePhotoUrl?: string };
 	starRating?: string;
 	comment?: string;
 	createTime: string;
@@ -96,19 +96,40 @@ async function publish(ctx: PluginContext, id: string) {
 	if (current) await ctx.content!.publish!(COLLECTION, id, { _rev: current._rev });
 }
 
+type Photo = { photo: string; photo_id: string; photo_source: string };
+
+async function storePhoto(ctx: PluginContext, review: GoogleReview, existing?: PluginContentItem): Promise<Photo> {
+	const source = review.reviewer?.isAnonymous ? "" : (review.reviewer?.profilePhotoUrl ?? "");
+	const kept = { photo: String(existing?.data.photo ?? ""), photo_id: String(existing?.data.photo_id ?? ""), photo_source: String(existing?.data.photo_source ?? "") };
+	if (source === kept.photo_source) return kept;
+	if (kept.photo_id) await ctx.media!.delete(kept.photo_id);
+	if (!source) return { photo: "", photo_id: "", photo_source: "" };
+	try {
+		const response = await fetch(source);
+		const type = response.headers.get("content-type") ?? "";
+		if (!response.ok || !type.startsWith("image/")) return { photo: "", photo_id: "", photo_source: source };
+		const extension = type.includes("png") ? "png" : type.includes("webp") ? "webp" : "jpg";
+		const uploaded = await ctx.media!.upload(`google-review-${review.reviewId}.${extension}`, type, await response.arrayBuffer());
+		return { photo: uploaded.url, photo_id: uploaded.mediaId, photo_source: source };
+	} catch {
+		return { photo: "", photo_id: "", photo_source: source };
+	}
+}
+
 export async function importReviews(ctx: PluginContext, reviews: GoogleReview[]) {
 	const stored = await storedReviews(ctx);
 	let added = 0;
 	let changed = 0;
 	for (const review of reviews.filter((entry) => STARS[entry.starRating ?? ""])) {
-		const data = reviewData(review);
 		const existing = stored.get(review.reviewId);
 		stored.delete(review.reviewId);
+		const photo = await storePhoto(ctx, review, existing);
+		const data = { ...reviewData(review), ...photo };
 		if (!existing) {
 			const created = await ctx.content!.create!(COLLECTION, data);
 			await publish(ctx, created.id);
 			added++;
-		} else if (existing.data.google_updated_at !== data.google_updated_at) {
+		} else if (existing.data.google_updated_at !== data.google_updated_at || existing.data.photo_source !== data.photo_source) {
 			await ctx.content!.update!(COLLECTION, existing.id, data);
 			if (existing.status === "published") await publish(ctx, existing.id);
 			changed++;
@@ -116,6 +137,7 @@ export async function importReviews(ctx: PluginContext, reviews: GoogleReview[])
 	}
 	let removed = 0;
 	for (const item of stored.values()) {
+		if (item.data.photo_id) await ctx.media!.delete(String(item.data.photo_id));
 		await ctx.content!.delete!(COLLECTION, item.id);
 		removed++;
 	}
@@ -145,7 +167,7 @@ export function createPlugin() {
 	return definePlugin({
 		id: "google-reviews",
 		version: "1.0.0",
-		capabilities: ["content:read", "content:write", "content:publish"],
+		capabilities: ["content:read", "content:write", "content:publish", "media:write"],
 		hooks: {
 			"plugin:activate": async (_event, ctx) => {
 				await ctx.cron!.schedule("sync", { schedule: "15 3 * * *" });

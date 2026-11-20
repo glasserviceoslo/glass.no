@@ -34,6 +34,9 @@ export const googleReviewFields = [
 	{ slug: "reviewed_at", label: "Skrevet", type: "datetime", required: true },
 	{ slug: "google_updated_at", label: "Sist endret hos Google", type: "datetime" },
 	{ slug: "google_id", label: "Google-ID", type: "string", required: true },
+	{ slug: "photo", label: "Bilde", type: "string" },
+	{ slug: "photo_id", label: "Bilde-ID", type: "string" },
+	{ slug: "photo_source", label: "Bilde hos Google", type: "string" },
 ];
 
 const backgroundFields = [
