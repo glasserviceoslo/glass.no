@@ -1,6 +1,5 @@
 ---
 import { getEmDashCollection } from "emdash";
-import { Image } from "emdash/ui";
 
 interface Props {
 	title?: string;
@@ -11,130 +10,306 @@ const { title } = Astro.props;
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", { status: "published", orderBy: { published_at: "desc" }, limit: 60 });
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-type Node = { _type?: string; style?: string; listItem?: string; asset?: { url?: string }; children?: { text?: string }[] };
-const cards = posts.map((post) => {
-	const content = (post.data.content ?? []) as Node[];
-	const firstImage = content.find((node) => node._type === "image" && node.asset?.url)?.asset?.url;
-	const firstParagraph = content
+type Node = { _type?: string; style?: string; listItem?: string; children?: { text?: string }[] };
+const excerptOf = (post: (typeof posts)[number]) =>
+	post.data.excerpt ||
+	((post.data.content ?? []) as Node[])
 		.filter((node) => node._type === "block" && (node.style ?? "normal") === "normal" && !node.listItem)
 		.map((node) => (node.children ?? []).map((child) => child.text ?? "").join("").trim())
 		.find((text) => text.length > 60);
-	return { post, image: post.data.featured_image ?? firstImage, excerpt: post.data.excerpt || firstParagraph };
-});
+
+const monthOf = (date?: Date | string | null) => (date ? new Date(date).toLocaleDateString("nb-NO", { month: "long", year: "numeric" }) : "");
+const groups = posts.reduce<{ month: string; posts: { post: (typeof posts)[number]; excerpt?: string }[] }[]>((list, post) => {
+	const month = monthOf(post.data.publishedAt);
+	const group = list.at(-1)?.month === month ? list.at(-1)! : (list.push({ month, posts: [] }), list.at(-1)!);
+	group.posts.push({ post, excerpt: excerptOf(post) });
+	return list;
+}, []);
 ---
 
-<section class="block surface--light">
-	<div class="container">
-		{title && <h1 class="block__heading">{title}</h1>}
-		<div class="posts">
-			{
-				cards.map(({ post, image, excerpt }) => (
-					<a href={`/${post.id}/`} class="post-card">
-						{image && (
-							<span class="post-card__media">
-								<Image image={image} sizes="(max-width: 720px) 100vw, 400px" />
-							</span>
-						)}
-						<span class="post-card__body">
-							<span class="post-card__title">{post.data.title}</span>
-							{post.data.publishedAt && (
-								<time class="post-card__date" datetime={new Date(post.data.publishedAt).toISOString()}>
-									{new Date(post.data.publishedAt).toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" })}
-								</time>
-							)}
-							{excerpt && <span class="post-card__excerpt">{excerpt}</span>}
-							<span class="post-card__more">Les mer</span>
-						</span>
-					</a>
-				))
-			}
+<section class="blog" aria-labelledby="blog-h">
+	<div class="wrap">
+		<div class="blog__head">
+			{title && <h1 id="blog-h">{title}</h1>}
+			<label class="blog__search" hidden>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+				<input type="search" placeholder="Søk" aria-label="Søk i bloggen" autocomplete="off" />
+			</label>
 		</div>
+		{
+			groups.map((group) => (
+				<div class="blog__group">
+					<h2 class="blog__month">{group.month}</h2>
+					<ul class="blog__list">
+						{group.posts.map(({ post, excerpt }) => (
+							<li data-search={`${post.data.title} ${excerpt ?? ""}`.toLowerCase()}>
+								<a class="blog__post" href={`/${post.id}/`}>
+									<span class="blog__text">
+										<span class="blog__title">{post.data.title}</span>
+										{excerpt && <span class="blog__excerpt">{excerpt}</span>}
+									</span>
+									<svg class="blog__arrow" viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M5 12h14M13 6l6 6-6 6" />
+									</svg>
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+		<p class="blog__empty" role="status" hidden>Ingen treff</p>
 	</div>
 </section>
 
+<script>
+	const field = document.querySelector<HTMLLabelElement>(".blog__search");
+	const input = field?.querySelector("input");
+	const empty = document.querySelector<HTMLElement>(".blog__empty");
+	if (field && input && empty) {
+		field.hidden = false;
+		const groups = [...document.querySelectorAll<HTMLElement>(".blog__group")];
+		input.addEventListener("input", () => {
+			const words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			let shown = 0;
+			groups.forEach((group) => {
+				let visible = 0;
+				group.querySelectorAll<HTMLElement>("li[data-search]").forEach((item) => {
+					const match = words.every((word) => item.dataset.search!.includes(word));
+					item.hidden = !match;
+					if (match) visible++;
+				});
+				group.hidden = visible === 0;
+				shown += visible;
+			});
+			empty.hidden = shown > 0;
+		});
+	}
+</script>
+
 <style>
-	.posts {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-		gap: 2rem;
+	.blog {
+		padding: calc(var(--nav, 72px) + clamp(2.5rem, 5vw, 4.5rem)) 0 clamp(4rem, 8vw, 7rem);
+		background: #ffffff;
+		color: var(--p-ink);
 	}
 
-	.post-card {
+	.blog__head {
 		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-		border-radius: var(--radius);
-		background: var(--white);
-		box-shadow: var(--shadow);
+		flex-wrap: wrap;
+		align-items: end;
+		justify-content: space-between;
+		gap: 1.5rem 2rem;
+		margin-bottom: clamp(2rem, 4vw, 3.5rem);
+	}
+
+	.blog__search {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		width: min(100%, 22rem);
+		height: 48px;
+		padding: 0 1.1rem;
+		border: 1px solid color-mix(in oklab, var(--p-ink) 14%, transparent);
+		border-radius: 999px;
+		background: #ffffff;
+		color: var(--p-muted);
+		cursor: text;
+		transition:
+			border-color 150ms,
+			box-shadow 150ms;
+	}
+
+	.blog__search[hidden] {
+		display: none;
+	}
+
+	.blog__search:focus-within {
+		border-color: var(--p-ink);
+		box-shadow: 0 0 0 4px color-mix(in oklab, var(--p-accent) 18%, transparent);
+	}
+
+	.blog__search svg {
+		flex: none;
+		width: 20px;
+		height: 20px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+	}
+
+	.blog__search input {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+		border: 0;
+		background: none;
+		color: var(--p-ink);
+		font: 400 1rem/1 var(--font-text);
+		outline: none;
+	}
+
+	.blog__group[hidden],
+	.blog__list li[hidden] {
+		display: none;
+	}
+
+	.blog__empty {
+		margin: 0;
+		padding: 1.5rem 0;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 14%, transparent);
+		color: var(--p-muted);
+		font-size: 1.05rem;
+	}
+
+	.blog h1 {
+		margin: 0;
+		font-size: clamp(2.75rem, 6vw, 5rem);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.blog__group {
+		display: grid;
+		grid-template-columns: 13rem minmax(0, 1fr);
+		gap: 2rem;
+		align-items: start;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 14%, transparent);
+	}
+
+	.blog__month {
+		position: sticky;
+		top: calc(var(--nav, 72px) + 1.5rem);
+		margin: 0;
+		padding-top: 1.35rem;
+		color: var(--p-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		letter-spacing: 0;
+	}
+
+	.blog__month::first-letter {
+		text-transform: uppercase;
+	}
+
+	.blog__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.blog__list li + li {
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 8%, transparent);
+	}
+
+	.blog__post {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 2rem;
+		align-items: center;
+		padding: 1.25rem 0;
 		color: inherit;
 		text-decoration: none;
 	}
 
-	.post-card__media {
-		position: relative;
-		display: block;
-		overflow: hidden;
-		aspect-ratio: 16 / 10;
-		background: var(--paper);
+	.blog__text {
+		display: grid;
+		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+		gap: 0.4rem 3rem;
+		align-items: baseline;
 	}
 
-	.post-card__media :global(img) {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		max-width: none;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.post-card__body {
-		display: flex;
-		flex: 1;
-		flex-direction: column;
-		gap: 0.6rem;
-		padding: 1.25rem 1.5rem 1.5rem;
-	}
-
-	.post-card__title {
-		display: block;
-		color: var(--flow-ink);
-		font-family: var(--font-display), serif;
-		font-size: 1.35rem;
+	.blog__title {
+		font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+		font-weight: 500;
 		line-height: 1.25;
+		letter-spacing: -0.015em;
+		text-wrap: balance;
+		transition: color 150ms;
 	}
 
-	.post-card__title::first-letter {
+	.blog__title::first-letter {
 		text-transform: uppercase;
 	}
 
-	.post-card__date {
-		margin-top: -0.25rem;
-		color: var(--flow-muted);
-		font-size: 0.875rem;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.post-card__excerpt {
-		color: var(--flow-muted);
+	.blog__excerpt {
 		display: -webkit-box;
 		overflow: hidden;
+		max-width: 62ch;
+		color: var(--p-muted);
+		font-size: 0.975rem;
+		line-height: 1.55;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-		font-size: 0.95rem;
+		-webkit-line-clamp: 2;
 	}
 
-	.post-card__more {
-		margin-top: auto;
-		font-weight: 500;
-		text-decoration: underline;
-		text-decoration-color: var(--p-action);
-		text-decoration-thickness: 2px;
-		text-underline-offset: 0.2em;
+	.blog__arrow {
+		width: 22px;
+		height: 22px;
+		fill: none;
+		stroke: var(--p-accent);
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		opacity: 0;
+		translate: -8px 0;
+		transition:
+			opacity 200ms,
+			translate 300ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	.post-card:hover .post-card__title {
-		text-decoration: underline;
-		text-decoration-color: var(--p-action);
-		text-underline-offset: 0.15em;
+	.blog__post:hover .blog__title,
+	.blog__post:focus-visible .blog__title {
+		color: var(--p-accent);
+	}
+
+	.blog__post:hover .blog__arrow,
+	.blog__post:focus-visible .blog__arrow {
+		opacity: 1;
+		translate: 0 0;
+	}
+
+	@media (max-width: 1023px) {
+		.blog__group {
+			grid-template-columns: 9rem minmax(0, 1fr);
+		}
+
+		.blog__text {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	@media (max-width: 760px) {
+		.blog__group {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 0;
+		}
+
+		.blog__month {
+			position: static;
+			padding-top: 1.25rem;
+		}
+
+		.blog__post {
+			grid-template-columns: minmax(0, 1fr);
+			padding: 1rem 0;
+		}
+
+		.blog__text {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.blog__arrow {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.blog__arrow {
+			translate: 0 0;
+			transition: opacity 200ms;
+		}
 	}
 </style>
