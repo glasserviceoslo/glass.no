@@ -5,7 +5,7 @@ import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { _key?: string;
+	value: { _key?: string; _entry?: string;
 		label?: string;
 		figure?: string;
 		heading: string;
@@ -21,7 +21,7 @@ const { value } = Astro.props;
 const ctaUrl = safeHref(value.cta_url);
 ---
 
-<section data-block={value._key} class="section campaign" id="kampanje" aria-labelledby="kampanje-h">
+<section data-block={value._key} data-entry={value._entry} class="section campaign" id="kampanje" aria-labelledby="kampanje-h">
 	<div class="wrap">
 		<div class:list={["campaign__grid", { "campaign__grid--text": !value.image }]}>
 			<div class="campaign__text">

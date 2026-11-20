@@ -1,5 +1,22 @@
 const backgrounds = ["white", "light", "tint", "dark", "brand", "image"];
 
+export const sharedSections = [
+	{ slug: "merkevarer", title: "Merkevarer" },
+	{ slug: "omtaler", title: "Omtaler" },
+	{ slug: "hvorfor-velge-oss", title: "Hvorfor velge oss" },
+	{ slug: "kontakt-og-prosess", title: "Kontakt og prosess" },
+];
+
+export const sharedSectionsCollection = {
+	slug: "shared_sections",
+	label: "Shared sections",
+	labelSingular: "Shared section",
+	description: "Sections edited once and shown on every page that uses them",
+	routable: false,
+	hasSeo: false,
+	supports: ["drafts", "revisions"],
+};
+
 const backgroundFields = [
 	{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 	{ slug: "background_image", label: "Background image", type: "image" },
@@ -297,6 +314,15 @@ export const blockTypes = [
 		slug: "reviews",
 		label: "Reviews",
 		fields: [{ slug: "heading", label: "Heading", type: "string" }, ...backgroundFields],
+	},
+	{
+		slug: "shared_section",
+		label: "Shared section",
+		description: "Shows a section that is edited once under Shared sections and appears on every page that uses it",
+		fields: [
+			{ slug: "section", label: "Section", type: "select", required: true, validation: { options: sharedSections.map((section) => section.slug) } },
+			{ slug: "background", label: "Background (overrides the section's own)", type: "select", validation: { options: backgrounds } },
+		],
 	},
 ];
 

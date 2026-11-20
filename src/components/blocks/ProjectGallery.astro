@@ -3,7 +3,7 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { _key?: string; heading: string; text?: string; images?: { image: ImageValue }[] };
+	value: { _key?: string; _entry?: string; heading: string; text?: string; images?: { image: ImageValue }[] };
 }
 
 const { value } = Astro.props;
@@ -11,7 +11,7 @@ const images = (value.images ?? []).map((item) => item.image).filter(Boolean);
 const id = `projects-${value.heading.toLowerCase().replace(/[^a-z0-9æøå]+/g, "-")}`;
 ---
 
-<section data-block={value._key} class="projects" aria-labelledby={id}>
+<section data-block={value._key} data-entry={value._entry} class="projects" aria-labelledby={id}>
 	<div class="wrap projects__grid">
 		<div class="projects__text">
 			<h2 id={id} data-field="heading">{value.heading}</h2>

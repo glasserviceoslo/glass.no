@@ -237,7 +237,17 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutMapBlock | PageLayoutProjectGalleryBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export interface PageLayoutSharedSectionV1Block {
+  _type: "shared_section";
+  _version: 1;
+  _key: string;
+  "section": "merkevarer" | "omtaler" | "hvorfor-velge-oss" | "kontakt-og-prosess";
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type PageLayoutSharedSectionBlock = PageLayoutSharedSectionV1Block;
+
+export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutMapBlock | PageLayoutProjectGalleryBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock | PageLayoutSharedSectionBlock;
 
 export interface Page {
   id: string;
@@ -488,7 +498,17 @@ export interface PostLayoutReviewsV1Block {
 
 export type PostLayoutReviewsBlock = PostLayoutReviewsV1Block;
 
-export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutMapBlock | PostLayoutProjectGalleryBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
+export interface PostLayoutSharedSectionV1Block {
+  _type: "shared_section";
+  _version: 1;
+  _key: string;
+  "section": "merkevarer" | "omtaler" | "hvorfor-velge-oss" | "kontakt-og-prosess";
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type PostLayoutSharedSectionBlock = PostLayoutSharedSectionV1Block;
+
+export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutMapBlock | PostLayoutProjectGalleryBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock | PostLayoutSharedSectionBlock;
 
 export interface Post {
   id: string;
@@ -525,10 +545,269 @@ export interface Product {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface SharedSectionLayoutCampaignV1Block {
+  _type: "campaign";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "figure"?: string | null;
+  "heading": string;
+  "text"?: string | null;
+  "note"?: string | null;
+  "cta_label"?: string | null;
+  "cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutCampaignBlock = SharedSectionLayoutCampaignV1Block;
+
+export interface SharedSectionLayoutPageHeroV1Block {
+  _type: "page_hero";
+  _version: 1;
+  _key: string;
+  "title": string;
+  "heading"?: string | null;
+  "body"?: PortableTextBlock[] | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutPageHeroBlock = SharedSectionLayoutPageHeroV1Block;
+
+export interface SharedSectionLayoutHeroV1Block {
+  _type: "hero";
+  _version: 1;
+  _key: string;
+  "kicker"?: string | null;
+  "heading": string;
+  "lead"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "secondary_label"?: string | null;
+  "secondary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "float_label"?: string | null;
+  "float_title"?: string | null;
+}
+
+export type SharedSectionLayoutHeroBlock = SharedSectionLayoutHeroV1Block;
+
+export interface SharedSectionLayoutServicesV1Block {
+  _type: "services";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "layout"?: "list" | "cards" | null;
+  "intro"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "url"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type SharedSectionLayoutServicesBlock = SharedSectionLayoutServicesV1Block;
+
+export interface SharedSectionLayoutFeaturesV1Block {
+  _type: "features";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading": string;
+  "intro"?: string | null;
+  "bullets"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "facts"?: string | null;
+  "items"?: { "title": string; "text"?: string | null; "icon"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type SharedSectionLayoutFeaturesBlock = SharedSectionLayoutFeaturesV1Block;
+
+export interface SharedSectionLayoutMapV1Block {
+  _type: "map";
+  _version: 1;
+  _key: string;
+  "address": string;
+  "hours"?: string | null;
+  "latitude": number;
+  "longitude": number;
+}
+
+export type SharedSectionLayoutMapBlock = SharedSectionLayoutMapV1Block;
+
+export interface SharedSectionLayoutProjectGalleryV1Block {
+  _type: "project_gallery";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "text"?: string | null;
+  "images"?: { "image": { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } }[] | null;
+}
+
+export type SharedSectionLayoutProjectGalleryBlock = SharedSectionLayoutProjectGalleryV1Block;
+
+export interface SharedSectionLayoutLogosV1Block {
+  _type: "logos";
+  _version: 1;
+  _key: string;
+  "items"?: { "title": string; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "url"?: string | null }[] | null;
+}
+
+export type SharedSectionLayoutLogosBlock = SharedSectionLayoutLogosV1Block;
+
+export interface SharedSectionLayoutStatementV1Block {
+  _type: "statement";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "text": string;
+  "strong"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type SharedSectionLayoutStatementBlock = SharedSectionLayoutStatementV1Block;
+
+export interface SharedSectionLayoutStepsV1Block {
+  _type: "steps";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "items"?: { "title": string; "text"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+}
+
+export type SharedSectionLayoutStepsBlock = SharedSectionLayoutStepsV1Block;
+
+export interface SharedSectionLayoutContactV1Block {
+  _type: "contact";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "intro"?: string | null;
+  "address"?: string | null;
+  "hours"?: string | null;
+  "phone"?: string | null;
+  "primary_label"?: string | null;
+  "primary_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "show_form"?: boolean | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type SharedSectionLayoutContactBlock = SharedSectionLayoutContactV1Block;
+
+export interface SharedSectionLayoutSectionV1Block {
+  _type: "section";
+  _version: 1;
+  _key: string;
+  "layout"?: "1" | "1-1" | "2-1" | "1-2" | "1-1-1" | "1-1-1-1" | null;
+  "align"?: "left" | "center" | null;
+  "column_1"?: PortableTextBlock[] | null;
+  "column_2"?: PortableTextBlock[] | null;
+  "column_3"?: PortableTextBlock[] | null;
+  "column_4"?: PortableTextBlock[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "anchor_id"?: string | null;
+}
+
+export type SharedSectionLayoutSectionBlock = SharedSectionLayoutSectionV1Block;
+
+export interface SharedSectionLayoutCardsV1Block {
+  _type: "cards";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "columns"?: "2" | "3" | "4" | "5" | "6" | null;
+  "style"?: "image" | "icon" | null;
+  "items"?: { "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "title"?: string | null; "text"?: string | null; "url"?: string | null; "link_label"?: string | null }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutCardsBlock = SharedSectionLayoutCardsV1Block;
+
+export interface SharedSectionLayoutFaqV1Block {
+  _type: "faq";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "items"?: { "question": string; "answer": string }[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutFaqBlock = SharedSectionLayoutFaqV1Block;
+
+export interface SharedSectionLayoutContactFormV1Block {
+  _type: "contact_form";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "form"?: "contact" | null;
+  "aside"?: PortableTextBlock[] | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutContactFormBlock = SharedSectionLayoutContactFormV1Block;
+
+export interface SharedSectionLayoutBookingV1Block {
+  _type: "booking";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "intro"?: string | null;
+  "cal_link": string;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutBookingBlock = SharedSectionLayoutBookingV1Block;
+
+export interface SharedSectionLayoutReviewsV1Block {
+  _type: "reviews";
+  _version: 1;
+  _key: string;
+  "heading"?: string | null;
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+  "background_image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type SharedSectionLayoutReviewsBlock = SharedSectionLayoutReviewsV1Block;
+
+export interface SharedSectionLayoutSharedSectionV1Block {
+  _type: "shared_section";
+  _version: 1;
+  _key: string;
+  "section": "merkevarer" | "omtaler" | "hvorfor-velge-oss" | "kontakt-og-prosess";
+  "background"?: "white" | "light" | "tint" | "dark" | "brand" | "image" | null;
+}
+
+export type SharedSectionLayoutSharedSectionBlock = SharedSectionLayoutSharedSectionV1Block;
+
+export type SharedSectionLayoutBlock = SharedSectionLayoutCampaignBlock | SharedSectionLayoutPageHeroBlock | SharedSectionLayoutHeroBlock | SharedSectionLayoutServicesBlock | SharedSectionLayoutFeaturesBlock | SharedSectionLayoutMapBlock | SharedSectionLayoutProjectGalleryBlock | SharedSectionLayoutLogosBlock | SharedSectionLayoutStatementBlock | SharedSectionLayoutStepsBlock | SharedSectionLayoutContactBlock | SharedSectionLayoutSectionBlock | SharedSectionLayoutCardsBlock | SharedSectionLayoutFaqBlock | SharedSectionLayoutContactFormBlock | SharedSectionLayoutBookingBlock | SharedSectionLayoutReviewsBlock | SharedSectionLayoutSharedSectionBlock;
+
+export interface SharedSection {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  layout?: SharedSectionLayoutBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
     products: Product;
+    shared_sections: SharedSection;
   }
 }

@@ -6,7 +6,7 @@ import type { ImageValue } from "./surface";
 type Service = { title: string; text?: string; url?: string; image?: ImageValue };
 
 interface Props {
-	value: { _key?: string; background?: "white" | "light" | "tint" | "dark" | "brand"; label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
+	value: { _key?: string; _entry?: string; background?: "white" | "light" | "tint" | "dark" | "brand"; label?: string; heading: string; layout?: "list" | "cards"; items?: Service[] };
 }
 
 const { value } = Astro.props;
@@ -21,7 +21,7 @@ const id = value.heading
 const items = (value.items ?? []).map((item) => ({ ...item, url: safeHref(item.url) }));
 ---
 
-<section data-block={value._key} class:list={["section", "services-group", "services", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`}>
+<section data-block={value._key} data-entry={value._entry} class:list={["section", "services-group", "services", value.background && `surface--${value.background}`]} id={id} aria-labelledby={`${id}-h`}>
 	<div class="wrap">
 		<div class="services__grid">
 		<div class="services__head">

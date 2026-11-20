@@ -4,14 +4,14 @@ import RichText from "../RichText.astro";
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { _key?: string; heading?: string; intro?: string; aside?: unknown[] };
+	value: Surface & { _key?: string; _entry?: string; heading?: string; intro?: string; aside?: unknown[] };
 	blockKey?: string;
 }
 
 const { value, blockKey } = Astro.props;
 ---
 
-<section data-block={value._key} class:list={["block", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} data-entry={value._entry} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container contact">
 		{
 			value.aside?.length ? (

@@ -7,7 +7,7 @@ import type { ImageValue, Surface } from "./surface";
 type Card = { image?: ImageValue; title?: string; text?: string; url?: string; link_label?: string };
 
 interface Props {
-	value: Surface & { _key?: string; heading?: string; columns?: string; style?: "image" | "icon"; items?: Card[] };
+	value: Surface & { _key?: string; _entry?: string; heading?: string; columns?: string; style?: "image" | "icon"; items?: Card[] };
 }
 
 const { value } = Astro.props;
@@ -21,7 +21,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 ---
 
 {isCatalogue ? (
-<section data-block={value._key} class:list={["block", "catalogue", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} data-entry={value._entry} class:list={["block", "catalogue", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
 		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<ul class="catalogue__list" style={`--per-row: ${Math.min(perRow, 6)}`}>
@@ -45,7 +45,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	</div>
 </section>
 ) : isContact ? (
-<section data-block={value._key} class:list={["block", "contact-strip", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} data-entry={value._entry} class:list={["block", "contact-strip", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
 		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<dl class="contact-strip__list">
@@ -72,7 +72,7 @@ const paragraphs = (text?: string) => (text ?? "").split(/\n\s*\n/).filter((para
 	</div>
 </section>
 ) : (
-<section data-block={value._key} class:list={["block", `surface--${value.background ?? "white"}`]}>
+<section data-block={value._key} data-entry={value._entry} class:list={["block", `surface--${value.background ?? "white"}`]}>
 	<div class="container">
 		{value.heading && <h2 class="block__heading" data-field="heading">{value.heading}</h2>}
 		<div class:list={["cards", `cards--${style}`]} style={`--per-row: ${columns}`}>

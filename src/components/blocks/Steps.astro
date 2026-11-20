@@ -5,7 +5,7 @@ import type { ImageValue } from "./surface";
 type Step = { title: string; text?: string; image?: ImageValue };
 
 interface Props {
-	value: { _key?: string; heading: string; items?: Step[] };
+	value: { _key?: string; _entry?: string; heading: string; items?: Step[] };
 }
 
 const { value } = Astro.props;
@@ -13,7 +13,7 @@ const items = (value.items ?? []).slice(0, 4);
 const span = items.length === 4 ? "span-3" : items.length === 3 ? "span-4" : "span-6";
 ---
 
-<section data-block={value._key} class="section" id="slik-jobber-vi" aria-labelledby="slik-jobber-vi-h">
+<section data-block={value._key} data-entry={value._entry} class="section" id="slik-jobber-vi" aria-labelledby="slik-jobber-vi-h">
 	<div class="wrap">
 		<div class="section-head">
 			<h2 id="slik-jobber-vi-h" data-field="heading">{value.heading}</h2>

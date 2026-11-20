@@ -2,7 +2,7 @@
 import type { Surface } from "./surface";
 
 interface Props {
-	value: Surface & { _key?: string; label?: string; heading?: string; intro?: string; items?: { question: string; answer: string }[] };
+	value: Surface & { _key?: string; _entry?: string; label?: string; heading?: string; intro?: string; items?: { question: string; answer: string }[] };
 }
 
 const { value } = Astro.props;
@@ -20,7 +20,7 @@ const jsonLd = {
 };
 ---
 
-<section data-block={value._key} class:list={["section", "faq-section", value.background && `surface--${value.background}`]} style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
+<section data-block={value._key} data-entry={value._entry} class:list={["section", "faq-section", value.background && `surface--${value.background}`]} style="--h: 1; --hm: 2" aria-labelledby={value.heading ? headingId : undefined}>
 	<div class="wrap">
 		<div class="grid grid--top">
 			<div class="span-5 section-head">

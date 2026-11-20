@@ -6,7 +6,7 @@ import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { _key?: string;
+	value: { _key?: string; _entry?: string;
 		kicker?: string;
 		heading: string;
 		lead?: string;
@@ -26,7 +26,7 @@ const primaryUrl = safeHref(value.primary_url);
 const secondaryUrl = safeHref(value.secondary_url);
 ---
 
-<section data-block={value._key} class:list={["hero", "home-hero", { "home-hero--campaign": value.campaign }]} data-enter aria-labelledby="hero-h">
+<section data-block={value._key} data-entry={value._entry} class:list={["hero", "home-hero", { "home-hero--campaign": value.campaign }]} data-enter aria-labelledby="hero-h">
 	<div class="wrap">
 		<div class="home-hero__grid">
 			<div class="home-hero__text">

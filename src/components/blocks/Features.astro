@@ -3,7 +3,7 @@ import { Image } from "emdash/ui";
 import type { ImageValue } from "./surface";
 
 interface Props {
-	value: { _key?: string;
+	value: { _key?: string; _entry?: string;
 		background?: "white" | "light" | "tint" | "dark" | "brand";
 		label?: string;
 		heading: string;
@@ -24,7 +24,7 @@ const facts = (value.facts ?? "")
 const items = value.items ?? [];
 ---
 
-<section data-block={value._key} class:list={["section", "features", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
+<section data-block={value._key} data-entry={value._entry} class:list={["section", "features", value.background && `surface--${value.background}`]} id="hvorfor-oss" aria-labelledby="hvorfor-oss-h">
 	<div class="wrap">
 		<div class="features__grid">
 			<div>

@@ -1,4 +1,5 @@
 ---
+import { getEmDashEntry } from "emdash";
 import { Blocks } from "emdash/ui";
 import Booking from "./blocks/Booking.astro";
 import Campaign from "./blocks/Campaign.astro";
@@ -24,8 +25,26 @@ interface Props {
 }
 
 const { value } = Astro.props;
-type LayoutBlock = { _type: string; _key?: string; background?: string; [field: string]: unknown };
-const blocks = ((value ?? []) as LayoutBlock[]).map((block) => ({ ...block })).reduce<LayoutBlock[]>((merged, block) => {
+type LayoutBlock = { _type: string; _key?: string; background?: string; section?: string; [field: string]: unknown };
+const layout = (value ?? []) as LayoutBlock[];
+const sharedSlugs = [...new Set(layout.filter((block) => block._type === "shared_section" && block.section).map((block) => block.section!))];
+const shared = new Map(
+	await Promise.all(
+		sharedSlugs.map(async (slug) => {
+			const { entry, cacheHint } = await getEmDashEntry("shared_sections", slug);
+			if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+			const target = entry ? JSON.stringify({ collection: "shared_sections", id: entry.data.id }) : undefined;
+			const sections = ((entry?.data.layout ?? []) as LayoutBlock[]).filter((block) => block._type !== "shared_section");
+			return [slug, sections.map((block) => ({ ...block, _entry: target }))] as const;
+		}),
+	),
+);
+const expanded = layout.flatMap((block) =>
+	block._type === "shared_section"
+		? (shared.get(block.section ?? "") ?? []).map((inner) => ({ ...inner, ...(block.background ? { background: block.background } : {}) }))
+		: [block],
+);
+const blocks = expanded.map((block) => ({ ...block })).reduce<LayoutBlock[]>((merged, block) => {
 	const last = merged.at(-1);
 	if (block._type === "campaign" && last?._type === "hero" && !last.campaign) {
 		last.campaign = block;

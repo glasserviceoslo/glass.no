@@ -1,6 +1,6 @@
 ---
 interface Props {
-	value: { _key?: string; address: string; hours?: string; latitude: number; longitude: number };
+	value: { _key?: string; _entry?: string; address: string; hours?: string; latitude: number; longitude: number };
 }
 
 const { value } = Astro.props;
@@ -9,7 +9,7 @@ const embed = `https://maps.google.com/maps?${new URLSearchParams({ q: value.add
 const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(value.address)}`;
 ---
 
-<section data-block={value._key} class="map" aria-label={value.address}>
+<section data-block={value._key} data-entry={value._entry} class="map" aria-label={value.address}>
 	<div class="wrap">
 		<div class="map__frame">
 			<iframe data-map-src={embed} title={value.address} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen hidden></iframe>

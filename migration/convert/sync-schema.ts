@@ -1,5 +1,5 @@
 import { api } from "./api.ts";
-import { blockTypes, layoutField, searchTextField } from "./schema.ts";
+import { blockTypes, layoutField, searchTextField, sharedSectionsCollection } from "./schema.ts";
 
 type BlockTypeItem = { currentVersion: number; versions: { version: number; fingerprint: string; fields: unknown }[] };
 
@@ -17,6 +17,18 @@ export async function syncSchema() {
 			method: "PUT",
 			body: { expectedFingerprint: active.fingerprint, label: type.label, description: type.description, fields: type.fields },
 		});
+	}
+
+	const collections = await api<{ items: { slug: string }[] }>("/schema/collections");
+	if (!collections.items.some((collection) => collection.slug === sharedSectionsCollection.slug)) {
+		await api("/schema/collections", { method: "POST", body: sharedSectionsCollection });
+	}
+	const shared = await api<{ item: { fields: { slug: string }[] } }>(`/schema/collections/${sharedSectionsCollection.slug}?includeFields=true`);
+	if (!shared.item.fields.some((field) => field.slug === "title")) {
+		await api(`/schema/collections/${sharedSectionsCollection.slug}/fields`, { method: "POST", body: { slug: "title", label: "Title", type: "string", required: true } });
+	}
+	if (!shared.item.fields.some((field) => field.slug === "layout")) {
+		await api(`/schema/collections/${sharedSectionsCollection.slug}/fields`, { method: "POST", body: layoutField });
 	}
 
 	for (const collection of ["pages", "posts"]) {
