@@ -47,6 +47,7 @@ export default Alchemy.Stack(
 			assets: "./dist/client",
 			compatibility: { date: "2026-02-24", flags: ["nodejs_compat"] },
 			crons: ["* * * * *"],
+			cache: { enabled: true },
 			domain: live ? { name: "www.glass.no", redirects: ["glass.no", "ny.glass.no"] } : "ny.glass.no",
 			workersDev: false,
 			access: live
