@@ -370,8 +370,8 @@ main .prose p.is-button a {
 
 .site-footer {
 	padding-block: clamp(2.5rem, 5vw, 3.5rem) 1.5rem;
-	background: var(--p-surface);
-	color: var(--p-ink);
+	background: var(--p-ink);
+	color: #f8f9fa;
 }
 
 .site-footer__main {
@@ -433,8 +433,8 @@ main .prose p.is-button a {
 	width: 2.75rem;
 	height: 2.75rem;
 	border-radius: 50%;
-	background: #ffffff;
-	color: var(--p-accent);
+	background: rgb(255 255 255 / 0.1);
+	color: #ffffff;
 	transition:
 		background 180ms,
 		color 180ms;
@@ -457,8 +457,8 @@ main .prose p.is-button a {
 	gap: 0.5rem 2rem;
 	margin-top: clamp(1.75rem, 3vw, 2.25rem);
 	padding-top: 1.25rem;
-	border-top: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
-	color: var(--p-muted);
+	border-top: 1px solid rgb(255 255 255 / 0.14);
+	color: var(--p-inv-muted);
 	font-size: 0.875rem;
 }
 

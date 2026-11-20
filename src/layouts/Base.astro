@@ -2,7 +2,6 @@
 import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
-import Arrow from "../components/Arrow.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
 import { BOOKING_PATH } from "../utils/booking";
@@ -90,7 +89,7 @@ const page = createPublicPageContext({
 			<div class="wrap">
 				<div class="site-footer__main">
 					<a class="site-footer__logo" href="/" aria-label={`${siteTitle}, forsiden`}>
-						{siteLogo ? <img src={siteLogo.url} alt="" width={siteLogo.width} height={siteLogo.height} /> : siteTitle}
+						<img src="/images/logo-white.png" alt="" width="2560" height="709" />
 					</a>
 					<ul class="site-footer__contact">
 						<li><a href="tel:+4791584940">+47 91 58 49 40</a></li>
@@ -110,7 +109,6 @@ const page = createPublicPageContext({
 								</a>
 							</li>
 						</ul>
-						<a class="btn btn--primary" href={BOOKING_PATH}>Book Befaring<Arrow /></a>
 					</div>
 				</div>
 				<div class="site-footer__legal">
