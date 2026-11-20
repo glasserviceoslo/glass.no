@@ -2,6 +2,7 @@
 import { Image } from "emdash/ui";
 import RichText from "../RichText.astro";
 import { slugOf, textOf } from "../../utils/slug";
+import CallBand from "./CallBand.astro";
 import type { Surface } from "./surface";
 
 interface Props {
@@ -37,7 +38,9 @@ const body = split ? nodes.slice(labels + 1) : [];
 ---
 
 {
-	columns.length > 0 && (
+	split && background === "brand" ? (
+		<CallBand anchor={value.anchor_id} lead={lead} body={body} />
+	) : columns.length > 0 && (
 		<section id={value.anchor_id || undefined} class:list={["block", "section", `surface--${background}`]}>
 			{background === "image" && value.background_image && (
 				<>
