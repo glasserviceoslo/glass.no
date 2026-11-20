@@ -18,6 +18,7 @@ const isButton =
 	only.children[0]._type === "@text";
 const isLabel = node.style === "h5" || node.style === "h6";
 const anchor = node.style === "h1" || node.style === "h2" ? slugOf(textOf(node as never)) : "";
+const Heading = node.style === "h1" ? "h1" : "h2";
 ---
 
 {
@@ -26,9 +27,9 @@ const anchor = node.style === "h1" || node.style === "h2" ? slugOf(textOf(node a
 			<slot />
 		</p>
 	) : anchor ? (
-		<h2 id={anchor} class:list={[(node as { textAlign?: string }).textAlign && `has-text-align-${(node as { textAlign?: string }).textAlign}`]}>
+		<Heading id={anchor} class:list={[(node as { textAlign?: string }).textAlign && `has-text-align-${(node as { textAlign?: string }).textAlign}`]}>
 			<slot />
-		</h2>
+		</Heading>
 	) : isLabel ? (
 		<p class="t-label prose__label">
 			<slot />
