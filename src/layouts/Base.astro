@@ -144,7 +144,7 @@ const page = createPublicPageContext({
 				--display-tracking-xl: -0.038em;
 			}
 		</style>
-		<script is:inline>document.documentElement.classList.add("m-enter");setTimeout(()=>document.documentElement.classList.add("m-enter-done"),700)</script>
+		<script is:inline>try{if(!sessionStorage.getItem("entered")){sessionStorage.setItem("entered","1");document.documentElement.classList.add("m-enter");setTimeout(()=>document.documentElement.classList.add("m-enter-done"),700)}}catch{}</script>
 	</head>
 	<body>
 		<EmDashBodyStart page={page} />

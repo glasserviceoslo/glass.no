@@ -544,3 +544,36 @@ main .prose p.is-button a {
 	--t-label: var(--type-label);
 	--t-stat: var(--type-stat);
 }
+
+@view-transition {
+	navigation: auto;
+}
+
+.nav {
+	view-transition-name: site-nav;
+}
+
+.tabbar {
+	view-transition-name: site-tabbar;
+}
+
+::view-transition-old(site-nav),
+::view-transition-old(site-tabbar) {
+	display: none;
+}
+
+::view-transition-new(site-nav),
+::view-transition-new(site-tabbar) {
+	animation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	@view-transition {
+		navigation: none;
+	}
+}

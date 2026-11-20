@@ -12,6 +12,7 @@ export default defineConfig({
 	site: "https://www.glass.no",
 	output: "server",
 	trailingSlash: "ignore",
+	prefetch: { prefetchAll: true, defaultStrategy: "hover" },
 	redirects: {
 		"/driftspanel-alpha": { status: 302, destination: "/_emdash/admin" },
 	},
