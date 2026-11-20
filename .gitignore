@@ -18,6 +18,7 @@ uploads/
 .env
 .env.*
 !.env.example
+!.env.schema
 
 # Wrangler local secrets
 .dev.vars
