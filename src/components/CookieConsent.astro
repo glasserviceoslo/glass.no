@@ -56,17 +56,24 @@ const categories = [
 	const switches = [...banner.querySelectorAll<HTMLInputElement>(".consent__choice:not([hidden]) input:not(:disabled)")];
 	const close = banner.querySelector<HTMLButtonElement>("[data-consent-close]")!;
 
+	let opener: HTMLElement | null = null;
+
 	const open = (reopened: boolean) => {
 		const accepted = CookieConsent.getUserPreferences().acceptedCategories;
 		switches.forEach((input) => (input.checked = accepted.includes(input.value)));
 		close.hidden = !reopened;
+		opener = reopened ? (document.activeElement as HTMLElement | null) : null;
 		banner.hidden = false;
+		banner.tabIndex = -1;
+		banner.focus({ preventScroll: true });
 		requestAnimationFrame(() => banner.classList.add("is-open"));
 	};
 
 	const hide = () => {
 		banner.classList.remove("is-open");
 		banner.hidden = true;
+		opener?.focus({ preventScroll: true });
+		opener = null;
 	};
 
 	banner.querySelectorAll<HTMLButtonElement>("[data-consent]").forEach((button) =>
@@ -146,6 +153,10 @@ const categories = [
 	.consent.is-open {
 		opacity: 1;
 		translate: 0 0;
+	}
+
+	.consent:focus {
+		outline: none;
 	}
 
 	.consent[hidden] {
