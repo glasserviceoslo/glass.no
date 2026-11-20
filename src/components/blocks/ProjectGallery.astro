@@ -1,0 +1,122 @@
+---
+import { Image } from "emdash/ui";
+import type { ImageValue } from "./surface";
+
+interface Props {
+	value: { heading: string; text?: string; images?: { image: ImageValue }[] };
+}
+
+const { value } = Astro.props;
+const images = (value.images ?? []).map((item) => item.image).filter(Boolean);
+const id = `projects-${value.heading.toLowerCase().replace(/[^a-z0-9æøå]+/g, "-")}`;
+---
+
+<section class="projects" aria-labelledby={id}>
+	<div class="wrap projects__grid">
+		<div class="projects__text">
+			<h2 id={id}>{value.heading}</h2>
+			{value.text && <p>{value.text}</p>}
+		</div>
+		<ul class="projects__photos">
+			{
+				images.map((image) => (
+					<li>
+						<Image image={image} alt={image.alt ?? ""} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 440px" />
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.projects {
+		padding-block: clamp(3rem, 6vw, 6rem);
+		background: #ffffff;
+		color: var(--p-ink);
+	}
+
+	.projects + :global(.projects) {
+		padding-top: 0;
+	}
+
+	.projects__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.6fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: start;
+	}
+
+	.projects__text {
+		position: sticky;
+		top: calc(var(--nav, 72px) + 2rem);
+		display: grid;
+		gap: 1.25rem;
+		padding-top: 1.25rem;
+		border-top: 3px solid var(--p-accent);
+	}
+
+	.projects__text h2 {
+		margin: 0;
+		font-size: clamp(2.5rem, 5vw, 4.25rem);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: -0.035em;
+	}
+
+	.projects__text p {
+		margin: 0;
+		color: var(--p-muted);
+		font-size: 1.05rem;
+		line-height: 1.65;
+	}
+
+	.projects__photos {
+		columns: 2;
+		column-gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.projects__photos li {
+		overflow: hidden;
+		margin-bottom: 1rem;
+		border-radius: 20px;
+		background: var(--p-surface);
+		break-inside: avoid;
+	}
+
+	.projects__photos :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		transition: scale 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.projects__photos li:hover :global(img) {
+		scale: 1.035;
+	}
+
+	@media (max-width: 900px) {
+		.projects__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.projects__text {
+			position: static;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.projects__photos {
+			columns: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.projects__photos :global(img) {
+			transition: none;
+		}
+	}
+</style>

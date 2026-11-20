@@ -81,6 +81,17 @@ export interface PageLayoutFeaturesV1Block {
 
 export type PageLayoutFeaturesBlock = PageLayoutFeaturesV1Block;
 
+export interface PageLayoutProjectGalleryV1Block {
+  _type: "project_gallery";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "text"?: string | null;
+  "images"?: { "image": { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } }[] | null;
+}
+
+export type PageLayoutProjectGalleryBlock = PageLayoutProjectGalleryV1Block;
+
 export interface PageLayoutLogosV1Block {
   _type: "logos";
   _version: 1;
@@ -214,7 +225,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutProjectGalleryBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;
@@ -308,6 +319,17 @@ export interface PostLayoutFeaturesV1Block {
 }
 
 export type PostLayoutFeaturesBlock = PostLayoutFeaturesV1Block;
+
+export interface PostLayoutProjectGalleryV1Block {
+  _type: "project_gallery";
+  _version: 1;
+  _key: string;
+  "heading": string;
+  "text"?: string | null;
+  "images"?: { "image": { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } }[] | null;
+}
+
+export type PostLayoutProjectGalleryBlock = PostLayoutProjectGalleryV1Block;
 
 export interface PostLayoutLogosV1Block {
   _type: "logos";
@@ -442,7 +464,7 @@ export interface PostLayoutReviewsV1Block {
 
 export type PostLayoutReviewsBlock = PostLayoutReviewsV1Block;
 
-export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
+export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutProjectGalleryBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
 
 export interface Post {
   id: string;
