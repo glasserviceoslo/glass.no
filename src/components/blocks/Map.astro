@@ -1,0 +1,100 @@
+---
+interface Props {
+	value: { address: string; hours?: string; latitude: number; longitude: number };
+}
+
+const { value } = Astro.props;
+const { latitude: lat, longitude: lon } = value;
+const embed = `https://maps.google.com/maps?${new URLSearchParams({ q: value.address, ll: `${lat},${lon}`, z: "16", hl: "no", output: "embed" })}`;
+const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(value.address)}`;
+---
+
+<section class="map" aria-label={value.address}>
+	<div class="wrap">
+		<div class="map__frame">
+			<iframe src={embed} title={value.address} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+			<div class="map__card">
+				<a href={directions} target="_blank" rel="noopener">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" /><circle cx="12" cy="10" r="2.4" /></svg>
+					{value.address}
+				</a>
+				{value.hours && <p>{value.hours}</p>}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.map {
+		padding-block: 0 clamp(3rem, 6vw, 5rem);
+		background: var(--p-bg);
+	}
+
+	.map__frame {
+		position: relative;
+		overflow: hidden;
+		height: clamp(320px, 42vw, 520px);
+		border-radius: clamp(22px, 3vw, 32px);
+		background: var(--p-surface);
+		box-shadow: 0 1px 2px rgb(4 0 55 / 0.06);
+	}
+
+	.map__frame iframe {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.map__card {
+		position: absolute;
+		bottom: clamp(12px, 2vw, 24px);
+		left: clamp(12px, 2vw, 24px);
+		display: grid;
+		gap: 0.3rem;
+		max-width: calc(100% - 24px);
+		padding: 1rem 1.25rem;
+		border: 1px solid rgb(255 255 255 / 0.8);
+		border-radius: 20px;
+		background: rgb(255 255 255 / 0.82);
+		color: var(--p-ink);
+		box-shadow: 0 18px 40px -20px rgb(4 0 55 / 0.4);
+		-webkit-backdrop-filter: blur(16px) saturate(180%);
+		backdrop-filter: blur(16px) saturate(180%);
+	}
+
+	.map__card a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		color: var(--p-ink);
+		font-size: 1.1rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.map__card a:hover {
+		text-decoration: underline;
+		text-decoration-color: var(--p-accent);
+		text-underline-offset: 0.2em;
+	}
+
+	.map__card svg {
+		flex: none;
+		width: 20px;
+		height: 20px;
+		fill: none;
+		stroke: var(--p-accent);
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.map__card p {
+		margin: 0;
+		padding-left: calc(20px + 0.45rem);
+		color: var(--p-muted);
+		font-size: 0.95rem;
+	}
+</style>
+

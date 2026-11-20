@@ -106,6 +106,17 @@ export const blockTypes = [
 		],
 	},
 	{
+		slug: "map",
+		label: "Map",
+		description: "A map of the shop with its address and opening hours",
+		fields: [
+			{ slug: "address", label: "Address", type: "string", required: true },
+			{ slug: "hours", label: "Opening hours", type: "string" },
+			{ slug: "latitude", label: "Latitude", type: "number", required: true },
+			{ slug: "longitude", label: "Longitude", type: "number", required: true },
+		],
+	},
+	{
 		slug: "project_gallery",
 		label: "Project gallery",
 		description: "A heading, a short text and a set of project photographs",

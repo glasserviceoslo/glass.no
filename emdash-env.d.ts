@@ -81,6 +81,18 @@ export interface PageLayoutFeaturesV1Block {
 
 export type PageLayoutFeaturesBlock = PageLayoutFeaturesV1Block;
 
+export interface PageLayoutMapV1Block {
+  _type: "map";
+  _version: 1;
+  _key: string;
+  "address": string;
+  "hours"?: string | null;
+  "latitude": number;
+  "longitude": number;
+}
+
+export type PageLayoutMapBlock = PageLayoutMapV1Block;
+
 export interface PageLayoutProjectGalleryV1Block {
   _type: "project_gallery";
   _version: 1;
@@ -225,7 +237,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutProjectGalleryBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutMapBlock | PageLayoutProjectGalleryBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;
@@ -319,6 +331,18 @@ export interface PostLayoutFeaturesV1Block {
 }
 
 export type PostLayoutFeaturesBlock = PostLayoutFeaturesV1Block;
+
+export interface PostLayoutMapV1Block {
+  _type: "map";
+  _version: 1;
+  _key: string;
+  "address": string;
+  "hours"?: string | null;
+  "latitude": number;
+  "longitude": number;
+}
+
+export type PostLayoutMapBlock = PostLayoutMapV1Block;
 
 export interface PostLayoutProjectGalleryV1Block {
   _type: "project_gallery";
@@ -464,7 +488,7 @@ export interface PostLayoutReviewsV1Block {
 
 export type PostLayoutReviewsBlock = PostLayoutReviewsV1Block;
 
-export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutProjectGalleryBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
+export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutMapBlock | PostLayoutProjectGalleryBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
 
 export interface Post {
   id: string;
