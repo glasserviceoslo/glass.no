@@ -472,3 +472,9 @@ main .prose p.is-button a {
 		flex-direction: column;
 	}
 }
+
+@media (max-width: 1023px) {
+	.site-footer {
+		padding-bottom: calc(1.5rem + 84px + env(safe-area-inset-bottom));
+	}
+}

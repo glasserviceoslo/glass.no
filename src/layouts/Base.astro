@@ -4,7 +4,6 @@ import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import BookingPopup from "../components/BookingPopup.astro";
 import Header from "../components/Header.astro";
-import { BOOKING_PATH } from "../utils/booking";
 import { resolveSiteIdentity } from "../utils/site";
 import "../styles/site.css";
 
@@ -117,9 +116,6 @@ const page = createPublicPageContext({
 				</div>
 			</div>
 		</footer>
-		<nav class="actionbar" aria-label="Snarveier">
-			<a class="btn btn--primary" href={BOOKING_PATH}>Gratis Befaring</a>
-		</nav>
 		<BookingPopup />
 		<EmDashBodyEnd page={page} />
 		<script is:inline type="module" src="/assets/system.js"></script>

@@ -14,6 +14,17 @@ const groupsOf = (item: MenuItem) => [
 	...item.children.filter((child) => child.children.length),
 	...(item.children.some((child) => !child.children.length) ? [{ id: `${item.id}-more`, label: "Mer", url: "", children: item.children.filter((child) => !child.children.length) } as MenuItem] : []),
 ];
+const trim = (url: string) => url.replace(/\/+$/, "") || "/";
+const here = trim(current);
+const urlsOf = (item: MenuItem): string[] => [item.url, ...item.children.flatMap(urlsOf)].filter(Boolean).map(trim);
+const home = items.find((item) => !item.children.length);
+const products = items.find((item) => item.children.length);
+const contact = items.find((item) => !item.children.length && item !== home && /kontakt/i.test(item.url));
+const more = items.filter((item) => !item.children.length && item !== home && item !== contact);
+const homeActive = home && (here === "/" || here === trim(home.url));
+const productsActive = products && products.children.flatMap(urlsOf).includes(here);
+const contactActive = contact && here === trim(contact.url);
+const moreActive = more.some((item) => here === trim(item.url));
 ---
 
 <header class="nav nav--centre">
@@ -34,23 +45,33 @@ const groupsOf = (item: MenuItem) => [
 								</svg>
 							</a>
 							<div class="nav__menu">
-								<div class="wrap grid">
-									{groupsOf(item).map((group) => (
-										<div class="menu-col span-3">
-											{group.url ? (
-												<a class="t-label" href={group.url}>
-													{group.label}
-												</a>
-											) : (
-												<p class="t-label">{group.label}</p>
-											)}
-											{group.children.map((child) => (
-												<a href={child.url} aria-current={child.url === current ? "page" : undefined}>
-													{child.label}
-												</a>
+								<div class="wrap">
+									<div class="products">
+										<ul class="products__list">
+											{groupsOf(item).map((group) => (
+												<li class="products__cat">
+													{group.url ? (
+														<a class="products__name" href={group.url}>
+															{group.label}
+														</a>
+													) : (
+														<span class="products__name" tabindex="0">
+															{group.label}
+														</span>
+													)}
+													<ul class="products__sub">
+														{group.children.map((child) => (
+															<li>
+																<a href={child.url} aria-current={child.url === current ? "page" : undefined}>
+																	{child.label}
+																</a>
+															</li>
+														))}
+													</ul>
+												</li>
 											))}
-										</div>
-									))}
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -67,16 +88,787 @@ const groupsOf = (item: MenuItem) => [
 		<div class="nav__actions">
 			<a class="btn btn--primary" href={BOOKING_PATH}>Gratis Befaring</a>
 		</div>
-		<button class="nav__toggle" type="button" aria-expanded="false" aria-label="Meny">
-			<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
-		</button>
 	</div>
 </header>
 
+<nav class="tabbar" aria-label="Meny">
+	{
+		home && (
+			<a class="tabbar__tab" href={home.url} aria-current={homeActive ? "page" : undefined}>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1Z" /></svg>
+				<span>{home.label}</span>
+			</a>
+		)
+	}
+	{
+		products && (
+			<button class="tabbar__tab" type="button" data-sheet="sheet-products" aria-haspopup="dialog" aria-current={productsActive ? "page" : undefined}>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8" /><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8" /><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8" /><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8" /></svg>
+				<span>{products.label}</span>
+			</button>
+		)
+	}
+	<a class="tabbar__cta" href={BOOKING_PATH}>Gratis Befaring</a>
+	{
+		contact && (
+			<a class="tabbar__tab" href={contact.url} aria-current={contactActive ? "page" : undefined}>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5A2.5 2.5 0 0 1 7 4h10a2.5 2.5 0 0 1 2.5 2.5v7A2.5 2.5 0 0 1 17 16h-6.5L6 19.5V16h0A1.5 1.5 0 0 1 4.5 14.5Z" /></svg>
+				<span>{contact.label}</span>
+			</a>
+		)
+	}
+	<button class="tabbar__tab" type="button" data-sheet="sheet-more" aria-haspopup="dialog" aria-current={moreActive ? "page" : undefined}>
+		<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="18" cy="12" r="1.6" /></svg>
+		<span>Mer</span>
+	</button>
+</nav>
+
+{
+	products && (
+		<dialog class="sheet" id="sheet-products" aria-labelledby="sheet-products-title">
+			<div class="sheet__grab" data-sheet-drag>
+				<span />
+			</div>
+			<section class="sheet__view" data-view="root">
+				<header class="sheet__head" data-sheet-drag>
+					<h2 id="sheet-products-title">{products.label}</h2>
+					<button class="sheet__close" type="button" aria-label="Lukk" data-sheet-close>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+					</button>
+				</header>
+				<ul class="sheet__list">
+					{groupsOf(products).map((group, index) => (
+						<li>
+							<button class="sheet__row" type="button" data-open-view={`group-${index}`}>
+								{group.label}
+								<svg class="sheet__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+							</button>
+						</li>
+					))}
+				</ul>
+			</section>
+			{groupsOf(products).map((group, index) => (
+				<section class="sheet__view" data-view={`group-${index}`} hidden>
+					<header class="sheet__head" data-sheet-drag>
+						<button class="sheet__back" type="button" data-open-view="root">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
+							{products.label}
+						</button>
+						<button class="sheet__close" type="button" aria-label="Lukk" data-sheet-close>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+						</button>
+					</header>
+					{group.url ? (
+						<a class="sheet__title" href={group.url}>
+							{group.label}
+							<svg class="sheet__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+						</a>
+					) : (
+						<p class="sheet__title">{group.label}</p>
+					)}
+					<ul class="sheet__list">
+						{group.children.map((child) => (
+							<li>
+								<a class="sheet__row" href={child.url} aria-current={trim(child.url) === here ? "page" : undefined}>
+									{child.label}
+									<svg class="sheet__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</dialog>
+	)
+}
+
+<dialog class="sheet" id="sheet-more" aria-labelledby="sheet-more-title">
+	<div class="sheet__grab" data-sheet-drag>
+		<span />
+	</div>
+	<section class="sheet__view" data-view="root">
+		<header class="sheet__head" data-sheet-drag>
+			<h2 id="sheet-more-title">Mer</h2>
+			<button class="sheet__close" type="button" aria-label="Lukk" data-sheet-close>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+			</button>
+		</header>
+		<ul class="sheet__list">
+			{
+				more.map((item) => (
+					<li>
+						<a class="sheet__row" href={item.url} aria-current={trim(item.url) === here ? "page" : undefined}>
+							{item.label}
+							<svg class="sheet__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<ul class="sheet__list">
+			<li>
+				<a class="sheet__row" href="tel:+4791584940">+47 91 58 49 40</a>
+			</li>
+			<li>
+				<a class="sheet__row" href="https://www.google.com/maps/search/?api=1&query=Pilestredet%2041A%2C%20Oslo" target="_blank" rel="noopener">Pilestredet 41A</a>
+			</li>
+			<li>
+				<p class="sheet__row sheet__row--plain">Man - Fre 08:00-17:00</p>
+			</li>
+		</ul>
+	</section>
+</dialog>
+
+<script>
+	const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+	const showView = (sheet: HTMLDialogElement, name: string) => {
+		sheet.querySelectorAll<HTMLElement>("[data-view]").forEach((view) => {
+			const active = view.dataset.view === name;
+			view.hidden = !active;
+			view.classList.toggle("is-entering", active && name !== "root");
+		});
+		const view = sheet.querySelector<HTMLElement>(`[data-view="${name}"]`);
+		view?.querySelector<HTMLElement>(name === "root" ? ".sheet__row" : ".sheet__back")?.focus({ preventScroll: true });
+		sheet.scrollTop = 0;
+	};
+
+	document.querySelectorAll<HTMLButtonElement>("[data-sheet]").forEach((button) => {
+		button.addEventListener("click", () => document.querySelector<HTMLDialogElement>(`#${button.dataset.sheet}`)?.showModal());
+	});
+
+	document.querySelectorAll<HTMLDialogElement>("dialog.sheet").forEach((sheet) => {
+		sheet.addEventListener("click", (event) => {
+			const target = event.target as HTMLElement;
+			const box = sheet.getBoundingClientRect();
+			const outside = event.clientY < box.top || event.clientX < box.left || event.clientX > box.right;
+			if (outside || target.closest("[data-sheet-close]")) sheet.close();
+			const opener = target.closest<HTMLElement>("[data-open-view]");
+			if (opener) showView(sheet, opener.dataset.openView!);
+		});
+
+		sheet.addEventListener("close", () => {
+			sheet.style.translate = "";
+			if (sheet.querySelector("[data-view]:not([data-view='root']):not([hidden])")) setTimeout(() => showView(sheet, "root"), 400);
+		});
+
+		let startY = 0;
+		let dragging = false;
+		sheet.querySelectorAll<HTMLElement>("[data-sheet-drag]").forEach((handle) => {
+			handle.addEventListener("pointerdown", (event) => {
+				if ((event.target as HTMLElement).closest("button, a")) return;
+				dragging = true;
+				startY = event.clientY;
+				sheet.classList.add("is-dragging");
+				handle.setPointerCapture(event.pointerId);
+			});
+			handle.addEventListener("pointermove", (event) => {
+				if (!dragging) return;
+				sheet.style.translate = `0 ${Math.max(0, event.clientY - startY)}px`;
+			});
+			const release = (event: PointerEvent) => {
+				if (!dragging) return;
+				dragging = false;
+				sheet.classList.remove("is-dragging");
+				const distance = event.clientY - startY;
+				sheet.style.translate = "";
+				if (distance > 90 || (reduced.matches && distance > 40)) sheet.close();
+			};
+			handle.addEventListener("pointerup", release);
+			handle.addEventListener("pointercancel", release);
+		});
+	});
+
+	window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
+		if (event.matches) document.querySelectorAll<HTMLDialogElement>("dialog.sheet[open]").forEach((sheet) => sheet.close());
+	});
+</script>
+
 <style>
+	.nav {
+		top: 12px;
+		height: 60px;
+		border: 0;
+		background: transparent;
+		box-shadow: none;
+		pointer-events: none;
+	}
+
+	.nav__bar {
+		position: relative;
+		isolation: isolate;
+		padding: 0 8px 0 24px;
+		border-radius: 999px;
+		pointer-events: auto;
+	}
+
+	.nav__bar::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border: 1px solid rgb(255 255 255 / 0.75);
+		border-radius: inherit;
+		background: linear-gradient(160deg, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.45));
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 0.95),
+			inset 0 -1px 0 rgb(4 0 55 / 0.05),
+			0 18px 40px -22px rgb(4 0 55 / 0.4),
+			0 2px 6px -2px rgb(4 0 55 / 0.08);
+		-webkit-backdrop-filter: blur(22px) saturate(190%);
+		backdrop-filter: blur(22px) saturate(190%);
+	}
+
 	.nav__logo-img {
 		display: block;
 		width: auto;
 		height: 32px;
+	}
+
+	.nav__links {
+		justify-content: center;
+	}
+
+	.nav__link {
+		font-weight: 500;
+	}
+
+	.nav__link::before,
+	.nav__link[aria-current="page"]::after {
+		background: var(--p-accent);
+	}
+
+	.nav__actions .btn {
+		height: 44px;
+		border-radius: 999px;
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 0.35),
+			0 8px 18px -10px rgb(237 76 76 / 0.8);
+	}
+
+	.nav__menu {
+		top: calc(100% + 10px);
+		right: auto;
+		left: 50%;
+		width: min(46rem, 100%);
+		translate: -50% 0;
+		padding: 0;
+		border: 0;
+		background: none;
+		box-shadow: none;
+	}
+
+	.nav__menu::before {
+		content: "";
+		position: absolute;
+		top: -12px;
+		right: 0;
+		left: 0;
+		height: 12px;
+	}
+
+	.nav__menu > .wrap {
+		width: 100%;
+		max-width: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.products {
+		position: relative;
+		min-height: 23rem;
+		padding: 0.9rem;
+		border: 1px solid rgb(255 255 255 / 0.7);
+		border-radius: 28px;
+		background: linear-gradient(160deg, rgb(255 255 255 / 0.78), rgb(255 255 255 / 0.5));
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 0.95),
+			inset 0 -1px 0 rgb(4 0 55 / 0.05),
+			0 40px 80px -40px rgb(4 0 55 / 0.45),
+			0 2px 8px -2px rgb(4 0 55 / 0.08);
+		-webkit-backdrop-filter: blur(28px) saturate(190%);
+		backdrop-filter: blur(28px) saturate(190%);
+	}
+
+	.products ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.products__list {
+		display: grid;
+		align-content: start;
+		gap: 2px;
+		width: 13rem;
+	}
+
+	.products__name {
+		display: flex;
+		align-items: center;
+		min-height: 42px;
+		padding: 0 1rem;
+		border-radius: 14px;
+		color: var(--muted);
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition:
+			background-color 180ms,
+			color 180ms,
+			box-shadow 180ms;
+	}
+
+	.products__sub {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.75rem;
+		left: 16rem;
+		display: none;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0 1.75rem;
+	}
+
+	.products__sub a {
+		display: flex;
+		align-items: center;
+		min-height: 54px;
+		border-bottom: 1px solid rgb(4 0 55 / 0.08);
+		color: var(--ink);
+		font-size: 1.05rem;
+		font-weight: 500;
+		line-height: 1.3;
+		transition: color 150ms;
+	}
+
+	.products__sub a::first-letter {
+		text-transform: uppercase;
+	}
+
+	.products__sub a:hover {
+		color: var(--p-accent);
+	}
+
+	:is(.products__cat:hover, .products__cat:focus-within) > .products__name,
+	.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__name {
+		background: rgb(255 255 255 / 0.85);
+		color: var(--ink);
+		box-shadow:
+			inset 0 1px 0 #ffffff,
+			0 6px 16px -8px rgb(4 0 55 / 0.3),
+			inset 3px 0 0 var(--p-accent);
+	}
+
+	:is(.products__cat:hover, .products__cat:focus-within) > .products__sub,
+	.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__sub {
+		display: grid;
+	}
+
+	.tabbar {
+		display: none;
+	}
+
+	@keyframes sheet-push {
+		from {
+			translate: 24px 0;
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.sheet,
+		.sheet::backdrop,
+		.sheet__view.is-entering {
+			transition: none;
+			animation: none;
+		}
+	}
+
+	@media (prefers-reduced-transparency: reduce) {
+		.tabbar::before,
+		.sheet,
+		.nav__bar::before,
+		.products {
+			background: #ffffff;
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.nav {
+			position: absolute;
+			top: 8px;
+			height: 52px;
+		}
+
+		.nav__bar {
+			padding: 0;
+		}
+
+		.nav__bar::before {
+			display: none;
+		}
+
+		.nav__actions .btn {
+			height: 40px;
+		}
+
+		.nav.nav--centre .nav__bar .nav__actions {
+			display: none;
+		}
+
+		.tabbar {
+			position: fixed;
+			right: 10px;
+			bottom: calc(10px + env(safe-area-inset-bottom));
+			left: 10px;
+			z-index: 60;
+			isolation: isolate;
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr)) auto repeat(2, minmax(0, 1fr));
+			align-items: center;
+			gap: 2px;
+			max-width: 34rem;
+			height: 64px;
+			margin-inline: auto;
+			padding: 0 6px;
+			border-radius: 999px;
+		}
+
+		.tabbar::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			z-index: -1;
+			border: 1px solid rgb(255 255 255 / 0.75);
+			border-radius: inherit;
+			background: linear-gradient(160deg, rgb(255 255 255 / 0.8), rgb(255 255 255 / 0.55));
+			box-shadow:
+				inset 0 1px 0 rgb(255 255 255 / 0.95),
+				inset 0 -1px 0 rgb(4 0 55 / 0.05),
+				0 18px 40px -16px rgb(4 0 55 / 0.45),
+				0 2px 6px -2px rgb(4 0 55 / 0.1);
+			-webkit-backdrop-filter: blur(22px) saturate(190%);
+			backdrop-filter: blur(22px) saturate(190%);
+		}
+
+		.tabbar__tab {
+			display: grid;
+			align-content: center;
+			justify-items: center;
+			gap: 3px;
+			min-width: 0;
+			height: 52px;
+			padding: 0;
+			border: 0;
+			border-radius: 999px;
+			background: none;
+			color: var(--muted);
+			font: 600 10px/1.1 var(--font-text);
+			letter-spacing: 0.01em;
+			white-space: nowrap;
+			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
+			transition:
+				color 160ms,
+				background-color 160ms,
+				scale 160ms;
+		}
+
+		.tabbar__tab svg {
+			width: 24px;
+			height: 24px;
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 1.7;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+
+		.tabbar__tab[aria-current="page"] {
+			background: rgb(237 76 76 / 0.1);
+			color: var(--p-accent);
+		}
+
+		.tabbar__tab:active,
+		.tabbar__cta:active {
+			scale: 0.94;
+		}
+
+		.tabbar__cta {
+			display: inline-flex;
+			align-items: center;
+			height: 44px;
+			padding: 0 14px;
+			border-radius: 999px;
+			background: var(--p-accent);
+			color: #ffffff;
+			font: 600 13px/1 var(--font-text);
+			white-space: nowrap;
+			box-shadow:
+				inset 0 1px 0 rgb(255 255 255 / 0.35),
+				0 8px 18px -8px rgb(237 76 76 / 0.9);
+			-webkit-tap-highlight-color: transparent;
+			transition: scale 160ms;
+		}
+
+		.sheet {
+			position: fixed;
+			inset: auto 0 0;
+			width: 100%;
+			max-width: 34rem;
+			max-height: 86dvh;
+			margin: 0 auto;
+			padding: 0 0 calc(20px + env(safe-area-inset-bottom));
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			border: 0;
+			border-radius: 28px 28px 0 0;
+			background: rgb(242 243 247 / 0.9);
+			color: var(--p-ink);
+			box-shadow:
+				inset 0 1px 0 rgb(255 255 255 / 0.9),
+				0 -20px 60px -20px rgb(4 0 55 / 0.35);
+			-webkit-backdrop-filter: blur(30px) saturate(190%);
+			backdrop-filter: blur(30px) saturate(190%);
+			translate: 0 100%;
+			transition:
+				translate 420ms cubic-bezier(0.32, 0.72, 0, 1),
+				overlay 420ms allow-discrete,
+				display 420ms allow-discrete;
+		}
+
+		.sheet[open] {
+			translate: 0 0;
+		}
+
+		.sheet.is-dragging {
+			transition: none;
+		}
+
+		@starting-style {
+			.sheet[open] {
+				translate: 0 100%;
+			}
+		}
+
+		.sheet::backdrop {
+			background: rgb(4 0 55 / 0);
+			transition:
+				background 420ms,
+				overlay 420ms allow-discrete,
+				display 420ms allow-discrete;
+		}
+
+		.sheet[open]::backdrop {
+			background: rgb(4 0 55 / 0.32);
+		}
+
+		@starting-style {
+			.sheet[open]::backdrop {
+				background: rgb(4 0 55 / 0);
+			}
+		}
+
+		.sheet__grab {
+			display: grid;
+			place-items: center;
+			height: 22px;
+			touch-action: none;
+		}
+
+		.sheet__grab span {
+			width: 38px;
+			height: 5px;
+			border-radius: 999px;
+			background: rgb(4 0 55 / 0.18);
+		}
+
+		.sheet__view.is-entering {
+			animation: sheet-push 320ms cubic-bezier(0.32, 0.72, 0, 1);
+		}
+
+		.sheet__head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			min-height: 48px;
+			padding: 0 16px 0 20px;
+			touch-action: none;
+		}
+
+		.sheet__head h2 {
+			margin: 0;
+			font-size: 1.6rem;
+			font-weight: 700;
+			letter-spacing: -0.02em;
+		}
+
+		.sheet__close {
+			display: grid;
+			place-items: center;
+			flex: none;
+			width: 32px;
+			height: 32px;
+			padding: 0;
+			border: 0;
+			border-radius: 999px;
+			background: rgb(4 0 55 / 0.07);
+			color: var(--muted);
+			cursor: pointer;
+		}
+
+		.sheet__close svg,
+		.sheet__back svg,
+		.sheet__chev {
+			width: 18px;
+			height: 18px;
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+
+		.sheet__back {
+			display: inline-flex;
+			align-items: center;
+			gap: 2px;
+			min-height: 44px;
+			margin-left: -8px;
+			padding: 0 6px 0 0;
+			border: 0;
+			background: none;
+			color: var(--p-accent);
+			font: 500 1.05rem/1 var(--font-text);
+			cursor: pointer;
+		}
+
+		.sheet__back svg {
+			width: 22px;
+			height: 22px;
+		}
+
+		.sheet__title {
+			display: flex;
+			align-items: center;
+			gap: 0.35rem;
+			margin: 0.25rem 20px 0.75rem;
+			color: var(--p-ink);
+			font-size: 1.6rem;
+			font-weight: 700;
+			letter-spacing: -0.02em;
+		}
+
+		.sheet__title .sheet__chev {
+			color: var(--p-accent);
+		}
+
+		.sheet__list {
+			margin: 0.5rem 16px 1rem;
+			padding: 0;
+			overflow: hidden;
+			border-radius: 18px;
+			background: #ffffff;
+			list-style: none;
+			box-shadow: 0 1px 2px rgb(4 0 55 / 0.04);
+		}
+
+		.sheet__row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			width: 100%;
+			min-height: 52px;
+			margin: 0;
+			padding: 0 14px 0 16px;
+			border: 0;
+			background: none;
+			color: var(--p-ink);
+			font: 500 1.05rem/1.3 var(--font-text);
+			text-align: left;
+			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.sheet__row::first-letter {
+			text-transform: uppercase;
+		}
+
+		.sheet__row:active {
+			background: rgb(4 0 55 / 0.05);
+		}
+
+		.sheet__row[aria-current="page"] {
+			color: var(--p-accent);
+		}
+
+		.sheet__row--plain {
+			color: var(--muted);
+			cursor: default;
+		}
+
+		.sheet__row .sheet__chev {
+			flex: none;
+			color: rgb(4 0 55 / 0.3);
+		}
+
+		.sheet__list li + li .sheet__row {
+			box-shadow: inset 16px 1px 0 -15px #ffffff, inset 0 1px 0 rgb(4 0 55 / 0.08);
+		}
+
+		:global(html:has(dialog.sheet[open])) {
+			overflow: hidden;
+		}
+
+
+		.nav__menu {
+			width: auto;
+			translate: none;
+		}
+
+		.products {
+			min-height: 0;
+			padding: 0;
+			border: 0;
+			border-radius: 0;
+			background: none;
+			box-shadow: none;
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+		}
+
+		.products__list {
+			width: auto;
+			gap: 0.75rem;
+		}
+
+		.products__name,
+		:is(.products__cat:hover, .products__cat:focus-within) > .products__name,
+		.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__name {
+			min-height: 32px;
+			padding: 0;
+			background: none;
+			color: var(--muted);
+			font-size: 0.9rem;
+			box-shadow: none;
+		}
+
+		.products__sub {
+			position: static;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr);
+			gap: 0;
+			width: auto;
+		}
+
+		.products__sub a {
+			min-height: 44px;
+			border-bottom-color: var(--line);
+			font-size: 1rem;
+		}
 	}
 </style>
