@@ -125,16 +125,6 @@ export const blockTypes = [
 		],
 	},
 	{
-		slug: "smijern_configurator",
-		label: "Smijern configurator",
-		description: "A 3D configurator for wrought-iron doors that sends the chosen door to the contact form",
-		fields: [
-			{ slug: "heading", label: "Heading", type: "string", required: true },
-			{ slug: "text", label: "Text", type: "text" },
-			{ slug: "contact_url", label: "Contact page", type: "string", defaultValue: "/kontakt-oss/" },
-		],
-	},
-	{
 		slug: "logos",
 		label: "Logos",
 		description: "A row of brand logos",
