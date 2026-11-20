@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { anchor, lead, body } = Astro.props;
+const door = /dor(-|$)/.test(Astro.url.pathname.split("/").filter(Boolean).at(-1) ?? "");
 ---
 
 <section id={anchor || undefined} class="block section surface--brand call-band">
@@ -17,15 +18,29 @@ const { anchor, lead, body } = Astro.props;
 			<RichText value={body} class="call-band__body" />
 		</div>
 		<div class="call-band__art" aria-hidden="true">
-			<svg viewBox="0 0 480 320">
-				<rect class="call-band__line" pathLength="1" x="14" y="10" width="452" height="272" rx="5" />
-				<rect class="call-band__line" pathLength="1" x="30" y="26" width="420" height="240" rx="2" />
-				<path class="call-band__line" pathLength="1" d="M170 26v240M310 26v240" />
-				<path class="call-band__line" pathLength="1" d="M30 104h420" />
-				<path class="call-band__line" pathLength="1" d="M154 166v26M326 166v26" />
-				<rect class="call-band__line" pathLength="1" x="4" y="282" width="472" height="16" rx="4" />
-				<path class="call-band__line call-band__line--glint" pathLength="1" d="M52 244l40-40M52 220l20-20" />
-			</svg>
+			{
+				door ? (
+					<svg viewBox="0 0 480 320">
+						<rect class="call-band__line" pathLength="1" x="246" y="8" width="220" height="284" rx="4" />
+						<path class="call-band__line" pathLength="1" d="M258 292V20h94v272M360 292V20h94v272" />
+						<path class="call-band__line" pathLength="1" d="M305 20v272M407 20v272" />
+						<path class="call-band__line" pathLength="1" d="M258 88h94M258 156h94M258 224h94M360 88h94M360 156h94M360 224h94" />
+						<path class="call-band__line" pathLength="1" d="M342 172v26M370 172v26" />
+						<rect class="call-band__line" pathLength="1" x="226" y="292" width="260" height="12" rx="4" />
+						<path class="call-band__line call-band__line--glint" pathLength="1" d="M268 70l26-26M268 52l12-12" />
+					</svg>
+				) : (
+					<svg viewBox="0 0 480 320">
+						<rect class="call-band__line" pathLength="1" x="14" y="10" width="452" height="272" rx="5" />
+						<rect class="call-band__line" pathLength="1" x="30" y="26" width="420" height="240" rx="2" />
+						<path class="call-band__line" pathLength="1" d="M170 26v240M310 26v240" />
+						<path class="call-band__line" pathLength="1" d="M30 104h420" />
+						<path class="call-band__line" pathLength="1" d="M154 166v26M326 166v26" />
+						<rect class="call-band__line" pathLength="1" x="4" y="282" width="472" height="16" rx="4" />
+						<path class="call-band__line call-band__line--glint" pathLength="1" d="M52 244l40-40M52 220l20-20" />
+					</svg>
+				)
+			}
 		</div>
 	</div>
 </section>
