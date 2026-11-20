@@ -542,6 +542,14 @@ const moreActive = more.some((item) => here === trim(item.url));
 	}
 
 	@media (min-width: 1024px) {
+		.nav__links {
+			position: relative;
+		}
+
+		.nav__menu {
+			width: 46rem;
+		}
+
 		:global(html:not([data-motion="off"]) .nav .nav__menu) {
 			transform: none;
 		}
