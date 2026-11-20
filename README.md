@@ -43,8 +43,8 @@ A conversion-focused landing page template built with [EmDash](https://github.co
 ## Local Development
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun run dev
 ```
 
 Open http://localhost:4321/_emdash/admin and complete the setup wizard. EmDash runs database migrations and applies the marketing seed during setup. The site is available at http://localhost:4321.
@@ -52,11 +52,11 @@ Open http://localhost:4321/_emdash/admin and complete the setup wizard. EmDash r
 ## Deploying
 
 ```bash
-pnpm wrangler login
-pnpm deploy
+bunx alchemy profile edit --profile default --add Cloudflare
+bun run deploy
 ```
 
-The first deployment provisions the named D1 database and R2 bucket from `wrangler.jsonc`. See [Deploy to Cloudflare](https://docs.emdashcms.com/deployment/cloudflare/) for production setup, or use the deploy button above.
+`alchemy.run.ts` provisions the D1 database, R2 bucket, Turnstile widget and domain. Settings and secrets are described in `.env.schema`; put local values in `.env.local` and check them with `bunx varlock load`. See [Deploy to Cloudflare](https://docs.emdashcms.com/deployment/cloudflare/) for production setup, or use the deploy button above.
 
 ## See Also
 
