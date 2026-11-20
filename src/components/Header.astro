@@ -463,6 +463,17 @@ const moreActive = more.some((item) => here === trim(item.url));
 		justify-content: center;
 	}
 
+	@media (min-width: 1024px) and (max-width: 1279px) {
+		.nav.nav--centre .nav__bar {
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			gap: 0.75rem;
+		}
+
+		.nav.nav--centre .nav__links {
+			justify-self: center;
+		}
+	}
+
 	.nav__link {
 		font-weight: 500;
 	}
@@ -628,7 +639,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		padding: 0;
 		border: 0;
 		border-radius: 999px;
-		background: rgb(4 0 55 / 0.05);
+		background: transparent;
 		color: var(--p-ink);
 		cursor: pointer;
 		transition:
@@ -636,8 +647,9 @@ const moreActive = more.some((item) => here === trim(item.url));
 			scale 150ms;
 	}
 
-	.nav__search:hover {
-		background: rgb(4 0 55 / 0.09);
+	.nav__search:hover,
+	.nav__search:focus-visible {
+		background: rgb(4 0 55 / 0.06);
 	}
 
 	.nav__search:active {
