@@ -20,6 +20,10 @@
 			"binding": "MEDIA",
 			"bucket_name": "glass-no-media",
 		},
+		{
+			"binding": "IMAGE_CACHE",
+			"bucket_name": "glass-no-image-cache",
+		},
 	],
 	// Sandboxed plugins require Worker Loader, available on Workers paid plans. Uncomment to enable:
 	// "worker_loaders": [{ "binding": "LOADER" }],

@@ -30,6 +30,10 @@ export default Alchemy.Stack(
 			name: "glass-no-media",
 			jurisdiction: "eu",
 		});
+		const imageCache = yield* Cloudflare.R2.Bucket("ImageCache", {
+			name: "glass-no-image-cache",
+			jurisdiction: "eu",
+		});
 		const sessions = yield* Cloudflare.KV.Namespace("Sessions", { title: "glass-no-sessions" });
 		const turnstile = yield* Cloudflare.Turnstile.Widget("ContactForm", {
 			name: "glass-no-contact",
@@ -80,6 +84,7 @@ export default Alchemy.Stack(
 			env: {
 				DB: database,
 				MEDIA: media,
+				IMAGE_CACHE: imageCache,
 				SESSION: sessions,
 				IMAGES: Cloudflare.Images.Images("Images"),
 				EMAIL: Cloudflare.Email.SendEmail("Email", { allowedSenderAddresses: ["skjema@glass.no"] }),

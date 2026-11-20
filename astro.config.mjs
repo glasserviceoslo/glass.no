@@ -39,6 +39,12 @@ export default defineConfig({
 				cloudflareEmail({ from: { email: "skjema@glass.no", name: "Glass.no" } }),
 			],
 		}),
+		{
+			name: "image-cache",
+			hooks: {
+				"astro:config:setup": ({ updateConfig }) => updateConfig({ image: { endpoint: { entrypoint: "./src/image-endpoint.ts" } } }),
+			},
+		},
 	],
 	devToolbar: { enabled: false },
 });
