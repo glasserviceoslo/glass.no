@@ -1,0 +1,155 @@
+---
+import ContactFormFields from "./ContactFormFields.astro";
+---
+
+<dialog class="message" id="melding" aria-labelledby="melding-title">
+	<div class="message__panel">
+		<header class="message__head">
+			<h2 id="melding-title">Send oss en melding</h2>
+			<button class="message__close" type="button" aria-label="Lukk" data-message-close>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+			</button>
+		</header>
+		<ContactFormFields id="melding-skjema" />
+		<a class="message__call" href="tel:+4791584940" data-track="call">Heller ringe? 91 58 49 40</a>
+	</div>
+</dialog>
+
+<script>
+	const dialog = document.querySelector<HTMLDialogElement>("dialog.message")!;
+	const form = dialog.querySelector<HTMLFormElement>("form")!;
+	const track = (name: string) => (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag?.("event", name);
+
+	document.addEventListener("click", (event) => {
+		const target = event.target instanceof Element ? event.target : null;
+		const opener = target?.closest("[data-message]");
+		if (opener) {
+			event.preventDefault();
+			if (form.classList.contains("steps--done")) form.dispatchEvent(new Event("message-reset"));
+			dialog.showModal();
+			track("message_open");
+			return;
+		}
+		if (target?.closest('a[href^="tel:"]')) track("click_call");
+		if (target?.closest("[data-message-close]") || target === dialog) dialog.close();
+	});
+
+	document.addEventListener("message-sent", () => track("generate_lead"));
+</script>
+
+<style>
+	.message {
+		width: min(34rem, calc(100% - 2rem));
+		max-width: none;
+		max-height: min(46rem, calc(100svh - 2rem));
+		margin: auto;
+		padding: 0;
+		border: 0;
+		border-radius: 24px;
+		background: #ffffff;
+		color: var(--flow-ink);
+		box-shadow: 0 40px 80px -30px rgb(4 0 55 / 0.45);
+		overflow: auto;
+		overscroll-behavior: contain;
+	}
+
+	.message::backdrop {
+		background: rgb(4 0 55 / 0.4);
+		-webkit-backdrop-filter: blur(4px);
+		backdrop-filter: blur(4px);
+	}
+
+	.message[open] {
+		animation: message-in 260ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.message__panel {
+		display: grid;
+		gap: 1.25rem;
+		padding: clamp(1.25rem, 4vw, 2rem);
+	}
+
+	.message__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.message__head h2 {
+		margin: 0;
+		font-size: var(--type-h3);
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	.message__close {
+		display: grid;
+		place-items: center;
+		flex: none;
+		width: 44px;
+		height: 44px;
+		margin-right: -8px;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: transparent;
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.message__close:hover,
+	.message__close:focus-visible {
+		background: rgb(4 0 55 / 0.06);
+	}
+
+	.message__close svg {
+		width: 22px;
+		height: 22px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.75;
+		stroke-linecap: round;
+	}
+
+	.message__call {
+		justify-self: center;
+		padding: 0.6rem 0.75rem;
+		color: var(--flow-muted);
+		font-size: var(--type-small);
+		text-underline-offset: 3px;
+	}
+
+	.message__call:hover {
+		color: var(--p-ink);
+	}
+
+	@keyframes message-in {
+		from {
+			opacity: 0;
+			translate: 0 12px;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.message {
+			width: 100%;
+			max-height: calc(100svh - 1.5rem);
+			margin: auto 0 0;
+			border-radius: 24px 24px 0 0;
+			padding-bottom: env(safe-area-inset-bottom);
+		}
+
+		@keyframes message-in {
+			from {
+				translate: 0 100%;
+			}
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.message[open] {
+			animation: none;
+		}
+	}
+</style>

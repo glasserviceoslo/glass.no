@@ -5,6 +5,7 @@ import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import BlockEditing from "../components/BlockEditing.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import MessageSheet from "../components/MessageSheet.astro";
 import Header from "../components/Header.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import { resolveSiteIdentity } from "../utils/site";
@@ -177,6 +178,7 @@ const page = createPublicPageContext({
 			</div>
 		</footer>
 		<BookingPopup />
+		<MessageSheet />
 		<BlockEditing />
 		<CookieConsent logo={siteLogo} siteTitle={siteTitle} />
 		<EmDashBodyEnd page={page} />
