@@ -22,6 +22,7 @@ const GONE = [
 	"/salgs-og-leveringsbetingelser",
 	"/author/admin",
 	"/produktkategori/ukategorisert",
+	"/services",
 ];
 const MOVED: Record<string, string> = {
 	"/butikk": "/",
@@ -32,6 +33,8 @@ const MOVED: Record<string, string> = {
 	"/dusjlosninger": "/dusjdor/",
 	"/category/uncategorized": "/blogg/",
 	"/produkt/speil": "/speil/",
+	"/project": "/prosjekter/",
+	"/glassmester": "/",
 };
 const DEAD_LINK = "/artikkel-om-tradlos-stovsuger";
 
@@ -40,6 +43,10 @@ const retired = new Set([...GONE, ...Object.keys(MOVED)].map((path) => path.slic
 for (const page of pages.filter((entry) => retired.has(entry.slug) && entry.status === "published")) {
 	await api(`/content/pages/${page.id}/unpublish`, { method: "POST", body: {} });
 	console.log("unpublished", page.slug);
+}
+for (const post of (await listAll<Entry>("/content/posts")).filter((entry) => retired.has(entry.slug) && entry.status === "published")) {
+	await api(`/content/posts/${post.id}/unpublish`, { method: "POST", body: {} });
+	console.log("unpublished post", post.slug);
 }
 for (const product of (await listAll<Entry>("/content/products")).filter((entry) => entry.status === "published")) {
 	await api(`/content/products/${product.id}/unpublish`, { method: "POST", body: {} });
