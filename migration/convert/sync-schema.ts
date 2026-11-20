@@ -1,5 +1,5 @@
 import { api } from "./api.ts";
-import { blockTypes, layoutField } from "./schema.ts";
+import { blockTypes, layoutField, searchTextField } from "./schema.ts";
 
 type BlockTypeItem = { currentVersion: number; versions: { version: number; fingerprint: string; fields: unknown }[] };
 
@@ -28,11 +28,24 @@ export async function syncSchema() {
 		}
 	}
 
+	const searchable: Record<string, string[]> = { pages: ["title", "excerpt"], posts: ["title", "excerpt", "content"] };
+	for (const collection of ["pages", "posts"]) {
+		const schema = await api<{ item: { fields: { slug: string; searchable?: boolean }[] } }>(`/schema/collections/${collection}?includeFields=true`);
+		if (!schema.item.fields.some((field) => field.slug === "search_text")) {
+			await api(`/schema/collections/${collection}/fields`, { method: "POST", body: searchTextField });
+		}
+		for (const slug of searchable[collection]) {
+			if (!schema.item.fields.find((field) => field.slug === slug)?.searchable) {
+				await api(`/schema/collections/${collection}/fields/${slug}`, { method: "PUT", body: { searchable: true } });
+			}
+		}
+	}
+
 	for (const collection of ["pages", "posts"]) {
 		const current = await api<{ item: { supports: string[] } }>(`/schema/collections/${collection}`);
 		await api(`/schema/collections/${collection}`, {
 			method: "PUT",
-			body: { hasSeo: true, supports: [...new Set([...current.item.supports, "seo"])], urlPattern: "/{slug}/" },
+			body: { hasSeo: true, supports: [...new Set([...current.item.supports, "seo", "search"])], urlPattern: "/{slug}/" },
 		});
 	}
 }

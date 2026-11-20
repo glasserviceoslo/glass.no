@@ -270,6 +270,14 @@ export const blockTypes = [
 	},
 ];
 
+export const searchTextField = {
+	slug: "search_text",
+	label: "Søketekst (fylles automatisk)",
+	type: "text",
+	searchable: true,
+	translatable: true,
+};
+
 export const layoutField = {
 	slug: "layout",
 	label: "Layout",

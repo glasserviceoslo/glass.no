@@ -86,6 +86,9 @@ const moreActive = more.some((item) => here === trim(item.url));
 			}
 		</nav>
 		<div class="nav__actions">
+			<button class="nav__search" type="button" data-search-open aria-label="Søk" aria-keyshortcuts="Meta+K Control+K">
+				<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+			</button>
 			<a class="btn btn--primary" href={BOOKING_PATH}>Gratis Befaring</a>
 		</div>
 	</div>
@@ -193,6 +196,10 @@ const moreActive = more.some((item) => here === trim(item.url));
 				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
 			</button>
 		</header>
+		<button class="sheet__searchrow" type="button" data-search-open>
+			<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+			Søk
+		</button>
 		<ul class="sheet__list">
 			{
 				more.map((item) => (
@@ -217,6 +224,18 @@ const moreActive = more.some((item) => here === trim(item.url));
 			</li>
 		</ul>
 	</section>
+</dialog>
+
+<dialog class="search" aria-label="Søk">
+	<div class="search__field">
+		<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+		<input type="search" placeholder="Søk" aria-label="Søk på glass.no" autocomplete="off" enterkeyhint="search" />
+		<button class="search__close" type="button" aria-label="Lukk" data-search-close>
+			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+		</button>
+	</div>
+	<ul class="search__results" role="listbox" aria-label="Treff"></ul>
+	<p class="search__empty" role="status" hidden>Ingen treff</p>
 </dialog>
 
 <script>
@@ -277,6 +296,105 @@ const moreActive = more.some((item) => here === trim(item.url));
 			handle.addEventListener("pointerup", release);
 			handle.addEventListener("pointercancel", release);
 		});
+	});
+
+	const search = document.querySelector<HTMLDialogElement>("dialog.search")!;
+	const query = search.querySelector("input")!;
+	const results = search.querySelector<HTMLUListElement>(".search__results")!;
+	const empty = search.querySelector<HTMLElement>(".search__empty")!;
+	let timer = 0;
+	let pending: AbortController | undefined;
+	let active = -1;
+
+	const options = () => [...results.querySelectorAll<HTMLAnchorElement>("a")];
+	const highlight = (index: number) => {
+		const list = options();
+		active = list.length ? (index + list.length) % list.length : -1;
+		list.forEach((option, position) => option.setAttribute("aria-selected", String(position === active)));
+		list[active]?.scrollIntoView({ block: "nearest" });
+	};
+
+	const openSearch = () => {
+		document.querySelectorAll<HTMLDialogElement>("dialog.sheet[open]").forEach((sheet) => sheet.close());
+		search.showModal();
+		query.select();
+	};
+
+	const run = async () => {
+		const text = query.value.trim();
+		pending?.abort();
+		if (text.length < 2) {
+			results.replaceChildren();
+			empty.hidden = true;
+			return;
+		}
+		pending = new AbortController();
+		try {
+			const response = await fetch(`/_emdash/api/search?${new URLSearchParams({ q: text, limit: "8" })}`, { signal: pending.signal });
+			const { data } = (await response.json()) as { data: { items: { collection: string; slug: string; title: string; snippet?: string }[] } };
+			results.replaceChildren(
+				...data.items.map((item) => {
+					const li = document.createElement("li");
+					const link = document.createElement("a");
+					link.className = "search__result";
+					link.href = `/${item.slug}/`;
+					link.setAttribute("role", "option");
+					const title = document.createElement("span");
+					title.className = "search__title";
+					title.textContent = item.title;
+					link.append(title);
+					if (item.snippet && item.snippet.replace(/<[^>]+>/g, "").trim() !== item.title.trim()) {
+						const snippet = document.createElement("span");
+						snippet.className = "search__snippet";
+						snippet.innerHTML = item.snippet;
+						link.append(snippet);
+					}
+					if (item.collection === "posts") {
+						const tag = document.createElement("span");
+						tag.className = "search__tag";
+						tag.textContent = "Blogg";
+						link.append(tag);
+					}
+					li.append(link);
+					return li;
+				}),
+			);
+			empty.hidden = data.items.length > 0;
+			highlight(0);
+		} catch (error) {
+			if ((error as Error).name !== "AbortError") empty.hidden = false;
+		}
+	};
+
+	query.addEventListener("input", () => {
+		clearTimeout(timer);
+		timer = window.setTimeout(run, 180);
+	});
+
+	query.addEventListener("keydown", (event) => {
+		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+			event.preventDefault();
+			highlight(active + (event.key === "ArrowDown" ? 1 : -1));
+		}
+		if (event.key === "Enter" && options()[active]) {
+			event.preventDefault();
+			options()[active].click();
+		}
+	});
+
+	document.querySelectorAll("[data-search-open]").forEach((button) => button.addEventListener("click", openSearch));
+	search.addEventListener("click", (event) => {
+		const target = event.target as HTMLElement;
+		const box = search.getBoundingClientRect();
+		const outside = event.clientY < box.top || event.clientY > box.bottom || event.clientX < box.left || event.clientX > box.right;
+		if (outside || target.closest("[data-search-close]")) search.close();
+	});
+	document.addEventListener("keydown", (event) => {
+		if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
+			event.preventDefault();
+			if (search.open) search.close();
+			else openSearch();
+		}
 	});
 
 	window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
@@ -466,6 +584,252 @@ const moreActive = more.some((item) => here === trim(item.url));
 		display: none;
 	}
 
+	.nav__search {
+		display: grid;
+		place-items: center;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: rgb(4 0 55 / 0.05);
+		color: var(--p-ink);
+		cursor: pointer;
+		transition:
+			background-color 150ms,
+			scale 150ms;
+	}
+
+	.nav__search:hover {
+		background: rgb(4 0 55 / 0.09);
+	}
+
+	.nav__search:active {
+		scale: 0.94;
+	}
+
+	.nav__search svg,
+	.sheet__searchrow svg,
+	.search__field > svg {
+		width: 20px;
+		height: 20px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.9;
+		stroke-linecap: round;
+	}
+
+	.search {
+		position: fixed;
+		inset: 12vh 0 auto;
+		width: min(40rem, calc(100% - 32px));
+		max-height: 72vh;
+		margin: 0 auto;
+		padding: 0;
+		overflow: hidden;
+		border: 1px solid rgb(255 255 255 / 0.8);
+		border-radius: 26px;
+		background: linear-gradient(160deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.72));
+		color: var(--p-ink);
+		box-shadow:
+			inset 0 1px 0 #ffffff,
+			0 40px 90px -30px rgb(4 0 55 / 0.5),
+			0 2px 8px -2px rgb(4 0 55 / 0.1);
+		-webkit-backdrop-filter: blur(28px) saturate(190%);
+		backdrop-filter: blur(28px) saturate(190%);
+		opacity: 0;
+		translate: 0 -10px;
+		scale: 0.98;
+		transition:
+			opacity 200ms,
+			translate 320ms cubic-bezier(0.16, 1, 0.3, 1),
+			scale 320ms cubic-bezier(0.16, 1, 0.3, 1),
+			overlay 320ms allow-discrete,
+			display 320ms allow-discrete;
+	}
+
+	.search[open] {
+		display: flex;
+		flex-direction: column;
+		opacity: 1;
+		translate: 0 0;
+		scale: 1;
+	}
+
+	@starting-style {
+		.search[open] {
+			opacity: 0;
+			translate: 0 -10px;
+			scale: 0.98;
+		}
+	}
+
+	.search::backdrop {
+		background: rgb(4 0 55 / 0);
+		transition:
+			background 260ms,
+			overlay 260ms allow-discrete,
+			display 260ms allow-discrete;
+	}
+
+	.search[open]::backdrop {
+		background: rgb(4 0 55 / 0.28);
+	}
+
+	@starting-style {
+		.search[open]::backdrop {
+			background: rgb(4 0 55 / 0);
+		}
+	}
+
+	.search__field {
+		display: flex;
+		flex: none;
+		align-items: center;
+		gap: 0.75rem;
+		height: 64px;
+		padding: 0 12px 0 22px;
+		color: var(--p-muted);
+	}
+
+	.search__field input {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+		border: 0;
+		background: none;
+		color: var(--p-ink);
+		font: 400 1.2rem/1 var(--font-text);
+		outline: none;
+	}
+
+	.search__field input::-webkit-search-cancel-button {
+		display: none;
+	}
+
+	.search__close {
+		display: grid;
+		place-items: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: rgb(4 0 55 / 0.06);
+		color: var(--p-muted);
+		cursor: pointer;
+	}
+
+	.search__close svg {
+		width: 18px;
+		height: 18px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+	}
+
+	.search__results {
+		margin: 0;
+		padding: 0 8px 8px;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		list-style: none;
+	}
+
+	.search__results:empty {
+		display: none;
+	}
+
+	.search__results:not(:empty) {
+		padding-top: 8px;
+		border-top: 1px solid rgb(4 0 55 / 0.07);
+	}
+
+	.search__results :global(.search__result) {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 0.2rem 1rem;
+		align-items: baseline;
+		padding: 0.8rem 14px;
+		border-radius: 16px;
+		color: var(--p-ink);
+		text-decoration: none;
+		transition: background-color 120ms;
+	}
+
+	.search__results :global(.search__result:hover),
+	.search__results :global(.search__result[aria-selected="true"]) {
+		background: rgb(255 255 255 / 0.95);
+		box-shadow: 0 1px 2px rgb(4 0 55 / 0.06);
+	}
+
+	.search__results :global(.search__title) {
+		font-size: 1.05rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.search__results :global(.search__title::first-letter) {
+		text-transform: uppercase;
+	}
+
+	.search__results :global(.search__snippet) {
+		grid-column: 1;
+		display: -webkit-box;
+		overflow: hidden;
+		color: var(--p-muted);
+		font-size: 0.9rem;
+		line-height: 1.45;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+	}
+
+	.search__results :global(.search__snippet mark) {
+		background: none;
+		color: var(--p-ink);
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: var(--p-accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.18em;
+	}
+
+	.search__results :global(.search__tag) {
+		grid-column: 2;
+		grid-row: 1;
+		padding: 0.15rem 0.55rem;
+		border-radius: 999px;
+		background: rgb(237 76 76 / 0.1);
+		color: color-mix(in oklab, var(--p-accent) 75%, var(--p-ink));
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.search__empty {
+		margin: 0;
+		padding: 1rem 22px 1.25rem;
+		border-top: 1px solid rgb(4 0 55 / 0.07);
+		color: var(--p-muted);
+	}
+
+	.sheet__searchrow {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		width: calc(100% - 32px);
+		height: 44px;
+		margin: 0.25rem 16px 0.5rem;
+		padding: 0 14px;
+		border: 0;
+		border-radius: 14px;
+		background: rgb(4 0 55 / 0.07);
+		color: var(--p-muted);
+		font: 400 1.05rem/1 var(--font-text);
+		text-align: left;
+		cursor: pointer;
+	}
+
 	@keyframes sheet-push {
 		from {
 			translate: 24px 0;
@@ -476,6 +840,8 @@ const moreActive = more.some((item) => here === trim(item.url));
 	@media (prefers-reduced-motion: reduce) {
 		.sheet,
 		.sheet::backdrop,
+		.search,
+		.search::backdrop,
 		.sheet__view.is-entering {
 			transition: none;
 			animation: none;
@@ -485,6 +851,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 	@media (prefers-reduced-transparency: reduce) {
 		.tabbar::before,
 		.sheet,
+		.search,
 		.nav__bar::before,
 		.products {
 			background: #ffffff;
@@ -494,6 +861,12 @@ const moreActive = more.some((item) => here === trim(item.url));
 	}
 
 	@media (max-width: 1023px) {
+		.search {
+			inset: 10px 0 auto;
+			width: calc(100% - 20px);
+			max-height: calc(100dvh - 110px);
+		}
+
 		.nav {
 			position: absolute;
 			top: 8px;
