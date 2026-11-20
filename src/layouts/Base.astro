@@ -3,6 +3,7 @@ import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
 import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import BookingPopup from "../components/BookingPopup.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 import Header from "../components/Header.astro";
 import { resolveSiteIdentity } from "../utils/site";
 import "@fontsource-variable/hanken-grotesk";
@@ -110,11 +111,15 @@ const page = createPublicPageContext({
 				</div>
 				<div class="site-footer__legal">
 					<span>&copy; {new Date().getFullYear()} Glass-Service Svendsen og Sønn AS</span>
-					<a href="/privacy-policy/">Personvern</a>
+					<span class="site-footer__links">
+						<a href="/privacy-policy/">Personvern</a>
+						<button type="button" data-consent-open>Cookie-innstillinger</button>
+					</span>
 				</div>
 			</div>
 		</footer>
 		<BookingPopup />
+		<CookieConsent logo={siteLogo} siteTitle={siteTitle} />
 		<EmDashBodyEnd page={page} />
 		<script is:inline type="module" src="/assets/system.js"></script>
 		<script is:inline type="module" src="/assets/motion/motion.js"></script>

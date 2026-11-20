@@ -412,6 +412,26 @@ main .prose p.is-button a {
 	font-variant-numeric: tabular-nums;
 }
 
+.site-footer__links {
+	display: inline-flex;
+	gap: 1.25rem;
+}
+
+.site-footer__links button {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.site-footer__links button:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--p-accent);
+	text-underline-offset: 0.2em;
+}
+
 .site-footer__contact a,
 .site-footer__legal a {
 	color: inherit;
