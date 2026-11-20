@@ -7,31 +7,28 @@ interface Props {
 
 const { id } = Astro.props;
 const siteKey = (env as { TURNSTILE_SITE_KEY?: string }).TURNSTILE_SITE_KEY;
-const fields = [
-	{ name: "fornavn", label: "Navn", type: "text", autocomplete: "given-name", error: "Skriv navnet ditt." },
-	{ name: "etternavn", label: "Etternavn", type: "text", autocomplete: "family-name", error: "Skriv etternavnet ditt." },
-	{ name: "epost", label: "E-post", type: "email", autocomplete: "email", inputmode: "email", error: "Skriv en e-postadresse med @, som navn@eksempel.no." },
-	{
-		name: "telefon",
-		label: "Telefon",
-		type: "tel",
-		autocomplete: "tel",
-		inputmode: "tel",
-		value: "+47",
-		pattern: "[+]?[0-9 ]{8,}",
-		error: "Skriv telefonnummeret ditt, minst åtte siffer.",
-	},
-	{ name: "adresse", label: "Adresse", type: "text", autocomplete: "street-address", error: "Skriv adressen der jobben skal gjøres.", full: true },
+const products = ["Vindu", "Dør", "Glass", "Rekkverk", "Glassvegg", "Dusj", "Speil", "Takvindu", "Annet"];
+const slug = Astro.url.pathname.split("/").filter(Boolean).at(-1) ?? "";
+const productOf: [RegExp, string][] = [
+	[/velux|takvindu|flate-tak|overlys|solskjerming/, "Takvindu"],
+	[/vindu/, "Vindu"],
+	[/dusj/, "Dusj"],
+	[/rekkverk/, "Rekkverk"],
+	[/glassvegg/, "Glassvegg"],
+	[/speil(?!glass)/, "Speil"],
+	[/dor(-|$)|smijern|baldakin/, "Dør"],
+	[/glass|plexi|polykarbonat/, "Glass"],
 ];
-const sent =
-	"Takk for din henvendelse! Vi har mottatt meldingen din og setter stor pris på at du tok deg tid til å kontakte oss. Vårt team vil gjennomgå henvendelsen din og komme tilbake til deg så snart som mulig.";
+const preset = productOf.find(([pattern]) => pattern.test(slug))?.[1];
+const steps = 4;
+const sent = "Takk for din henvendelse! Vi har mottatt meldingen din og setter stor pris på at du tok deg tid til å kontakte oss. Vårt team vil gjennomgå henvendelsen din og komme tilbake til deg så snart som mulig.";
 const failed = "Meldingen ble ikke sendt. Det du skrev er tatt vare på. Prøv igjen, eller ring oss på 91 58 49 40.";
 const result = Astro.url.searchParams.get("skjema");
 const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "";
 ---
 
 <form
-	class="form"
+	class="form steps"
 	method="post"
 	action="/api/kontakt"
 	data-endpoint="/api/kontakt"
@@ -41,38 +38,82 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 	data-fix="Rett {n} felt før du sender."
 	novalidate
 >
-	{
-		fields.map((field) => (
-			<div class:list={["field", { "field--full": field.full }]}>
-				<label for={`${id}-${field.name}`}>{field.label}</label>
-				<input
-					id={`${id}-${field.name}`}
-					name={field.name}
-					type={field.type}
-					autocomplete={field.autocomplete}
-					inputmode={field.inputmode as never}
-					value={field.value}
-					pattern={field.pattern}
-					required
-					aria-describedby={`${id}-${field.name}-err`}
-				/>
-				<p class="field__error" id={`${id}-${field.name}-err`} hidden>
-					{field.error}
-				</p>
-			</div>
-		))
-	}
-	<div class="field field--full">
-		<label for={`${id}-melding`}>Melding</label>
-		<textarea id={`${id}-melding`} name="melding" rows="5" required aria-describedby={`${id}-melding-err`}></textarea>
-		<p class="field__error" id={`${id}-melding-err`} hidden>Skriv hva du trenger hjelp med.</p>
+	<div class="steps__progress" hidden>
+		<span class="steps__count" data-step-count>Steg 1 av {steps}</span>
+		<span class="steps__bar"><span data-step-bar></span></span>
 	</div>
-	<div class="field field--trap" aria-hidden="true">
-		<label for={`${id}-nettsted`}>Nettsted</label>
-		<input id={`${id}-nettsted`} name="nettsted" type="text" tabindex="-1" autocomplete="off" />
+
+	<fieldset class="steps__step" tabindex="-1">
+		<legend>Hva trenger du hjelp med?</legend>
+		<div class="steps__choices">
+			{
+				products.map((product) => (
+					<label class="steps__choice">
+						<input type="radio" name="produkt" value={product} checked={product === preset} />
+						<span>{product}</span>
+					</label>
+				))
+			}
+		</div>
+	</fieldset>
+
+	<fieldset class="steps__step" tabindex="-1">
+		<legend>Hva gjelder det?</legend>
+		<div class="field">
+			<label for={`${id}-melding`}>Melding (valgfritt)</label>
+			<textarea id={`${id}-melding`} name="melding" rows="4" maxlength="5000" placeholder="F.eks. antall vinduer, mål eller rom"></textarea>
+		</div>
+	</fieldset>
+
+	<fieldset class="steps__step" tabindex="-1">
+		<legend>Hvor skal jobben gjøres?</legend>
+		<div class="field">
+			<label for={`${id}-adresse`}>Adresse</label>
+			<input id={`${id}-adresse`} name="adresse" type="text" autocomplete="street-address" required maxlength="300" aria-describedby={`${id}-adresse-err`} />
+			<p class="field__error" id={`${id}-adresse-err`} hidden>Skriv adressen der jobben skal gjøres.</p>
+		</div>
+	</fieldset>
+
+	<fieldset class="steps__step" tabindex="-1">
+		<legend>Hvem kontakter vi?</legend>
+		<div class="field">
+			<label for={`${id}-navn`}>Navn</label>
+			<input id={`${id}-navn`} name="navn" type="text" autocomplete="name" required maxlength="300" aria-describedby={`${id}-navn-err`} />
+			<p class="field__error" id={`${id}-navn-err`} hidden>Skriv navnet ditt.</p>
+		</div>
+		<div class="field">
+			<label for={`${id}-telefon`}>Telefon</label>
+			<input
+				id={`${id}-telefon`}
+				name="telefon"
+				type="tel"
+				autocomplete="tel"
+				inputmode="tel"
+				pattern="[+]?[0-9 ]{8,}"
+				required
+				maxlength="30"
+				aria-describedby={`${id}-telefon-err`}
+				data-phone
+			/>
+			<p class="field__error" id={`${id}-telefon-err`} hidden>Skriv telefonnummeret ditt, minst åtte siffer, eller en e-postadresse.</p>
+		</div>
+		<div class="field">
+			<label for={`${id}-epost`}>E-post (valgfritt)</label>
+			<input id={`${id}-epost`} name="epost" type="email" autocomplete="email" inputmode="email" maxlength="300" aria-describedby={`${id}-epost-err`} data-email />
+			<p class="field__error" id={`${id}-epost-err`} hidden>Skriv en e-postadresse med @, som navn@eksempel.no.</p>
+		</div>
+		<div class="field field--trap" aria-hidden="true">
+			<label for={`${id}-nettsted`}>Nettsted</label>
+			<input id={`${id}-nettsted`} name="nettsted" type="text" tabindex="-1" autocomplete="off" />
+		</div>
+		{siteKey && <div class="cf-turnstile" data-sitekey={siteKey} data-language="nb" data-appearance="interaction-only" data-theme="light" data-size="flexible"></div>}
+	</fieldset>
+
+	<div class="steps__nav">
+		<button class="btn steps__back" type="button" data-step-back hidden>Tilbake</button>
+		<button class="btn btn--primary" type="button" data-step-next hidden>Neste</button>
+		<button class="btn btn--primary" type="submit" data-step-send>Send melding</button>
 	</div>
-	{siteKey && <div class="cf-turnstile field--full" data-sitekey={siteKey} data-language="nb" data-appearance="interaction-only" data-theme="light" data-size="flexible"></div>}
-	<div class="btn-row"><button class="btn btn--primary" type="submit">Send melding</button></div>
 	<p class="form__status" role="status" data-form-status>{initialStatus}</p>
 </form>
 
@@ -85,17 +126,252 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 		script.defer = true;
 		document.head.append(script);
 	}
-	widgets.forEach((widget) => {
-		const form = widget.closest("form")!;
-		const status = form.querySelector("[data-form-status]")!;
+
+	document.querySelectorAll<HTMLFormElement>("form.steps").forEach((form) => {
+		const steps = [...form.querySelectorAll<HTMLFieldSetElement>(".steps__step")];
+		const progress = form.querySelector<HTMLElement>(".steps__progress")!;
+		const count = form.querySelector<HTMLElement>("[data-step-count]")!;
+		const bar = form.querySelector<HTMLElement>("[data-step-bar]")!;
+		const back = form.querySelector<HTMLButtonElement>("[data-step-back]")!;
+		const next = form.querySelector<HTMLButtonElement>("[data-step-next]")!;
+		const send = form.querySelector<HTMLButtonElement>("[data-step-send]")!;
+		const status = form.querySelector<HTMLElement>("[data-form-status]")!;
+		const phone = form.querySelector<HTMLInputElement>("[data-phone]")!;
+		const email = form.querySelector<HTMLInputElement>("[data-email]")!;
+		let current = 0;
+
+		const show = (index: number, focus = true) => {
+			current = index;
+			steps.forEach((step, i) => (step.hidden = i !== index));
+			count.textContent = `Steg ${index + 1} av ${steps.length}`;
+			bar.style.width = `${((index + 1) / steps.length) * 100}%`;
+			back.hidden = index === 0;
+			next.hidden = index === steps.length - 1;
+			send.hidden = index !== steps.length - 1;
+			if (focus) steps[index].focus();
+		};
+
+		const valid = (step: HTMLFieldSetElement) => {
+			const fields = [...step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input:not([tabindex='-1']), textarea")];
+			const bad = fields.filter((field) => {
+				const ok = field.checkValidity();
+				const error = document.getElementById(field.getAttribute("aria-describedby") ?? "");
+				if (ok) field.removeAttribute("aria-invalid");
+				else field.setAttribute("aria-invalid", "true");
+				if (error) error.hidden = ok;
+				return !ok;
+			});
+			bad[0]?.focus();
+			return bad.length === 0;
+		};
+
+		const advance = () => {
+			if (current < steps.length - 1 && valid(steps[current])) show(current + 1);
+		};
+
+		phone.removeAttribute("required");
+		const sync = () => (phone.required = !email.value.trim());
+		email.addEventListener("input", sync);
+		sync();
+
+		progress.hidden = false;
+		show(0, false);
+
+		next.addEventListener("click", advance);
+		back.addEventListener("click", () => show(current - 1));
+		form.addEventListener("click", (event) => {
+			const choice = (event.target as Element).closest?.(".steps__choice input");
+			if (choice && (event as MouseEvent).detail > 0) setTimeout(advance, 180);
+		});
+		form.addEventListener("keydown", (event) => {
+			if (event.key === "Enter" && (event.target as Element).matches("input") && current < steps.length - 1) {
+				event.preventDefault();
+				advance();
+			}
+		});
+		form.addEventListener(
+			"submit",
+			(event) => {
+				if (current === steps.length - 1) return;
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				advance();
+			},
+			{ capture: true },
+		);
+
 		new MutationObserver(() => {
 			const text = status.textContent?.trim();
-			if (text === form.dataset.sent || text === form.dataset.failed) (window as unknown as { turnstile?: { reset(el: Element): void } }).turnstile?.reset(widget);
+			if (text === form.dataset.sent) {
+				form.classList.add("steps--done");
+				form.dispatchEvent(new CustomEvent("message-sent", { bubbles: true }));
+			}
+			if (text === form.dataset.sent || text === form.dataset.failed) {
+				const widget = form.querySelector(".cf-turnstile");
+				if (widget) (window as unknown as { turnstile?: { reset(el: Element): void } }).turnstile?.reset(widget);
+			}
 		}).observe(status, { childList: true, characterData: true, subtree: true });
+
+		form.addEventListener("message-reset", () => {
+			form.classList.remove("steps--done");
+			status.textContent = "";
+			show(0, false);
+		});
 	});
 </script>
 
 <style>
+	.steps {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.25rem;
+	}
+
+	.steps__progress {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.steps__progress[hidden] {
+		display: none;
+	}
+
+	.steps__count {
+		font-size: var(--type-label);
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: color-mix(in oklab, currentColor 62%, transparent);
+	}
+
+	.steps__bar {
+		display: block;
+		height: 4px;
+		border-radius: 2px;
+		background: color-mix(in oklab, currentColor 14%, transparent);
+		overflow: hidden;
+	}
+
+	.steps__bar span {
+		display: block;
+		width: 25%;
+		height: 100%;
+		background: var(--p-action);
+		transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.steps__step {
+		display: grid;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		min-width: 0;
+		outline: none;
+	}
+
+	.steps__step[hidden] {
+		display: none;
+	}
+
+	.steps__step legend {
+		margin-bottom: 1rem;
+		padding: 0;
+		font-size: var(--type-title);
+		font-weight: 600;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		color: inherit;
+	}
+
+	.steps__choices {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.5rem;
+	}
+
+	.steps__choice {
+		position: relative;
+		display: block;
+		cursor: pointer;
+	}
+
+	.steps__choice input {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.steps__choice span {
+		display: grid;
+		place-items: center;
+		min-height: 3.25rem;
+		padding: 0.5rem;
+		border: 1px solid color-mix(in oklab, currentColor 22%, transparent);
+		border-radius: var(--radius-small, 12px);
+		background: color-mix(in oklab, currentColor 4%, transparent);
+		font-size: var(--type-body);
+		font-weight: 500;
+		text-align: center;
+		transition:
+			border-color 160ms ease,
+			background-color 160ms ease,
+			color 160ms ease;
+	}
+
+	.steps__choice:hover span {
+		border-color: currentColor;
+	}
+
+	.steps__choice input:checked + span {
+		border-color: var(--p-action);
+		background: var(--p-action);
+		color: #ffffff;
+	}
+
+	.steps__choice input:focus-visible + span {
+		outline: 2px solid currentColor;
+		outline-offset: 2px;
+	}
+
+	.steps__nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: space-between;
+	}
+
+	.steps .steps__back {
+		border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+		background: transparent;
+		color: inherit;
+	}
+
+	.steps .steps__back:hover {
+		border-color: currentColor;
+		background: transparent;
+		color: inherit;
+	}
+
+	.steps__nav [data-step-next],
+	.steps__nav [data-step-send] {
+		margin-left: auto;
+	}
+
+	.steps__nav [hidden] {
+		display: none;
+	}
+
+	.steps--done :is(.steps__progress, .steps__step, .steps__nav) {
+		display: none;
+	}
+
+	.steps--done .form__status {
+		font-size: var(--type-body);
+		line-height: 1.6;
+	}
+
 	.field--trap {
 		position: absolute;
 		width: 1px;
@@ -106,5 +382,11 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 
 	.cf-turnstile:empty {
 		display: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.steps__bar span {
+			transition: none;
+		}
 	}
 </style>

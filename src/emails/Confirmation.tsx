@@ -1,10 +1,10 @@
 import { Fields, Heading, Label, Layout, Message, Paragraph } from "./Layout";
 
-export type ConfirmationProps = { firstName: string; name: string; email: string; phone: string; address: string; message: string };
+export type ConfirmationProps = { firstName: string; name: string; product: string; email: string; phone: string; address: string; message: string };
 
 export const confirmationSubject = "Vi har mottatt henvendelsen din";
 
-export function Confirmation({ firstName, name, email, phone, address, message }: ConfirmationProps) {
+export function Confirmation({ firstName, name, product, email, phone, address, message }: ConfirmationProps) {
 	return (
 		<Layout preview="Takk for at du tok kontakt med Glass.no. Her er en kopi av det du sendte.">
 			<Heading>Takk, {firstName}!</Heading>
@@ -14,12 +14,13 @@ export function Confirmation({ firstName, name, email, phone, address, message }
 			<Fields
 				rows={[
 					{ label: "Navn", value: name },
-					{ label: "Telefon", value: phone },
+					...(product ? [{ label: "Gjelder", value: product }] : []),
+					...(phone ? [{ label: "Telefon", value: phone }] : []),
 					{ label: "E-post", value: email },
 					{ label: "Adresse", value: address },
 				]}
 			/>
-			<Message>{message}</Message>
+			{message && <Message>{message}</Message>}
 		</Layout>
 	);
 }
