@@ -1,7 +1,29 @@
 import { definePlugin } from "emdash";
 
-const SKIPPED_KEYS = new Set(["_type", "_key", "id", "background", "style", "icon", "layout", "variant", "alignment", "mimeType", "provider", "listItem", "markDefs", "marks"]);
-const LINK_OR_ID = /^(https?:|mailto:|tel:|\/|#)|^[0-9A-HJKMNP-TV-Z]{26}$/;
+const SKIPPED_KEYS = new Set([
+	"_type",
+	"_key",
+	"id",
+	"background",
+	"style",
+	"icon",
+	"layout",
+	"variant",
+	"alignment",
+	"mimeType",
+	"provider",
+	"listItem",
+	"markDefs",
+	"marks",
+	"meta",
+	"filename",
+	"storageKey",
+	"blurhash",
+	"dominantColor",
+	"previewUrl",
+	"section",
+]);
+const LINK_OR_ID = /^(https?:|mailto:|tel:|\/|#)|^[0-9A-HJKMNP-TV-Z]{26}$|\.(jpe?g|png|webp|gif|svg|avif|pdf)$/i;
 
 function collect(value: unknown, key: string, out: string[]) {
 	if (SKIPPED_KEYS.has(key) || key.endsWith("_url") || key === "url" || key === "href" || key === "src") return;
