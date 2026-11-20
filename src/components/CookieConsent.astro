@@ -8,7 +8,8 @@ const { logo, siteTitle } = Astro.props;
 const categories = [
 	{ id: "necessary", label: "Nødvendig", locked: true },
 	{ id: "kart", label: "Kart", locked: false },
-	{ id: "statistikk", label: "Statistikk", locked: false, analytics: true },
+	{ id: "statistikk", label: "Statistikk", locked: false, tag: "analytics" },
+	{ id: "markedsforing", label: "Markedsføring", locked: false, tag: "ads" },
 ];
 ---
 
@@ -22,14 +23,14 @@ const categories = [
 	<div class="consent__body">
 		<h2 id="consent-title">Denne nettsiden anvender cookies</h2>
 		<p id="consent-text">
-			Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere. Med ditt samtykke viser vi også kart fra Google Maps<span data-analytics hidden> og måler besøk med Google Analytics</span>. Disse tjenestene setter egne informasjonskapsler. <a href="/privacy-policy/">Personvern</a>
+			Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere. Med ditt samtykke viser vi også kart fra Google Maps<span data-tag="analytics" hidden> og måler besøk med Google Analytics</span><span data-tag="ads" hidden> og måler effekten av annonser med Google Ads</span>. Disse tjenestene setter egne informasjonskapsler. <a href="/privacy-policy/">Personvern</a>
 		</p>
 	</div>
 	<fieldset class="consent__choices">
 		<legend>Samtykkevalg</legend>
 		{
 			categories.map((category) => (
-				<label class="consent__choice" data-analytics={category.analytics ? "" : undefined} hidden={category.analytics}>
+				<label class="consent__choice" data-tag={category.tag} hidden={Boolean(category.tag)}>
 					<span>{category.label}</span>
 					<input type="checkbox" role="switch" value={category.id} checked={category.locked} disabled={category.locked} />
 				</label>
@@ -46,8 +47,12 @@ const categories = [
 <script>
 	import * as CookieConsent from "vanilla-cookieconsent";
 
+	type GoogleTags = { src: string; analytics?: string; ads?: string };
+	const page = window as unknown as { googleTags?: GoogleTags; gtag?: (...args: unknown[]) => void };
+	const tags = page.googleTags;
+
 	const banner = document.querySelector<HTMLElement>(".consent")!;
-	if (document.querySelector('script[data-category="statistikk"]')) banner.querySelectorAll<HTMLElement>("[data-analytics]").forEach((element) => (element.hidden = false));
+	banner.querySelectorAll<HTMLElement>("[data-tag]").forEach((element) => (element.hidden = !tags?.[element.dataset.tag as "analytics" | "ads"]));
 	const switches = [...banner.querySelectorAll<HTMLInputElement>(".consent__choice:not([hidden]) input:not(:disabled)")];
 	const close = banner.querySelector<HTMLButtonElement>("[data-consent-close]")!;
 
@@ -72,6 +77,32 @@ const categories = [
 		}),
 	);
 	close.addEventListener("click", hide);
+
+	const configured = new Set<string>();
+	const signal = () => {
+		if (!tags || !page.gtag) return;
+		const state = (granted: boolean) => (granted ? "granted" : "denied");
+		const analytics = Boolean(tags.analytics) && CookieConsent.acceptedCategory("statistikk");
+		const ads = Boolean(tags.ads) && CookieConsent.acceptedCategory("markedsforing");
+		page.gtag("consent", "update", { analytics_storage: state(analytics), ad_storage: state(ads), ad_user_data: state(ads), ad_personalization: state(ads) });
+		for (const [allowed, id] of [
+			[analytics, tags.analytics],
+			[ads, tags.ads],
+		] as const) {
+			if (allowed && id && !configured.has(id)) {
+				configured.add(id);
+				page.gtag("config", id);
+			}
+		}
+		if ((analytics || ads) && !document.querySelector(`script[src="${tags.src}"]`)) {
+			const script = document.createElement("script");
+			script.src = tags.src;
+			script.async = true;
+			document.head.append(script);
+		}
+	};
+	window.addEventListener("cc:onConsent", signal);
+	window.addEventListener("cc:onChange", signal);
 	document.addEventListener("click", (event) => {
 		if ((event.target as HTMLElement).closest("[data-consent-open]")) open(true);
 	});
@@ -83,6 +114,7 @@ const categories = [
 			necessary: { enabled: true, readOnly: true },
 			kart: {},
 			statistikk: { autoClear: { cookies: [{ name: /^_ga/ }], reloadPage: true } },
+			markedsforing: { autoClear: { cookies: [{ name: /^_gcl/ }, { name: /^_gac/ }], reloadPage: true } },
 		},
 		language: { default: "nb", translations: { nb: { consentModal: {}, preferencesModal: { sections: [] } } } },
 	});

@@ -22,6 +22,7 @@ const cookies = [
 	block("Nødvendig: husker blant annet valget ditt om informasjonskapsler. Kan ikke slås av.", "normal", "bullet"),
 	block("Kart: viser kart fra Google Maps på kontaktsiden. Google Ireland Limited setter da egne informasjonskapsler og mottar IP-adressen din.", "normal", "bullet"),
 	block("Statistikk: Google Analytics måler hvordan nettstedet brukes, slik at vi kan gjøre det bedre. Google Ireland Limited setter da egne informasjonskapsler og mottar IP-adressen din.", "normal", "bullet"),
+	block("Markedsføring: Google Ads måler om annonsene våre fører til henvendelser. Google Ireland Limited setter da egne informasjonskapsler og mottar IP-adressen din.", "normal", "bullet"),
 	block("Du kan når som helst endre eller trekke tilbake samtykket under «Cookie-innstillinger» nederst på siden."),
 ];
 
