@@ -1,6 +1,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { d1, r2 } from "@emdash-cms/cloudflare";
+import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
@@ -21,6 +22,7 @@ export default defineConfig({
 			plugins: [
 				{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" },
 				{ id: "analytics", version: "1.0.0", entrypoint: "./src/plugins/analytics.ts" },
+				cloudflareEmail({ from: { email: "skjema@glass.no", name: "Glass.no" } }),
 			],
 		}),
 	],

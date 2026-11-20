@@ -10,6 +10,11 @@
 			"database_name": "glass-no",
 		},
 	],
+	"send_email": [
+		{
+			"name": "EMAIL",
+		},
+	],
 	"r2_buckets": [
 		{
 			"binding": "MEDIA",

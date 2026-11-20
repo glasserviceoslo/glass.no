@@ -3,6 +3,10 @@ import { env } from "cloudflare:workers";
 
 export const prerender = false;
 
+const INBOX = "post@glass.no";
+const SENDER = { email: "skjema@glass.no", name: "Glass.no" };
+
+type EmailBinding = { send(message: { from: typeof SENDER; to: string; replyTo: string; subject: string; text: string }): Promise<unknown> };
 const FIELDS = ["fornavn", "etternavn", "epost", "telefon", "adresse", "melding"] as const;
 const MAX = { melding: 5000, default: 300 };
 
@@ -30,6 +34,8 @@ const verified = async (request: Request, form: FormData) => {
 	return result.success === true;
 };
 
+const oneLine = (text: string) => text.replace(/[\r\n]+/g, " ").trim();
+
 export const POST: APIRoute = async ({ request }) => {
 	const form = await request.formData();
 	if (String(form.get("nettsted") ?? "").trim()) return reply(request, 200, { ok: true });
@@ -41,14 +47,44 @@ export const POST: APIRoute = async ({ request }) => {
 		return reply(request, 422, { error: "invalid", missing, tooLong });
 	}
 
-	const webhook = (env as { CONTACT_WEBHOOK_URL?: string }).CONTACT_WEBHOOK_URL;
-	if (!webhook) return reply(request, 503, { error: "not-configured" });
+	const source = new URL(request.headers.get("referer") ?? request.url).pathname;
+	const name = oneLine(`${message.fornavn} ${message.etternavn}`);
+	const { EMAIL: email, CONTACT_WEBHOOK_URL: webhook } = env as { EMAIL?: EmailBinding; CONTACT_WEBHOOK_URL?: string };
+	if (!email && !webhook) return reply(request, 503, { error: "not-configured" });
 
-	const forwarded = await fetch(webhook, {
-		method: "POST",
-		headers: { "content-type": "application/json" },
-		body: JSON.stringify({ ...message, source: new URL(request.headers.get("referer") ?? request.url).pathname, receivedAt: new Date().toISOString() }),
-	}).catch(() => undefined);
+	const mailed = email
+		? await email
+				.send({
+					from: SENDER,
+					to: INBOX,
+					replyTo: oneLine(message.epost),
+					subject: `Ny henvendelse fra ${name}`,
+					text: [
+						`Navn: ${name}`,
+						`E-post: ${oneLine(message.epost)}`,
+						`Telefon: ${oneLine(message.telefon)}`,
+						`Adresse: ${oneLine(message.adresse)}`,
+						`Side: ${source}`,
+						"",
+						message.melding,
+					].join("\n"),
+				})
+				.then(() => true)
+				.catch((error: unknown) => {
+					console.error("contact form email failed", error);
+					return false;
+				})
+		: undefined;
 
-	return forwarded?.ok ? reply(request, 200, { ok: true }) : reply(request, 502, { error: "forward-failed" });
+	const forwarded = webhook
+		? await fetch(webhook, {
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify({ ...message, source, receivedAt: new Date().toISOString() }),
+			})
+				.then((response) => response.ok)
+				.catch(() => false)
+		: undefined;
+
+	return mailed || forwarded ? reply(request, 200, { ok: true }) : reply(request, 502, { error: "delivery-failed" });
 };
