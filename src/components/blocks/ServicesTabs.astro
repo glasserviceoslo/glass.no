@@ -140,7 +140,7 @@ const groups = value.groups.map((group, index) => ({
 	.services-tabs__head h2 {
 		max-width: 16ch;
 		margin: 0;
-		font-size: clamp(2rem, 3.6vw, 3.25rem);
+		font-size: var(--type-h2);
 		font-weight: 400;
 		line-height: 1.06;
 		letter-spacing: -0.03em;
@@ -186,7 +186,7 @@ const groups = value.groups.map((group, index) => ({
 		background: none;
 		color: var(--p-ink);
 		font: inherit;
-		font-size: 1rem;
+		font-size: var(--type-body);
 		font-weight: 500;
 		cursor: pointer;
 		transition: color 200ms;
@@ -215,7 +215,7 @@ const groups = value.groups.map((group, index) => ({
 
 	.services-tabs__group {
 		margin: 0 0 1.25rem;
-		font-size: clamp(1.4rem, 2vw, 1.75rem);
+		font-size: var(--type-h3);
 		font-weight: 500;
 		letter-spacing: -0.02em;
 	}
@@ -270,7 +270,7 @@ const groups = value.groups.map((group, index) => ({
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+		font-size: var(--type-h3);
 		font-weight: 500;
 		letter-spacing: -0.02em;
 	}

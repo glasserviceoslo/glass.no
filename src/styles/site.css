@@ -18,6 +18,20 @@
 	--shadow: 0 12px 32px color-mix(in oklab, var(--p-ink) 8%, transparent);
 	--measure: 62ch;
 
+	--type-display: clamp(2.6rem, 5vw, 4.5rem);
+	--type-h1: clamp(2.25rem, 3.6vw, 3.5rem);
+	--type-h2: clamp(2rem, 3.2vw, 3.25rem);
+	--type-h3: clamp(1.4rem, 2vw, 1.75rem);
+	--type-quote: clamp(1.2rem, 1.6vw, 1.45rem);
+	--type-stat: clamp(1.75rem, 3vw, 2.5rem);
+	--type-title: 1.1875rem;
+	--type-lead: clamp(1.05rem, 1.3vw, 1.2rem);
+	--type-reading: 1.0625rem;
+	--type-body: 1rem;
+	--type-small: 0.9375rem;
+	--type-caption: 0.875rem;
+	--type-label: 0.8125rem;
+
 	color-scheme: light;
 }
 
@@ -114,7 +128,7 @@
 		background: var(--p-action);
 		color: var(--p-action-ink);
 		font-family: var(--font-text), sans-serif;
-		font-size: 1rem;
+		font-size: var(--type-body);
 		font-weight: 500;
 		line-height: 1.2;
 		text-decoration: none;
@@ -407,7 +421,7 @@ main .prose p.is-button a {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	font-size: 1.05rem;
+	font-size: var(--type-reading);
 	font-weight: 500;
 	font-variant-numeric: tabular-nums;
 }
@@ -499,7 +513,7 @@ main .prose p.is-button a {
 	padding-top: 1.25rem;
 	border-top: 1px solid rgb(255 255 255 / 0.14);
 	color: var(--p-inv-muted);
-	font-size: 0.875rem;
+	font-size: var(--type-caption);
 }
 
 @media (max-width: 760px) {
@@ -517,4 +531,16 @@ main .prose p.is-button a {
 	.site-footer {
 		padding-bottom: calc(1.5rem + 84px + env(safe-area-inset-bottom));
 	}
+}
+
+:root:root {
+	--t-h1: var(--type-h1);
+	--t-h2: var(--type-h2);
+	--t-h3: var(--type-h3);
+	--t-lead: var(--type-lead);
+	--t-card: var(--type-title);
+	--t-body: var(--type-body);
+	--t-small: var(--type-small);
+	--t-label: var(--type-label);
+	--t-stat: var(--type-stat);
 }

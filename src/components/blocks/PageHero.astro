@@ -48,7 +48,7 @@ const cutout = /png|svg/.test(value.image?.mimeType ?? value.image?.src ?? "");
 
 	.page-hero__title {
 		margin: 0;
-		font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+		font-size: var(--type-display);
 		line-height: 1.02;
 		letter-spacing: -0.03em;
 		text-wrap: balance;
@@ -58,7 +58,7 @@ const cutout = /png|svg/.test(value.image?.mimeType ?? value.image?.src ?? "");
 		max-width: 30ch;
 		margin: 0;
 		font-family: var(--font-text), sans-serif;
-		font-size: clamp(1.2rem, 1.6vw, 1.45rem);
+		font-size: var(--type-quote);
 		font-weight: 500;
 		line-height: 1.35;
 		letter-spacing: -0.01em;
@@ -93,7 +93,7 @@ const cutout = /png|svg/.test(value.image?.mimeType ?? value.image?.src ?? "");
 
 	.page-hero__text :global(.page-hero__body h2) {
 		margin: 0.25rem 0 0.75rem;
-		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		font-size: var(--type-h3);
 		line-height: 1.2;
 		letter-spacing: -0.02em;
 		text-wrap: balance;

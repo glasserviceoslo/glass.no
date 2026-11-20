@@ -67,7 +67,7 @@ const { anchor, lead, body } = Astro.props;
 
 	.call-band__grid :global(.call-band__lead :is(h1, h2)) {
 		margin: 0 0 1.25rem;
-		font-size: clamp(2.2rem, 3.6vw, 3.75rem);
+		font-size: var(--type-h2);
 		line-height: 1.03;
 		letter-spacing: -0.035em;
 		text-wrap: balance;
@@ -78,7 +78,7 @@ const { anchor, lead, body } = Astro.props;
 	}
 
 	.call-band__grid :global(.call-band__body p) {
-		font-size: 1.0625rem;
+		font-size: var(--type-reading);
 		line-height: 1.7;
 		text-wrap: pretty;
 	}

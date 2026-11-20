@@ -66,12 +66,12 @@ const parts = at >= 0 ? [value.text.slice(0, at), value.strong, value.text.slice
 	.statement__label {
 		margin: 0 0 0.6rem;
 		color: var(--p-muted);
-		font-size: 0.875rem;
+		font-size: var(--type-caption);
 	}
 
 	.statement__text {
 		margin: 0;
-		font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+		font-size: var(--type-quote);
 		line-height: 1.6;
 		text-wrap: pretty;
 	}

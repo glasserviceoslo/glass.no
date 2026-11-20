@@ -58,7 +58,7 @@ const id = `projects-${value.heading.toLowerCase().replace(/[^a-z0-9æøå]+/g, 
 
 	.projects__text h2 {
 		margin: 0;
-		font-size: clamp(2.5rem, 5vw, 4.25rem);
+		font-size: var(--type-display);
 		font-weight: 400;
 		line-height: 1;
 		letter-spacing: -0.035em;
@@ -67,7 +67,7 @@ const id = `projects-${value.heading.toLowerCase().replace(/[^a-z0-9æøå]+/g, 
 	.projects__text p {
 		margin: 0;
 		color: var(--p-muted);
-		font-size: 1.05rem;
+		font-size: var(--type-reading);
 		line-height: 1.65;
 	}
 

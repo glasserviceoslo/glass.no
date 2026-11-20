@@ -564,7 +564,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		padding: 0 1rem;
 		border-radius: 14px;
 		color: var(--muted);
-		font-size: 1rem;
+		font-size: var(--type-body);
 		font-weight: 500;
 		cursor: pointer;
 		transition:
@@ -589,7 +589,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		min-height: 54px;
 		border-bottom: 1px solid rgb(4 0 55 / 0.08);
 		color: var(--ink);
-		font-size: 1.05rem;
+		font-size: var(--type-reading);
 		font-weight: 500;
 		line-height: 1.3;
 		transition: color 150ms;
@@ -801,7 +801,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 	}
 
 	.search__results :global(.search__title) {
-		font-size: 1.05rem;
+		font-size: var(--type-reading);
 		font-weight: 600;
 		line-height: 1.3;
 	}
@@ -815,7 +815,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		display: -webkit-box;
 		overflow: hidden;
 		color: var(--p-muted);
-		font-size: 0.9rem;
+		font-size: var(--type-small);
 		line-height: 1.45;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
@@ -838,7 +838,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		border-radius: 999px;
 		background: rgb(237 76 76 / 0.1);
 		color: color-mix(in oklab, var(--p-accent) 75%, var(--p-ink));
-		font-size: 0.75rem;
+		font-size: var(--type-label);
 		font-weight: 600;
 	}
 
@@ -1108,7 +1108,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 
 		.sheet__head h2 {
 			margin: 0;
-			font-size: 1.6rem;
+			font-size: var(--type-h3);
 			font-weight: 700;
 			letter-spacing: -0.02em;
 		}
@@ -1164,7 +1164,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 			gap: 0.35rem;
 			margin: 0.25rem 20px 0.75rem;
 			color: var(--p-ink);
-			font-size: 1.6rem;
+			font-size: var(--type-h3);
 			font-weight: 700;
 			letter-spacing: -0.02em;
 		}
@@ -1262,7 +1262,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 			padding: 0;
 			background: none;
 			color: var(--muted);
-			font-size: 0.9rem;
+			font-size: var(--type-small);
 			box-shadow: none;
 		}
 
@@ -1277,7 +1277,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		.products__sub a {
 			min-height: 44px;
 			border-bottom-color: var(--line);
-			font-size: 1rem;
+			font-size: var(--type-body);
 		}
 	}
 </style>

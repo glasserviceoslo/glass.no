@@ -185,7 +185,7 @@ const initials = (name: string) =>
 	}
 
 	.reviews__average {
-		font-size: clamp(1.75rem, 3vw, 2.25rem);
+		font-size: var(--type-stat);
 		font-weight: 600;
 		line-height: 1;
 		font-variant-numeric: tabular-nums;
@@ -262,7 +262,7 @@ const initials = (name: string) =>
 		display: -webkit-box;
 		margin: 0;
 		overflow: hidden;
-		font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+		font-size: var(--type-quote);
 		line-height: 1.48;
 		letter-spacing: -0.018em;
 		text-wrap: pretty;
@@ -382,7 +382,7 @@ const initials = (name: string) =>
 		border-radius: 50%;
 		background: var(--p-ink);
 		color: #ffffff;
-		font-size: 0.9rem;
+		font-size: var(--type-small);
 		font-weight: 600;
 		object-fit: cover;
 	}
@@ -390,19 +390,19 @@ const initials = (name: string) =>
 	.review__avatar--large {
 		width: 3.5rem;
 		height: 3.5rem;
-		font-size: 1.05rem;
+		font-size: var(--type-reading);
 	}
 
 	.review__who {
 		display: grid;
 		gap: 0.05rem;
 		min-width: 0;
-		font-size: 0.95rem;
+		font-size: var(--type-small);
 	}
 
 	.review__who time {
 		color: var(--p-muted);
-		font-size: 0.85rem;
+		font-size: var(--type-caption);
 	}
 
 	.review__text {
