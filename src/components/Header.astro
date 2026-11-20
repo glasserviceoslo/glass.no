@@ -48,8 +48,8 @@ const moreActive = more.some((item) => here === trim(item.url));
 								<div class="wrap">
 									<div class="products">
 										<ul class="products__list">
-											{groupsOf(item).map((group) => (
-												<li class="products__cat">
+											{groupsOf(item).map((group, index) => (
+												<li class:list={["products__cat", { "is-active": index === 0 }]}>
 													{group.url ? (
 														<a class="products__name" href={group.url}>
 															{group.label}
@@ -295,6 +295,23 @@ const moreActive = more.some((item) => here === trim(item.url));
 			};
 			handle.addEventListener("pointerup", release);
 			handle.addEventListener("pointercancel", release);
+		});
+	});
+
+	document.querySelectorAll<HTMLElement>(".products__list").forEach((list) => {
+		let timer = 0;
+		const activate = (category: Element) => {
+			list.querySelectorAll(".products__cat.is-active").forEach((item) => item.classList.remove("is-active"));
+			category.classList.add("is-active");
+		};
+		list.querySelectorAll<HTMLElement>(".products__cat").forEach((category) => {
+			const name = category.querySelector<HTMLElement>(".products__name")!;
+			name.addEventListener("pointerenter", () => {
+				clearTimeout(timer);
+				timer = window.setTimeout(() => activate(category), 100);
+			});
+			name.addEventListener("pointerleave", () => clearTimeout(timer));
+			category.addEventListener("focusin", () => activate(category));
 		});
 	});
 
@@ -565,8 +582,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		color: var(--p-accent);
 	}
 
-	:is(.products__cat:hover, .products__cat:focus-within) > .products__name,
-	.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__name {
+	.products__cat.is-active > .products__name {
 		background: rgb(255 255 255 / 0.85);
 		color: var(--ink);
 		box-shadow:
@@ -575,8 +591,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 			inset 3px 0 0 var(--p-accent);
 	}
 
-	:is(.products__cat:hover, .products__cat:focus-within) > .products__sub,
-	.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__sub {
+	.products__cat.is-active > .products__sub {
 		display: grid;
 	}
 
@@ -1217,8 +1232,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		}
 
 		.products__name,
-		:is(.products__cat:hover, .products__cat:focus-within) > .products__name,
-		.products__list:not(:has(.products__cat:hover, .products__cat:focus-within)) > .products__cat:first-child > .products__name {
+		.products__cat.is-active > .products__name {
 			min-height: 32px;
 			padding: 0;
 			background: none;
