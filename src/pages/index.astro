@@ -2,6 +2,7 @@
 import { getEmDashEntry, getSeoMeta } from "emdash";
 import PageLayout from "../components/PageLayout.astro";
 import Base from "../layouts/Base.astro";
+import { shareImage } from "../utils/share-image";
 
 const { entry: page, cacheHint } = await getEmDashEntry("pages", "hjem");
 if (!page) return Astro.rewrite("/404/");
@@ -14,7 +15,7 @@ const seo = getSeoMeta(page, { siteUrl: Astro.url.origin, path: "/" });
 	title={seo.title}
 	pageTitle={page.data.title}
 	description={seo.description}
-	image={seo.ogImage}
+	image={seo.ogImage ?? shareImage(page.data, Astro.url.origin)}
 	canonical={seo.canonical}
 	robots={seo.robots}
 	content={{ collection: "pages", id: page.data.id, slug: page.id }}

@@ -4,6 +4,7 @@ import PageLayout from "../components/PageLayout.astro";
 import PostList from "../components/PostList.astro";
 import PostView from "../components/PostView.astro";
 import Base from "../layouts/Base.astro";
+import { shareImage } from "../utils/share-image";
 
 const slug = decodeSlug(Astro.params.slug);
 if (!slug) return Astro.rewrite("/404/");
@@ -23,7 +24,7 @@ const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
 	title={seo.title}
 	pageTitle={entry.data.title}
 	description={seo.description}
-	image={seo.ogImage}
+	image={seo.ogImage ?? shareImage(entry.data, Astro.url.origin)}
 	canonical={seo.canonical}
 	robots={seo.robots}
 	pageType={isPage ? "website" : "article"}

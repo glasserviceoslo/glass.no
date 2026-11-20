@@ -6,6 +6,7 @@ import BlockEditing from "../components/BlockEditing.astro";
 import BookingPopup from "../components/BookingPopup.astro";
 import CookieConsent from "../components/CookieConsent.astro";
 import Header from "../components/Header.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { resolveSiteIdentity } from "../utils/site";
 import "@fontsource-variable/hanken-grotesk";
 import "../styles/site.css";
@@ -32,6 +33,29 @@ if (Astro.cache?.enabled) {
 const { siteTitle, siteTagline, siteLogo, titleSeparator } = resolveSiteIdentity(settings.data);
 const fullTitle = title ? (title.toLowerCase().includes(siteTitle.toLowerCase()) ? title : `${title} ${titleSeparator} ${siteTitle}`) : siteTitle;
 const items = menu.data?.items ?? [];
+const origin = Astro.url.origin;
+const sameAs = Object.values(settings.data?.social ?? {}).filter((url): url is string => typeof url === "string" && url.startsWith("https://"));
+const business =
+	Astro.url.pathname === "/"
+		? {
+				"@context": "https://schema.org",
+				"@type": "HomeAndConstructionBusiness",
+				"@id": `${origin}/#business`,
+				name: siteTitle,
+				legalName: "Glass-Service Svendsen og Sønn AS",
+				url: `${origin}/`,
+				...(siteLogo ? { logo: new URL(siteLogo.url, origin).toString() } : {}),
+				...(image ? { image } : {}),
+				telephone: "+47 91 58 49 40",
+				email: "post@glass.no",
+				foundingDate: "1889",
+				address: { "@type": "PostalAddress", streetAddress: "Pilestredet 41A", postalCode: "0166", addressLocality: "Oslo", addressCountry: "NO" },
+				geo: { "@type": "GeoCoordinates", latitude: 59.920236, longitude: 10.734451 },
+				openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:00" }],
+				areaServed: "Oslo",
+				...(sameAs.length ? { sameAs } : {}),
+			}
+		: null;
 
 const page = createPublicPageContext({
 	Astro,
@@ -55,6 +79,7 @@ const page = createPublicPageContext({
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<title>{fullTitle}</title>
 		<EmDashHead page={page} />
+		{business && <script type="application/ld+json" set:html={JSON.stringify(business)} />}
 		<meta name="site-kind" content="other" />
 		<meta name="page-type" content="service" />
 		<meta name="theme-color" content="#f8f9fa" />
@@ -96,18 +121,7 @@ const page = createPublicPageContext({
 						<li>Man - Fre 08:00-17:00</li>
 					</ul>
 					<div class="site-footer__actions">
-						<ul class="site-footer__social">
-							<li>
-								<a href="https://www.facebook.com/glass1889" target="_blank" rel="noopener" aria-label="Facebook">
-									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z" fill="currentColor" /></svg>
-								</a>
-							</li>
-							<li>
-								<a href="https://www.instagram.com/glass_siden_1889" target="_blank" rel="noopener" aria-label="Instagram">
-									<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" /></svg>
-								</a>
-							</li>
-						</ul>
+						<SocialLinks social={settings.data?.social} class="site-footer__social" />
 					</div>
 				</div>
 				<div class="site-footer__legal">
