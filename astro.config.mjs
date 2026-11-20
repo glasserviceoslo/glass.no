@@ -12,6 +12,9 @@ export default defineConfig({
 	site: "https://www.glass.no",
 	output: "server",
 	trailingSlash: "ignore",
+	redirects: {
+		"/driftspanel-alpha": { status: 302, destination: "/_emdash/admin" },
+	},
 	i18n: {
 		defaultLocale: "nb",
 		locales: ["nb"],
