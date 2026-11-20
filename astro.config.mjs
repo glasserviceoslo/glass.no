@@ -18,7 +18,10 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
-			plugins: [{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" }],
+			plugins: [
+				{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" },
+				{ id: "analytics", version: "1.0.0", entrypoint: "./src/plugins/analytics.ts" },
+			],
 		}),
 	],
 	devToolbar: { enabled: false },
