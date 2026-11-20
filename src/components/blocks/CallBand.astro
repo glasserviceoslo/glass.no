@@ -44,14 +44,17 @@ const kind = kinds.find(([pattern]) => pattern.test(slug))?.[1] ?? "window";
 		const observer = new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {
-					if (!entry.isIntersecting) continue;
 					const art = entry.target as HTMLElement;
-					art.classList.add("is-drawn");
-					requestAnimationFrame(() => art.classList.remove("is-waiting"));
-					observer.unobserve(art);
+					if (!entry.isIntersecting) {
+						art.classList.remove("is-drawn");
+						art.classList.add("is-waiting");
+					} else if (entry.intersectionRatio >= 0.5 && art.classList.contains("is-waiting")) {
+						art.classList.add("is-drawn");
+						requestAnimationFrame(() => art.classList.remove("is-waiting"));
+					}
 				}
 			},
-			{ threshold: 0.5 },
+			{ threshold: [0, 0.5] },
 		);
 		arts.forEach((art) => {
 			art.classList.add("is-waiting");
