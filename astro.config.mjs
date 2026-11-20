@@ -32,6 +32,13 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
+			admin: {
+				logo: "/images/logo.png",
+				siteName: "Glass.no",
+				footerLabel: false,
+				favicon: "/images/favicon.png",
+				locales: ["nb"],
+			},
 			plugins: [
 				{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" },
 				{ id: "analytics", version: "1.0.0", entrypoint: "./src/plugins/analytics.ts" },
