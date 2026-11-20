@@ -20,9 +20,10 @@ interface Props {
 	robots?: string | null;
 	pageType?: "website" | "article";
 	content?: { collection: string; id: string; slug?: string | null };
+	publishedAt?: Date | string | null;
 }
 
-const { title, pageTitle, description, image, canonical, robots, pageType = "website", content } = Astro.props;
+const { title, pageTitle, description, image, canonical, robots, pageType = "website", content, publishedAt } = Astro.props;
 
 const [settings, menu] = await Promise.all([getSiteSettingsWithCacheHint(), getMenuWithCacheHint("primary")]);
 if (Astro.cache?.enabled) {
@@ -33,14 +34,14 @@ if (Astro.cache?.enabled) {
 const { siteTitle, siteTagline, siteLogo, titleSeparator } = resolveSiteIdentity(settings.data);
 const fullTitle = title ? (title.toLowerCase().includes(siteTitle.toLowerCase()) ? title : `${title} ${titleSeparator} ${siteTitle}`) : siteTitle;
 const items = menu.data?.items ?? [];
-const origin = Astro.url.origin;
+const origin = Astro.site?.origin ?? Astro.url.origin;
 const sameAs = Object.values(settings.data?.social ?? {}).filter((url): url is string => typeof url === "string" && url.startsWith("https://"));
 const business =
 	Astro.url.pathname === "/"
 		? {
 				"@context": "https://schema.org",
 				"@type": "HomeAndConstructionBusiness",
-				"@id": `${origin}/#business`,
+				"@id": `${origin}/#organization`,
 				name: siteTitle,
 				legalName: "Glass-Service Svendsen og Sønn AS",
 				url: `${origin}/`,
@@ -57,6 +58,44 @@ const business =
 			}
 		: null;
 
+type Crumb = { name: string; url: string };
+const trim = (url: string) => url.replace(/\/+$/, "");
+const pathOf = (url: string) => trim(new URL(url, origin).pathname);
+const here = trim(Astro.url.pathname);
+const trailTo = (nodes: typeof items, path: Crumb[]): Crumb[] | null => {
+	for (const node of nodes) {
+		const crumbs = node.url ? [...path, { name: node.label, url: `${pathOf(node.url)}/` }] : path;
+		if (node.url && pathOf(node.url) === here) return crumbs;
+		const found = trailTo(node.children, crumbs);
+		if (found) return found;
+	}
+	return null;
+};
+const homeCrumb = { name: "Hjem", url: "/" };
+const currentCrumb = { name: pageTitle ?? title ?? siteTitle, url: Astro.url.pathname };
+const menuTrail = here ? trailTo(items, []) : null;
+const trail = !here
+	? []
+	: menuTrail
+		? [homeCrumb, ...menuTrail.filter((crumb) => !["", "/hjem"].includes(pathOf(crumb.url)))]
+		: pageType === "article"
+			? [homeCrumb, { name: "Blogg", url: "/blogg/" }, currentCrumb]
+			: [homeCrumb, currentCrumb];
+const breadcrumbs =
+	trail.length > 1
+		? {
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				itemListElement: trail.map((crumb, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: crumb.name,
+					item: new URL(crumb.url, origin).toString(),
+				})),
+			}
+		: null;
+const isoDate = (value: Date | string | null | undefined) => (value ? new Date(value).toISOString() : null);
+
 const page = createPublicPageContext({
 	Astro,
 	kind: content ? "content" : "custom",
@@ -64,11 +103,14 @@ const page = createPublicPageContext({
 	title: fullTitle,
 	pageTitle: pageTitle ?? title ?? siteTitle,
 	description: description || siteTagline || undefined,
-	canonical: canonical ?? `${Astro.url.origin}${Astro.url.pathname}`,
+	canonical: canonical ?? `${origin}${Astro.url.pathname}`,
 	image,
 	content,
 	seo: { ogImage: image, robots },
+	articleMeta: pageType === "article" ? { publishedTime: isoDate(publishedAt) } : undefined,
+	breadcrumbs: trail.map((crumb) => ({ name: crumb.name, url: new URL(crumb.url, origin).toString() })),
 	siteName: siteTitle,
+	siteUrl: origin,
 });
 ---
 
@@ -80,6 +122,7 @@ const page = createPublicPageContext({
 		<title>{fullTitle}</title>
 		<EmDashHead page={page} />
 		{business && <script type="application/ld+json" set:html={JSON.stringify(business)} />}
+		{breadcrumbs && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />}
 		<meta name="site-kind" content="other" />
 		<meta name="page-type" content="service" />
 		<meta name="theme-color" content="#f8f9fa" />

@@ -17,18 +17,20 @@ if (!entry) return Astro.rewrite("/404/");
 const isPage = Boolean(pageResult.entry);
 if (Astro.cache?.enabled) Astro.cache.set(isPage ? pageResult.cacheHint : postResult.cacheHint);
 
-const seo = getSeoMeta(entry, { siteUrl: Astro.url.origin, path: `/${slug}/` });
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const seo = getSeoMeta(entry, { siteUrl: origin, path: `/${slug}/` });
 ---
 
 <Base
 	title={seo.title}
 	pageTitle={entry.data.title}
 	description={seo.description}
-	image={seo.ogImage ?? shareImage(entry.data, Astro.url.origin)}
+	image={seo.ogImage ?? shareImage(entry.data, origin)}
 	canonical={seo.canonical}
 	robots={seo.robots}
 	pageType={isPage ? "website" : "article"}
 	content={{ collection: isPage ? "pages" : "posts", id: entry.data.id, slug: entry.id }}
+	publishedAt={entry.data.publishedAt}
 >
 	<div class="flow">
 	{

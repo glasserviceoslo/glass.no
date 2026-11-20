@@ -8,14 +8,15 @@ const { entry: page, cacheHint } = await getEmDashEntry("pages", "hjem");
 if (!page) return Astro.rewrite("/404/");
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-const seo = getSeoMeta(page, { siteUrl: Astro.url.origin, path: "/" });
+const origin = Astro.site?.origin ?? Astro.url.origin;
+const seo = getSeoMeta(page, { siteUrl: origin, path: "/" });
 ---
 
 <Base
 	title={seo.title}
 	pageTitle={page.data.title}
 	description={seo.description}
-	image={seo.ogImage ?? shareImage(page.data, Astro.url.origin)}
+	image={seo.ogImage ?? shareImage(page.data, origin)}
 	canonical={seo.canonical}
 	robots={seo.robots}
 	content={{ collection: "pages", id: page.data.id, slug: page.id }}
