@@ -6,7 +6,7 @@ interface Props {
 	value: Surface & { _key?: string; _entry?: string; heading?: string };
 }
 
-type Review = { id: string; data: { title: string; rating: number; comment?: string | null; reviewed_at: string | Date } };
+type Review = { id: string; data: { title: string; rating: number; comment?: string | null; reviewed_at: string | Date; photo?: string | null } };
 
 const { value } = Astro.props;
 const [published, hidden] = await Promise.all([
@@ -18,6 +18,10 @@ const shown = (published.entries as unknown as Review[])
 	.filter((review) => review.data.rating >= 4 && review.data.comment?.trim())
 	.sort((a, b) => new Date(b.data.reviewed_at).getTime() - new Date(a.data.reviewed_at).getTime())
 	.slice(0, 24);
+const longer = shown.filter((review) => (review.data.comment?.length ?? 0) >= 100 && (review.data.comment?.length ?? 0) <= 340).slice(0, 6);
+const features = longer.length ? longer : shown.slice(0, 1);
+const featured = features[0];
+const rest = shown.filter((review) => !features.includes(review));
 const average = all.length ? all.reduce((sum, review) => sum + review.data.rating, 0) / all.length : 0;
 const decimal = new Intl.NumberFormat("nb-NO", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const month = new Intl.DateTimeFormat("nb-NO", { month: "long", year: "numeric" });
@@ -34,64 +38,123 @@ const initials = (name: string) =>
 ---
 
 {
-	shown.length > 0 && (
+	featured && (
 		<section
 			data-block={value._key}
 			data-entry={value._entry}
 			class:list={["section", "reviews", value.background && `surface--${value.background}`]}
-			style={`--reviews-duration: ${shown.length * 7}s`}
+			style={`--reviews-duration: ${Math.max(rest.length, 4) * 6}s`}
 			aria-label={value.heading || "Google-anmeldelser"}
 		>
 			<div class="wrap">
 				<div class="reviews__head">
-				{value.heading && <h2 data-field="heading">{value.heading}</h2>}
-				<a class="reviews__score" href={profile} target="_blank" rel="noopener">
-					<span class="reviews__average">{decimal.format(average)}</span>
-					<span class="reviews__stars" aria-label={`${decimal.format(average)} av 5 stjerner`}>
-						{stars(average).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
-					</span>
-					<span class="reviews__count">{all.length} anmeldelser på Google</span>
-					<svg class="reviews__google" viewBox="0 0 48 48" aria-hidden="true">
-						<path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z" />
-						<path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.6c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.9-12.3-9.1H4.4v5.7C8 41.1 15.4 46 24 46z" />
-						<path fill="#FBBC05" d="M11.7 28.1c-.4-1.3-.7-2.7-.7-4.1s.3-2.8.7-4.1v-5.7H4.4C2.9 17.1 2 20.4 2 24s.9 6.9 2.4 9.8l7.3-5.7z" />
-						<path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14.2l7.3 5.7c1.7-5.2 6.6-9.1 12.3-9.1z" />
-					</svg>
-				</a>
+					{value.heading && <h2 data-field="heading">{value.heading}</h2>}
+					<a class="reviews__score" href={profile} target="_blank" rel="noopener">
+						<span class="reviews__average">{decimal.format(average)}</span>
+						<span class="reviews__stars" aria-label={`${decimal.format(average)} av 5 stjerner`}>
+							{stars(average).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
+						</span>
+						<span class="reviews__count">{all.length} anmeldelser på Google</span>
+						<svg class="reviews__google" viewBox="0 0 48 48" aria-hidden="true">
+							<path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z" />
+							<path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.6c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.9-12.3-9.1H4.4v5.7C8 41.1 15.4 46 24 46z" />
+							<path fill="#FBBC05" d="M11.7 28.1c-.4-1.3-.7-2.7-.7-4.1s.3-2.8.7-4.1v-5.7H4.4C2.9 17.1 2 20.4 2 24s.9 6.9 2.4 9.8l7.3-5.7z" />
+							<path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14.2l7.3 5.7c1.7-5.2 6.6-9.1 12.3-9.1z" />
+						</svg>
+					</a>
 				</div>
 			</div>
-			<div class="reviews__marquee">
-				<div class="reviews__track">
-					{[false, true].map((copy) => (
-						<ul class="reviews__list" aria-hidden={copy ? "true" : undefined}>
-							{shown.map((review) => (
-								<li class="review">
-									<div class="review__by">
-										<span class="review__avatar" aria-hidden="true">{initials(review.data.title)}</span>
-										<span class="review__who">
-											<strong>{review.data.title}</strong>
-											<time datetime={new Date(review.data.reviewed_at).toISOString()}>{month.format(new Date(review.data.reviewed_at))}</time>
-										</span>
-									</div>
-									<span class="reviews__stars review__stars" aria-label={`${review.data.rating} av 5 stjerner`}>
+			<div class="wrap">
+			<div class="reviews__grid">
+				<div class="reviews__features">
+					{features.map((review, index) => (
+						<figure class:list={["reviews__feature", { "is-active": index === 0 }]} aria-hidden={index === 0 ? undefined : "true"}>
+							<span class="reviews__mark" aria-hidden="true">&ldquo;</span>
+							<blockquote class="reviews__quote">
+								{(review.data.comment ?? "").split(/\s+/).filter(Boolean).map((word, wordIndex) => (
+									<>
+										<span class="reviews__word" style={`--word: ${Math.min(wordIndex, 40)}`}>{word}</span>{" "}
+									</>
+								))}
+							</blockquote>
+							<figcaption class="review__by">
+								{review.data.photo ? (
+									<img class="review__avatar review__avatar--large" src={review.data.photo} alt="" width="56" height="56" loading="lazy" decoding="async" />
+								) : (
+									<span class="review__avatar review__avatar--large" aria-hidden="true">{initials(review.data.title)}</span>
+								)}
+								<span class="review__who">
+									<strong>{review.data.title}</strong>
+									<span class="reviews__stars" aria-label={`${review.data.rating} av 5 stjerner`}>
 										{stars(review.data.rating).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
 									</span>
-									<blockquote class="review__text">{review.data.comment}</blockquote>
-								</li>
-							))}
-						</ul>
+								</span>
+							</figcaption>
+							<span class="reviews__timer" aria-hidden="true" />
+						</figure>
 					))}
 				</div>
+				{
+					rest.length > 0 && (
+						<div class="reviews__column">
+							<div class="reviews__track">
+								{[false, true].map((copy) => (
+									<ul class="reviews__list" aria-hidden={copy ? "true" : undefined}>
+										{rest.map((review) => (
+											<li class="review">
+												<div class="review__by">
+													{review.data.photo ? (
+														<img class="review__avatar" src={review.data.photo} alt="" width="40" height="40" loading="lazy" decoding="async" />
+													) : (
+														<span class="review__avatar" aria-hidden="true">{initials(review.data.title)}</span>
+													)}
+													<span class="review__who">
+														<strong>{review.data.title}</strong>
+														<time datetime={new Date(review.data.reviewed_at).toISOString()}>{month.format(new Date(review.data.reviewed_at))}</time>
+													</span>
+												</div>
+												<span class="reviews__stars" aria-label={`${review.data.rating} av 5 stjerner`}>
+													{stars(review.data.rating).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
+												</span>
+												<blockquote class="review__text">{review.data.comment}</blockquote>
+											</li>
+										))}
+									</ul>
+								))}
+							</div>
+						</div>
+					)
+				}
+			</div>
 			</div>
 		</section>
 	)
 }
 
+<script>
+	const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+	document.querySelectorAll<HTMLElement>(".reviews__features").forEach((stack) => {
+		const slides = [...stack.querySelectorAll<HTMLElement>(".reviews__feature")];
+		if (reduce || slides.length < 2) {
+			stack.querySelectorAll(".reviews__timer").forEach((timer) => timer.remove());
+			return;
+		}
+		stack.classList.add("is-rotating");
+		let current = 0;
+		stack.addEventListener("animationend", (event) => {
+			if (event.animationName !== "reviews-timer" || !slides[current].contains(event.target as Node)) return;
+			slides[current].classList.remove("is-active");
+			slides[current].setAttribute("aria-hidden", "true");
+			current = (current + 1) % slides.length;
+			slides[current].classList.add("is-active");
+			slides[current].removeAttribute("aria-hidden");
+		});
+	});
+</script>
+
 <style>
 	.reviews {
-		--reviews-gap: clamp(1rem, 2vw, 1.5rem);
-		padding-block: clamp(3.5rem, 7vw, 6rem);
-		overflow: hidden;
+		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
 	.reviews__head {
@@ -143,8 +206,8 @@ const initials = (name: string) =>
 	}
 
 	.star {
-		width: 1.05rem;
-		height: 1.05rem;
+		width: 1rem;
+		height: 1rem;
 		background: color-mix(in srgb, var(--p-muted) 30%, transparent);
 		clip-path: polygon(50% 0, 61.8% 35.4%, 100% 38.2%, 69.1% 61.8%, 80.9% 100%, 50% 76.4%, 19.1% 100%, 30.9% 61.8%, 0 38.2%, 38.2% 35.4%);
 	}
@@ -153,42 +216,155 @@ const initials = (name: string) =>
 		background: #f4b400;
 	}
 
-	.reviews__marquee {
-		-webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-		mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+	.reviews__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: center;
+	}
+
+	.reviews__features {
+		display: grid;
+	}
+
+	.reviews__feature {
+		position: relative;
+		display: grid;
+		grid-area: 1 / 1;
+		align-content: center;
+		gap: 1.25rem;
+		margin: 0;
+		visibility: hidden;
+		opacity: 0;
+		transition:
+			opacity 280ms ease-out,
+			visibility 0s 280ms;
+	}
+
+	.reviews__feature.is-active {
+		visibility: visible;
+		opacity: 1;
+		transition:
+			opacity 400ms ease-out 280ms,
+			visibility 0s 280ms;
+	}
+
+	.reviews__mark {
+		height: 0.42em;
+		margin-left: -0.04em;
+		color: var(--p-action);
+		font-size: clamp(5rem, 8vw, 7.5rem);
+		font-weight: 500;
+		line-height: 0.9;
+	}
+
+	.reviews__quote {
+		display: -webkit-box;
+		margin: 0;
+		overflow: hidden;
+		font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+		line-height: 1.48;
+		letter-spacing: -0.018em;
+		text-wrap: pretty;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 8;
+	}
+
+	.reviews__word {
+		display: inline-block;
+	}
+
+	.reviews__timer {
+		display: block;
+		width: min(100%, 14rem);
+		height: 2px;
+		border-radius: 2px;
+		background: color-mix(in srgb, var(--p-ink) 12%, transparent);
+		overflow: hidden;
+	}
+
+	.reviews__timer::after {
+		content: "";
+		display: block;
+		height: 100%;
+		background: var(--p-action);
+		transform: scaleX(0);
+		transform-origin: left;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.reviews__feature.is-active .reviews__word {
+			animation: reviews-word 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+			animation-delay: calc(280ms + var(--word) * 28ms);
+		}
+
+		.reviews__features.is-rotating .reviews__feature.is-active .reviews__timer::after {
+			animation: reviews-timer 7s linear both;
+		}
+
+		.reviews__features:hover .reviews__timer::after {
+			animation-play-state: paused;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.reviews__timer {
+			display: none;
+		}
+	}
+
+	@keyframes reviews-word {
+		from {
+			opacity: 0;
+			filter: blur(6px);
+			transform: translateY(0.35em);
+		}
+	}
+
+	@keyframes reviews-timer {
+		to {
+			transform: scaleX(1);
+		}
+	}
+
+	.reviews__column {
+		height: 24rem;
+		overflow: hidden;
+		-webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+		mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
 	}
 
 	.reviews__track {
-		display: flex;
-		width: max-content;
-		animation: reviews-scroll var(--reviews-duration, 120s) linear infinite;
+		display: grid;
+		animation: reviews-up var(--reviews-duration, 120s) linear infinite;
 	}
 
-	.reviews__marquee:hover .reviews__track,
-	.reviews__marquee:focus-within .reviews__track {
+	.reviews__column:hover .reviews__track,
+	.reviews__column:focus-within .reviews__track {
 		animation-play-state: paused;
 	}
 
 	.reviews__list {
-		display: flex;
-		gap: var(--reviews-gap);
+		display: grid;
+		gap: 1rem;
 		margin: 0;
-		padding: 0 var(--reviews-gap) 0 0;
+		padding: 0 0 1rem;
 		list-style: none;
 	}
 
 	.review {
-		display: flex;
-		flex-direction: column;
-		gap: 0.85rem;
-		width: min(24rem, 80vw);
-		padding: clamp(1.25rem, 2vw, 1.6rem);
+		display: grid;
+		gap: 0.7rem;
+		padding: 1.25rem 1.35rem;
 		border-radius: 18px;
 		background: var(--p-surface);
 	}
 
 	.surface--tint .review {
 		background: #ffffff;
+		box-shadow:
+			0 1px 2px rgb(4 0 55 / 0.06),
+			0 12px 28px -18px rgb(4 0 55 / 0.25);
 	}
 
 	.review__by {
@@ -208,7 +384,13 @@ const initials = (name: string) =>
 		color: #ffffff;
 		font-size: 0.9rem;
 		font-weight: 600;
-		letter-spacing: 0.02em;
+		object-fit: cover;
+	}
+
+	.review__avatar--large {
+		width: 3.5rem;
+		height: 3.5rem;
+		font-size: 1.05rem;
 	}
 
 	.review__who {
@@ -223,46 +405,43 @@ const initials = (name: string) =>
 		font-size: 0.85rem;
 	}
 
-	.review__stars .star {
-		width: 0.95rem;
-		height: 0.95rem;
-	}
-
 	.review__text {
 		display: -webkit-box;
 		margin: 0;
 		overflow: hidden;
 		line-height: 1.6;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 5;
 		text-wrap: pretty;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 4;
 	}
 
-	@keyframes reviews-scroll {
+	@keyframes reviews-up {
 		to {
-			transform: translateX(-50%);
+			transform: translateY(-50%);
 		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.reviews__marquee {
-			overflow-x: auto;
-			-webkit-mask-image: none;
-			mask-image: none;
-			scroll-snap-type: x mandatory;
+		.reviews__column {
+			overflow-y: auto;
 		}
 
 		.reviews__track {
 			animation: none;
-			padding-inline: max(16px, env(safe-area-inset-left, 0px));
 		}
 
 		.reviews__list[aria-hidden="true"] {
 			display: none;
 		}
+	}
 
-		.review {
-			scroll-snap-align: start;
+	@media (max-width: 1023px) {
+		.reviews__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.reviews__column {
+			height: 20rem;
 		}
 	}
 </style>
