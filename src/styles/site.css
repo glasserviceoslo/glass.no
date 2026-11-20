@@ -354,6 +354,10 @@ main > :is(section, .section):not(.hero) > .wrap > .fill {
 	list-style: none;
 }
 
+.prose ul.icons li + li {
+	margin-top: 0;
+}
+
 :is(.contact-strip dd, .facts dd) a {
 	display: inline-block;
 	padding-block: 0.6rem;
