@@ -27,6 +27,13 @@ const contents =
 				.map((node) => ({ id: slugOf(textOf(node)), text: textOf(node) }))
 		: [];
 const guide = contents.length >= 4;
+type TextNode = { _type?: string; style?: string };
+const nodes = (value.column_1 ?? []) as TextNode[];
+const labels = nodes.findIndex((node) => node.style !== "h5" && node.style !== "h6");
+const headed = labels >= 0 && (nodes[labels]?.style === "h1" || nodes[labels]?.style === "h2");
+const split = layout === "1" && !guide && value.align !== "center" && headed && nodes.length > labels + 1;
+const lead = split ? nodes.slice(0, labels + 1) : [];
+const body = split ? nodes.slice(labels + 1) : [];
 ---
 
 {
@@ -53,6 +60,13 @@ const guide = contents.length >= 4;
 						</details>
 					</nav>
 					<RichText value={columns[0]} class="section__column guide__text" />
+				</div>
+			) : split ? (
+				<div class="container section__split">
+					<div class="section__lead">
+						<RichText value={lead} class="section__column" />
+					</div>
+					<RichText value={body} class="section__column section__body" />
 				</div>
 			) : (
 				<div
@@ -109,12 +123,49 @@ const guide = contents.length >= 4;
 
 	.section__grid--1 :global(.prose) {
 		width: 100%;
-		max-width: 60ch;
+		max-width: 46rem;
 		margin-inline: auto;
 	}
 
+	.section__split {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: clamp(2.5rem, 6vw, 7rem);
+		align-items: start;
+	}
+
+	.section__lead {
+		position: sticky;
+		top: calc(var(--nav-h, 72px) + 2.5rem);
+	}
+
+	.section__lead :global(:is(h1, h2)) {
+		margin: 0;
+		font-size: clamp(2rem, 2.8vw, 3.25rem);
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		text-wrap: balance;
+	}
+
+	.section__lead :global(h1) {
+		font-size: clamp(2.25rem, 3.4vw, 3.75rem);
+	}
+
+	.section__split :global(.section__body) {
+		max-width: 68ch;
+	}
+
+	.section__split :global(.section__body > *),
 	.section__grid--1 :global(.prose > *) {
 		max-width: none;
+	}
+
+	.section__split :global(.section__body :is(p, li)),
+	.section__grid--1 :global(.prose :is(p, li)) {
+		font-size: 1.0625rem;
+		line-height: 1.75;
+		text-wrap: pretty;
 	}
 
 	.section__grid--1 :global(.prose:has(> .gallery:only-child)) {
@@ -128,9 +179,8 @@ const guide = contents.length >= 4;
 
 	.guide {
 		display: grid;
-		grid-template-columns: minmax(12rem, 16rem) minmax(0, 60ch);
-		gap: clamp(2rem, 5vw, 5rem);
-		justify-content: center;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: clamp(2.5rem, 6vw, 7rem);
 		align-items: start;
 	}
 
@@ -190,6 +240,14 @@ const guide = contents.length >= 4;
 		max-width: none;
 	}
 
+	.guide :global(.guide__text) {
+		max-width: 68ch;
+	}
+
+	.guide__nav details {
+		max-width: 20rem;
+	}
+
 	.guide :global(.guide__text :is(p, li)) {
 		font-size: 1.0625rem;
 		line-height: 1.7;
@@ -245,6 +303,17 @@ const guide = contents.length >= 4;
 
 		.guide__nav details[open] summary {
 			margin-bottom: 0.75rem;
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.section__split {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 1.25rem;
+		}
+
+		.section__lead {
+			position: static;
 		}
 	}
 
