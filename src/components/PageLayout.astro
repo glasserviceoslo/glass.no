@@ -45,12 +45,23 @@ const expanded = layout.flatMap((block) =>
 		: [block],
 );
 type TextNode = { style?: string; [field: string]: unknown };
+const columns = ["column_1", "column_2", "column_3", "column_4"];
+const demoteTitles = (layoutBlocks: LayoutBlock[]) =>
+	layoutBlocks.map((block) => {
+		if (block._type !== "section") return block;
+		const demoted = { ...block };
+		for (const column of columns) {
+			const nodes = block[column] as TextNode[] | undefined;
+			if (nodes) demoted[column] = nodes.map((node) => (node.style === "h1" ? { ...node, style: "h2" } : node));
+		}
+		return demoted;
+	});
 const promoteTitle = (layoutBlocks: LayoutBlock[]) => {
-	if (layoutBlocks.some((block) => block._type === "hero" || block._type === "page_hero")) return layoutBlocks;
+	if (layoutBlocks.some((block) => block._type === "hero" || block._type === "page_hero")) return demoteTitles(layoutBlocks);
 	const at = layoutBlocks.findIndex((block) => block._type === "section");
 	if (at < 0) return layoutBlocks;
 	const section = layoutBlocks[at];
-	for (const column of ["column_1", "column_2", "column_3", "column_4"]) {
+	for (const column of columns) {
 		const nodes = (section[column] ?? []) as TextNode[];
 		const heading = nodes.findIndex((node) => node.style === "h2" || node.style === "h3");
 		if (heading < 0) continue;
