@@ -496,7 +496,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 		right: auto;
 		left: 50%;
 		width: min(46rem, 100%);
-		translate: -50% 0;
+		margin-left: calc(min(46rem, 100%) / -2);
 		padding: 0;
 		border: 0;
 		background: none;
@@ -548,6 +548,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 
 		.nav__menu {
 			width: 46rem;
+			margin-left: -23rem;
 		}
 
 		:global(html:not([data-motion="off"]) .nav .nav__menu) {
@@ -1254,7 +1255,7 @@ const moreActive = more.some((item) => here === trim(item.url));
 
 		.nav__menu {
 			width: auto;
-			translate: none;
+			margin-left: 0;
 		}
 
 		.products {
