@@ -22,11 +22,8 @@ const layout = [
 		lead: INTRO_FIRST,
 		primary_label: "Book Befaring",
 		primary_url: "/book-befaring/",
-		secondary_label: "SE KAMPANJEN",
-		secondary_url: "/kampanje/",
-		image: photo("01M7TMMKHCQ777HSB1GQSRRXX5", "Black Week: 50 % rabatt på Gilje vinduer og balkongdører"),
+		image: photo("01M7TMJ112XDVBKFNDHS3PH9QS", "Hus med store vindusflater og glassrekkverk rundt terrassen"),
 		float_label: "Man - Fre 08:00-17:00",
-		float_title: "Skift til kvalitetsvindu fra GILJE!",
 	},
 	{
 		_type: "logos",
