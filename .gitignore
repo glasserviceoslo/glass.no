@@ -42,3 +42,6 @@ npm-debug.log*
 credentials.json
 .taste-skill/*
 !.taste-skill/plan.md
+
+# Alchemy local state
+.alchemy/

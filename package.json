@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "astro build && alchemy deploy --stage prod",
+    "plan": "astro build && alchemy plan --stage prod",
     "typecheck": "astro check"
   },
   "dependencies": {
@@ -24,10 +25,14 @@
     "vanilla-cookieconsent": "3.1.0"
   },
   "devDependencies": {
+    "@alchemy.run/cloudflare": "2.0.0-beta.85",
     "@astrojs/check": "^0.9.12",
     "@cloudflare/workers-types": "^5.20260820.1",
+    "@effect/platform-node": "4.1.2",
     "@emdash-cms/gutenberg-to-portable-text": "1.5.0",
     "@types/node": "^26.6.6",
+    "alchemy": "2.0.0-beta.85",
+    "effect": "4.1.2",
     "typescript": "^6.0.3",
     "wrangler": "^4.125.0"
   },
