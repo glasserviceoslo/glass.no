@@ -50,7 +50,7 @@ const hash = async (text: string) =>
 const confirm = async (email: EmailBinding, details: Parameters<typeof Confirmation>[0]) => {
 	const store = (env as { SESSION?: Store }).SESSION;
 	const linked = [details.firstName, details.name, details.phone, details.address, details.message].some((field) => /https?:\/\/|www\.|\b[a-z0-9-]{2,}\.[a-z]{2,}\b/i.test(field));
-	if (!store || linked) return;
+	if (!store || linked || !(env as { TURNSTILE_SECRET_KEY?: string }).TURNSTILE_SECRET_KEY) return;
 	const recipient = `contact-confirmation:to:${await hash(details.email)}`;
 	const today = `contact-confirmation:day:${new Date().toISOString().slice(0, 10)}`;
 	const [sent, count] = await Promise.all([store.get(recipient), store.get(today)]);
