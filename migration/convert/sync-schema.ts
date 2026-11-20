@@ -1,5 +1,5 @@
 import { api } from "./api.ts";
-import { blockTypes, layoutField, searchTextField, sharedSectionsCollection } from "./schema.ts";
+import { blockTypes, googleReviewFields, googleReviewsCollection, layoutField, searchTextField, sharedSectionsCollection } from "./schema.ts";
 
 type BlockTypeItem = { currentVersion: number; versions: { version: number; fingerprint: string; fields: unknown }[] };
 
@@ -29,6 +29,16 @@ export async function syncSchema() {
 	}
 	if (!shared.item.fields.some((field) => field.slug === "layout")) {
 		await api(`/schema/collections/${sharedSectionsCollection.slug}/fields`, { method: "POST", body: layoutField });
+	}
+
+	if (!collections.items.some((collection) => collection.slug === googleReviewsCollection.slug)) {
+		await api("/schema/collections", { method: "POST", body: googleReviewsCollection });
+	}
+	const reviews = await api<{ item: { fields: { slug: string }[] } }>(`/schema/collections/${googleReviewsCollection.slug}?includeFields=true`);
+	for (const field of googleReviewFields) {
+		if (!reviews.item.fields.some((existing) => existing.slug === field.slug)) {
+			await api(`/schema/collections/${googleReviewsCollection.slug}/fields`, { method: "POST", body: field });
+		}
 	}
 
 	for (const collection of ["pages", "posts"]) {

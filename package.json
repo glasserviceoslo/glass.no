@@ -27,6 +27,7 @@
   "trustedDependencies": ["esbuild", "workerd"],
   "devDependencies": {
     "@alchemy.run/cloudflare": "2.0.0-beta.85",
+    "@alchemy.run/gcp": "2.0.0-beta.85",
     "@astrojs/check": "^0.9.12",
     "@cloudflare/workers-types": "^5.20260820.1",
     "@effect/platform-node": "4.1.2",

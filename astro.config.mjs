@@ -6,7 +6,7 @@ import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
-const sharedTags = ["emdash:settings", "emdash:menu:primary", "shared_sections", "posts"];
+const sharedTags = ["emdash:settings", "emdash:menu:primary", "shared_sections", "posts", "google_reviews"];
 
 export default defineConfig({
 	site: "https://www.glass.no",
@@ -34,6 +34,7 @@ export default defineConfig({
 			plugins: [
 				{ id: "search-text", version: "1.0.0", entrypoint: "./src/plugins/search-text.ts" },
 				{ id: "analytics", version: "1.0.0", entrypoint: "./src/plugins/analytics.ts" },
+				{ id: "google-reviews", version: "1.0.0", entrypoint: "./src/plugins/google-reviews.ts" },
 				cloudflareEmail({ from: { email: "skjema@glass.no", name: "Glass.no" } }),
 			],
 		}),

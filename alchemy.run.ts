@@ -1,8 +1,10 @@
 import "varlock/auto-load";
 import * as Cloudflare from "@alchemy.run/cloudflare";
+import * as GCP from "@alchemy.run/gcp";
 import * as Alchemy from "alchemy";
 import * as Output from "alchemy/Output";
 import * as Effect from "effect/Effect";
+import * as Layer from "effect/Layer";
 import * as Redacted from "effect/Redacted";
 import { ENV } from "varlock/env";
 
@@ -16,7 +18,7 @@ const previewEmails = (ENV.PREVIEW_EMAILS ?? "")
 export default Alchemy.Stack(
 	"glass-no",
 	{
-		providers: Cloudflare.providers(),
+		providers: Layer.mergeAll(Cloudflare.providers(), GCP.providers()),
 		state: Cloudflare.state({ workerName: "glass-no-state" }),
 	},
 	Effect.gen(function* () {
@@ -38,6 +40,19 @@ export default Alchemy.Stack(
 		const encryptionSeed = yield* Alchemy.Random("EncryptionKey");
 		const encryptionKey = Output.map(encryptionSeed.text, (hex) =>
 			Redacted.make(`emdash_enc_v1_${Buffer.from(Redacted.value(hex), "hex").toString("base64url")}`),
+		);
+
+		const google = yield* GCP.ResourceManager.Project("Google", { projectId: "glass-no-reviews", displayName: "Glass.no reviews" });
+		yield* GCP.ServiceUsage.ProjectService("BusinessProfileApi", { project: google.projectId, service: "mybusiness.googleapis.com" });
+		const iamApi = yield* GCP.ServiceUsage.ProjectService("IamApi", { project: google.projectId, service: "iam.googleapis.com" });
+		const reviewer = yield* GCP.IAM.ServiceAccount("ReviewSync", {
+			project: iamApi.project,
+			accountId: "review-sync",
+			displayName: "Google review sync for glass.no",
+		});
+		const reviewerKey = yield* GCP.IAM.ServiceAccountKey("ReviewSyncKey", { serviceAccount: reviewer.email });
+		const googleAccount = Output.map(Output.all(reviewerKey.serviceAccount, reviewerKey.privateKey), ([email, key]) =>
+			Redacted.make(JSON.stringify({ client_email: email, private_key: Redacted.value(key), token_uri: "https://oauth2.googleapis.com/token" })),
 		);
 
 		const site = yield* Cloudflare.Worker("Site", {
@@ -72,9 +87,10 @@ export default Alchemy.Stack(
 				TURNSTILE_SECRET_KEY: turnstile.secret,
 				EMDASH_ENCRYPTION_KEY: encryptionKey,
 				...(webhook ? { CONTACT_WEBHOOK_URL: Redacted.make(webhook) } : {}),
+				GOOGLE_SERVICE_ACCOUNT: googleAccount,
 			},
 		});
 
-		return { url: site.url };
+		return { url: site.url, googleProject: google.name, reviewSyncAccount: reviewer.email };
 	}),
 );

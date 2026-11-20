@@ -17,6 +17,25 @@ export const sharedSectionsCollection = {
 	supports: ["drafts", "revisions"],
 };
 
+export const googleReviewsCollection = {
+	slug: "google_reviews",
+	label: "Google-anmeldelser",
+	labelSingular: "Google-anmeldelse",
+	description: "Hentes fra Google hver natt. Avpubliser en anmeldelse for å skjule den på nettstedet.",
+	routable: false,
+	hasSeo: false,
+	supports: ["drafts"],
+};
+
+export const googleReviewFields = [
+	{ slug: "title", label: "Navn", type: "string", required: true },
+	{ slug: "rating", label: "Stjerner", type: "integer", required: true, validation: { min: 1, max: 5 } },
+	{ slug: "comment", label: "Tekst", type: "text" },
+	{ slug: "reviewed_at", label: "Skrevet", type: "datetime", required: true },
+	{ slug: "google_updated_at", label: "Sist endret hos Google", type: "datetime" },
+	{ slug: "google_id", label: "Google-ID", type: "string", required: true },
+];
+
 const backgroundFields = [
 	{ slug: "background", label: "Background", type: "select", defaultValue: "white", validation: { options: backgrounds } },
 	{ slug: "background_image", label: "Background image", type: "image" },
