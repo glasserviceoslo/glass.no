@@ -1,6 +1,7 @@
 ---
 import { Image } from "emdash/ui";
 import Arrow from "../Arrow.astro";
+import CampaignCard from "../CampaignCard.astro";
 import { safeHref } from "../../utils/href";
 import type { ImageValue } from "./surface";
 
@@ -16,135 +17,199 @@ interface Props {
 		image?: ImageValue;
 		float_label?: string;
 		float_title?: string;
+		campaign?: { label?: string; figure?: string; heading: string; text?: string; note?: string; cta_label?: string; cta_url?: string; image?: ImageValue };
 	};
 }
 
 const { value } = Astro.props;
 const primaryUrl = safeHref(value.primary_url);
 const secondaryUrl = safeHref(value.secondary_url);
-const facts = [value.kicker, value.float_label].filter(Boolean);
 ---
 
-<section class="hero hero--film home-hero" data-enter aria-labelledby="hero-h">
+<section class:list={["hero", "home-hero", { "home-hero--campaign": value.campaign }]} data-enter aria-labelledby="hero-h">
 	<div class="wrap">
-		<div class="hero-text hero__in">
-			<div class="hero__media hero__fill">
-				{value.image && <Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 1440px) 92vw, 1280px" class="home-hero__img" />}
-				<div class="hero__over">
-					<div>
-						<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
-						{value.lead && <p class="hero__lead">{value.lead}</p>}
-						<div class="btn-row">
-							{value.primary_label && primaryUrl && (
-								<a class="btn btn--primary" href={primaryUrl}>
-									{value.primary_label}
-									<Arrow />
-								</a>
-							)}
-							{value.secondary_label && secondaryUrl && (
-								<a class="btn btn--secondary" href={secondaryUrl}>
-									{value.secondary_label}
-								</a>
-							)}
-						</div>
-						{facts.length > 0 && (
-							<p class="home-hero__facts">
-								{facts.map((fact) => (
-									<span>{fact}</span>
-								))}
-							</p>
-						)}
-					</div>
-					{value.float_title && secondaryUrl && (
-						<a class="home-hero__note" href={secondaryUrl}>
-							{value.float_title}
-							<span aria-hidden="true">→</span>
+		<div class="home-hero__grid">
+			<div class="home-hero__text">
+				<h1 id="hero-h" data-enter-whole>{value.heading}</h1>
+				{value.lead && <p class="home-hero__lead">{value.lead}</p>}
+				<div class="btn-row">
+					{value.primary_label && primaryUrl && (
+						<a class="btn btn--primary" href={primaryUrl}>
+							{value.primary_label}
+							<Arrow />
+						</a>
+					)}
+					{value.secondary_label && secondaryUrl && (
+						<a class="btn btn--secondary" href={secondaryUrl}>
+							{value.secondary_label}
 						</a>
 					)}
 				</div>
+				{(value.kicker || value.float_label) && (
+					<dl class="home-hero__facts">
+						{value.kicker && (
+							<div>
+								<dt>Glass.no</dt>
+								<dd>{value.kicker}</dd>
+							</div>
+						)}
+						{value.float_label && (
+							<div>
+								<dt>Åpent</dt>
+								<dd>{value.float_label}</dd>
+							</div>
+						)}
+					</dl>
+				)}
 			</div>
+			{value.campaign && <CampaignCard value={value.campaign} />}
+			{
+				!value.campaign && value.image && (
+					<figure class="home-hero__figure" data-enter-media>
+						<div class="home-hero__frame">
+							<Image image={value.image} alt={value.image.alt ?? ""} priority sizes="(max-width: 900px) 100vw, 620px" />
+						</div>
+						{value.float_title && (
+							<figcaption class="home-hero__caption">
+								{secondaryUrl ? <a href={secondaryUrl}>{value.float_title}</a> : value.float_title}
+								<span aria-hidden="true">→</span>
+							</figcaption>
+						)}
+					</figure>
+				)
+			}
 		</div>
 	</div>
 </section>
 
 <style>
-	.home-hero :global(.home-hero__img) {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 50% 45%;
+	.home-hero {
+		height: auto;
+		min-height: 0;
+		padding: calc(var(--nav, 72px) + clamp(2rem, 4vw, 3.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+		background: #ffffff;
+		color: var(--p-ink);
 	}
 
-	.home-hero .hero__media {
-		position: relative;
-		overflow: hidden;
-		border-radius: var(--r-lg, 20px);
+	.home-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: end;
 	}
 
-	.home-hero .hero__over > :first-child {
-		max-width: 760px;
+	.home-hero__text {
+		display: grid;
+		gap: 1.5rem;
+		justify-items: start;
 	}
 
-	.home-hero :global(h1) {
-		max-width: 19ch;
-		font-size: clamp(2.4rem, 4.4vw, 4rem);
+	.home-hero h1 {
+		margin: 0;
+		font-size: clamp(2.6rem, 5vw, 4.5rem);
+		font-weight: 400;
 		line-height: 1.03;
+		letter-spacing: -0.035em;
 		text-wrap: balance;
 	}
 
-	.home-hero .hero__lead {
-		max-width: 42ch;
-		color: color-mix(in oklab, var(--p-inv-ink) 86%, var(--p-inv-bg));
+	.home-hero__lead {
+		max-width: 44ch;
+		margin: 0;
+		color: var(--p-muted);
+		font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+		line-height: 1.6;
+	}
+
+	.home-hero .btn-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 	}
 
 	.home-hero__facts {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem 1.25rem;
-		margin: 1.5rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, auto));
+		justify-content: start;
+		gap: 0 2.5rem;
+		margin: 0.5rem 0 0;
 		padding-top: 1.25rem;
-		border-top: 1px solid color-mix(in oklab, var(--p-inv-ink) 16%, transparent);
-		color: var(--p-inv-muted);
-		font-size: 0.95rem;
+		border-top: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent);
+		justify-self: stretch;
 	}
 
-	.home-hero__facts span + span::before {
-		content: "";
-		display: inline-block;
-		width: 4px;
-		height: 4px;
-		margin: 0 1.25rem 0.2em -0.625rem;
-		border-radius: 50%;
-		background: var(--p-accent);
-		vertical-align: middle;
+	.home-hero__facts dt {
+		color: var(--p-muted);
+		font-size: 0.875rem;
 	}
 
-	@media (max-width: 639px) {
-		.home-hero__facts {
-			flex-direction: column;
-		}
-
-		.home-hero__facts span + span::before {
-			display: none;
-		}
+	.home-hero__facts dd {
+		margin: 0.15rem 0 0;
+		font-size: 1.15rem;
+		font-weight: 500;
 	}
 
-	.home-hero__note {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		min-height: 44px;
-		padding: 0.75rem 1.1rem;
-		border-radius: var(--r-md, 12px);
-		background: var(--p-inv-bg);
-		color: var(--p-inv-ink);
+	.home-hero__figure {
+		margin: 0;
+	}
+
+	.home-hero__frame {
+		overflow: hidden;
+		border-radius: var(--radius, 20px);
+		aspect-ratio: 5 / 4;
+		background: var(--p-surface);
+	}
+
+	.home-hero__frame :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 30%;
+	}
+
+	.home-hero__caption {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 0.9rem;
+		padding-top: 0.9rem;
+		border-top: 2px solid var(--p-accent);
+	}
+
+	.home-hero__caption a {
+		color: var(--p-ink);
+		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
 		font-weight: 600;
 		text-decoration: none;
 	}
 
-	.home-hero__note span {
+	.home-hero__caption a:hover {
+		text-decoration: underline;
+		text-decoration-color: var(--p-accent);
+		text-underline-offset: 0.2em;
+	}
+
+	.home-hero__caption span {
+		flex: none;
 		color: var(--p-accent);
+		font-weight: 600;
+	}
+
+	.home-hero--campaign .home-hero__grid {
+		grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+		align-items: center;
+	}
+
+	.home-hero--campaign h1 {
+		font-size: clamp(2.4rem, 3.9vw, 3.6rem);
+	}
+
+	@media (max-width: 900px) {
+		.home-hero__grid,
+		.home-hero--campaign .home-hero__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 </style>

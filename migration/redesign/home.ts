@@ -26,6 +26,17 @@ const layout = [
 		float_label: "Man - Fre 08:00-17:00",
 	},
 	{
+		_type: "campaign",
+		label: "GILJE-KAMPANJE",
+		figure: "50 %",
+		heading: "Nye vinduer og dører til halv pris!",
+		text: "Drømmer du om nye vinduer eller balkongdører? Nå får du hele 50 % rabatt på veiledende pris på utvalgte vinduer og balkongdører fra Gilje!",
+		note: "Kampanjen gjelder ut november!",
+		cta_label: "SE KAMPANJEN",
+		cta_url: "/kampanje/",
+		image: photo("01M7TMMKHCQ777HSB1GQSRRXX5", "Black Week: 50 % rabatt på Gilje vinduer og balkongdører"),
+	},
+	{
 		_type: "logos",
 		items: [
 			{ title: "NorDan", image: photo("01M7TMJEJAC8GM4GWXMSHSSEES", "NorDan") },

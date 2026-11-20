@@ -5,6 +5,22 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface PageLayoutCampaignV1Block {
+  _type: "campaign";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "figure"?: string | null;
+  "heading": string;
+  "text"?: string | null;
+  "note"?: string | null;
+  "cta_label"?: string | null;
+  "cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PageLayoutCampaignBlock = PageLayoutCampaignV1Block;
+
 export interface PageLayoutPageHeroV1Block {
   _type: "page_hero";
   _version: 1;
@@ -198,7 +214,7 @@ export interface PageLayoutReviewsV1Block {
 
 export type PageLayoutReviewsBlock = PageLayoutReviewsV1Block;
 
-export type PageLayoutBlock = PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
+export type PageLayoutBlock = PageLayoutCampaignBlock | PageLayoutPageHeroBlock | PageLayoutHeroBlock | PageLayoutServicesBlock | PageLayoutFeaturesBlock | PageLayoutLogosBlock | PageLayoutStatementBlock | PageLayoutStepsBlock | PageLayoutContactBlock | PageLayoutSectionBlock | PageLayoutCardsBlock | PageLayoutFaqBlock | PageLayoutContactFormBlock | PageLayoutBookingBlock | PageLayoutReviewsBlock;
 
 export interface Page {
   id: string;
@@ -215,6 +231,22 @@ export interface Page {
   bylines?: ContentBylineCredit[];
   terms?: Record<string, TaxonomyTerm[]>;
 }
+
+export interface PostLayoutCampaignV1Block {
+  _type: "campaign";
+  _version: 1;
+  _key: string;
+  "label"?: string | null;
+  "figure"?: string | null;
+  "heading": string;
+  "text"?: string | null;
+  "note"?: string | null;
+  "cta_label"?: string | null;
+  "cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+}
+
+export type PostLayoutCampaignBlock = PostLayoutCampaignV1Block;
 
 export interface PostLayoutPageHeroV1Block {
   _type: "page_hero";
@@ -409,7 +441,7 @@ export interface PostLayoutReviewsV1Block {
 
 export type PostLayoutReviewsBlock = PostLayoutReviewsV1Block;
 
-export type PostLayoutBlock = PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
+export type PostLayoutBlock = PostLayoutCampaignBlock | PostLayoutPageHeroBlock | PostLayoutHeroBlock | PostLayoutServicesBlock | PostLayoutFeaturesBlock | PostLayoutLogosBlock | PostLayoutStatementBlock | PostLayoutStepsBlock | PostLayoutContactBlock | PostLayoutSectionBlock | PostLayoutCardsBlock | PostLayoutFaqBlock | PostLayoutContactFormBlock | PostLayoutBookingBlock | PostLayoutReviewsBlock;
 
 export interface Post {
   id: string;

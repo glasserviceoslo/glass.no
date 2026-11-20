@@ -1,6 +1,7 @@
 ---
 import { Blocks } from "emdash/ui";
 import Booking from "./blocks/Booking.astro";
+import Campaign from "./blocks/Campaign.astro";
 import Cards from "./blocks/Cards.astro";
 import Contact from "./blocks/Contact.astro";
 import ContactForm from "./blocks/ContactForm.astro";
@@ -22,9 +23,11 @@ interface Props {
 
 const { value } = Astro.props;
 type LayoutBlock = { _type: string; _key?: string; background?: string; [field: string]: unknown };
-const blocks = ((value ?? []) as LayoutBlock[]).reduce<LayoutBlock[]>((merged, block) => {
+const blocks = ((value ?? []) as LayoutBlock[]).map((block) => ({ ...block })).reduce<LayoutBlock[]>((merged, block) => {
 	const last = merged.at(-1);
-	if (block._type === "services" && last?._type === "services_tabs") {
+	if (block._type === "campaign" && last?._type === "hero" && !last.campaign) {
+		last.campaign = block;
+	} else if (block._type === "services" && last?._type === "services_tabs") {
 		(last.groups as LayoutBlock[]).push(block);
 	} else if (block._type === "services" && last?._type === "services") {
 		merged[merged.length - 1] = { _type: "services_tabs", _key: last._key, background: last.background, groups: [last, block] };
@@ -35,6 +38,7 @@ const blocks = ((value ?? []) as LayoutBlock[]).reduce<LayoutBlock[]>((merged, b
 }, []);
 const components = {
 	hero: Hero,
+	campaign: Campaign,
 	page_hero: PageHero,
 	logos: Logos,
 	services: Services,

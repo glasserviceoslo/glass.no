@@ -15,6 +15,60 @@
 	},
 	"blockTypes": [
 		{
+			"slug": "campaign",
+			"label": "Kampanje",
+			"description": "A campaign band: label, big figure, heading, text, deadline, button and the campaign image. Remove the block to end the campaign.",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "label",
+							"label": "Label",
+							"type": "string"
+						},
+						{
+							"slug": "figure",
+							"label": "Big figure",
+							"type": "string"
+						},
+						{
+							"slug": "heading",
+							"label": "Heading",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "text",
+							"label": "Text",
+							"type": "text"
+						},
+						{
+							"slug": "note",
+							"label": "Deadline line",
+							"type": "string"
+						},
+						{
+							"slug": "cta_label",
+							"label": "Button text",
+							"type": "string"
+						},
+						{
+							"slug": "cta_url",
+							"label": "Button link",
+							"type": "string"
+						},
+						{
+							"slug": "image",
+							"label": "Campaign image",
+							"type": "image"
+						}
+					]
+				}
+			]
+		},
+		{
 			"slug": "page_hero",
 			"label": "Page hero",
 			"description": "The page title with a subtitle, text, buttons and a photograph",
@@ -942,6 +996,7 @@
 					"type": "blocks",
 					"validation": {
 						"allowedTypes": [
+							"campaign",
 							"page_hero",
 							"hero",
 							"services",
@@ -1001,6 +1056,7 @@
 					"type": "blocks",
 					"validation": {
 						"allowedTypes": [
+							"campaign",
 							"page_hero",
 							"hero",
 							"services",

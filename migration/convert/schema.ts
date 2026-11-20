@@ -12,6 +12,20 @@ const link = (prefix: string, label: string) => [
 
 export const blockTypes = [
 	{
+		slug: "campaign",
+		label: "Kampanje",
+		description: "A campaign band: label, big figure, heading, text, deadline, button and the campaign image. Remove the block to end the campaign.",
+		fields: [
+			{ slug: "label", label: "Label", type: "string" },
+			{ slug: "figure", label: "Big figure", type: "string" },
+			{ slug: "heading", label: "Heading", type: "string", required: true },
+			{ slug: "text", label: "Text", type: "text" },
+			{ slug: "note", label: "Deadline line", type: "string" },
+			...link("cta", "Button"),
+			{ slug: "image", label: "Campaign image", type: "image" },
+		],
+	},
+	{
 		slug: "page_hero",
 		label: "Page hero",
 		description: "The page title with a subtitle, text, buttons and a photograph",
