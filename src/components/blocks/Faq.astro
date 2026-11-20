@@ -80,12 +80,20 @@ const jsonLd = {
 		border-right: 2px solid currentColor;
 		border-bottom: 2px solid currentColor;
 		transform: translateY(-3px) rotate(45deg);
-		transition: transform 0.2s ease;
+		transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
 		content: "";
 	}
 
 	.qa__item[open] .qa__question::after {
 		transform: translateY(2px) rotate(-135deg);
+	}
+
+	.qa__question:hover h3 {
+		color: var(--p-accent);
+	}
+
+	.qa__question h3 {
+		transition: color 150ms;
 	}
 
 	.qa__answer {

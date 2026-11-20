@@ -121,5 +121,39 @@ const page = createPublicPageContext({
 		<script is:inline type="module" src="/assets/system.js"></script>
 		<script is:inline type="module" src="/assets/motion/motion.js"></script>
 		<script is:inline type="module" src="/assets/layout/layout.js"></script>
+		<script>
+			const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+			const running = new WeakMap<HTMLDetailsElement, Animation>();
+
+			const slide = (details: HTMLDetailsElement, summary: HTMLElement, opening: boolean) => {
+				running.get(details)?.cancel();
+				const from = details.getBoundingClientRect().height;
+				if (opening) details.open = true;
+				const to = opening ? details.scrollHeight : summary.getBoundingClientRect().height;
+				details.style.overflow = "clip";
+				const animation = details.animate(
+					{ height: [`${from}px`, `${to}px`] },
+					{ duration: opening ? 280 : 200, easing: opening ? "cubic-bezier(0.25, 1, 0.5, 1)" : "cubic-bezier(0.5, 0, 0.75, 0)" },
+				);
+				running.set(details, animation);
+				animation.finished
+					.then(() => {
+						running.delete(details);
+						if (!opening) details.open = false;
+						details.style.overflow = "";
+					})
+					.catch(() => {});
+			};
+
+			document.addEventListener("click", (event) => {
+				const summary = (event.target as HTMLElement).closest<HTMLElement>("main details > summary");
+				const details = summary?.parentElement as HTMLDetailsElement | undefined;
+				if (!summary || !details || details.closest(".faq") || !motion.matches) return;
+				event.preventDefault();
+				const opening = (details.dataset.target ?? (details.open ? "open" : "closed")) === "closed";
+				details.dataset.target = opening ? "open" : "closed";
+				slide(details, summary, opening);
+			});
+		</script>
 	</body>
 </html>
