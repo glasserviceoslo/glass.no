@@ -35,4 +35,4 @@ const layout = [{ _type: "page_hero", title: item.data.title }, ...galleries];
 await syncSchema();
 await api(`/content/pages/${page.id}`, { method: "PUT", body: { data: { layout }, skipRevision: true, replaceBlocks: true } });
 await api(`/content/pages/${page.id}/publish`, { method: "POST", body: {} });
-console.log("prosjekter:", galleries.map((block) => `${block.heading} (${block.images.length})`).join(", "));
+console.log("prosjekter:", galleries.map((block) => ("heading" in block ? `${block.heading} (${block.images.length})` : block._type)).join(", "));

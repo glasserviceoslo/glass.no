@@ -102,14 +102,14 @@ async function storePhoto(ctx: PluginContext, review: GoogleReview, existing?: P
 	const source = review.reviewer?.isAnonymous ? "" : (review.reviewer?.profilePhotoUrl ?? "");
 	const kept = { photo: String(existing?.data.photo ?? ""), photo_id: String(existing?.data.photo_id ?? ""), photo_source: String(existing?.data.photo_source ?? "") };
 	if (source === kept.photo_source) return kept;
-	if (kept.photo_id) await ctx.media!.delete(kept.photo_id);
+	if (kept.photo_id) await ctx.media!.delete!(kept.photo_id);
 	if (!source) return { photo: "", photo_id: "", photo_source: "" };
 	try {
 		const response = await fetch(source);
 		const type = response.headers.get("content-type") ?? "";
 		if (!response.ok || !type.startsWith("image/")) return { photo: "", photo_id: "", photo_source: source };
 		const extension = type.includes("png") ? "png" : type.includes("webp") ? "webp" : "jpg";
-		const uploaded = await ctx.media!.upload(`google-review-${review.reviewId}.${extension}`, type, await response.arrayBuffer());
+		const uploaded = await ctx.media!.upload!(`google-review-${review.reviewId}.${extension}`, type, await response.arrayBuffer());
 		return { photo: uploaded.url, photo_id: uploaded.mediaId, photo_source: source };
 	} catch {
 		return { photo: "", photo_id: "", photo_source: source };
@@ -137,7 +137,7 @@ export async function importReviews(ctx: PluginContext, reviews: GoogleReview[])
 	}
 	let removed = 0;
 	for (const item of stored.values()) {
-		if (item.data.photo_id) await ctx.media!.delete(String(item.data.photo_id));
+		if (item.data.photo_id) await ctx.media!.delete!(String(item.data.photo_id));
 		await ctx.content!.delete!(COLLECTION, item.id);
 		removed++;
 	}
