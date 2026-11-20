@@ -1,9 +1,12 @@
 ---
+import { env } from "cloudflare:workers";
+
 interface Props {
 	id: string;
 }
 
 const { id } = Astro.props;
+const siteKey = (env as { TURNSTILE_SITE_KEY?: string }).TURNSTILE_SITE_KEY;
 const fields = [
 	{ name: "fornavn", label: "Navn", type: "text", autocomplete: "given-name", error: "Skriv navnet ditt." },
 	{ name: "etternavn", label: "Etternavn", type: "text", autocomplete: "family-name", error: "Skriv etternavnet ditt." },
@@ -64,6 +67,44 @@ const initialStatus = result === "sendt" ? sent : result === "feil" ? failed : "
 		<textarea id={`${id}-melding`} name="melding" rows="5" required aria-describedby={`${id}-melding-err`}></textarea>
 		<p class="field__error" id={`${id}-melding-err`} hidden>Skriv hva du trenger hjelp med.</p>
 	</div>
+	<div class="field field--trap" aria-hidden="true">
+		<label for={`${id}-nettsted`}>Nettsted</label>
+		<input id={`${id}-nettsted`} name="nettsted" type="text" tabindex="-1" autocomplete="off" />
+	</div>
+	{siteKey && <div class="cf-turnstile field--full" data-sitekey={siteKey} data-language="nb" data-appearance="interaction-only" data-theme="light" data-size="flexible"></div>}
 	<div class="btn-row"><button class="btn btn--primary" type="submit">Send melding</button></div>
 	<p class="form__status" role="status" data-form-status>{initialStatus}</p>
 </form>
+
+<script>
+	const widgets = document.querySelectorAll<HTMLElement>(".cf-turnstile");
+	if (widgets.length && !document.querySelector('script[src^="https://challenges.cloudflare.com/turnstile/"]')) {
+		const script = document.createElement("script");
+		script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+		script.async = true;
+		script.defer = true;
+		document.head.append(script);
+	}
+	widgets.forEach((widget) => {
+		const form = widget.closest("form")!;
+		const status = form.querySelector("[data-form-status]")!;
+		new MutationObserver(() => {
+			const text = status.textContent?.trim();
+			if (text === form.dataset.sent || text === form.dataset.failed) (window as unknown as { turnstile?: { reset(el: Element): void } }).turnstile?.reset(widget);
+		}).observe(status, { childList: true, characterData: true, subtree: true });
+	});
+</script>
+
+<style>
+	.field--trap {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+	}
+
+	.cf-turnstile:empty {
+		display: none;
+	}
+</style>

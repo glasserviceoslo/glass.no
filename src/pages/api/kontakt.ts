@@ -16,8 +16,24 @@ const reply = (request: Request, status: number, body: Record<string, unknown>) 
 	return Response.redirect(back.toString(), 303);
 };
 
+const verified = async (request: Request, form: FormData) => {
+	const secret = (env as { TURNSTILE_SECRET_KEY?: string }).TURNSTILE_SECRET_KEY;
+	if (!secret) return true;
+	const body = new FormData();
+	body.set("secret", secret);
+	body.set("response", String(form.get("cf-turnstile-response") ?? ""));
+	const ip = request.headers.get("cf-connecting-ip");
+	if (ip) body.set("remoteip", ip);
+	const result = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body })
+		.then((response) => response.json() as Promise<{ success?: boolean }>)
+		.catch(() => ({ success: false }));
+	return result.success === true;
+};
+
 export const POST: APIRoute = async ({ request }) => {
 	const form = await request.formData();
+	if (String(form.get("nettsted") ?? "").trim()) return reply(request, 200, { ok: true });
+	if (!(await verified(request, form))) return reply(request, 403, { error: "challenge" });
 	const message = Object.fromEntries(FIELDS.map((field) => [field, String(form.get(field) ?? "").trim()]));
 	const missing = FIELDS.filter((field) => !message[field] || (field === "telefon" && !/^[+]?[0-9 ]{8,}$/.test(message[field])));
 	const tooLong = FIELDS.filter((field) => message[field].length > (field === "melding" ? MAX.melding : MAX.default));
