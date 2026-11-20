@@ -246,7 +246,7 @@
 
 .surface--brand {
 	--line: color-mix(in oklab, var(--p-accent-ink) 16%, transparent);
-	background: var(--p-accent);
+	background: var(--p-action);
 	color: var(--p-accent-ink);
 }
 
