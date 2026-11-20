@@ -17,50 +17,71 @@ const all = [...published.entries, ...hidden.entries] as unknown as Review[];
 const shown = (published.entries as unknown as Review[])
 	.filter((review) => review.data.rating >= 4 && review.data.comment?.trim())
 	.sort((a, b) => new Date(b.data.reviewed_at).getTime() - new Date(a.data.reviewed_at).getTime())
-	.slice(0, 6);
+	.slice(0, 24);
 const average = all.length ? all.reduce((sum, review) => sum + review.data.rating, 0) / all.length : 0;
 const decimal = new Intl.NumberFormat("nb-NO", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const month = new Intl.DateTimeFormat("nb-NO", { month: "long", year: "numeric" });
 const profile = "https://www.google.com/maps/search/?api=1&query=Glass-Service%20Svendsen%20og%20S%C3%B8nn%20AS%2C%20Pilestredet%2041A%2C%20Oslo";
 const stars = (rating: number) => Array.from({ length: 5 }, (_, index) => index < Math.round(rating));
+const initials = (name: string) =>
+	name
+		.split(/\s+/)
+		.filter(Boolean)
+		.map((part) => part[0])
+		.filter((_, index, letters) => index === 0 || index === letters.length - 1)
+		.join("")
+		.toUpperCase();
 ---
 
 {
 	shown.length > 0 && (
-		<section data-block={value._key} data-entry={value._entry} class:list={["section", "reviews", value.background && `surface--${value.background}`]} aria-label={value.heading || "Google-anmeldelser"}>
+		<section
+			data-block={value._key}
+			data-entry={value._entry}
+			class:list={["section", "reviews", value.background && `surface--${value.background}`]}
+			style={`--reviews-duration: ${shown.length * 7}s`}
+			aria-label={value.heading || "Google-anmeldelser"}
+		>
 			<div class="wrap">
 				<div class="reviews__head">
-					{value.heading && <h2 data-field="heading">{value.heading}</h2>}
-					<a class="reviews__score" href={profile} target="_blank" rel="noopener">
-						<span class="reviews__average">{decimal.format(average)}</span>
-						<span class="reviews__stars" aria-label={`${decimal.format(average)} av 5 stjerner`}>
-							{stars(average).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
-						</span>
-						<span class="reviews__count">{all.length} anmeldelser på Google</span>
-						<svg class="reviews__google" viewBox="0 0 48 48" aria-hidden="true">
-							<path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z" />
-							<path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.6c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.9-12.3-9.1H4.4v5.7C8 41.1 15.4 46 24 46z" />
-							<path fill="#FBBC05" d="M11.7 28.1c-.4-1.3-.7-2.7-.7-4.1s.3-2.8.7-4.1v-5.7H4.4C2.9 17.1 2 20.4 2 24s.9 6.9 2.4 9.8l7.3-5.7z" />
-							<path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14.2l7.3 5.7c1.7-5.2 6.6-9.1 12.3-9.1z" />
-						</svg>
-					</a>
+				{value.heading && <h2 data-field="heading">{value.heading}</h2>}
+				<a class="reviews__score" href={profile} target="_blank" rel="noopener">
+					<span class="reviews__average">{decimal.format(average)}</span>
+					<span class="reviews__stars" aria-label={`${decimal.format(average)} av 5 stjerner`}>
+						{stars(average).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
+					</span>
+					<span class="reviews__count">{all.length} anmeldelser på Google</span>
+					<svg class="reviews__google" viewBox="0 0 48 48" aria-hidden="true">
+						<path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z" />
+						<path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.6c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.9-12.3-9.1H4.4v5.7C8 41.1 15.4 46 24 46z" />
+						<path fill="#FBBC05" d="M11.7 28.1c-.4-1.3-.7-2.7-.7-4.1s.3-2.8.7-4.1v-5.7H4.4C2.9 17.1 2 20.4 2 24s.9 6.9 2.4 9.8l7.3-5.7z" />
+						<path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14.2l7.3 5.7c1.7-5.2 6.6-9.1 12.3-9.1z" />
+					</svg>
+				</a>
 				</div>
-				<ul class="reviews__list">
-					{
-						shown.map((review) => (
-							<li class="review">
-								<span class="reviews__stars review__stars" aria-label={`${review.data.rating} av 5 stjerner`}>
-									{stars(review.data.rating).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
-								</span>
-								<blockquote class="review__text">{review.data.comment}</blockquote>
-								<p class="review__by">
-									<strong>{review.data.title}</strong>
-									<time datetime={new Date(review.data.reviewed_at).toISOString()}>{month.format(new Date(review.data.reviewed_at))}</time>
-								</p>
-							</li>
-						))
-					}
-				</ul>
+			</div>
+			<div class="reviews__marquee">
+				<div class="reviews__track">
+					{[false, true].map((copy) => (
+						<ul class="reviews__list" aria-hidden={copy ? "true" : undefined}>
+							{shown.map((review) => (
+								<li class="review">
+									<div class="review__by">
+										<span class="review__avatar" aria-hidden="true">{initials(review.data.title)}</span>
+										<span class="review__who">
+											<strong>{review.data.title}</strong>
+											<time datetime={new Date(review.data.reviewed_at).toISOString()}>{month.format(new Date(review.data.reviewed_at))}</time>
+										</span>
+									</div>
+									<span class="reviews__stars review__stars" aria-label={`${review.data.rating} av 5 stjerner`}>
+										{stars(review.data.rating).map((filled) => <span class:list={["star", { "star--on": filled }]} aria-hidden="true" />)}
+									</span>
+									<blockquote class="review__text">{review.data.comment}</blockquote>
+								</li>
+							))}
+						</ul>
+					))}
+				</div>
 			</div>
 		</section>
 	)
@@ -68,7 +89,9 @@ const stars = (rating: number) => Array.from({ length: 5 }, (_, index) => index 
 
 <style>
 	.reviews {
+		--reviews-gap: clamp(1rem, 2vw, 1.5rem);
 		padding-block: clamp(3.5rem, 7vw, 6rem);
+		overflow: hidden;
 	}
 
 	.reviews__head {
@@ -130,22 +153,74 @@ const stars = (rating: number) => Array.from({ length: 5 }, (_, index) => index 
 		background: #f4b400;
 	}
 
+	.reviews__marquee {
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+		mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+	}
+
+	.reviews__track {
+		display: flex;
+		width: max-content;
+		animation: reviews-scroll var(--reviews-duration, 120s) linear infinite;
+	}
+
+	.reviews__marquee:hover .reviews__track,
+	.reviews__marquee:focus-within .reviews__track {
+		animation-play-state: paused;
+	}
+
 	.reviews__list {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: clamp(1rem, 2vw, 1.5rem);
+		display: flex;
+		gap: var(--reviews-gap);
 		margin: 0;
-		padding: 0;
+		padding: 0 var(--reviews-gap) 0 0;
 		list-style: none;
 	}
 
 	.review {
 		display: flex;
 		flex-direction: column;
-		gap: 0.9rem;
+		gap: 0.85rem;
+		width: min(24rem, 80vw);
 		padding: clamp(1.25rem, 2vw, 1.6rem);
 		border-radius: 18px;
 		background: var(--p-surface);
+	}
+
+	.surface--tint .review {
+		background: #ffffff;
+	}
+
+	.review__by {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.review__avatar {
+		display: grid;
+		flex: none;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		background: var(--p-ink);
+		color: #ffffff;
+		font-size: 0.9rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+	}
+
+	.review__who {
+		display: grid;
+		gap: 0.05rem;
+		min-width: 0;
+		font-size: 0.95rem;
+	}
+
+	.review__who time {
+		color: var(--p-muted);
+		font-size: 0.85rem;
 	}
 
 	.review__stars .star {
@@ -159,36 +234,35 @@ const stars = (rating: number) => Array.from({ length: 5 }, (_, index) => index 
 		overflow: hidden;
 		line-height: 1.6;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 7;
+		-webkit-line-clamp: 5;
 		text-wrap: pretty;
 	}
 
-	.review__by {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		gap: 0.25rem 1rem;
-		margin: auto 0 0;
-		font-size: 0.9rem;
-	}
-
-	.review__by time {
-		color: var(--p-muted);
-	}
-
-	@media (max-width: 1023px) {
-		.reviews__list {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+	@keyframes reviews-scroll {
+		to {
+			transform: translateX(-50%);
 		}
 	}
 
-	@media (max-width: 639px) {
-		.reviews__list {
-			grid-template-columns: minmax(0, 1fr);
+	@media (prefers-reduced-motion: reduce) {
+		.reviews__marquee {
+			overflow-x: auto;
+			-webkit-mask-image: none;
+			mask-image: none;
+			scroll-snap-type: x mandatory;
 		}
 
-		.review:nth-child(n + 4) {
+		.reviews__track {
+			animation: none;
+			padding-inline: max(16px, env(safe-area-inset-left, 0px));
+		}
+
+		.reviews__list[aria-hidden="true"] {
 			display: none;
+		}
+
+		.review {
+			scroll-snap-align: start;
 		}
 	}
 </style>
